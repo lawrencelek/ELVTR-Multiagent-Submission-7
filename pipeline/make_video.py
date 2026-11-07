@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Evidence video: the pipeline's own run log, replayed line by line as a terminal (timestamps as logged, long model
 waits shortened and labelled), the plan it wrote (content/story_map1.json), then the game loading that plan
-(engine/play_test.js --video). Output: docs/pipeline_run.mp4.
+(engine/p9_play_test.js --video: Prototype 9's Monument with Prototype 10's red car). Output: docs/pipeline_run.mp4.
 
   python3 pipeline/make_video.py pipeline/runs/<v1 run> pipeline/runs/<v2 run>
 """
@@ -59,14 +59,14 @@ def main():
             im.save(tmp / f'f{n:05d}.png'); n += 1
 
     put(card(['DUMMIES · story-mode pipeline', 'Assignment 7: the complete AI dev pipeline.', 'Map 1 (Monument), tiles 1-9, designed by agents from the red car\'s learning ladder,',
-              'validated by code, written to content/story_map1.json, loaded by the engine unchanged.'], 'github.com/lawrencelek/ELVTR-Multiagent-Submission-7'), 4)
+              "validated by code, written to content/story_map1.json, loaded by Prototype 9's game with Prototype 10's red car."], 'github.com/lawrencelek/ELVTR-Multiagent-Submission-7'), 4)
     for r in runs:
         lines, shown = (r / 'run.log').read_text(encoding='utf-8').splitlines(), []
         for ln in lines:
             for w in wrap(ln):
                 shown.append(w)
                 wait = 1.6 if ('...' in ln) else 0.35
-                put(frame(shown + (['    (model call; shortened in this video: see the timestamps)'] if '...' in ln else []), f'$ python3 pipeline/run.py {"--v1" if r.name.endswith("v1") else ""}   # {r.name}'), wait)
+                put(frame(shown + (['    (model call; shortened in this video: see the timestamps)'] if '...' in ln else []), f'$ python3 pipeline/run.py {"--v1" if r.name.endswith("v1") else "--world junction" if r.name.endswith("v2") else ""}   # {r.name}'), wait)
         put(frame(shown, f'{r.name}: costs.json'), 2.5)
     plan = json.loads((ROOT / 'content' / 'story_map1.json').read_text(encoding='utf-8'))
     rows = ['content/story_map1.json  (pipeline output, loaded by the engine as written)', '']
@@ -74,7 +74,7 @@ def main():
         rows.append(f'{t["n"]}  {t["tile"]}  {t["stage"]:<6} {t["objective"]["kind"]} x{t["objective"]["count"]:<5} {t["title"][:30]:<30}  {", ".join(f"{k}={v}" for k, v in (t.get("params") or {}).items())[:60]}')
     rows += ['', 'provenance: ' + json.dumps(plan.get('provenance'))[:140]]
     put(frame(rows, 'the plan'), 7)
-    put(card(['Engine: the plan, playing', 'index.html bundles the Prototype 10 web build with content/story_map1.json.', 'Tile 1 card, start, an autopilot dummy meets the objective, tile 2 opens.'], 'Target engine: Phaser (next step).'), 3)
+    put(card(['Engine: the plan, playing', "index.html: Prototype 9's Monument district (art, fleet, decks, HUD, sound) with Prototype 10's red car.", "Each tile plays the plan's stage, objective, title, tale and hint. An autopilot dummy plays tile 1 and on."], 'Target engine: Phaser (next step).'), 3)
     for i, f in enumerate(sorted(tmp.glob('f*.png'))):
         pass
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', str(tmp / 'f%05d.png'), '-c:v', 'libx264', '-preset', 'veryfast', '-pix_fmt', 'yuv420p', '-vf', f'fps=30,scale={W}:{H}', str(tmp / 'a.mp4')], check=True)

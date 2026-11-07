@@ -56,7 +56,8 @@ Also: the lunge guide, the stealth grade, the lure and stop line, the block lift
 
 ## 4. Story mode first (this submission)
 
-- **Map 1, tiles 1–9, on the P10 junction** (the Monument test road), one ladder stage per tile. The full tile art and decks follow in Phaser.
+- **First cut (v2):** Map 1, tiles 1–9, on the P10 junction (the Monument test road), one ladder stage per tile. Kept as `junction.html`.
+- **Now (v3, §6):** Map 1 in Prototype 9's own Monument district, with Prototype 10's red car on each tile.
 - **Escalation is data:** each tile = stage + objective + overrides + tale + hint. The pipeline designs it; code validates it; the engine loads it unchanged (`content/story_map1.json`).
 - **Why the junction first:** every stage is measured there (bot probes). The pipeline's designer can test objectives against measured open ways, so the curve is checked, not guessed.
 
@@ -65,3 +66,24 @@ Also: the lunge guide, the stealth grade, the lure and stop line, the block lift
 - Port `sim.js` + the red-car mixin as engine-agnostic modules (no canvas); Phaser scenes draw them.
 - One Phaser scene per tile; P9's tile geometry (`world6.js`) as level data; the same `story_map1.json`.
 - Maps 2 and 3: the same pipeline, with each district's tiles and a ladder continued past rung 7.
+
+## 6. Built: Prototype 9 with Prototype 10's red car (index.html)
+
+- **The game is Prototype 9:** the district, tiles, decks, escalators, art, fleet, tile cards, gifts, HUD and sound. Its files are vendored unchanged (`engine/p9`).
+- **The driver is Prototype 10:** `testroad.js` unchanged. `engine/duel.js` joins it to Prototype 9's traffic at runtime. `engine/build_p9.py` bundles both with the plan.
+
+| Piece | How it joins |
+|---|---|
+| The red car's brain | The tile in test's ground traffic sim swaps its prototype for `DuelTileSim`, a subclass of `TestRoadSim`. Red cars get Prototype 10's perception and choices; every other car keeps Prototype 9's (`p9call`, `p9`). The swap is undone when the tile clears. |
+| Lanes and kerbs | Read from the tile's own lanes. The kerbs (`path.edges`) run across the oncoming lane where one exists. |
+| Height (rung 3) | Prototype 9's decks are the plinth. The lidar meets a dummy on a deck (`meets`). A drop through a parapet gap counts as a hit from above. |
+| Cover and low cover | Prototype 9's statics hide the dummy. Its planters are low cover (`props.planter.height`). Planter rows are added along the road from 10.6 (`duel.planters`), never under a deck. |
+| Street cameras (rung 4) | Placed by code on the kerb, at a third and two thirds of the road, aimed back up it. |
+| Hits, lessons, memory, search | `DuelStorySim` (Prototype 9's `StorySim`) routes red hits to the duel's crash record, stealth grade and `learnFrom`. A lesson card shows once the car has left. |
+| Objective and clear | The plan's count of red hits. When it is met, Prototype 9's own clear runs: write-off, report, ferry, the next tile's card. |
+| White cars | Prototype 9's fleet; no learning (`proto.learningEnabled` 0, `proto.learn.standoffEnabled` 0). From 10.9 it is moving cover (`whiteHides`). The fleet runs lighter in the tile in test until 10.9 (`story.traffic.monument.*` 0.5). |
+| Sight field | 10.9's proportional cones (x, 2x, 3x) for every stage from rung 2. |
+| Parts | Prototype 9's gifts (Battery 1 at B1, Hands 1 at A2, Legs 1 at B3). DUCK from tile 6 (hold C). |
+
+- **Not yet:** the Incident (10.10; no tile uses it); the lesson's training-clip replay (a card instead); bot probes per Prototype 9 tile.
+- **Phaser next:** the same split. Phaser draws Prototype 9's tiles; the sim modules and `duel.js` run unchanged under it.

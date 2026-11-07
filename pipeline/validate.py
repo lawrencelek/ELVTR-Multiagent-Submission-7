@@ -15,8 +15,17 @@ def words(s):
     return len(str(s or '').split())
 
 
-def check(plan):
+TEST_ROAD_ONLY = ('plinth', 'barrier', 'junction')  # v3: features of the test road that Prototype 9's tiles do not have
+
+
+def check(plan, world='junction'):
     errs = []
+    if world == 'p9':
+        for t in plan.get('tiles', []):
+            for f in ('hint', 'tale', 'newIdea'):
+                bad = [w for w in TEST_ROAD_ONLY if w in str(t.get(f) or '').lower()]
+                if bad:
+                    errs.append(f'tile {t.get("n")}: {f} names {", ".join(bad)}, which Prototype 9\'s tiles do not have')
     reg = {e['id']: e for e in json.loads((ROOT / 'pipeline' / 'inputs' / 'tuning.parameters.json').read_text(encoding='utf-8'))['entries']}
     stages = json.loads((ROOT / 'engine' / 'vendor' / 'sim_flags.json').read_text(encoding='utf-8'))['stages']
     map1 = json.loads((ROOT / 'pipeline' / 'inputs' / 'build' / 'map1.json').read_text(encoding='utf-8'))

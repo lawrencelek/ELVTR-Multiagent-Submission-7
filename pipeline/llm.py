@@ -35,6 +35,8 @@ class Run:
 def call(run, role, model, message, label):
     """The agent's reply text. Saves <label>_input.md, <label>_output_raw.txt and the call's usage."""
     system = (ROOT / 'agents' / f'{role}.md').read_text(encoding='utf-8')
+    if getattr(run, 'world', None) == 'p9':  # v3: the agents design for Prototype 9's tiles
+        system += (ROOT / 'agents' / 'world_p9.md').read_text(encoding='utf-8')
     run.save(f'{label}_system.md', system)
     run.save(f'{label}_input.md', message)
     replay = os.environ.get('REPLAY')

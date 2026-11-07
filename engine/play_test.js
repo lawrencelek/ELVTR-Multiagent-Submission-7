@@ -1,4 +1,4 @@
-// Plays index.html in Chromium: tile 1's card, START, an autopilot dummy that walks into the red car's path until the
+// Plays junction.html (the Prototype 10 junction build) in Chromium: tile 1's card, START, an autopilot dummy that walks into the red car's path until the
 // objective is met, the PASSED card, tile 2's card. Fails on any page error. With --video DIR it records the session.
 // node engine/play_test.js [--video docs/video]
 const path = require('path');
@@ -11,7 +11,7 @@ const vi = process.argv.indexOf('--video'), VID = vi > 0 ? path.resolve(ROOT, pr
   const ctx = await br.newContext(Object.assign({ viewport: { width: 820, height: 720 } }, VID ? { recordVideo: { dir: VID, size: { width: 820, height: 720 } } } : {}));
   const pg = await ctx.newPage(), errs = [];
   pg.on('pageerror', (e) => errs.push(e.message));
-  await pg.goto('file://' + path.join(ROOT, 'index.html'));
+  await pg.goto('file://' + path.join(ROOT, 'junction.html'));
   await pg.evaluate(() => { try { localStorage.clear(); } catch (e) {} });
   await pg.reload(); await pg.waitForTimeout(1500);
   const card1 = await pg.evaluate(() => document.querySelector('#story .card') && document.querySelector('#story h1').textContent);

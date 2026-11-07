@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Step 6b (no model): bundle the engine and the pipeline's content into one playable page, index.html.
+"""Step 6b (no model): bundle the engine and the pipeline's content into one playable page, junction.html (the
+Prototype 10 junction version of Map 1; the integrated game is engine/build_p9.py → index.html).
 
 Loads content/story_map1.json exactly as the pipeline wrote it (window.STORY_MAP1); no hand edits. The engine is the
 Prototype 10 web build, vendored from Submission 6B (engine/vendor, commit in VENDOR.md): sim.js, jump.js, testroad.js,
@@ -35,9 +36,9 @@ def main():
     scripts += "window.DUMMIES_P10_STAGE = { id: 'MAP 1', title: 'MONUMENT', edit: 110 };\n</script>\n"
     scripts += f'<script>\n{patched_game()}\n</script>\n' + js(ROOT / 'engine' / 'story.js')
     shell = (V / 'shell.html').read_text(encoding='utf-8').replace('{{TITLE}}', 'Story Mode · Map 1 · Monument')
-    out = ROOT / 'index.html'
+    out = ROOT / 'junction.html'
     out.write_text(shell.replace('<!--SCRIPTS-->', scripts), encoding='utf-8')
-    print(f'engine: wrote index.html {out.stat().st_size:,} bytes; {len(story["tiles"])} tiles; first stage {story["tiles"][0]["stage"]} ({len(first)} values)')
+    print(f'engine: wrote junction.html {out.stat().st_size:,} bytes; {len(story["tiles"])} tiles; first stage {story["tiles"][0]["stage"]} ({len(first)} values)')
 
 
 if __name__ == '__main__':

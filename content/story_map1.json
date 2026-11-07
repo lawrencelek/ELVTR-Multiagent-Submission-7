@@ -2,7 +2,7 @@
  "map": {
   "id": "monument",
   "title": "MAP 1 · MONUMENT",
-  "intro": "Dummy Corporation welcomes you off the factory floor. Your colleague learns from every crash; keep finding new ways."
+  "intro": "Dummy Corporation welcomes you to Monument. The red colleague learns from every crash; keep finding new ways to earn Certification."
  },
  "tiles": [
   {
@@ -10,149 +10,152 @@
    "tile": "A1",
    "title": "The welcome wall",
    "stage": "10.1",
-   "newIdea": "Controls: walk into the red car's path.",
+   "newIdea": "Movement and the red car; it learns nothing yet",
    "objective": {
     "kind": "hits",
     "count": 2,
     "label": "GET HIT TWICE"
    },
-   "params": {
-    "duel.redReturnSeconds": 2
-   },
-   "tale": "Fresh off the factory floor, you are ready to do some damage. Step into the red car's path.",
-   "hint": "Walk into the red car's lane as it arrives."
+   "params": {},
+   "tale": "Fresh off the factory floor. Walk into the red colleague twice. It has learned nothing yet; neither have you.",
+   "hint": "Walk into the red car's lane under the highway."
   },
   {
    "n": 2,
    "tile": "B1",
    "title": "The podium bridge",
    "stage": "10.2",
-   "newIdea": "The car learns once: it brakes for a dummy in its lane.",
+   "newIdea": "The car brakes for lanes; the dash arrives and the flank opens",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "DASH IN FROM THE SIDE"
+    "label": "DASH FROM THE SIDE"
    },
    "params": {},
-   "tale": "Battery 1 is fitted. After one crash the red car brakes for lanes, so dash in from the side.",
-   "hint": "Stay out of its lane; dash in as it rolls past."
+   "tale": "Battery 1 is fitted. The skybridge was built for shoppers who never came; the red car now brakes for lanes.",
+   "hint": "Wait beside its lane by the podium; press Space as it passes."
   },
   {
    "n": 3,
    "tile": "C1",
    "title": "The LED drum",
    "stage": "10.3",
-   "newIdea": "Side sensors: it notices a dummy waiting beside the road.",
+   "newIdea": "Side sensors close the flank; drop through a Z2 parapet gap",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "TWO HITS FROM ABOVE"
+    "label": "DROP ONTO THE CAR"
    },
    "params": {},
-   "tale": "The LED drum lights each bend. Side sensors now watch the kerb, so approach from the plinth instead.",
-   "hint": "Climb the plinth; drop onto the car."
+   "tale": "The LED drum lights the bend. Kerbside sensors now flag you on foot, so use the Z2 deck instead.",
+   "hint": "Escalator up Z2, step through the parapet gap onto the car."
   },
   {
    "n": 4,
    "tile": "C2",
    "title": "The portal tower",
    "stage": "10.4",
-   "newIdea": "Roof lidar: the raised plinth no longer hides you.",
+   "newIdea": "Roof lidar watches the plaza; spring from behind tower columns",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "DASH FROM COVER ×2"
+    "label": "SPRING FROM BEHIND COVER"
    },
    "params": {},
-   "tale": "The road runs through the portal tower. Roof lidar now sees the plinth, so wait behind cover.",
-   "hint": "Wait behind cover; dash out as it passes."
+   "tale": "The portal tower has a roof lidar and watches its own plaza. The columns below were never audited.",
+   "hint": "Skip the plaza. Wait behind a tower column; spring as it passes."
   },
   {
    "n": 5,
    "tile": "B2",
    "title": "The monument",
    "stage": "10.5",
-   "newIdea": "Street cameras: cover no longer hides you from the car.",
+   "newIdea": "Street cameras watch cover; hide where they miss",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "TWO HITS, NO COVER"
+    "label": "SPRING FROM CAMERA-BLIND COVER"
    },
-   "params": {},
-   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Street cameras now see behind cover.",
-   "hint": "Cover is useless now; strike from beyond its field."
+   "params": {
+    "perception.streetCameraRange": 180
+   },
+   "tale": "The plaque reads ZERO ACCIDENTS. Street cameras now share notes, but nobody pointed one at the far side.",
+   "hint": "Cameras watch the monument's cover; hide where they miss, then dash."
   },
   {
    "n": 6,
    "tile": "A2",
-   "title": "The neon shops",
+   "title": "The neon planters",
    "stage": "10.6",
-   "newIdea": "DUCK: hide behind low planters once cones stop working.",
+   "newIdea": "It stops for cones; duck behind planters along the arcade",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "PLANTER AMBUSH ×2"
+    "label": "SPRING FROM A PLANTER"
    },
-   "params": {},
-   "tale": "The neon shops sell nothing. The red car now stops for cones, so duck behind planters and wait.",
-   "hint": "Duck behind a planter; spring out as it passes."
+   "params": {
+    "perception.duckNoticeFactor": 2
+   },
+   "tale": "The neon shops sell nothing. Hands 1 is fitted, and Facilities has approved crouching behind the arcade planters.",
+   "hint": "Hold C behind a planter by the road; spring as it passes."
   },
   {
    "n": 7,
    "tile": "A3",
    "title": "The stacked cubes",
    "stage": "10.7",
-   "newIdea": "Crash memory: it watches every spot where it hit you.",
+   "newIdea": "Crash memory: it watches every spot you struck from",
    "objective": {
     "kind": "hits",
     "count": 3,
     "label": "THREE HITS, THREE SPOTS"
    },
    "params": {},
-   "tale": "The stacked cubes rose one budget at a time. Crash spots are now remembered; choose a fresh one.",
-   "hint": "Take each hit somewhere new; it watches old spots."
+   "tale": "The cubes rose one budget at a time. Strike from a fresh spot each time; the car remembers.",
+   "hint": "Strike from a new spot each time: cube, corner cut, highway."
   },
   {
    "n": 8,
    "tile": "B3",
    "title": "The LED canyon",
    "stage": "10.8",
-   "newIdea": "The search: lose its sight and it hunts your last spot.",
+   "newIdea": "The search: seen then hidden, it hunts your ghost",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "TWO HITS, ROAMING"
+    "label": "HIT FROM NEW SPOTS"
    },
    "params": {},
-   "tale": "Two screens advertise to each other all night. Seen then hidden, you get searched for. Crawl away.",
-   "hint": "Stay out of sight cones; crawl clear of its search."
+   "tale": "Legs 1 is fitted. Two screens advertise to each other all night; if the car loses you, it searches.",
+   "hint": "Hide behind an LED wall; spring as it passes, or press L."
   },
   {
    "n": 9,
    "tile": "C3",
    "title": "The LED gateway",
-   "stage": "10.9",
-   "newIdea": "Two-way traffic: white cars that never learn give moving cover.",
+   "stage": "10.10",
+   "newIdea": "Tailgating white cars: brake the red car hard for an Incident",
    "objective": {
-    "kind": "hits",
-    "count": 4,
-    "label": "FOUR HITS, WHITE-CAR COVER"
+    "kind": "incidents",
+    "count": 1,
+    "label": "CAUSE AN INCIDENT"
    },
    "params": {},
-   "tale": "The gateway thanks every car for driving safely. White cars never learn, so hide behind them. Certification awaits.",
-   "hint": "Walk behind a white car; strike the red one."
+   "tale": "Final assessment. Colleagues tailgate the red car through the gateway; make it brake hard, and Certification follows.",
+   "hint": "Step into its lane under Z2, then jump clear as it brakes."
   }
  ],
- "rationale": "Only the validator error was fixed: tile 9's objective label is now four words (FOUR HITS, WHITE-CAR COVER), within the five-word limit. Everything else is unchanged.",
+ "rationale": "Only the validator error changed: tile 8's objective label now reads HIT FROM NEW SPOTS, four words, under the five-word limit. Everything else is unchanged: tile ids, order, stages, params, tales and hints.",
  "provenance": {
   "pipeline": "pipeline/run.py",
-  "run": "20261107-110219-v2",
+  "run": "20261107-121520-v3",
+  "world": "p9",
   "models": {
    "designer": "opus",
    "reviewer": "sonnet",
    "refiner": "sonnet"
   },
-  "costUsd": 0.7343,
+  "costUsd": 0.8483,
   "validator": "pass",
   "review": "revise"
  }

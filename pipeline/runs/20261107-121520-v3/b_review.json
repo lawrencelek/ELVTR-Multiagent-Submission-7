@@ -1,0 +1,70 @@
+{
+ "verdict": "revise",
+ "issues": [
+  {
+   "tile": 5,
+   "severity": "high",
+   "problem": "The hint tells the player to press J, but Hands 1 (the cone) is gifted at A2, which is tile 6, so the key does not exist yet on tile 5.",
+   "fix": "Move the cone to tile 6 with the Hands 1 gift, or swap tiles 5 and 6. Give tile 5 an objective that uses the camera-missed cover the stage opens."
+  },
+  {
+   "tile": 4,
+   "severity": "high",
+   "problem": "The hint and the label 'DROP, THEN AMBUSH' send the player to drop from the plaza, but the roof lidar closes exactly that drop.",
+   "fix": "Make the objective and hint the cover ambush only (spring from behind a tower column) and keep the plaza as the thing the lidar now watches."
+  },
+  {
+   "tile": 0,
+   "severity": "high",
+   "problem": "Tiles 2–6 combine two ideas in one objective ('WALK IN, THEN DASH', 'FLANK, THEN DROP', 'DROP, THEN AMBUSH', 'AMBUSH, THEN CONE BAIT', 'CONE, THEN PLANTER'). The first idea is the one the stage just closed, and the plain hits counter cannot enforce the sequence. This breaks one new idea per tile and introduce-then-test.",
+   "fix": "Use one new open way per tile and label each objective with that way only, such as 'DASH FROM THE SIDE' or 'DROP ONTO THE CAR'."
+  },
+  {
+   "tile": 8,
+   "severity": "high",
+   "problem": "The objective is 'unseen jump-ins', but jump is not among the measured open ways at 10.8 (roam 2.87, lure 2.24, peekmove 1.21, flankOpen 1.07). The 'unseen' part is also not enforced by a plain hits counter, so achievability is unproven.",
+   "fix": "Base the objective on a measured way, such as a roam, lure or flankOpen hit while unseen. Alternatively, drop the 'unseen' wording and keep the count at 2."
+  },
+  {
+   "tile": 9,
+   "severity": "medium",
+   "problem": "Two Incidents at about 0.6 a minute is roughly three minutes or more of play. It follows the hardest stage (10.8, the search) with no breather, and 10.9 is skipped, so the two-way fleet is never introduced.",
+   "fix": "Set the count to 1, or add an easing override. Alternatively, use 10.9 on an earlier tile as the breather before the finale."
+  },
+  {
+   "tile": 6,
+   "severity": "medium",
+   "problem": "The hint says to cone it once, but this stage closes the cone bait (the car now stops for cones and never swerves). The duckNoticeFactor override of 2 also lacks a clear purpose beyond making the planter easier.",
+   "fix": "Make the hint planter-only (hold C behind a planter, spring as it passes). Keep or drop the override, but state in the plan that its purpose is to ease the first duck."
+  },
+  {
+   "tile": 5,
+   "severity": "medium",
+   "problem": "The override perception.streetCameraRange 180 is the value 10.6 sets, so it pulls a later stage's softening into 10.5. Its purpose is not stated, and this is the thinnest stage (conebait 2.0, lurk 0.8).",
+   "fix": "Keep it only if you state that it is there to ease this thinnest stage. Otherwise, pair it with a small count and a hint that names the cover the cameras miss."
+  },
+  {
+   "tile": 0,
+   "severity": "medium",
+   "problem": "Text repeats across tiles. 'Your colleague' opens or recurs in the tales for tiles 2, 3, 4, 6 and 7. Tiles 2–4 share the same 'X now does Y, so do Z' structure.",
+   "fix": "Vary the openings and sentence shapes, and keep the deadpan Dummy Corporation tone."
+  },
+  {
+   "tile": 3,
+   "severity": "low",
+   "problem": "The hint 'walk through a parapet gap onto it' leaves 'it' ambiguous (the escalator or the car). It also does not say the drop lands on the car.",
+   "fix": "Rewrite it as 'Ride the Z2 escalator up, then step through the parapet gap onto the car.' (trim to 12 words or fewer)."
+  },
+  {
+   "tile": 7,
+   "severity": "low",
+   "problem": "The hint lists 'bend' as a strike spot, but A3 is a 45° corner cut under the Z1 highway, not a bend. Roam 6.97 makes this the easiest stage, yet the count of 3 is the only breather in the plan.",
+   "fix": "Name A3's own features (the cubes, the corner cut, the highway). Check that a count of 3 is enough as the breather."
+  }
+ ],
+ "strengths": [
+  "The stage ladder runs 10.1 to 10.8 and then 10.10, with no regressions and nine stages in total. Tile 1 is 10.1, the last tile is 10.10, and the incident objective appears only there.",
+  "Overrides are few (two), use registry ids, and stay within min and max. They never touch duel.startRung or duel.topRung.",
+  "Tales are 15–20 words and the hints are 12 words or fewer. They name each tile's own set pieces, such as the podium, the Z2 gap, the tower columns, the planters and the LED walls."
+ ]
+}

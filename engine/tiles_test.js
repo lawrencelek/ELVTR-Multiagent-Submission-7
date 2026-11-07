@@ -1,4 +1,4 @@
-// Smoke test for all nine tiles of index.html: opens each tile from a save (localStorage), starts it from its card,
+// Smoke test for all nine tiles of junction.html: opens each tile from a save (localStorage), starts it from its card,
 // lets it run, and checks that the engine took the tile's stage values and overrides, the HUD shows the objective,
 // and no page error fired. node engine/tiles_test.js
 const path = require('path');
@@ -10,7 +10,7 @@ const ROOT = path.resolve(__dirname, '..');
   const ctx = await br.newContext({ viewport: { width: 820, height: 720 } });
   const pg = await ctx.newPage(), errs = [];
   pg.on('pageerror', (e) => errs.push(e.message));
-  await pg.goto('file://' + path.join(ROOT, 'index.html'));
+  await pg.goto('file://' + path.join(ROOT, 'junction.html'));
   const n = await pg.evaluate(() => window.__story.tiles.length);
   for (let k = 0; k < n; k++) {
     await pg.evaluate((k) => { localStorage.setItem('dummies.story.map1', JSON.stringify({ tile: k })); }, k);

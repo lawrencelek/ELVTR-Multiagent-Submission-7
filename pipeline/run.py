@@ -6,9 +6,11 @@
   3 validate  (code)   schema, registry ids and ranges, stage order, word counts
   4 reviewer  (model)  -> issues against the fun-escalation rules
   5 refiner   (model)  -> the final plan (+ one repair pass if the validator still fails)
-  6 integrate (code)   -> content/story_map1.json (+ provenance) -> engine/build.py -> index.html (playable)
+  6 integrate (code)   -> content/story_map1.json (+ provenance) -> engine/build_p9.py -> index.html (playable: Prototype 9's
+                       world with Prototype 10's red car); engine/build.py -> junction.html (the test-road version)
 
-  python3 pipeline/run.py                 # v2: filtered registry; designer opus, reviewer + refiner sonnet
+  python3 pipeline/run.py                 # v3: Prototype 9's tiles; filtered registry; designer opus, reviewer + refiner sonnet
+  python3 pipeline/run.py --world junction  # v2: the same on the test road
   python3 pipeline/run.py --v1            # v1: full registry; opus throughout (the first, costlier version)
   REPLAY=pipeline/runs/<run> python3 pipeline/run.py   # re-run from saved outputs, no model calls
 """
@@ -35,12 +37,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--v1', action='store_true', help='full registry, opus for every agent')
     ap.add_argument('--no-integrate', action='store_true')
+    ap.add_argument('--world', choices=('p9', 'junction'), default='p9')
     a = ap.parse_args()
     models = {'designer': 'opus', 'reviewer': 'opus', 'refiner': 'opus'} if a.v1 else {'designer': 'opus', 'reviewer': 'sonnet', 'refiner': 'sonnet'}
-    tag = time.strftime('%Y%m%d-%H%M%S') + ('-v1' if a.v1 else '-v2')
+    world = 'junction' if a.v1 else a.world
+    tag = time.strftime('%Y%m%d-%H%M%S') + ('-v1' if a.v1 else '-v3' if world == 'p9' else '-v2')
     run = llm.Run(ROOT / 'pipeline' / 'runs' / tag)
-    run.log(f'run {tag}: models {models}')
-    run.log('1 ingest: ' + subprocess.run([sys.executable, str(ROOT / 'pipeline' / 'ingest.py')] + (['--full'] if a.v1 else []), capture_output=True, text=True, check=True).stdout.strip())
+    run.world = world
+    run.log(f'run {tag}: models {models}; world {world}')
+    run.log('1 ingest: ' + subprocess.run([sys.executable, str(ROOT / 'pipeline' / 'ingest.py'), '--world', world] + (['--full'] if a.v1 else []), capture_output=True, text=True, check=True).stdout.strip())
     ctx = inputs_block()
     run.log(f'  inputs: {len(ctx):,} characters')
 
@@ -48,7 +53,7 @@ def main():
     plan = llm.json_of(llm.call(run, 'designer', models['designer'], ctx + '\n\nDesign the nine tiles of Map 1 now.', 'a_designer'))
     run.save('a_plan.json', plan)
     run.log('  plan: ' + ' | '.join(f'{t["n"]} {t["tile"]} {t["stage"]} {t["objective"]["kind"]}x{t["objective"]["count"]}' for t in plan['tiles']))
-    errs = validate.check(plan)
+    errs = validate.check(plan, world)
     run.log(f'3 validate: {len(errs)} errors' + ''.join(f'\n    - {e}' for e in errs))
 
     run.log(f'4 reviewer ({models["reviewer"]}) ...')
@@ -61,11 +66,11 @@ def main():
     if errs:
         msg += '\n## VALIDATOR ERRORS\n' + '\n'.join(f'- {e}' for e in errs) + '\n'
     final = llm.json_of(llm.call(run, 'refiner', models['refiner'], msg + '\nProduce the final plan now.', 'c_refiner'))
-    errs = validate.check(final)
+    errs = validate.check(final, world)
     if errs:
         run.log(f'  validate: {len(errs)} errors; one repair pass')
         final = llm.json_of(llm.call(run, 'refiner', models['refiner'], ctx + '\n\n## PLAN\n```json\n' + json.dumps(final, indent=1, ensure_ascii=False) + '\n```\n\n## VALIDATOR ERRORS\n' + '\n'.join(f'- {e}' for e in errs) + '\n\nFix every error; change nothing else. Produce the final plan now.', 'd_repair'))
-        errs = validate.check(final)
+        errs = validate.check(final, world)
     run.save('c_final.json', final)
     run.log(f'  validate: {len(errs)} errors' + ''.join(f'\n    - {e}' for e in errs))
     if errs:
@@ -73,7 +78,7 @@ def main():
         sys.exit(1)
 
     cost = sum(c.get('cost_usd') or 0 for c in run.calls)
-    summary = {'run': tag, 'models': models, 'registry': 'full' if a.v1 else 'filtered', 'calls': run.calls, 'cost_usd': round(cost, 4),
+    summary = {'run': tag, 'models': models, 'registry': 'full' if a.v1 else 'filtered', 'world': world, 'calls': run.calls, 'cost_usd': round(cost, 4),
                'input_chars': len(ctx), 'tokens': {k: sum(c.get(k) or 0 for c in run.calls) for k in ('input_tokens', 'cache_write_tokens', 'cache_read_tokens', 'output_tokens')}}
     run.save('costs.json', summary)
     for c in run.calls:
@@ -82,11 +87,12 @@ def main():
 
     if a.no_integrate:
         return
-    final['provenance'] = {'pipeline': 'pipeline/run.py', 'run': tag, 'models': models, 'costUsd': round(cost, 4), 'validator': 'pass', 'review': review.get('verdict')}
+    final['provenance'] = {'pipeline': 'pipeline/run.py', 'run': tag, 'world': world, 'models': models, 'costUsd': round(cost, 4), 'validator': 'pass', 'review': review.get('verdict')}
     out = ROOT / 'content' / 'story_map1.json'
     out.write_text(json.dumps(final, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
     run.log(f'6 integrate: wrote {out.relative_to(ROOT)}')
-    run.log('  ' + subprocess.run([sys.executable, str(ROOT / 'engine' / 'build.py')], capture_output=True, text=True, check=True).stdout.strip())
+    for b in ('build_p9.py', 'build.py'):
+        run.log('  ' + subprocess.run([sys.executable, str(ROOT / 'engine' / b)], capture_output=True, text=True, check=True).stdout.strip())
     run.log('done: open index.html to play Map 1')
 
 
