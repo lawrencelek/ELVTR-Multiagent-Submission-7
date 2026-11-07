@@ -18,7 +18,9 @@ const ORDER = ['A1', 'B1', 'C1', 'C2', 'B2', 'A2', 'A3', 'B3', 'C3'];
     await pg.reload(); await pg.waitForTimeout(900);
     for (const key of ['Enter', 'Enter', 'Enter']) { await pg.keyboard.press(key); await pg.waitForTimeout(450); }
     let st = null;
-    for (let i = 0; i < 120; i++) { st = await pg.evaluate(() => { const s = window.__dummies.sim; return s ? { phase: s.phase, rescue: !!s.rescue } : null; }); if (st && st.phase === 'brief') break; if (st && st.phase === 'gift') await pg.keyboard.press('Enter'); await pg.waitForTimeout(200); }
+    for (let i = 0; i < 160; i++) { // Prototype 9's save screen (CONTINUE the save this test wrote), the splash, the story map: Enter through each
+      st = await pg.evaluate(() => { const a = window.__dummies, s = a.sim; return { screen: a.screen, phase: s && s.phase, rescue: !!(s && s.rescue) }; });
+      if (st.phase === 'brief') break; if (st.phase === 'gift' || (st.screen !== 'game' && st.screen !== 'loading' && i % 5 === 4)) await pg.keyboard.press('Enter'); await pg.waitForTimeout(200); }
     if (SHOTS) { fs.mkdirSync(SHOTS, { recursive: true }); await pg.screenshot({ path: path.join(SHOTS, 'tile' + k + '_card.png') }); }
     await pg.keyboard.press('Enter'); await pg.waitForTimeout(10000);
     if (SHOTS) await pg.screenshot({ path: path.join(SHOTS, 'tile' + k + '_play.png') });

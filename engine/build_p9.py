@@ -6,7 +6,7 @@ Prototype 10's red car (engine/vendor/testroad.js) driving the tile in test, and
 The vendored files stay byte-identical to Submission 6B (VENDOR.md). Every change to them is a patch applied here, each
 asserted to match exactly once:
   game.js   C / Ctrl duck; the duel's overlays, HUD panel and lesson card; Enter closes the lesson; the red car's paint;
-            the objective line; the tile card's NEW line; STORY on the title goes straight into the story (no save screen)
+            the objective line; the tile card's NEW line. STORY keeps Prototype 9's save screen (NEW GAME, CONTINUE)
   story_v2  Map 1's nine tiles take the pipeline's title, tale and objective (task kind 'red')
 """
 import hashlib
@@ -49,15 +49,6 @@ def game_js():
          "      const pr = s.story, id = s.levelId, act = STORY.activeTile(pr, id), here = s.screenName();\n"),
         ("      if (need > 1) extra = need + ' WRITE-OFFS TO CLEAR';",
          "      extra = tile.newIdea ? 'NEW · ' + String(tile.newIdea).toUpperCase() : need > 1 ? need + ' WRITE-OFFS TO CLEAR' : ''; // Submission 7: what the red car brings"),
-        ("else toSaves()",
-         "else quickStory()"),
-        ("  function startStory() {",
-         "  function quickStory() { // Submission 7: STORY plays at once. The latest save continues; with none, slot 1 starts\n"
-         "    const S = allSlots(); let best = 0, t = -1; S.forEach((v, i) => { if (v && v.saved > t) { t = v.saved; best = i + 1; } });\n"
-         "    if (best && loadSlot(best)) { startStory(); return; }\n"
-         "    app.slot = 1; app.story = STORY.newProgress(); app.mode = 'story'; writeSlot(1, { v: 1, name: defaultName(1), saved: Date.now(), progress: app.story }); startStory();\n"
-         "  }\n"
-         "  function startStory() {"),
     ], 'game.js')
 
 

@@ -6,7 +6,7 @@
 | **Game** | DUMMIES |
 | **Playable link** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/** |
 | **Repository** | https://github.com/lawrencelek/ELVTR-Multiagent-Submission-7 |
-| **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) (2 min 4 s) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
+| **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) (2 min 10 s) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
 | **One-page audit** | [`docs/02_Pipeline_Audit.md`](docs/02_Pipeline_Audit.md) |
 | **P9 × P10 integration** | [`docs/01_P9_P10_Integration_Analysis.md`](docs/01_P9_P10_Integration_Analysis.md) · GDD [Edit 111](docs/DUMMIES_GDD_Edit111_Submission7_Integration.md) |
 | **Target engine** | Phaser 3 (next). Today: Prototype 9's HTML5 Canvas engine, with Prototype 10's driver |
@@ -29,6 +29,8 @@
 ## Play (2 minutes)
 
 1. Open the link. Press **Enter** twice (the first press turns the sound on). STORY is selected; press **Enter**.
+   - The save screen: **NEW GAME** (name your chassis, Enter), or **CONTINUE** a save. Saves stay in this browser.
+   - The story map opens on Monument; press **Enter**.
 2. The tile card shows the tale and the objective. Press **Enter** or **Space**. A drone drops you in.
 3. Move with **arrows or WASD**. Walk into the red car's path and let it hit you: two hits clear tile 1, in about a minute.
 4. Only a car that hits you scores. Get into its path, too late for it to stop. Run or dash into a car and you take damage for nothing (YOUR FAULT).

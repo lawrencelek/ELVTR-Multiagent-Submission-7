@@ -1,4 +1,4 @@
-// Plays the integrated game (index.html) in Chromium: intro, title, STORY, the tile's card, then an autopilot dummy that
+// Plays the integrated game (index.html) in Chromium: intro, title, STORY, the save screen, the tile's card, then an autopilot dummy that
 // gets into the red car's path until the tile clears (or the time runs out). Fails on any page error.
 //   node engine/p9_play_test.js [--tile N] [--through M] [--seconds S] [--shots DIR] [--video DIR] [--bot cutin|walkin]
 // --through M plays on until tile M is cleared (default: the tile it starts on).
@@ -27,7 +27,8 @@ const ORDER = ['A1', 'B1', 'C1', 'C2', 'B2', 'A2', 'A3', 'B3', 'C3'];
   for (const k of ['Enter', 'Enter']) { await pg.keyboard.press(k); await pg.waitForTimeout(500); }
   await shot('01_title');
   await pg.keyboard.press('Enter');
-  let s = null; for (let i = 0; i < 200; i++) { s = await st(); if (s.phase === 'brief') break; await pg.waitForTimeout(150); }
+  let s = null; // Prototype 9's save screen (NEW GAME, or CONTINUE the latest save), the name, the parts' splash, the story map: Enter through each
+  for (let i = 0; i < 200; i++) { s = await st(); if (s.phase === 'brief' || s.phase === 'gift') break; if (s.screen !== 'game' && s.screen !== 'loading' && i % 6 === 5) { if (i === 5) await shot('01b_saves'); await pg.keyboard.press('Enter'); } await pg.waitForTimeout(150); }
   await pg.waitForTimeout(600); await shot('02_card');
   const card = s;
   await pg.keyboard.press('Enter');

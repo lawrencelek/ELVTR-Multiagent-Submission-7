@@ -13838,11 +13838,6 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
     fx.seenScreens = new Set(D ? [app.sim.screenName()] : []);
   }
 
-  function quickStory() { // Submission 7: STORY plays at once. The latest save continues; with none, slot 1 starts
-    const S = allSlots(); let best = 0, t = -1; S.forEach((v, i) => { if (v && v.saved > t) { t = v.saved; best = i + 1; } });
-    if (best && loadSlot(best)) { startStory(); return; }
-    app.slot = 1; app.story = STORY.newProgress(); app.mode = 'story'; writeSlot(1, { v: 1, name: defaultName(1), saved: Date.now(), progress: app.story }); startStory();
-  }
   function startStory() { app.mode = 'story'; if (!app.story) app.story = STORY.newProgress(); saveStory(); startLevel(LEVEL_LIST.indexOf(app.story.district)); } // Edit 81
   function toStoryMap() { saveStory(); app.screen = 'storymap'; app.sim = null; app.paused = false; app.mapSel = null; clearEdges(); }
   function toStoryStart() { if (!SPLASH) return toStoryMap(); saveStory(); app.screen = 'splash'; app.splashT0 = app.realT; app.sim = null; app.paused = false; clearEdges(); } // Edit 98 (P8.3): the parts fly, then the map
@@ -14713,7 +14708,7 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
         if (m === 'back' && INTRO) { app.screen = 'intro'; continue; } // Edit 98 (P8.3): back to the intro screen
         if (m === 'up' || m === 'left') app.titleSel = (app.titleSel + items.length - 1) % items.length;
         else if (m === 'down' || m === 'right') app.titleSel = (app.titleSel + 1) % items.length;
-        else if (m === 'ok') { const it = items[app.titleSel] || 'ARCADE'; if (it === 'CREDITS') app.credits = true; else if (it === 'HIGH SCORES') openScores('title', 0); else if (it === 'ARCADE') { app.mode = 'arcade'; app.screen = 'arcade'; } else quickStory(); } // Edit 97 (P8.2): the high scores
+        else if (m === 'ok') { const it = items[app.titleSel] || 'ARCADE'; if (it === 'CREDITS') app.credits = true; else if (it === 'HIGH SCORES') openScores('title', 0); else if (it === 'ARCADE') { app.mode = 'arcade'; app.screen = 'arcade'; } else toSaves(); } // Edit 97 (P8.2): the high scores
         continue;
       }
       if (app.screen === 'saves') { if (app.nameEntry) nameMenu(m); else savesMenu(m); if (app.screen !== 'saves') return; continue; } // Edit 88
