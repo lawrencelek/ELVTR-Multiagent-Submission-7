@@ -13,7 +13,7 @@ const X = globalThis.DUMMIES = require(path.join(E, 'sim.js'));
 globalThis.WORLD6 = require(path.join(E, 'world6.js'));
 const STORY = globalThis.STORY = require(path.join(E, 'story7.js'));
 globalThis.DUMMIES_P10 = require(path.join(__dirname, 'vendor', 'testroad.js'));
-Object.assign(globalThis, { DUMMIES_STAGES: R.stages, STORY_MAP1: R.plan });
+Object.assign(globalThis, { DUMMIES_STAGES: R.stages, STORY_MAP1: R.plan, DUEL_RULES: R.rules });
 require(path.join(__dirname, 'duel.js'));
 const k = +process.argv[2], bot = process.argv[3] || 'cutin', SECS = +(process.argv[4] || 150), HARD = process.argv[5];
 if (HARD) globalThis.DUEL.TUNE.redHard = +HARD;

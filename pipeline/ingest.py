@@ -99,7 +99,9 @@ def main():
         aff = json.loads(subprocess.run(['node', str(ROOT / 'engine' / 'affordances.js')], check=True, capture_output=True, text=True).stdout)
         for t in map1['tiles']:
             t['prototype9'] = dict(geo[t['id']], builtFor=(t.get('task') or {}).get('kind'), measured=aff[t['id']])
-        map1['controls'] = 'Arrows or WASD move; Space dash (Battery 1, from B1); L jump (Legs 1, from B3); J picks up and puts down a cone (Hands 1, from A2); hold C to duck (from tile 6); walk off a deck through a gap in its parapet to drop.'
+        map1['controls'] = 'Arrows or WASD move. Parts, once earned (PROGRESSION): Space dash (Battery 1); L jump (Legs 1); hold C duck (Super Knees); J picks up and puts down a cone (Hands 1). Walk off a deck through a gap in its parapet to drop.'
+        for t in map1['tiles']:
+            t.pop('gift', None)  # parts are earned by the plan now, not Prototype 9's gift schedule
     reg = json.loads((INP / 'tuning.parameters.json').read_text(encoding='utf-8'))['entries']
     keep = [e for e in reg if a.full or e['id'].startswith(PREFIXES)]
     registry = [{'id': e['id'], 'label': e.get('label'), 'unit': e.get('unit'), 'default': e.get('default'),
@@ -107,7 +109,10 @@ def main():
                  **({'about': (e.get('description') or '')[:160]} if not a.full else {'about': e.get('description'), 'purpose': e.get('purpose'), 'source': e.get('source')})} for e in keep]
     out = INP / 'build'
     out.mkdir(exist_ok=True)
-    for name, obj in (('ladder.json', ladder), ('map1.json', map1), ('registry.json', registry)):
+    files = [('ladder.json', ladder), ('map1.json', map1), ('registry.json', registry)]
+    if a.world == 'p9':  # Lawrence (7 Nov, 18:06): the car, player and level rules each tile must follow
+        files.append(('progression.json', json.loads((ROOT / 'engine' / 'progression.json').read_text(encoding='utf-8'))))
+    for name, obj in files:
         (out / name).write_text(json.dumps(obj, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
     print(f'ingest: {len(ladder)} stages; Map 1 {len(map1["tiles"])} tiles ({a.world}); registry {len(registry)} of {len(reg)} entries ({"full" if a.full else "filtered"})')
 

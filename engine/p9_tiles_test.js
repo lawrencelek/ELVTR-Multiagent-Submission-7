@@ -27,8 +27,9 @@ const ORDER = ['A1', 'B1', 'C1', 'C2', 'B2', 'A2', 'A3', 'B3', 'C3'];
     const r = await pg.evaluate(() => {
       const s = window.__dummies.sim, T = s.duelT, d = s.duelDef, st = window.DUMMIES_STAGES[d.stage].flags;
       const keys = Object.keys(st).filter((q) => q.startsWith('duel.') && !/Arrives$|standstill|redReturn|blockSeconds/.test(q));
-      const bad = keys.filter((q) => JSON.stringify(T.P[q]) !== JSON.stringify(d.params && d.params[q] != null ? d.params[q] : st[q]));
-      return { tile: d.tile, screen: s.screenName(), stage: d.stage, rung: T.rung, startRung: st['duel.startRung'], reds: T.redSeq, phase: s.phase, cams: (T.level.cameras || []).length, planters: T.level.statics.filter((q) => q.kind === 'planter').length, objective: s.duelObjective() && s.duelObjective()[1].slice(0, 40), mismatched: bad.slice(0, 4) };
+      const want = (q) => (q === 'duel.topRung' && d.earns && d.earns !== 'car' ? st['duel.startRung'] : d.params && d.params[q] != null ? d.params[q] : st[q]); // a tile where the player earns a part: the car learns nothing
+      const bad = keys.filter((q) => JSON.stringify(T.P[q]) !== JSON.stringify(want(q)));
+      return { tile: d.tile, screen: s.screenName(), stage: d.stage, rung: T.rung, startRung: st['duel.startRung'], reds: T.redSeq, phase: s.phase, earns: d.earns, level: d.level, duck: !!s.duelDuck, cover: T.level.statics.filter((q) => q.duel).map((q) => q.kind).join(' '), cams: (T.level.cameras || []).length, objective: s.duelObjective() && s.duelObjective()[1].slice(0, 40), mismatched: bad.slice(0, 4) };
     });
     out.push(r); console.log(JSON.stringify(r));
     await pg.close();

@@ -1,6 +1,6 @@
 # DUMMIES GDD — Edit 111: Prototype 9 × Prototype 10 (Submission 7)
 
-**7 November 2026, rewritten 17:50.** Story mode, Map 1 (Monument), tiles 1–9. Build: `index.html`. Sources: `engine/duel.js`, `engine/duel_ui.js`, `engine/build_p9.py`, `content/story_map1.json` (run `20261107-172210-v3`, v3f). This edit states the rules as built; §111.12 lists the playtest rounds that set them.
+**7 November 2026, rewritten 18:40.** Story mode, Map 1 (Monument), tiles 1–9. Build: `index.html`. Sources: `engine/duel.js`, `engine/duel_ui.js`, `engine/progression.json`, `engine/build_p9.py`, `content/story_map1.json` (run `20261107-182619-v3`, v3g). This edit states the rules as built; §111.12 lists the playtest rounds that set them.
 
 ## 111.1 Scope
 
@@ -17,28 +17,39 @@
   | `scoring.faultMinSpeed` | 20 | 111.5 |
   | `traffic.hitStandSeconds` | 2 | 111.5 |
 
-## 111.2 Progression: one lesson a tile
+- **Parts, levels, tricks:** `engine/progression.json` (not registry values).
 
-- **Stages:** one a tile, in order. Tile *k* starts where tile *k*−1's lesson left the car.
+## 111.2 Progression: one thing a tile (Lawrence, 18:06)
 
-  | Tile | Stage | Car plays at | Your trick (plan v3f) | Lesson at the clear |
+- **Rule:** each tile progresses one thing. The CAR learns a rung, or the PLAYER earns a part. The LEVEL changes to make it matter.
+- **Every upgrade is necessary:**
+  - a part earned on a tile is used by the next tile's trick;
+  - a car lesson closes a trick already played.
+- **The three (`engine/progression.json`):**
+  - **Car:** rungs 0–7 (Prototype 10's ladder).
+  - **Player:** parts Battery 1 (dash), Legs 1 (jump), Super Knees (duck), Hands 1 (cones).
+  - **Level:** layouts open, kerb, setback, deck, rail, tall, low, watched, cones. Tricks name their needs, their levels and the rung that closes them.
+- **Plan v3g:**
+
+  | Tile | Level | Car plays at | Trick | Earned at the clear |
   |---|---|---|---|---|
-  | A1 | 10.2 | rung 0: senses nothing | walk into its path | forward camera |
-  | B1 | 10.3 | rung 1: brakes for you in its lane | cut in with the dash (Battery 1 arrives) | side sensors |
-  | C1 | 10.4 | rung 2: notices you beside the road | drop from the Z2 deck into its path | roof lidar |
-  | C2 | 10.5 | rung 3: sees you in the air | spring from tall cover | street cameras |
-  | B2 | 10.6 | rung 4: cameras watch cover | cover the cameras miss | road items |
-  | A2 | 10.7 | rung 5: stops for cones | duck behind a planter; step out (Hands 1 arrives) | crash memory |
-  | A3 | 10.8 | rung 6: watches your old spots | a new spot each hit | the search |
-  | B3 | 10.9 | rung 7: all it can learn | step out from behind white traffic (Legs 1 arrives) | none |
-  | C3 | 10.10 | rung 7 | the Incident | none |
+  | A1 | open road | rung 0, blind | walk into its path | CAR: forward camera |
+  | B1 | tall cover at the kerb | rung 1 | hide at the kerb; step into its path late | PLAYER: Battery 1 (dash) |
+  | C1 | tall cover set back | rung 1 | dash from the cover into its path | CAR: side sensors |
+  | C2 | the Z2 deck, no cover | rung 2 | drop through the parapet gap into its path | PLAYER: Hands 1 (cones) |
+  | B2 | no cover; cones | rung 2 | cone in its lane; stand where it swerves | PLAYER: Legs 1 (jump) |
+  | A2 | K-rails, tall cover behind | rung 2 | run and jump the K-rail into its path | CAR: roof lidar |
+  | A3 | watched cover (no cameras act below rung 4) | rung 3 | dash from the unwatched cover | PLAYER: Super Knees (duck) |
+  | B3 | low cover only | rung 3 | duck behind a planter; dash into its path | CAR: street cameras |
+  | C3 | watched cover | rung 4 | dash from the cover no camera sees | CAR: road items (to Map 2) |
 
-- **Objective:** only the red car's hits count, at its fault, with 10 or more lost. Or stealth points, or Incidents (10.10).
-- **No mid-tile learning.** The tile plays at its stage's `duel.startRung` throughout.
-- **The lesson:** after the hit that clears the tile and its write-off, before the report. It teaches `duel.startRung` → `duel.topRung`.
-- **Panel:** "CLEAR THE TILE: IT LEARNS ⟨sensor⟩ FROM THE LAST HIT".
-- **Between tiles:** the objective line shows the next tile's plan objective, never Prototype 9's write-off count.
-- **Validator:** tile 1 is 10.2; each tile's `duel.startRung` equals the last tile's `duel.topRung`.
+- **Objective:** only the red car's hits count, at its fault, with 10 or more lost.
+- **The car:** plays the whole tile at its rung (the stage whose `duel.startRung` is that rung). A part tile sets `duel.topRung` to `duel.startRung`.
+- **At the clear,** after the write-off and before the report:
+  - a car tile shows the lesson (§111.3);
+  - a part tile shows the part card. Prototype 9's drone fits the part on the way to the next tile (its gift screen); Super Knees is fitted at once.
+- **Panel:** "CLEAR THE TILE: IT LEARNS ⟨sensor⟩" or "CLEAR THE TILE: YOU EARN ⟨part⟩".
+- **Between tiles:** the objective line shows the next tile's plan objective.
 
 ## 111.3 The lesson (Prototype 10's beats, in the game's graphics)
 
@@ -101,8 +112,10 @@
   - 30 clear of every static; never under a deck.
   - Tall pieces stand north of a road that runs across the screen, so they never draw over the lane.
 - **Dash:** vaults a planter or a hedge; stops at tall cover and bollards.
-- **DUCK:** hold C on every tile. Speed × `movement.duckSpeedFactor`.
-- **Proposed families:** industrial (crates, K-rails, dumpsters) and garden (hedges, statues, columns) for Maps 2–3. Breakable and interactive pieces (shelters, hydrants, chargers, vendor carts) come later.
+- **DUCK:** a part, Super Knees: hold C once earned. Speed × `movement.duckSpeedFactor`.
+- **K-rail** (level rail): 120–150 × 12 on the kerb in front of set-back tall cover. Low cover (16); a dash stops at it; a running jump clears it (`world.jumpableHeight`).
+- **Level layouts** set what a tile places (`engine/progression.json`): kerb (tall at the kerb), setback (tall 84–96 off it), rail, tall, low, watched (tall and low; cameras), open, deck, cones (none).
+- **Proposed families:** industrial (crates, dumpsters) and garden (hedges, statues, columns) for Maps 2–3. Breakable and interactive pieces (shelters, hydrants, chargers, vendor carts) come later.
 
 ## 111.8 White cars
 
@@ -114,14 +127,14 @@
 ## 111.9 The dummy
 
 - **Speed:** 70% of Prototype 9's. `movement.walkSpeed` 56.7; `movement.runSpeed` 113.4.
-- **Parts:** Prototype 9's gifts: Battery 1 at B1, Hands 1 at A2, Legs 1 at B3. The duel's drone stays home (`duel.*Arrives` 0).
+- **Parts:** earned at a tile's clear (§111.2). Prototype 9's gift drone fits Battery 1, Legs 1 and Hands 1 on the way to the next tile; the plan moves Prototype 9's gift tiles to match. Super Knees is the duel's own. The duel's own drone stays home (`duel.*Arrives` 0).
 - **Unstick:** pressed against a car and not moving for 0.6 s, the dummy steps to the nearest free ground.
 
 ## 111.10 Flow and interface
 
 - **Story:** Prototype 9's save screen (NEW GAME, CONTINUE, RENAME, ERASE), the name, the parts splash, the story map, the tile card.
 - **Tile card:** the plan's tale and objective; a NEW line for the stage's idea.
-- **Panel:** the car's rung, what it learns at the clear, HOLD C · DUCK.
+- **Panel:** the car's rung; what the clear brings (its lesson or your part); HOLD C · DUCK once earned.
 - **Field overlays:** beam; cones and rings; ? and ! stages; notice meter; stop line; ghost; crash outlines and remembered spots; cameras; lunge guide; block-lift countdown.
 - **Red car:** Prototype 9's sedan, repainted red; roof sensors.
 - **Sound:** volume starts at 5 of 10 (`audio.settings.master`); a saved setting wins.
@@ -131,23 +144,26 @@
 - **Each tile's facts:** road and set piece from Prototype 9's plan, and measured affordances (`engine/affordances.js`): lanes, a deck over the road, roadside cover by kind.
 - **Validator refuses:**
   - test-road words (plinth, barrier, junction);
-  - a planter, a drop or a named cover kind the tile lacks;
+  - a level the tile cannot take (`levelsThatFit`) or a cover kind its level does not place;
   - count-only labels;
   - text that has the dummy hit the car;
-  - a stage sequence that breaks §111.2.
-- **Probes:** `engine/p9_probe.js` (flank, cut-in, cover bots).
+  - a chain that breaks §111.2: tile 1 not a car lesson, a part no next tile needs, a lesson that closes nothing played, a trick already closed or needing a part not yet earned, a stage that does not start at the car's rung.
+- **Runs stopped by the gate** still record their cost (`costs.json`), from 18:30.
+- **Probes:** `engine/p9_probe.js` (flank, cut-in, cover bots). Plan v3g, cover bot, 4 min:
 
-  | Tile | Cover bot, clear time (plan v3f) |
+  | Tile | Clear time |
   |---|---|
-  | A1 | 19 s |
-  | B1 | 36 s |
-  | C1 | 57 s |
-  | C2 | 19 s |
-  | B2 | not cleared in 8 min (the bot cannot path round the ring road) |
-  | A2 | 20 s |
-  | A3 | 231 s |
-  | B3 | 7 s |
-  | C3 | 50 s (Incident) |
+  | A1 | 7 s |
+  | B1 | 116 s |
+  | C1 | 138 s |
+  | C2 | not cleared (the bot does not drop) |
+  | B2 | not cleared (the bot does not use cones) |
+  | A2 | 119 s |
+  | A3 | 5 s |
+  | B3 | 175 s |
+  | C3 | 6 s |
+
+- **Drop check:** every tile has deck parapet gaps over its red road (C2: 233 points).
 
 ## 111.12 Playtest rounds (Lawrence, 7 November)
 
@@ -161,3 +177,4 @@
    - volume 5;
    - DUCK on every tile;
    - roadside cover.
+6. **18:06:** one thing a tile across car, player and level; every upgrade necessary; DUCK as Super Knees.

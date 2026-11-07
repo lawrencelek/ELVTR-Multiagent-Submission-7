@@ -52,7 +52,7 @@
 - **Cone brief:** a car that reacted to a cone within `story.coneBaitSeconds` counts: its swerve, return or stop for the dummy after (Prototype 9, row 620).
 - **BODY readout:** a live chassis reads at least 1 (`ui.hud.bodyCeil`, Prototype 9, row 620).
 - **On foot:** `damage.bodyHealthOnFoot` until Battery 1; then `damage.bodyHealth` (Edit 91).
-- **Parts by drone (Edit 93):** Monument Battery 1 B1, Hands 1 A2, Legs 1 B3. Parkland Arms 1 C1, Legs 2 A3, Hands 2 A2, Arms 2 A1, Battery 2 B2. Waterfront Legs 3 B1, Arms 3 B3, Battery 3 B2.
+- **Parts by drone (Edit 93):** Monument Battery 1 B1, Hands 1 A2, Legs 1 B3 (Map 1: earned at the plan's tiles instead, §13). Parkland Arms 1 C1, Legs 2 A3, Hands 2 A2, Arms 2 A1, Battery 2 B2. Waterfront Legs 3 B1, Arms 3 B3, Battery 3 B2.
 - **No credits, no levels:** points are the score (Edit 91).
 - **Traffic per tile:** `story.traffic.<district>.<tile>` (Edit 85). A district runs `story.shiftCars`; no Failed test.
 - **Ferry:** a clear flies the next chassis into the next tile, within `story.ferryDepth` of the edge (Edit 83).
@@ -77,7 +77,7 @@
 - **B · Legs:** jump; airtime `abilities.legs.airtimeBase` + `abilities.legs.airtimeStep` a level; run to clear (`proto.jump.runToClear`). Cost `battery.jumpCost`; free out of a dash (`battery.dashJumpCost`).
 - **X · Hands:** carry cones, `abilities.hands.conesPerLevel` a level, to `abilities.hands.maxLevel`. Tap up, tap down (`abilities.hands.tapDrop`).
 - **Y · Arms:** push off a car hit within `abilities.arms.pushWindow`; `abilities.arms.pushSpeed` + `abilities.arms.pushStep` a level; `abilities.arms.pushesPerLevel` before landing.
-- **DUCK (Edit 111):** hold C on every Map 1 tile; lower, slower (`movement.duckSpeedFactor`), hidden behind low cover.
+- **DUCK (Edit 111):** the part Super Knees, earned in Map 1: hold C; lower, slower (`movement.duckSpeedFactor`), hidden behind low cover.
 - **Ricochet:** Newtonian, kept at `proto.recoilScale`, thrown at most `proto.bounce.maxThrow`.
 - **Combos:** window `scoring.comboWindow`; step `scoring.comboStep`; variety `scoring.comboVariety`; cap `scoring.comboMax`; the clock holds in the air (`scoring.comboAirPause`).
 - **Damage:** locational; parts redden with damage (Edit 91).
@@ -145,11 +145,14 @@
 
 ## 13 Story Map 1 with the learning red car (Edit 111, Submission 7)
 
-- **One lesson a tile.** Stages 10.2 → 10.8 on tiles 1–7; 10.9 and 10.10 on tiles 8–9. A tile plays at its stage's `duel.startRung`; the car learns at the clear (Edit 111 §111.2).
+- **One thing a tile (Lawrence, 18:06).** The car learns a rung or the player earns a part; the level changes to make it matter. Every upgrade is used on the next tile (Edit 111 §111.2; `engine/progression.json`).
+- **Map 1, plan v3g:**
+  - Car: forward camera (A1), side sensors (C1), roof lidar (A2), street cameras (B3), road items (C3, carried to Map 2).
+  - Player: Battery 1 (B1), Hands 1 (C2), Legs 1 (B2), Super Knees (A3).
 - **Objective:** the plan's count of the red car's hits at its fault (10 or more lost), stealth points, or Incidents (10.10).
 - **Lesson:** after the clearing hit's write-off: the training clip in the game's graphics, the sensor fitted on the car, then the card (§111.3).
 - **Red car:** Prototype 10's driver; `traffic.hardBraking` 600; sees cones at every rung; stops after a hit (§111.4–111.5).
 - **Scoring:** red hit, full points plus damage; white hit, a fifth (§111.6).
-- **Cover and DUCK:** roadside cover on every tile; DUCK on every tile (§111.7).
+- **Cover and DUCK:** roadside cover by the tile's level (kerb, setback, rail, tall, low, watched); DUCK once Super Knees is earned (§111.7).
 - **Fleet:** never learns. 10.10's tailgaters and the fleet update between maps are open (§111.8).
 - **Full rules:** `docs/DUMMIES_GDD_Edit111_Submission7_Integration.md` (Submission 7).

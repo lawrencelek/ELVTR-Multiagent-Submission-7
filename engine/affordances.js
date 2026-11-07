@@ -12,7 +12,7 @@ globalThis.DUMMIES = require(path.join(E, 'sim.js'));
 globalThis.WORLD6 = require(path.join(E, 'world6.js'));
 const STORY = globalThis.STORY = require(path.join(E, 'story7.js'));
 globalThis.DUMMIES_P10 = require(path.join(__dirname, 'vendor', 'testroad.js'));
-Object.assign(globalThis, { DUMMIES_STAGES: R.stages, STORY_MAP1: R.plan });
+Object.assign(globalThis, { DUMMIES_STAGES: R.stages, STORY_MAP1: R.plan, DUEL_RULES: R.rules });
 require(path.join(__dirname, 'duel.js'));
 const X = globalThis.DUMMIES, D = globalThis.DUEL, order = R.story.districts.find((d) => d.id === 'monument').order, out = {};
 const s = new STORY.StorySim('monument', Object.assign({}, R.sim), STORY.newProgress());
@@ -24,6 +24,10 @@ for (const t of order) {
   const room = D.placePlanters(T, sc, P, { 'props.planter.height': 14 }, lanes).length;
   const tall = (sc.game.statics || []).filter((q) => ['block', 'booth', 'sculpture', 'column', 'monument'].includes(q.kind) && near(q)).length;
   const cover = {}; for (const q of D.placeCover(T, sc, P, { 'props.planter.height': 14 }, lanes, D.FAMILY.monument)) cover[q.kind] = (cover[q.kind] || 0) + 1; // the roadside cover the duel adds (engine/duel.js)
-  out[t] = { roadsideCover: cover, redLanes: lanes.length, roadOnScreen: lanes.map((l) => Math.round(l.exitS - l.enterS)), deckOverRoad: deck, stairs: (sc.stairs || []).length, roadsidePlanters: p9planters, planterRowsThatFit: room, plantersForAnAmbush: p9planters + room > 0 || !!(cover.planter || cover.hedge), tallCoverByRoad: tall };
+  const fits = ['open', 'cones'], coverByLevel = {}; // the level layouts this tile can take (engine/progression.json), measured on its road; what each places
+  for (const [id, L] of Object.entries(D.RULES.levels || {})) { if (!L.cover || !L.cover.length) { if (id === 'deck' && deck) fits.push(id); continue; }
+    const got = D.placeCover(T, sc, P, { 'props.planter.height': 14 }, lanes, null, L); coverByLevel[id] = [...new Set(got.map((q) => q.kind))]; const tallN = got.filter((q) => !q.low).length, lowN = got.filter((q) => q.low && q.kind !== 'bollard' && q.kind !== 'krail').length;
+    if ((id === 'low' && lowN) || (id === 'watched' && tallN && lowN) || (id === 'rail' && tallN && got.some((q) => q.kind === 'krail')) || (['kerb', 'setback', 'tall'].includes(id) && tallN)) fits.push(id); }
+  out[t] = { levelsThatFit: fits, coverByLevel, roadsideCover: cover, redLanes: lanes.length, roadOnScreen: lanes.map((l) => Math.round(l.exitS - l.enterS)), deckOverRoad: deck, stairs: (sc.stairs || []).length, roadsidePlanters: p9planters, planterRowsThatFit: room, plantersForAnAmbush: p9planters + room > 0 || !!(cover.planter || cover.hedge), tallCoverByRoad: tall };
 }
 process.stdout.write(JSON.stringify(out, null, 1) + '\n');

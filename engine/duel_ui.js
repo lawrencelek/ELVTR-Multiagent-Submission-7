@@ -209,8 +209,8 @@
   function hud(cx, sim, G) {
     ctx = cx; s = sim; T = sim && sim.duelT; const d = sim && sim.duelDef;
     if (!T || !d || sim.phase === 'brief' || sim.phase === 'lesson' || sim.duelDone) return;
-    const ri = T.rungInfo(), top = Math.round(T.DP['duel.topRung'] || 0), nxt = T.rung < top ? DUELR()[T.rung + 1] : null, o = d.objective, n = Math.min(sim.duelProgress(), o.count);
-    const lines = [['RED-01 · RUNG ' + T.rung + ' · ' + (ri ? ri.name.toUpperCase() : '') + '   ◎ ' + n + ' / ' + o.count, C.red, 15], [nxt ? 'CLEAR THE TILE: IT LEARNS ' + nxt.name.toUpperCase() + ' FROM THE LAST HIT' : T.rung >= 1 ? 'ALL IT CAN LEARN: OUTWIT IT' : 'IT SENSES NOTHING YET', C.dim, 12], ['HOLD C · DUCK BEHIND LOW COVER', C.dim, 11]];
+    const RU = root.DUEL_RULES || { parts: {} }, earnPt = d.earns && d.earns !== 'car' ? RU.parts[d.earns] : null, ri = T.rungInfo(), top = Math.round(T.DP['duel.topRung'] || 0), nxt = T.rung < top ? DUELR()[T.rung + 1] : null, o = d.objective, n = Math.min(sim.duelProgress(), o.count);
+    const lines = [['RED-01 · RUNG ' + T.rung + ' · ' + (ri ? ri.name.toUpperCase() : '') + '   ◎ ' + n + ' / ' + o.count, C.red, 15], [earnPt ? 'CLEAR THE TILE: YOU EARN ' + earnPt.name.toUpperCase() + ' (' + earnPt.verb + ')' : nxt ? 'CLEAR THE TILE: IT LEARNS ' + nxt.name.toUpperCase() + ' FROM THE LAST HIT' : T.rung >= 1 ? 'ALL IT CAN LEARN: OUTWIT IT' : 'IT SENSES NOTHING YET', earnPt ? C.dummy : C.dim, 12]].concat(sim.duelDuck ? [['HOLD C · DUCK BEHIND LOW COVER', C.dim, 11]] : []);
     ctx.save(); ctx.font = '700 19px B612, system-ui, sans-serif';
     const w = Math.max(...lines.map(([t, , z]) => { ctx.font = `700 ${z}px B612, system-ui, sans-serif`; return ctx.measureText(t).width; })) + 24, h = 16 + lines.length * 19, x = G.FX + 10, y = G.FY + 10;
     rect(x, y, w, h, C.panel); ctx.strokeStyle = C.red; ctx.lineWidth = 1.5; ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
@@ -221,7 +221,7 @@
   // frame of impact held, boxed. Beat 2: the sensor fitted by a drone, the new field drawing out. Then the card: what it now does,
   // what that closes, what is open. Enter skips to the card; Enter on the card sends it back to the road.
   const CAM = '#9ff2c8', CAM_DIM = 'rgba(159,242,200,0.55)', ZN = { front: 'FRONT', frontDiagonal: 'FRONT CORNER', side: 'SIDE', rearDiagonal: 'REAR CORNER', rear: 'REAR' };
-  const beats = (L) => { const P = T.DP || T.P, c = L.clip && L.clip.frames.length ? 1 : 0; return { clip: c * (P['duel.lessonClipSeconds'] || 3), hold: c * (P['duel.lessonHoldSeconds'] || 0.8), fit: P['duel.lessonFitSeconds'] || 2 }; };
+  const beats = (L) => { const P = T.DP || T.P, c = L.clip && L.clip.frames.length ? 1 : 0; return { clip: c * (P['duel.lessonClipSeconds'] || 3), hold: c * (P['duel.lessonHoldSeconds'] || 0.8), fit: L.part ? 0 : P['duel.lessonFitSeconds'] || 2 }; };
   function lessonKey(sim) { const L = sim && sim.duelT && sim.duelT.lesson; if (!L || L.card) return true; L.skip = true; return false; }
   function lesson(cx, sim, G) {
     ctx = cx; s = sim; T = sim && sim.duelT; const L = T && T.lesson; if (!L) return;
@@ -288,7 +288,20 @@
     ctx.restore();
     camMarks(G, String(ri.fit || 'SENSOR') + ' FITTED · ' + String(ri.sensor || ri.name || '').toUpperCase(), t, (L.model || 'RED-01') + ' · RUNG ' + L.from + ' → ' + to);
   }
+  function drawPartCard(L, G) { // the player's upgrade: one thing a tile (Lawrence, 7 Nov)
+    const pt = L.info || {}; ctx.save(); rect(G.FX, G.FY, G.FW, G.FH, 'rgba(5,7,15,0.82)');
+    const w = Math.min(G.FW - 60, 980), x = G.FX + (G.FW - w) / 2, y = G.FY + 40, h = G.FH - 80;
+    rect(x, y, w, h, 'rgba(12,14,20,0.96)'); ctx.strokeStyle = C.dummy; ctx.lineWidth = 3; ctx.strokeRect(x + 1.5, y + 1.5, w - 3, h - 3);
+    text('DUMMY CORPORATION · PARTS', x + 34, y + 52, 18, C.dim);
+    text('PART EARNED: ' + String(pt.name || L.part).toUpperCase(), x + 34, y + 104, 40, C.dummy, 'left', 900);
+    text(String(pt.verb || '') + ' · ' + String(pt.key || '').toUpperCase(), x + 36, y + 150, 24, C.text, 'left', 900);
+    text(String(pt.text || ''), x + 36, y + 196, 20, C.text);
+    text(pt.p9 ? 'The drone fits it on the way to ' + (L.next || 'the next tile') + '. You will need it there.' : 'Fitted now. You will need it on ' + (L.next || 'the next tile') + '.', x + 36, y + 236, 18, '#9ff2c8');
+    if (Math.floor((G.t || 0) * 2) % 2 === 0) text('ENTER · CONTINUE', x + w - 34, y + h - 30, 20, C.dummy, 'right', 900);
+    ctx.restore();
+  }
   function drawCard(L, G) {
+    if (L.part) return drawPartCard(L, G);
     const info = LESSON[L.to] || ['', '', ''], ri = DUELR()[L.to] || {};
     ctx.save(); rect(G.FX, G.FY, G.FW, G.FH, 'rgba(5,7,15,0.82)');
     const w = Math.min(G.FW - 60, 980), x = G.FX + (G.FW - w) / 2, y = G.FY + 40, h = G.FH - 80;

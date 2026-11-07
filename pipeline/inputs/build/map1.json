@@ -11,13 +11,56 @@
    "task": {
     "kind": "any"
    },
-   "gift": null,
    "tale": "Fresh off the factory floor, you're ready to do some damage to yourself. Make your engineers proud.",
    "prototype9": {
     "road": "Start, west edge. The road passes under the Z1 highway (north–south) at 90°; escalators",
     "setPiece": "LED-wall tower facing the entry",
     "builtFor": "any",
     "measured": {
+     "levelsThatFit": [
+      "open",
+      "cones",
+      "kerb",
+      "setback",
+      "deck",
+      "rail",
+      "tall",
+      "low",
+      "watched"
+     ],
+     "coverByLevel": {
+      "kerb": [
+       "cabinet",
+       "kiosk",
+       "billboard",
+       "bollard"
+      ],
+      "setback": [
+       "cabinet",
+       "bollard"
+      ],
+      "rail": [
+       "krail",
+       "cabinet",
+       "kiosk"
+      ],
+      "tall": [
+       "cabinet",
+       "kiosk",
+       "billboard",
+       "bollard"
+      ],
+      "low": [
+       "planter",
+       "hedge"
+      ],
+      "watched": [
+       "cabinet",
+       "planter",
+       "kiosk",
+       "hedge"
+      ]
+     },
      "roadsideCover": {
       "cabinet": 1,
       "planter": 1,
@@ -46,15 +89,50 @@
    "task": {
     "kind": "dash"
    },
-   "gift": {
-    "node": "battery1"
-   },
    "tale": "Battery 1 is fitted. The skybridge was built for shoppers who never came; staff watch you dash into a colleague.",
    "prototype9": {
     "road": "A Z1 skybridge crosses the road at 90°, from a podium roof to the walkway ring",
     "setPiece": "Podium and tower at the bridge head",
     "builtFor": "dash",
     "measured": {
+     "levelsThatFit": [
+      "open",
+      "cones",
+      "kerb",
+      "deck",
+      "rail",
+      "tall",
+      "low",
+      "watched"
+     ],
+     "coverByLevel": {
+      "kerb": [
+       "cabinet",
+       "kiosk",
+       "billboard"
+      ],
+      "setback": [],
+      "rail": [
+       "krail",
+       "cabinet",
+       "kiosk"
+      ],
+      "tall": [
+       "cabinet",
+       "kiosk",
+       "billboard"
+      ],
+      "low": [
+       "planter",
+       "hedge"
+      ],
+      "watched": [
+       "cabinet",
+       "planter",
+       "kiosk",
+       "hedge"
+      ]
+     },
      "roadsideCover": {
       "cabinet": 1,
       "planter": 1,
@@ -83,13 +161,56 @@
    "task": {
     "kind": "drop"
    },
-   "gift": null,
    "tale": "The LED drum lights each bend. Step off the high road onto a car: gravity is company policy.",
    "prototype9": {
     "road": "Under the Z2 highway at 90°, then an R96 bend south; Z2 escalators (run 112)",
     "setPiece": "LED drum tower in the bend",
     "builtFor": "drop",
     "measured": {
+     "levelsThatFit": [
+      "open",
+      "cones",
+      "kerb",
+      "setback",
+      "deck",
+      "rail",
+      "tall",
+      "low",
+      "watched"
+     ],
+     "coverByLevel": {
+      "kerb": [
+       "cabinet",
+       "kiosk",
+       "billboard",
+       "bollard"
+      ],
+      "setback": [
+       "cabinet",
+       "kiosk"
+      ],
+      "rail": [
+       "krail",
+       "cabinet",
+       "billboard"
+      ],
+      "tall": [
+       "cabinet",
+       "kiosk",
+       "billboard",
+       "bollard"
+      ],
+      "low": [
+       "planter",
+       "hedge"
+      ],
+      "watched": [
+       "cabinet",
+       "planter",
+       "kiosk",
+       "hedge"
+      ]
+     },
      "roadsideCover": {
       "cabinet": 1,
       "planter": 1,
@@ -119,13 +240,45 @@
    "task": {
     "kind": "level"
    },
-   "gift": null,
    "tale": "The road runs through the portal tower at the sixth floor. Take your write-off up there; ignore the view.",
    "prototype9": {
     "road": "A 45° corner cut, then under the Z2 highway at 90°. The highway runs through a tower; a roof plaza at Z2 opens off its parapet, and an escalator drops from the plaza to the street",
     "setPiece": "Portal tower and roof plaza (Chongqing)",
     "builtFor": "level",
     "measured": {
+     "levelsThatFit": [
+      "open",
+      "cones",
+      "kerb",
+      "deck",
+      "tall",
+      "low",
+      "watched"
+     ],
+     "coverByLevel": {
+      "kerb": [
+       "cabinet",
+       "kiosk",
+       "billboard"
+      ],
+      "setback": [],
+      "rail": [],
+      "tall": [
+       "cabinet",
+       "kiosk",
+       "billboard"
+      ],
+      "low": [
+       "planter",
+       "hedge"
+      ],
+      "watched": [
+       "cabinet",
+       "planter",
+       "kiosk",
+       "hedge"
+      ]
+     },
      "roadsideCover": {
       "cabinet": 1,
       "planter": 1,
@@ -153,13 +306,43 @@
    "task": {
     "kind": "struck"
    },
-   "gift": null,
    "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Stand near it until a colleague finds you.",
    "prototype9": {
     "road": "The road splits round the monument\\'s island; the walkway ring bridges both lanes at Z1; skybridge north",
     "setPiece": "The monument",
     "builtFor": "struck",
     "measured": {
+     "levelsThatFit": [
+      "open",
+      "cones",
+      "kerb",
+      "setback",
+      "deck",
+      "tall",
+      "low"
+     ],
+     "coverByLevel": {
+      "kerb": [
+       "kiosk"
+      ],
+      "setback": [
+       "cabinet",
+       "kiosk",
+       "bollard"
+      ],
+      "rail": [],
+      "tall": [
+       "cabinet",
+       "kiosk"
+      ],
+      "low": [
+       "hedge"
+      ],
+      "watched": [
+       "cabinet",
+       "kiosk"
+      ]
+     },
      "roadsideCover": {
       "cabinet": 1,
       "kiosk": 1
@@ -185,15 +368,53 @@
    "task": {
     "kind": "cone"
    },
-   "gift": {
-    "node": "hands1"
-   },
    "tale": "The neon shops sell nothing, but the traffic reads them. Hands 1 is fitted: bait a colleague with a cone.",
    "prototype9": {
     "road": "Under the Z1 highway at 90°, then an R96 bend south",
     "setPiece": "Neon arcade along the road",
     "builtFor": "cone",
     "measured": {
+     "levelsThatFit": [
+      "open",
+      "cones",
+      "kerb",
+      "setback",
+      "deck",
+      "rail",
+      "tall",
+      "low",
+      "watched"
+     ],
+     "coverByLevel": {
+      "kerb": [
+       "cabinet",
+       "kiosk",
+       "bollard"
+      ],
+      "setback": [
+       "kiosk",
+       "bollard"
+      ],
+      "rail": [
+       "krail",
+       "kiosk",
+       "billboard"
+      ],
+      "tall": [
+       "cabinet",
+       "kiosk",
+       "bollard"
+      ],
+      "low": [
+       "planter",
+       "hedge"
+      ],
+      "watched": [
+       "cabinet",
+       "planter",
+       "kiosk"
+      ]
+     },
      "roadsideCover": {
       "cabinet": 1,
       "planter": 1,
@@ -222,13 +443,55 @@
     "kind": "combo",
     "param": "story.task.comboEasy"
    },
-   "gift": null,
    "tale": "The stacked cubes rose one budget at a time. Build the same way: one hit, then another, quickly.",
    "prototype9": {
     "road": "A 45° corner cut, then under the Z1 highway at 90°",
     "setPiece": "Stacked LED cubes, each cantilevered off the one below",
     "builtFor": "combo",
     "measured": {
+     "levelsThatFit": [
+      "open",
+      "cones",
+      "kerb",
+      "setback",
+      "deck",
+      "rail",
+      "tall",
+      "low",
+      "watched"
+     ],
+     "coverByLevel": {
+      "kerb": [
+       "cabinet",
+       "kiosk",
+       "billboard",
+       "bollard"
+      ],
+      "setback": [
+       "cabinet"
+      ],
+      "rail": [
+       "krail",
+       "cabinet",
+       "kiosk"
+      ],
+      "tall": [
+       "cabinet",
+       "kiosk",
+       "billboard",
+       "bollard"
+      ],
+      "low": [
+       "planter",
+       "hedge"
+      ],
+      "watched": [
+       "cabinet",
+       "planter",
+       "kiosk",
+       "hedge"
+      ]
+     },
      "roadsideCover": {
       "cabinet": 1,
       "planter": 1,
@@ -258,15 +521,56 @@
    "task": {
     "kind": "jump"
    },
-   "gift": {
-    "node": "legs1"
-   },
    "tale": "Two screens advertise to each other all night. Legs 1 is fitted: jump into a car between them.",
    "prototype9": {
     "road": "A 45° jog between two LED walls; a Z1 skybridge crosses the jog at 90°",
     "setPiece": "LED canyon and its skybridge",
     "builtFor": "jump",
     "measured": {
+     "levelsThatFit": [
+      "open",
+      "cones",
+      "kerb",
+      "setback",
+      "deck",
+      "rail",
+      "tall",
+      "low",
+      "watched"
+     ],
+     "coverByLevel": {
+      "kerb": [
+       "cabinet",
+       "kiosk",
+       "billboard",
+       "bollard"
+      ],
+      "setback": [
+       "kiosk",
+       "billboard"
+      ],
+      "rail": [
+       "krail",
+       "cabinet",
+       "kiosk"
+      ],
+      "tall": [
+       "cabinet",
+       "kiosk",
+       "billboard",
+       "bollard"
+      ],
+      "low": [
+       "planter",
+       "hedge"
+      ],
+      "watched": [
+       "cabinet",
+       "planter",
+       "kiosk",
+       "hedge"
+      ]
+     },
      "roadsideCover": {
       "cabinet": 1,
       "planter": 1,
@@ -296,13 +600,52 @@
    "task": {
     "kind": "bounce"
    },
-   "gift": null,
    "tale": "The gateway thanked the car that wrote you off for driving safely. Let one colleague throw you into the next.",
    "prototype9": {
     "road": "Under the Z2 highway at 90°; the exit through an LED gateway",
     "setPiece": "LED gateway arch over the road",
     "builtFor": "bounce",
     "measured": {
+     "levelsThatFit": [
+      "open",
+      "cones",
+      "kerb",
+      "deck",
+      "rail",
+      "tall",
+      "low",
+      "watched"
+     ],
+     "coverByLevel": {
+      "kerb": [
+       "cabinet",
+       "kiosk",
+       "billboard",
+       "bollard"
+      ],
+      "setback": [],
+      "rail": [
+       "krail",
+       "cabinet",
+       "billboard"
+      ],
+      "tall": [
+       "cabinet",
+       "kiosk",
+       "billboard",
+       "bollard"
+      ],
+      "low": [
+       "planter",
+       "hedge"
+      ],
+      "watched": [
+       "cabinet",
+       "planter",
+       "kiosk",
+       "hedge"
+      ]
+     },
      "roadsideCover": {
       "cabinet": 1,
       "planter": 1,
@@ -338,5 +681,5 @@
   "combo": "COMBO ×{n}",
   "cls": "A {cls}"
  },
- "controls": "Arrows or WASD move; Space dash (Battery 1, from B1); L jump (Legs 1, from B3); J picks up and puts down a cone (Hands 1, from A2); hold C to duck (from tile 6); walk off a deck through a gap in its parapet to drop."
+ "controls": "Arrows or WASD move. Parts, once earned (PROGRESSION): Space dash (Battery 1); L jump (Legs 1); hold C duck (Super Knees); J picks up and puts down a cone (Hands 1). Walk off a deck through a gap in its parapet to drop."
 }

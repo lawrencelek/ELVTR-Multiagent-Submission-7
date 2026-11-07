@@ -87,8 +87,8 @@ Also: the lunge guide, the stealth grade, the lure and stop line, the block lift
 | Fault rule | A contact scores only when the vehicle hit the dummy: it gives at least half the closing speed at contact, at 20 px/s or more. A dummy that runs into a car takes damage and scores nothing. Every vehicle. GDD Edit 111 §111.9. |
 | Brakes | The red car brakes at the registry's `traffic.hardBraking` (600), as Prototype 10 was built. Prototype 9's 79 made its safe envelope crawl. The fleet keeps 79. |
 | After a hit | Every car stops at `traffic.hardBraking` and stands 2 s, then drives on round the dummy. The red car sees cones at every rung. |
-| Progression | One lesson a tile, at the clear (stages 10.2 → 10.10, one a tile). The clip replays through Prototype 9's own renderer. |
-| Cover | Roadside cover on every tile, one family a map (Monument: cabinets, kiosks, billboards, planters, hedges, bollards), painted into the tile's art. DUCK on every tile. |
+| Progression | One thing a tile: the car learns or the player earns a part; the level changes to make it matter (`engine/progression.json`). Car lessons replay through Prototype 9's own renderer; parts ride Prototype 9's gift drone to the next tile. |
+| Cover | Roadside cover by the tile's level, one family a map (Monument: cabinets, kiosks, billboards, planters, hedges, K-rails, bollards), painted into the tile's art. DUCK is the part Super Knees. |
 
 - **Not yet:** the Incident's tailgaters drive dumber than Prototype 9's fleet (10.10, tile 9; open). Bot probes per tile run by hand (`engine/p9_probe.js`), not yet inside the pipeline.
 - **Phaser next:** the same split. Phaser draws Prototype 9's tiles; the sim modules and `duel.js` run unchanged under it.

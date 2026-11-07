@@ -1,0 +1,226 @@
+{
+  "about": "Lawrence (7 Nov, 18:06): each tile progresses one thing. CAR (it learns), PLAYER (a part earned) and LEVEL (what the tile offers) interplay; every upgrade is used on the next tile. The engine reads parts and levels; the pipeline's validator reads all of it.",
+  "rungs": [
+    "Prototype",
+    "Forward camera",
+    "Side sensors",
+    "Roof lidar",
+    "Street cameras",
+    "Road items",
+    "Crash memory",
+    "Search"
+  ],
+  "parts": {
+    "battery1": {
+      "name": "Battery 1",
+      "verb": "DASH",
+      "key": "Space",
+      "p9": "battery1",
+      "text": "Dash: Space. Reach a car's path from cover set back from the road."
+    },
+    "legs1": {
+      "name": "Legs 1",
+      "verb": "JUMP",
+      "key": "L",
+      "p9": "legs1",
+      "text": "Jump: L. A running jump clears a K-rail."
+    },
+    "knees1": {
+      "name": "Super Knees",
+      "verb": "DUCK",
+      "key": "hold C",
+      "p9": null,
+      "text": "Duck: hold C. Low cover hides you from its sensors."
+    },
+    "hands1": {
+      "name": "Hands 1",
+      "verb": "CONES",
+      "key": "J",
+      "p9": "hands1",
+      "text": "Cones: J picks one up; hold J to put it down."
+    }
+  },
+  "levels": {
+    "open": {
+      "text": "No cover by the road.",
+      "cover": []
+    },
+    "kerb": {
+      "text": "Tall cover right at the kerb: hide, then step into its path.",
+      "cover": [
+        "cabinet",
+        "kiosk",
+        "billboard"
+      ],
+      "gap": [
+        2
+      ],
+      "bollards": true
+    },
+    "setback": {
+      "text": "Tall cover set back from the road: too far to walk out in time.",
+      "cover": [
+        "cabinet",
+        "kiosk",
+        "billboard"
+      ],
+      "gap": [
+        96,
+        84
+      ],
+      "bollards": true
+    },
+    "deck": {
+      "text": "No cover by the road; Prototype 9's deck over it, its parapet gap above the lane.",
+      "cover": []
+    },
+    "rail": {
+      "text": "A K-rail along the kerb (a dash stops at it; a jump clears it), tall cover set back behind it.",
+      "cover": [
+        "cabinet",
+        "kiosk",
+        "billboard"
+      ],
+      "gap": [
+        96,
+        84,
+        72,
+        60,
+        48
+      ],
+      "rail": true
+    },
+    "tall": {
+      "text": "Tall cover by the road.",
+      "cover": [
+        "cabinet",
+        "kiosk",
+        "billboard"
+      ],
+      "gap": [
+        2,
+        42
+      ],
+      "bollards": true
+    },
+    "low": {
+      "text": "Low cover only: planters and hedges. Standing, it sees you over them.",
+      "cover": [
+        "planter",
+        "hedge",
+        "planter"
+      ],
+      "gap": [
+        2,
+        42
+      ]
+    },
+    "watched": {
+      "text": "Street cameras watch the tall cover; low cover lies out of their reach.",
+      "cover": [
+        "cabinet",
+        "planter",
+        "kiosk",
+        "hedge"
+      ],
+      "gap": [
+        2,
+        42
+      ],
+      "cameras": true
+    },
+    "cones": {
+      "text": "No cover by the road; cones to carry.",
+      "cover": []
+    }
+  },
+  "tricks": {
+    "walkin": {
+      "text": "walk into its path and let it hit you",
+      "needs": [],
+      "levels": [
+        "open",
+        "kerb",
+        "setback",
+        "deck",
+        "rail",
+        "tall",
+        "low",
+        "watched",
+        "cones"
+      ],
+      "closedBy": 1
+    },
+    "kerbstep": {
+      "text": "hide at the kerb; step into its path at the last moment",
+      "needs": [],
+      "levels": [
+        "kerb"
+      ],
+      "closedBy": 2
+    },
+    "dashcover": {
+      "text": "dash from tall cover into its path",
+      "needs": [
+        "battery1"
+      ],
+      "levels": [
+        "setback",
+        "tall",
+        "kerb"
+      ],
+      "closedBy": 4
+    },
+    "drop": {
+      "text": "drop through the deck's parapet gap into its path",
+      "needs": [],
+      "levels": [
+        "deck"
+      ],
+      "closedBy": 3
+    },
+    "jumprail": {
+      "text": "run and jump the K-rail into its path",
+      "needs": [
+        "legs1"
+      ],
+      "levels": [
+        "rail"
+      ],
+      "closedBy": 3
+    },
+    "duckdash": {
+      "text": "duck behind low cover; dash into its path",
+      "needs": [
+        "battery1",
+        "knees1"
+      ],
+      "levels": [
+        "low",
+        "watched"
+      ],
+      "closedBy": 6
+    },
+    "blindspot": {
+      "text": "dash from the cover no camera sees",
+      "needs": [
+        "battery1"
+      ],
+      "levels": [
+        "watched"
+      ],
+      "closedBy": 6
+    },
+    "conebait": {
+      "text": "put a cone in its lane; stand where it swerves round it",
+      "needs": [
+        "hands1"
+      ],
+      "levels": [
+        "cones",
+        "open"
+      ],
+      "closedBy": 5
+    }
+  }
+}

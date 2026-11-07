@@ -6,15 +6,15 @@
 
 - **The plan:** `content/story_map1.json`. Map 1 (Monument), tiles 1–9.
   - Per tile: ladder stage, objective, overrides, title, tale, hint, new idea.
-  - Shipped run: `20261107-172210-v3` (v3f), $0.8443.
+  - Shipped run: `20261107-182619-v3` (v3g), $0.9660.
 - **Escalation:**
-  - Stages, one a tile: 10.2 → 10.3 → 10.4 → 10.5 → 10.6 → 10.7 → 10.8 → 10.9 → 10.10. The car learns once a tile, at the clear.
-  - Tricks, tile by tile: walk into its path, dash into its path, drop into its path, spring from tall cover, cover the cameras miss, duck then step out, a new spot each hit, step out from behind traffic.
-  - Then the Incident: make it stop hard, and a tailgater runs into it.
+  - One thing a tile (Lawrence's rule): the car learns or the player earns a part; the level makes it matter. The validator checks every upgrade is used.
+  - Car: forward camera, side sensors, roof lidar, street cameras, road items. Player: Battery 1, Hands 1, Legs 1, Super Knees.
+  - Tricks, tile by tile: walk into its path; step out at the kerb; dash from set-back cover; drop from the deck; cone bait; jump the K-rail; dash from unwatched cover; duck then dash; the cameras' blind spot.
   - Every line puts the dummy in the car's path: only a car that hits the dummy scores (the fault rule).
 - **Hints name what the tile has:** they come from Prototype 9's plan and the measured affordances.
   - C1: "Ride the Z2 escalator; walk off the parapet gap into its path."
-  - The hints name the tile's measured roadside cover: B1 "Wait by the kiosk", A2 "Hold C behind the planter", A3 "Billboard first, then the hedge".
+  - The hints name the cover the tile's level places: B1 "Hide behind the kiosk at the kerb", C1 "Wait behind the set-back cabinet", A2 "run at the K-rail".
 - **The game:** `index.html`.
   - Prototype 9's Monument (art, fleet, decks, HUD, sound) with Prototype 10's red car.
   - It loads the plan unchanged, and Prototype 9's own clear carries the player to the next tile.
@@ -30,7 +30,7 @@
 | Step | Why it's still manual | How to remove it |
 |---|---|---|
 | Copy Prototypes 9 and 10 from Submission 6B (`VENDOR.md`) | Copied by hand; md5s are recorded | `pipeline/vendor.py`: fetch a pinned 6B commit, check the md5s |
-| Difficulty on Prototype 9's tiles | Fixed in the engine, measured by hand. Before: a bot dashing into a slowed car's corner cleared five tiles in under 25 s. Now that bot scores nothing (B1: 10 dashes, 10 at its own fault). On plan v3f a cover bot clears A1 in 19 s, B1 36, C1 57, C2 19, A2 20, A3 231, B3 7, C3 50 (Incident); B2 not in 8 min (it cannot path round the ring road) | Run `engine/p9_probe.js` per tile inside ingest. Feed hits a minute to the designer, as `affordances.js` already feeds geometry |
+| Difficulty on Prototype 9's tiles | Fixed in the engine, measured by hand. Before: a bot dashing into a slowed car's corner cleared five tiles in under 25 s. Now that bot scores nothing. On plan v3g a cover bot clears A1 in 7 s, B1 116, C1 138, A2 119, A3 5, B3 175, C3 6; it cannot drop (C2) or bait with cones (B2) | Run `engine/p9_probe.js` per tile inside ingest, with a bot per trick. Feed hits a minute to the designer | Run `engine/p9_probe.js` per tile inside ingest. Feed hits a minute to the designer, as `affordances.js` already feeds geometry |
 | Judging fun | A human must play | A short recorded play session per tile in CI, for review |
 | Deploy, video | One command each, run by hand | One GitHub Action: build, test, deploy Pages, render the video |
 
@@ -57,12 +57,13 @@
 | v3c | + playtest fixes | Opus $0.4381 | Sonnet $0.1573 | Sonnet $0.1440 | — | $0.7394 |
 | v3d | + label rule; cached prompt | Opus $0.1726 | Sonnet $0.1378 | Sonnet $0.1085 | Sonnet $0.1044 | $0.5233 |
 | v3e | + fault rule, red brakes | Opus $0.4699 | Sonnet $0.1602 | Sonnet $0.1467 | — | $0.7768 |
-| v3f (shipped) | + one lesson a tile, roadside cover | Opus $0.4648 | Sonnet $0.2374 | Sonnet $0.1422 | — | $0.8443 |
+| v3f | + one lesson a tile, roadside cover | Opus $0.4648 | Sonnet $0.2374 | Sonnet $0.1422 | — | $0.8443 |
+| v3g (shipped) | + one thing a tile (car, player, level) | Opus $0.5396 | Sonnet $0.2406 | Sonnet $0.1858 | — | $0.9660 |
 
-- **Total spent:** $9.0393 on 8 runs and 27 model calls. Building the pipeline and the integration in Claude Code isn't metered here.
+- **Total spent:** $10.0053 on 9 recorded runs and 30 model calls. Two runs stopped at the gate before 18:30 left no cost record (about $1 each); stopped runs now record theirs. Building the pipeline and the integration in Claude Code isn't metered here.
 - **Most expensive step:** the Opus designer, at 35% of v1, 54% of v3b, 60% of v3e and 55% of v3f. In v3d its prompt was still cached from v3c (71,280 tokens read from cache), and it cost $0.17. v3e changed its prompt (the fault rule), so nothing was cached: $0.47.
 - **Solo sustainability:**
-  - At $0.52–0.84 a run, 3 maps × 10 iterations cost $16–25.
+  - At $0.52–0.97 a run, 3 maps × 10 iterations cost $16–29.
   - At v1's rate, the same work costs about $117.
 
 ## 5. Mid-project cost reduction
@@ -79,5 +80,5 @@
   - The filter alone cut the Opus designer by 77%.
   - The Sonnet swap cut the reviewer and refiner by 84%.
 - **v3b cost less than v2,** although it carries Prototype 9's tiles and measured facts. The facts left nothing to repair, so v3b needed no repair pass (v2 and v3a each needed one).
-- **The cheaper check is code:** the validator caught an impossible tile (a planter where none fits) before any play-test, count-only labels after the playtest fixes, and text that has the dummy hit the car after the fault rule. On the v3d plan that last rule finds 7 errors; v3e passes with none.
+- **The cheaper check is code:** the validator caught an impossible tile (a planter where none fits) before any play-test, count-only labels after the playtest fixes, and text that has the dummy hit the car after the fault rule. On the v3d plan that last rule finds 7 errors; v3e passes with none. The progression rule stopped two plans whose parts no tile used (Legs 1 after the lidar), before any engine time.
 - **Second saving: run back to back.** The designer's prompt stays cached for a few minutes. v3d's designer read 32,143 tokens from cache and cost $0.17, against $0.44 in v3c.

@@ -21,6 +21,56 @@ TEST_ROAD_ONLY = ('plinth', 'barrier', 'junction')  # v3: features of the test r
 YOUR_FAULT = re.compile(r"\binto (a|the|that) (red |white )?(car|sedan)\b(?!'s)|\bas it (passes|rolls past|goes by)\b|\bstrike (it|the car|as)\b")
 
 
+def progression(tiles, stages):
+    """Lawrence (7 Nov, 18:06): each tile progresses one thing: the car learns (earns 'car') or the player earns a part. Every
+    upgrade is necessary: a part is used by the next tile's trick; a car lesson closes a trick already played. The tile's level must
+    offer its trick, its trick must need only parts already earned, and the car must not have closed it yet."""
+    R = json.loads((ROOT / 'engine' / 'progression.json').read_text(encoding='utf-8'))
+    aff = {t['id']: (t.get('prototype9') or {}).get('measured') or {} for t in json.loads((ROOT / 'pipeline' / 'inputs' / 'build' / 'map1.json').read_text(encoding='utf-8'))['tiles']}
+    errs, rung, owned, played = [], 0, set(), []
+    start = lambda st: ((stages.get(st) or {}).get('flags') or stages.get(st) or {}).get('duel.startRung')
+    for i, t in enumerate(tiles):
+        n, earn, lvl, tr, st = t.get('n'), t.get('earns'), t.get('level'), t.get('trick'), str(t.get('stage'))
+        if earn != 'car' and earn not in R['parts']:
+            errs.append(f'tile {n}: earns {earn!r}: one of car, {", ".join(R["parts"])}')
+        if lvl not in R['levels']:
+            errs.append(f'tile {n}: level {lvl!r}: one of {", ".join(R["levels"])}')
+        elif lvl not in (aff.get(t.get('tile')) or {}).get('levelsThatFit', R['levels']):
+            errs.append(f'tile {n}: level {lvl} does not fit {t.get("tile")} (measured: {", ".join(aff[t["tile"]]["levelsThatFit"])})')
+        if tr not in R['tricks']:
+            errs.append(f'tile {n}: trick {tr!r}: one of {", ".join(R["tricks"])}'); continue
+        T = R['tricks'][tr]
+        if start(st) != rung:
+            errs.append(f'tile {n}: stage {st} starts the car at rung {start(st)}; after the lessons before it, it is at rung {rung}')
+        if lvl in R['levels'] and lvl not in T['levels']:
+            errs.append(f'tile {n}: trick {tr} needs a level of {", ".join(T["levels"])}, not {lvl}')
+        miss = [p for p in T['needs'] if p not in owned]
+        if miss:
+            errs.append(f'tile {n}: trick {tr} needs {", ".join(miss)}, not yet earned')
+        if T['closedBy'] <= rung:
+            errs.append(f'tile {n}: trick {tr} is closed at rung {T["closedBy"]} ({R["rungs"][T["closedBy"]]}); the car is at rung {rung}')
+        if i > 0:
+            pe = tiles[i - 1].get('earns')
+            if pe in R['parts'] and pe not in T['needs']:
+                errs.append(f'tile {n}: tile {n - 1} earned {pe}, but this tile\'s trick ({tr}) does not need it: every part must be needed on the next tile')
+        played.append(tr)
+        if earn == 'car':
+            rung += 1
+            if rung >= len(R['rungs']):
+                errs.append(f'tile {n}: the car has no rung {rung} to learn')
+            elif not any(R['tricks'][p]['closedBy'] == rung for p in played):
+                errs.append(f'tile {n}: the car learns {R["rungs"][rung]}, which closes no trick played so far: every lesson must be necessary')
+        elif earn in R['parts']:
+            if earn in owned:
+                errs.append(f'tile {n}: {earn} earned twice')
+            owned.add(earn)
+            if i == len(tiles) - 1:
+                errs.append(f'tile {n}: the last tile earns a part no tile uses')
+    if tiles and tiles[0].get('earns') != 'car':
+        errs.append('tile 1 must earn car: the first lesson')
+    return errs
+
+
 def check(plan, world='junction'):
     errs = []
     if world == 'p9':
@@ -30,12 +80,12 @@ def check(plan, world='junction'):
             lab = str((t.get('objective') or {}).get('label') or '').upper()
             if 'WRITE-OFF' in lab or re.fullmatch(r'(HITS?|INCIDENTS?|POINTS?)\s*:?\s*\d*', lab.strip()):
                 errs.append(f'tile {t.get("n")}: label {lab!r} must name the move (the HUD counts the number; the objective is hits by the red car, not write-offs)')
-            if m and not m.get('plantersForAnAmbush') and 'planter' in (str(t.get('hint')) + str(t.get('newIdea'))).lower():
+            if m and not t.get('level') and not m.get('plantersForAnAmbush') and 'planter' in (str(t.get('hint')) + str(t.get('newIdea'))).lower():
                 errs.append(f'tile {t.get("n")}: the plan uses a planter, but {t.get("tile")} has no roadside planter (measured)')
-            cov = m.get('roadsideCover') or {}
-            for w in ('cabinet', 'kiosk', 'billboard', 'hedge', 'bollard'):
-                if m and not cov.get(w) and w in (str(t.get('hint')) + str(t.get('newIdea'))).lower():
-                    errs.append(f'tile {t.get("n")}: the plan uses a {w}, but {t.get("tile")} has none by its road (measured)')
+            cov = (m.get('coverByLevel') or {}).get(t.get('level')) if t.get('level') else [k for k, v in (m.get('roadsideCover') or {}).items() if v]
+            for w in ('cabinet', 'kiosk', 'billboard', 'hedge', 'planter', 'bollard', 'k-rail'):
+                if m and cov is not None and w.replace('-', '') not in cov and w in (str(t.get('hint')) + str(t.get('newIdea'))).lower():
+                    errs.append(f'tile {t.get("n")}: the plan names a {w}, but {t.get("tile")}\'s level {t.get("level")} places none (measured: {", ".join(cov) or "no cover"})')
             if m and not m.get('deckOverRoad') and any(w in str(t.get('hint')).lower() for w in ('drop', 'parapet')):
                 errs.append(f'tile {t.get("n")}: the plan drops from a deck, but no deck crosses {t.get("tile")}\'s road (measured)')
             for f in ('hint', 'tale', 'newIdea', 'label'):
@@ -100,6 +150,8 @@ def check(plan, world='junction'):
         if not t.get('title'):
             errs.append(f'tile {n}: no title')
     used = {str(t.get('stage')) for t in tiles}
+    if world == 'p9':  # the one-thing-a-tile rule replaces the stage rules
+        return errs + progression(tiles, stages)
     first = '10.2' if world == 'p9' else '10.1'  # p9 (Lawrence, 7 Nov): the car learns at A1's clear, so tile 1 is the first lesson
     if tiles and str(tiles[0].get('stage')) != first:
         errs.append(f'tile 1 must be stage {first}')

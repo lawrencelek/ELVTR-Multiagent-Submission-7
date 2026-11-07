@@ -14,6 +14,10 @@
   const X = root.DUMMIES, W6 = root.WORLD6, STORY = root.STORY, P10 = root.DUMMIES_P10, STAGES = root.DUMMIES_STAGES, MAP = root.STORY_MAP1;
   if (!X || !W6 || !STORY || !P10 || !STAGES || !MAP) { console.warn('duel: a module is missing; Prototype 9 runs alone'); return; }
   const TR = P10.TestRoadSim, BP = X.Sim.prototype, TP = TR.prototype, RUNGS = P10.RUNGS;
+  // Lawrence (7 Nov, 18:06): each tile progresses one thing (engine/progression.json): the car learns (earns 'car') or the player
+  // earns a part; the tile's level sets its roadside cover. A plan without these fields plays as before.
+  const RULES = root.DUEL_RULES || { parts: {}, levels: {}, tricks: {} };
+  const rulesPlan = () => MAP.tiles.some((q) => q.earns);
   const hyp = Math.hypot, clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const stageN = (id) => +String(id).split('.')[1] || 0; // '10.6' -> 6
   // the sight field the user designed (10.9: proportional rings at x, 2x, 3x) for every stage that has the side field
@@ -48,6 +52,7 @@
     if (!(DP['duel.standstillSpeed'] > 0)) DP['duel.standstillSpeed'] = 5;
     if (!(DP['duel.redReturnSeconds'] > 0)) DP['duel.redReturnSeconds'] = 2;
     if (stageN(def.stage) >= 2 && !(DP['duel.blockSeconds'] > 0)) DP['duel.blockSeconds'] = 10; // the block lift (row 715) from the first lesson on: a car never waits for ever
+    if (def.earns && def.earns !== 'car') DP['duel.topRung'] = DP['duel.startRung']; // a tile where the player earns a part: the car learns nothing
     return DP;
   }
 
@@ -146,11 +151,12 @@
   // Sizes in world units (w along the road, d across it); h: the height a sightline must clear (low cover only).
   const COVER = {
     planter: { w: 120, d: 16, low: true, h: 14 }, hedge: { w: 96, d: 16, low: true, h: 18 },
-    cabinet: { w: 44, d: 22 }, kiosk: { w: 30, d: 20 }, billboard: { w: 64, d: 12 },
+    cabinet: { w: 44, d: 22 }, kiosk: { w: 30, d: 20 }, billboard: { w: 64, d: 12 }, krail: { w: 160, d: 12, low: true, h: 16 },
   };
   const FAMILY = { monument: ['cabinet', 'planter', 'kiosk', 'hedge', 'billboard'] }; // proposed: one family a map (urban, industrial, garden...)
-  function placeCover(T, sc, P, DP, lanes, family) {
-    const LW = P['world.laneWidth'], W = P['world.width'], H = P['world.height'], kinds = family || FAMILY.monument, out = [];
+  function placeCover(T, sc, P, DP, lanes, family, prof) {
+    prof = prof || {}; const gaps = prof.gap || [2, 42];
+    const LW = P['world.laneWidth'], W = P['world.width'], H = P['world.height'], kinds = prof.cover || family || FAMILY.monument, out = [];
     const solid = (sc.game.statics || []).filter((q) => q.kind !== 'mass' && !q.duel).concat(sc.stairs || []), cands = [];
     const slot = (ln, s, sg, gap, w, d, tall) => { // a rect on the kerb (or a clear body-width off it), with room behind it to hide
       const q = X.pathAt(ln.path, s), ax = Math.abs(q.tx) > 0.95, ay = Math.abs(q.ty) > 0.95; if (!ax && !ay) return null;
@@ -165,13 +171,21 @@
       return Object.assign(r, { score: Math.hypot(cx - W / 2, cy - H / 2) + gap, ax });
     };
     for (const kind of kinds) { const k = COVER[kind];
-      for (const ln of lanes) for (let s = ln.enterS + 80; s <= ln.exitS - 80; s += 30) for (const sg of [1, -1]) for (const gap of [2, 42]) { const r = slot(ln, s, sg, gap, k.w, k.d, !k.low); if (r) cands.push(Object.assign(r, { kind })); } }
+      for (const ln of lanes) for (let s = ln.enterS + 80; s <= ln.exitS - 80; s += 30) for (const sg of [1, -1]) for (const gap of gaps) { const r = slot(ln, s, sg, gap, k.w, k.d, !k.low); if (r) cands.push(Object.assign(r, { kind, sg, s, ln, gap })); } }
     cands.sort((a, b) => a.score - b.score);
     const want = Math.min(5, kinds.length); // one of each kind of the family, as room allows, each 90 clear of the last
-    for (const kind of kinds) { if (out.length >= want) break; const r = cands.find((q) => q.kind === kind && !rectHits(q, out, 90)); if (!r) continue; const k = COVER[kind];
+    const railFor = (q) => { // a K-rail on the kerb between the piece and the road: a dash stops at it, a jump clears it
+      const L = (q.ax ? q.w : q.h) + 90, p = X.pathAt(q.ln.path, q.s), off = q.sg > 0 ? q.ln.path.edges[1] + 8 : q.ln.path.edges[0] - 8, cx = p.x + p.nx * off, cy = p.y + p.ny * off;
+      const r = q.ax ? { x: cx - L / 2, y: cy - 6, w: L, h: 12 } : { x: cx - 6, y: cy - L / 2, w: 12, h: L };
+      if (r.x < 8 || r.y < 8 || r.x + r.w > W - 8 || r.y + r.h > H - 8 || rectHits(r, solid, 4) || rectHits(r, out, 2) || (T.level.lanes || []).some((pp) => [[r.x, r.y], [r.x + r.w, r.y + r.h], [r.x + r.w / 2, r.y + r.h / 2]].some(([x, y]) => Math.abs(X.pathProject(pp, x, y).lat) < LW / 2 + 1))) return null;
+      return Object.assign(r, { kind: 'krail', low: true, height: 16, jumpable: true, zTop: P['world.jumpableHeight'] || 20, duel: true });
+    };
+    for (const kind of kinds) { if (out.length >= want) break; let rail = null; const r = cands.find((q) => q.kind === kind && !rectHits(q, out, 90) && (!prof.rail || (rail = railFor(q)))); if (!r) continue; const k = COVER[kind];
+      if (rail) out.push(Object.assign(rail, { id: 'krail' + out.length }));
       delete r.score; out.push(Object.assign(r, { low: !!k.low, height: k.low ? (kind === 'planter' ? DP['props.planter.height'] || k.h : k.h) : undefined, id: kind + out.length, duel: true })); }
     // a bollard row on the kerb by the first tall piece: 38 between posts, wider than a dummy (body.radius 13)
-    const tall = out.find((q) => !q.low); if (tall) for (const dir of [1, -1]) { const row = [];
+    for (const q of out) { delete q.ln; delete q.sg; delete q.s; delete q.gap; }
+    const tall = prof.bollards === false || !(prof.bollards || !prof.cover) ? null : out.find((q) => !q.low); if (tall) for (const dir of [1, -1]) { const row = [];
       for (let n = 0; n < 3; n++) { const along = (tall.ax ? tall.w : tall.h) / 2 + 40 + n * 48, cx = tall.x + tall.w / 2 + (tall.ax ? dir * along : 0), cy = tall.y + tall.h / 2 + (tall.ax ? 0 : dir * along), b = { x: cx - 5, y: cy - 5, w: 10, h: 10 };
         if (b.x < 24 || b.y < 24 || b.x + b.w > W - 24 || b.y + b.h > H - 24 || rectHits(b, solid, 30) || rectHits(b, out, 30) || (T.level.lanes || []).some((p) => Math.abs(X.pathProject(p, cx, cy).lat) < LW / 2 + 6)) break;
         row.push(Object.assign(b, { kind: 'bollard', low: true, height: 10, id: 'bollard' + out.length + '-' + n, duel: true })); }
@@ -192,7 +206,8 @@
     for (const c of cands) { if (out.length >= 3) break; if (out.some((o) => hyp(o[0] - c.x, o[1] - c.y) < 200)) continue; out.push([c.x, c.y, c.aim, out.length * 0.25]); }
     return out;
   }
-  function join(T, sc, DP, feed, PP) {
+  function join(T, sc, DP, feed, PP, def) {
+    const prof = def && def.level && RULES.levels[def.level] ? RULES.levels[def.level] : null;
     if (!ORIG.has(T)) ORIG.set(T, { proto: Object.getPrototypeOf(T), statics: T.level.statics, P: T.P, cameras: T.level.cameras, own: {} });
     const o = ORIG.get(T), P = Object.assign({}, o.P);
     for (const k of ['admit', 'meets']) if (Object.prototype.hasOwnProperty.call(T, k)) { o.own[k] = T[k]; delete T[k]; }
@@ -203,7 +218,7 @@
       lesson: null, lessons: [], delivery: null, firstBrakeT: null, firstSideT: null, firstCoverT: null, firstItemT: null, crashes: [], spring: null,
       whiteFleet: (DP['scoring.incidentPoints'] || 0) > 0, stealth: { points: 0, unseen: 0, lost: 0, seen: 0, last: null }, lift: null, blockT: 0, leftAt: -1e9, redSeq: 0, stageCaution: null, carKeepTG: null });
     T.run.incidents = 0; T.redLanes = laneInfo(T, P);
-    if (!sc.duelCover) { sc.duelCover = placeCover(T, sc, P, DP, T.redLanes, FAMILY[sc.D && sc.D.id] || FAMILY.monument); for (const q of sc.duelCover) { sc.game.statics.push(q); if (W6.paintCover) W6.paintCover(sc, q); } } // part of the tile for good: walked round, painted as Prototype 9 paints its own
+    if (!sc.duelCover) { sc.duelCover = placeCover(T, sc, P, DP, T.redLanes, FAMILY[sc.D && sc.D.id] || FAMILY.monument, prof); for (const q of sc.duelCover) { sc.game.statics.push(q); if (W6.paintCover) W6.paintCover(sc, q); } } // part of the tile for good: walked round, painted as Prototype 9 paints its own
     const planters = sc.duelCover;
     // Prototype 9's statics hide the dummy from the red car's own sensors; its planters are low cover (rows 696-697), as the duel's
     const ph = DP['props.planter.height'] || 14;
@@ -212,7 +227,7 @@
     T.level.statics = (sc.game.statics || []).filter((s) => !s.duel && s.kind !== 'bound').map((s) => (s.kind === 'planter' ? Object.assign({}, s, { low: true, height: ph }) : s.kind === 'mass' ? Object.assign({}, s, { low: true, height: massH(s) }) : s)).concat(planters);
     const roadside = T.level.statics.filter((q) => q.low && T.redLanes.some((ln) => Math.abs(X.pathProject(ln.path, q.x + q.w / 2, q.y + q.h / 2).lat) < 160)); // the planters an ambush uses
     const blind = (sc.duelCover || []).filter((q) => !q.low).slice(0, 1); // one tall piece no camera watches: rung 4's open way, cover the cameras miss
-    T.level.cameras = Math.round(DP['duel.topRung'] || 0) >= 4 ? placeCameras(sc, P, T.redLanes, roadside.concat(blind)) : [];
+    T.level.cameras = (prof ? prof.cameras || Math.round(DP['duel.startRung'] || 0) >= 4 : Math.round(DP['duel.topRung'] || 0) >= 4) ? placeCameras(sc, P, T.redLanes, roadside.concat(blind)) : [];
     sc.duelPosts = sc.duelPosts || []; for (const c of T.level.cameras) if (!sc.duelPosts.some((q) => q[0] === c[0] && q[1] === c[1])) { sc.duelPosts.push(c); if (W6.paintPost) W6.paintPost(sc, c[0], c[1]); } // its post, in the tile's art
     return T;
   }
@@ -235,8 +250,8 @@
       if (!def) return;
       const sc = this.W6.at('ABC'.indexOf(act[0]), +act[1] - 1), T = sc && (sc.main || sc.lab), DP = duelParams(def);
       if (!T || !DP) return;
-      this.duelFeed = []; join(T, sc, DP, this.duelFeed, this.P);
-      Object.assign(this, { duelT: T, duelSc: sc, duelDef: def, duelDP: DP, duelHits: 0, duelIncidents: 0, duelMovedAt: null, duelInc0: 0, duelPending: false, duelDone: false, duelDuck: true, duelT0: this.t });
+      this.duelFeed = []; join(T, sc, DP, this.duelFeed, this.P, def);
+      Object.assign(this, { duelT: T, duelSc: sc, duelDef: def, duelDP: DP, duelHits: 0, duelIncidents: 0, duelMovedAt: null, duelInc0: 0, duelPending: false, duelDone: false, duelDuck: !rulesPlan() || MAP.tiles.slice(0, MAP.tiles.indexOf(def)).some((q) => q.earns === 'knees1'), duelT0: this.t }); // DUCK: Super Knees, once earned
       this.emit('duel-start', { tile: def.tile, stage: def.stage, rung: T.rung, top: Math.round(DP['duel.topRung'] || 0), lanes: T.redLanes.length });
     }
     duelStop() { this.clipRing = []; this.clearLesson = null; if (this.duelT) leave(this.duelT, this.W6.sims); this.duelT = null; this.duelDef = null; this.duelSc = null; if (this.body) { this.body.duck = false; this.body.lifted = false; } }
@@ -324,7 +339,7 @@
     }
     continueLesson() {
       const T = this.duelT;
-      if (T && T.lesson && T.lesson.atClear) { const L = T.lesson; T.rung = L.to; T.lessons.push({ from: L.from, to: L.to, zone: L.zone, kind: L.kind, hitT: L.hitT, shownT: L.shownT }); T.lesson = null; this.phase = 'report'; this.emit('learned', { rung: L.to, name: L.name, atClear: true }); return; } // on to the report
+      if (T && T.lesson && T.lesson.atClear) { const L = T.lesson; if (L.part) { T.lesson = null; this.phase = 'report'; this.emit('earned', { part: L.part }); return; } T.rung = L.to; T.lessons.push({ from: L.from, to: L.to, zone: L.zone, kind: L.kind, hitT: L.hitT, shownT: L.shownT }); T.lesson = null; this.phase = 'report'; this.emit('learned', { rung: L.to, name: L.name, atClear: true }); return; } // on to the report
       this.phase = 'play';
       if (!T || !T.lesson) return;
       const L = T.lesson; T.rung = L.to; T.lessons.push({ from: L.from, to: L.to, zone: L.zone, kind: L.kind, hitT: L.hitT, shownT: L.shownT }); T.lesson = null;
@@ -378,7 +393,12 @@
     // Lawrence (7 Nov): the car learns once a tile, from the hit that clears it. The tile plays at its stage's start rung; the lesson
     // (start → top) shows after the write-off; the next tile starts there. Only the red car's hits count toward the objective.
     tileLesson(e, c) {
-      const T = this.duelT, from = T.rung, top = Math.round(T.DP['duel.topRung'] || 0), next = RUNGS[from + 1];
+      const T = this.duelT, from = T.rung, top = Math.round(T.DP['duel.topRung'] || 0), next = RUNGS[from + 1], earn = this.duelDef && this.duelDef.earns;
+      if (earn && earn !== 'car') { // the player earns a part: its card at the clear; Prototype 9's drone fits it on the way to the next tile (Super Knees: now)
+        const pt = RULES.parts[earn]; if (!pt) return; const i = MAP.tiles.indexOf(this.duelDef), nx = MAP.tiles[i + 1];
+        this.clearLesson = { state: 'due', atClear: true, part: earn, info: pt, next: nx ? nx.tile : null, from, to: from, model: c.model, car: c.id, zone: e.zone, kind: e.kind, hitT: e.t };
+        return;
+      }
       if (!next || top <= from) return;
       this.recordClip(true);
       this.clearLesson = { state: 'due', atClear: true, from, to: from + 1, name: next.name, sensor: next.sensor, model: c.model, car: c.id, zone: e.zone, kind: e.kind, hitT: e.t, lost: e.lost, origin: e.origin || null, seenAt: e.seenAt || null,
@@ -456,5 +476,5 @@
   STORY.StorySim = DuelStorySim;
   const taskText = STORY.taskText; // the tile card and HUD read the pipeline's objective
   STORY.taskText = (task, P) => (task && task.kind === 'red' ? { label: task.label, brief: task.brief } : taskText(task, P));
-  root.DUEL = { DuelTileSim, DuelStorySim, duelParams, laneInfo, placePlanters, placeCover, COVER, FAMILY, placeCameras, RUNGS, MAP, TUNE, faultOf, version: 1 };
+  root.DUEL = { DuelTileSim, DuelStorySim, duelParams, laneInfo, placePlanters, placeCover, COVER, FAMILY, RULES, placeCameras, RUNGS, MAP, TUNE, faultOf, version: 1 };
 })(typeof window !== 'undefined' ? window : globalThis);

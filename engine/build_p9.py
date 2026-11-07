@@ -74,10 +74,14 @@ def world6_js():
          "    else if (r.kind === 'kiosk') { block(B, x0, y0, x1, y1, 1, 0, 20, 'conc', null, true); for (let t = 4; t < 18; t++) for (let x = x0 + 1; x < x1; x++) B.put(x, y1 - t, t === 4 || t === 17 || x === x0 + 1 || x === x1 - 1 ? K.bldgOutline : mixK(led, K.white, (x + t) % 5 === 0 ? 0.5 : 0.12)); } // a digital kiosk: a lit screen on its road face\n"
          "    else if (r.kind === 'billboard') billboard(B, (x0 + x1) / 2, y1, Math.max(8, x1 - x0), 12, 8, led); // a lit board on legs\n"
          "    else if (r.kind === 'bollard') block(B, x0, y0, x1, y1, 1, 0, 5, 'conc', led, true); // a concrete bollard, lit cap\n"
+         "    else if (r.kind === 'krail') { block(B, x0, y0, x1, y1, 1, 0, 6, 'conc', null, true); for (let x = x0 + 1; x < x1; x++) if (Math.floor(x / 3) % 2 === 0) B.put(x, y1 - 3, led); } // a K-rail: low concrete, a lit stripe\n"
          "    CAP = keep;\n"
          "  }\n"
          "  const api = { paintPlanter, paintPost, paintCover, artUnit: U, P6SIM, DISTRICTS,"),
     ], 'world6.js')
+
+
+RULES = json.loads((ROOT / 'engine' / 'progression.json').read_text(encoding='utf-8'))  # car, player and level: one thing a tile
 
 
 def story_json(plan):
@@ -89,6 +93,14 @@ def story_json(plan):
         what = {'hits': f'{o["count"]} damaging hit{"s" if o["count"] != 1 else ""} by the red car', 'stealth': f'{o["count"]} stealth points from the red car', 'incidents': f'{o["count"]} Incidents'}[o['kind']]
         tile.update({'title': t['title'], 'tale': t['tale'], 'stage': t['stage'], 'newIdea': t.get('newIdea', ''), 'hint': t.get('hint', ''),
                      'task': {'kind': 'red', 'label': o['label'], 'brief': f'{what}. {t.get("hint", "")}'.strip(), 'count': o['count'], 'objective': o['kind']}})
+    if any(t.get('earns') for t in plan['tiles']):  # Lawrence (7 Nov): a part earned at a tile's clear rides in on the drone to the next tile
+        parts = RULES['parts']
+        for t in plan['tiles']:
+            mon['tiles'][t['tile']]['gift'] = None
+        for a, b in zip(plan['tiles'], plan['tiles'][1:]):
+            node = (parts.get(a.get('earns')) or {}).get('p9')
+            if node:
+                mon['tiles'][b['tile']]['gift'] = {'node': node}
     if plan.get('map', {}).get('intro'):
         mon['intro'] = plan['map']['intro']
     return d
@@ -132,12 +144,13 @@ def main():
     scripts += js(V / 'testroad.js')
     scripts += '<script>\n' + f'window.DUMMIES_STAGES = {json.dumps({k: {"title": v["title"], "flags": v["flags"]} for k, v in stages.items()})};\n'
     scripts += f'window.STORY_MAP1 = {json.dumps(plan, ensure_ascii=False)}; // content/story_map1.json, written by pipeline/run.py\n</script>\n'
+    scripts += f'<script>\nwindow.DUEL_RULES = {json.dumps(RULES, ensure_ascii=False)}; // engine/progression.json\n</script>\n'
     scripts += js(ROOT / 'engine' / 'duel.js') + js(ROOT / 'engine' / 'duel_ui.js')
     scripts += f'<script>\n{game_js()}\n</script>\n'
     shell = (E / 'shell.html').read_text(encoding='utf-8')
     shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · Story Mode</title>')], 'shell.html')
     cache = ROOT / 'engine' / '.cache'; cache.mkdir(exist_ok=True)  # for headless checks (node): the same values the page gets
-    (cache / 'runtime.json').write_text(json.dumps({'sim': sim, 'story': story_json(plan), 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan}), encoding='utf-8')
+    (cache / 'runtime.json').write_text(json.dumps({'sim': sim, 'story': story_json(plan), 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': RULES}), encoding='utf-8')
     out = ROOT / 'index.html'
     out.write_text(shell.replace('<!--SCRIPTS-->', scripts), encoding='utf-8')
     missing = [f for c in cues['sfx'].values() for f in c.get('files', []) + c.get('alternates', []) + ([c['tone']] if c.get('tone') else []) if not (ROOT / 'audio' / cues['files'].get(f, {}).get('dir', 'sfx') / f).exists()]

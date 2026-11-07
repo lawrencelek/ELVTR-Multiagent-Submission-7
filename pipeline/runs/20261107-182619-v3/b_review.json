@@ -1,0 +1,70 @@
+{
+ "verdict": "revise",
+ "issues": [
+  {
+   "tile": 7,
+   "severity": "high",
+   "problem": "Tiles 7 and 8 run at stage 10.5, whose measured open ways are only conebait 2.0 and lurk 0.8. Neither blindspot nor duckdash is among them, yet both ask for 2 hits.",
+   "fix": "Set the count to 1 on tiles 7 and 8, since hits against this red car's hard braking are rare."
+  },
+  {
+   "tile": 9,
+   "severity": "medium",
+   "problem": "The tile repeats tile 8's duckdash with only the level changed. It is a third 2-hit tile in a row with no breather, and the finale has no payoff.",
+   "fix": "Use blindspot on the watched level with count 1 (it fits, and closedBy 6 is above rung 4). Then cut tile 8 to 1 so the run is 2, 1, 1 with a payoff at the end."
+  },
+  {
+   "tile": 5,
+   "severity": "medium",
+   "problem": "Stage 10.4's measured open ways (jump, gap, aim, flank) do not include conebait, and this is the first use of cones, but the count is 2.",
+   "fix": "Set the count to 1 and make the hint say to stand where it swerves, into its path."
+  },
+  {
+   "tile": 7,
+   "severity": "medium",
+   "problem": "The tale says street cameras now watch the cover, but the car is at rung 3 and only earns cameras at this tile's clear. The hint \"Read the cameras\" names no cover, so it is not actionable.",
+   "fix": "Rewrite the tale so the cameras are only a warning of what comes next. Name the cabinet or kiosk in the hint."
+  },
+  {
+   "tile": 5,
+   "severity": "medium",
+   "problem": "The hint \"wait in the swerve\" breaks the fault rule: it never says to put the dummy in the car's path, so a player could step into its side.",
+   "fix": "Write: \"Hold J to cone its lane; stand where it swerves, into its path.\""
+  },
+  {
+   "tile": 6,
+   "severity": "low",
+   "problem": "The tale says \"the K-rail is optional\", but jumprail requires the rail and the jump. That contradicts the objective.",
+   "fix": "Replace it with deadpan wording that makes the rail the point, for example \"Legs 1 is fitted; the K-rail is policy.\""
+  },
+  {
+   "tile": 0,
+   "severity": "low",
+   "problem": "Phrases repeat across tiles. \"X is fitted\" opens the second half of the tale on tiles 3, 5, 6 and 8, and \"Space dash into its path\" ends the hint on tiles 3, 7, 8 and 9.",
+   "fix": "Vary the tale and hint structures, and name the specific cover or feature in each hint."
+  },
+  {
+   "tile": 8,
+   "severity": "low",
+   "problem": "The tale \"the planters are tall enough, nearly\" is unclear, and the rung 3 lidar sees over low cover, which weakens duck's purpose here.",
+   "fix": "Rewrite the tale to say plainly that ducking hides you behind the planter, and keep the hint on the planter and the dash."
+  },
+  {
+   "tile": 4,
+   "severity": "low",
+   "problem": "The hint ends \"just ahead of it\" instead of \"into its path\", which risks the fault wording.",
+   "fix": "Write: \"Escalator up; drop through the parapet gap into its path.\""
+  },
+  {
+   "tile": 9,
+   "severity": "low",
+   "problem": "The override duckNoticeFactor 2 is valid, but its purpose is not stated. The hint \"the hedge cameras miss\" can be read as the cameras missing the hedge.",
+   "fix": "Say in the newIdea that the override eases the finale, and rewrite the hint as \"Duck at the hedge out of camera sight; Space dash into its path.\""
+  }
+ ],
+ "strengths": [
+  "The chain is sound: stages follow the car's rung, each earned part is needed by the next tile's trick, and every closedBy is above the car's rung.",
+  "Levels and cover names match each tile's levelsThatFit and coverByLevel, and all overrides are registry ids within range.",
+  "Tales are 15 to 20 words, hints are 12 words or fewer, and the deadpan voice holds."
+ ]
+}

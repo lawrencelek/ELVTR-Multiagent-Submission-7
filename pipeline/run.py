@@ -27,10 +27,12 @@ import validate  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 B = ROOT / 'pipeline' / 'inputs' / 'build'
+WORLD = ['p9']  # set by main: which world's inputs the agents read
 
 
 def inputs_block():
-    return '\n\n'.join(f'## {name.upper()}\n```json\n{(B / f"{name}.json").read_text(encoding="utf-8")}```' for name in ('ladder', 'map1', 'registry'))
+    names = ('ladder', 'map1', 'registry') + (('progression',) if (B / 'progression.json').exists() and WORLD[0] == 'p9' else ())
+    return '\n\n'.join(f'## {name.upper()}\n```json\n{(B / f"{name}.json").read_text(encoding="utf-8")}```' for name in names)
 
 
 def main():
@@ -41,6 +43,7 @@ def main():
     a = ap.parse_args()
     models = {'designer': 'opus', 'reviewer': 'opus', 'refiner': 'opus'} if a.v1 else {'designer': 'opus', 'reviewer': 'sonnet', 'refiner': 'sonnet'}
     world = 'junction' if a.v1 else a.world
+    WORLD[0] = world
     tag = time.strftime('%Y%m%d-%H%M%S') + ('-v1' if a.v1 else '-v3' if world == 'p9' else '-v2')
     run = llm.Run(ROOT / 'pipeline' / 'runs' / tag)
     run.world = world
@@ -73,17 +76,18 @@ def main():
         errs = validate.check(final, world)
     run.save('c_final.json', final)
     run.log(f'  validate: {len(errs)} errors' + ''.join(f'\n    - {e}' for e in errs))
-    if errs:
-        run.log('STOP: the plan does not validate; nothing integrated')
-        sys.exit(1)
-
     cost = sum(c.get('cost_usd') or 0 for c in run.calls)
-    summary = {'run': tag, 'models': models, 'registry': 'full' if a.v1 else 'filtered', 'world': world, 'calls': run.calls, 'cost_usd': round(cost, 4),
+    summary = {'run': tag, 'valid': not errs, 'models': models, 'registry': 'full' if a.v1 else 'filtered', 'world': world, 'calls': run.calls, 'cost_usd': round(cost, 4),
                'input_chars': len(ctx), 'tokens': {k: sum(c.get(k) or 0 for c in run.calls) for k in ('input_tokens', 'cache_write_tokens', 'cache_read_tokens', 'output_tokens')}}
     run.save('costs.json', summary)
     for c in run.calls:
         run.log(f'  cost {c["label"]:<12} {c["model"]:<7} ${c.get("cost_usd") or 0:.4f}  in {c.get("input_tokens") or 0}+{c.get("cache_write_tokens") or 0} write+{c.get("cache_read_tokens") or 0} read  out {c.get("output_tokens") or 0}  {c.get("seconds", 0)} s')
     run.log(f'  run cost ${cost:.4f}')
+
+    if errs:
+        run.log('STOP: the plan does not validate; nothing integrated')
+        sys.exit(1)
+
 
     if a.no_integrate:
         return

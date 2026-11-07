@@ -1,0 +1,178 @@
+{
+ "map": {
+  "id": "monument",
+  "title": "MAP 1 · MONUMENT",
+  "intro": "Dummy Corporation welcomes you to Monument. The red car is your colleague; it learns. Certification awaits the persistent."
+ },
+ "tiles": [
+  {
+   "n": 1,
+   "tile": "A1",
+   "title": "The welcome wall",
+   "stage": "10.2",
+   "earns": "car",
+   "level": "open",
+   "trick": "walkin",
+   "newIdea": "Walk into its path under the Z1 highway; it earns the forward camera.",
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "LET IT HIT YOU"
+   },
+   "params": {
+    "duel.redReturnSeconds": 3
+   },
+   "tale": "Fresh off the factory floor. The LED wall welcomes you. Walk into a colleague's path and be welcomed back.",
+   "hint": "Walk into its path, just ahead of its nose."
+  },
+  {
+   "n": 2,
+   "tile": "B1",
+   "title": "The podium bridge",
+   "stage": "10.3",
+   "earns": "battery1",
+   "level": "kerb",
+   "trick": "kerbstep",
+   "newIdea": "It brakes for you now: hide at the kerb, step out late. Earns Battery 1.",
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "STEP OUT LATE"
+   },
+   "params": {},
+   "tale": "Your colleague now has a forward camera. The podium's kiosks hide you; step out once braking is futile.",
+   "hint": "Wait behind the kerbside kiosk; step into its path late."
+  },
+  {
+   "n": 3,
+   "tile": "C1",
+   "title": "The LED drum",
+   "stage": "10.3",
+   "earns": "car",
+   "level": "setback",
+   "trick": "dashcover",
+   "newIdea": "Battery 1: dash from set-back cover into its path. It learns side sensors.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "DASH INTO ITS PATH"
+   },
+   "params": {
+    "ui.lungeGuide": 1
+   },
+   "tale": "Battery 1 is fitted. The drum's cover stands well back from the bend; walking out is no longer efficient.",
+   "hint": "Behind the cabinet by the bend, press Space ahead of its nose."
+  },
+  {
+   "n": 4,
+   "tile": "C2",
+   "title": "The portal tower",
+   "stage": "10.4",
+   "earns": "hands1",
+   "level": "deck",
+   "trick": "drop",
+   "newIdea": "Side sensors spot you roadside: drop from the roof plaza. Earns Hands 1.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "DROP INTO ITS PATH"
+   },
+   "params": {},
+   "tale": "Your colleague now notices the pavement. It never looks up. Ride the escalator to the roof plaza; step off.",
+   "hint": "Ride the escalator up; walk through the parapet gap ahead of it."
+  },
+  {
+   "n": 5,
+   "tile": "B2",
+   "title": "The monument",
+   "stage": "10.4",
+   "earns": "car",
+   "level": "cones",
+   "trick": "conebait",
+   "newIdea": "Hands 1: put a cone in its lane; wait where it swerves. It learns lidar.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "CONE-BAITED HIT"
+   },
+   "params": {},
+   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Hands 1 is fitted. Cones are now your stationery.",
+   "hint": "Hold J: cone in its lane. Stand where it swerves."
+  },
+  {
+   "n": 6,
+   "tile": "A2",
+   "title": "The neon shops",
+   "stage": "10.5",
+   "earns": "knees1",
+   "level": "tall",
+   "trick": "dashcover",
+   "newIdea": "Lidar sees falls: back to the ground, dash from tall cover. Earns Super Knees.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "DASH FROM COVER"
+   },
+   "params": {},
+   "tale": "Your colleague has a roof lidar and reads every fall. The neon shops sell nothing but excellent cover.",
+   "hint": "Wait behind a neon billboard; Space into its path."
+  },
+  {
+   "n": 7,
+   "tile": "A3",
+   "title": "The stacked cubes",
+   "stage": "10.5",
+   "earns": "car",
+   "level": "low",
+   "trick": "duckdash",
+   "newIdea": "Super Knees: duck behind a planter, then dash. It learns street cameras.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "DUCK, THEN DASH"
+   },
+   "params": {},
+   "tale": "Super Knees are fitted. The cubes rose one budget at a time; the planters were cheaper. Crouch accordingly.",
+   "hint": "Hold C behind the planters; Space into its path."
+  },
+  {
+   "n": 8,
+   "tile": "B3",
+   "title": "The LED canyon",
+   "stage": "10.6",
+   "earns": "legs1",
+   "level": "watched",
+   "trick": "blindspot",
+   "newIdea": "Street cameras watch tall cover: dash from cover they miss. Earns Legs 1.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "UNSEEN DASH"
+   },
+   "params": {
+    "perception.streetCameraRange": 180
+   },
+   "tale": "Street cameras now report to your colleague. They watch the cabinet and kiosk. Hedges remain beneath their notice.",
+   "hint": "Skip the watched kiosk; duck behind the hedge, then Space."
+  },
+  {
+   "n": 9,
+   "tile": "C3",
+   "title": "The LED gateway",
+   "stage": "10.6",
+   "earns": "car",
+   "level": "cones",
+   "trick": "conebait",
+   "newIdea": "Final exam: cone bait on the open road. It learns road items.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "CONE-BAITED FOR CERTIFICATION"
+   },
+   "params": {},
+   "tale": "Legs 1 is filed for Map 2. Bait your colleague once more under the gateway; Certification is reviewing.",
+   "hint": "Cone in its lane under the gateway; wait where it swerves."
+  }
+ ],
+ "rationale": "Car climbs rung 0 to 5; each car lesson closes the trick just played: walkin, kerbstep, drop, dashcover, conebait. Parts unlock the next trick: Battery 1 dashcover, Hands 1 conebait, Super Knees duckdash. Counts stay 1-2 for the hard brakes. CONFLICT: Legs 1 serves only jumprail (closedBy 3); its sole legal slot is tile 5, and B2 fits no rail. Legs 1 is earned on tile 8 and carried to Map 2. Fix: rail on B2, or a Legs trick."
+}

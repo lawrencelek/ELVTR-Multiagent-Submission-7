@@ -1,0 +1,15 @@
+[18:20:18] run 20261107-182018-v3: models {'designer': 'opus', 'reviewer': 'sonnet', 'refiner': 'sonnet'}; world p9
+[18:20:22] 1 ingest: ingest: 10 stages; Map 1 9 tiles (p9); registry 65 of 703 entries (filtered)
+[18:20:22]   inputs: 42,826 characters
+[18:20:22] 2 designer (opus) ...
+[18:22:35]   plan: 1 A1 10.2 hitsx2 | 2 B1 10.3 hitsx1 | 3 C1 10.3 hitsx2 | 4 C2 10.4 hitsx1 | 5 B2 10.4 hitsx2 | 6 A2 10.5 hitsx2 | 7 A3 10.5 hitsx2 | 8 B3 10.6 hitsx1 | 9 C3 10.6 hitsx2
+[18:22:35] 3 validate: 2 errors
+    - tile 1: hint has 13 words (1-12)
+    - tile 5: tile 4 earned legs1, but this tile's trick (dashcover) does not need it: every part must be needed on the next tile
+[18:22:35] 4 reviewer (sonnet) ...
+[18:23:45]   verdict revise: [high] tile 4: Tile 4 earns Legs 1, but tile 5's trick (dashcover) needs only battery1. The part is never used, which breaks 'every upgrade is necessary'. Legs 1's only trick, jumprail, closes at rung 3.; [high] tile 5: B2 has no 'rail' in levelsThatFit, so jumprail cannot be played there. The plan's own rationale admits this. B3, built for the jump verb and with rail cover, is wasted on the blindspot trick at tile 8.; [medium] tile 6: This is the third dashcover tile (3, 5, 6), so it adds no new idea. A2, built for cones, hosts a dash trick while A3, built for combo, hosts the cone trick.; [medium] tile 1: The hint is 13 words, over the 12-word limit.; [low] tile 4: The hint says 'walk off the parapet gap'. That is wrong wording, and it gives no timing for landing in the car's path.; [low] tile 9: The final tile is a plain 2-hit duck-dash with no distinct payoff beyond the tale line. The tale says 'hedges' where the hint says 'planter'.
+[18:23:45] 5 refiner (sonnet) ...
+[18:24:43]   validate: 1 errors; one repair pass
+[18:25:03]   validate: 1 errors
+    - tile 9: tile 8 earned legs1, but this tile's trick (duckdash) does not need it: every part must be needed on the next tile
+[18:25:03] STOP: the plan does not validate; nothing integrated
