@@ -6,7 +6,7 @@
   "topRung": 0,
   "teaches": "Nothing. The red car drives straight through.",
   "closes": "nothing",
-  "opens": "walk into its path; dash from the side",
+  "opens": "walk into its path and let it hit you",
   "measuredOpenWaysOnTheTestRoad": "walkin 3.73, flank 2.54, aim 1.8, stand 1.27, standOff 1.27, standSouth 1.21, wander 0.93",
   "keyValues": {
    "duel.enabled": 1,
@@ -27,7 +27,7 @@
   "topRung": 1,
   "teaches": "After its first crash, a lesson: it brakes for a dummy in its lane (the beam).",
   "closes": "standing in its lane",
-  "opens": "the flank: dash in from beside its lane as it rolls past",
+  "opens": "the cut-in: wait beside its lane; dash into its path just ahead of its nose, too late for it to stop",
   "measuredOpenWaysOnTheTestRoad": "flank 2.81, walkin 1.94, aim 1.6, wander 0.53",
   "keyValues": {
    "perception.forwardLength": 720,
@@ -42,8 +42,8 @@
   "startRung": 1,
   "topRung": 2,
   "teaches": "Side cones: it notices a dummy beside the road, slows, then stops short of it. A dummy up on a deck is out of its world.",
-  "closes": "the open flank",
-  "opens": "height: drop onto it through a gap in a deck over its road, or jump",
+  "closes": "the open cut-in",
+  "opens": "height: drop through a gap in a deck over its road as it drives under, or jump into its path",
   "measuredOpenWaysOnTheTestRoad": "jump 2.69, plinth 2.67, gap 2.07, aim 2.0, flank 1.8, dashjump 0.47",
   "keyValues": {
    "proto.driver.cautionZone": 180,
@@ -61,7 +61,7 @@
   "topRung": 3,
   "teaches": "Roof lidar: it sees a dummy in the air (a jump, or a fall off a deck onto its road). Up on a deck you are still unseen.",
   "closes": "the drop and the jump onto it",
-  "opens": "cover: spring from behind a building, column or kiosk as it passes",
+  "opens": "cover: spring from behind a building, column or kiosk into its path just ahead of it",
   "measuredOpenWaysOnTheTestRoad": "jump 2.69, gap 2.21, aim 2.0, flank 1.8, dashjump 0.47",
   "keyValues": {
    "duel.topRung": 3,
@@ -76,7 +76,7 @@
   "topRung": 4,
   "teaches": "Kerbside street cameras share what they see: cover a camera watches no longer hides you.",
   "closes": "springs from watched cover",
-  "opens": "cover the cameras miss; the sprint from beyond its cones",
+  "opens": "cover the cameras miss; a cone in its lane makes it swerve into you",
   "measuredOpenWaysOnTheTestRoad": "conebait 2.0, lurk 0.8",
   "keyValues": {
    "duel.topRung": 4,
@@ -91,7 +91,7 @@
   "topRung": 5,
   "teaches": "It stops for cones and never swerves round them; the dummy gets DUCK (hold C) to hide behind low planters.",
   "closes": "the cone bait",
-  "opens": "the planter ambush: duck behind a planter by its road; spring as it passes",
+  "opens": "the planter ambush: duck behind a planter by its road; spring into its path just ahead of it",
   "measuredOpenWaysOnTheTestRoad": "planter 3.03, lurk 0.8",
   "keyValues": {
    "duel.topRung": 5,

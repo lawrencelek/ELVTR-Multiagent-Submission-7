@@ -6,22 +6,23 @@
 
 - **The plan:** `content/story_map1.json`. Map 1 (Monument), tiles 1–9.
   - Per tile: ladder stage, objective, overrides, title, tale, hint, new idea.
-  - Shipped run: `20261107-134502-v3`, $0.5233.
+  - Shipped run: `20261107-154808-v3` (v3e), $0.7768.
 - **Escalation:**
-  - Stages: 10.1 → 10.2 → 10.3 → 10.4 → 10.5 → 10.5 → 10.6 → 10.7 → 10.9.
-  - Tricks, tile by tile: walk-in, dash, deck drop, cover, unwatched cover, cone bait, planter ambush, a new spot each time.
-  - Then white-car cover.
+  - Stages: 10.1 → 10.2 → 10.3 → 10.4 → 10.5 → 10.5 → 10.6 → 10.7 → 10.10.
+  - Tricks, tile by tile: walk into its path, dash into its path, drop into its path, spring from cover, unwatched cover, cone bait, duck then spring, a new spot each time.
+  - Then the Incident: make it stop hard, and a tailgater runs into it.
+  - Every line puts the dummy in the car's path: only a car that hits the dummy scores (the fault rule).
 - **Hints name what the tile has:** they come from Prototype 9's plan and the measured affordances.
-  - C1: "Ride the Z2 escalator; walk off through the parapet gap."
-  - A2 had no room for a planter, so the agents gave it the cone bait; A3 has room, so it got the planter ambush.
+  - C1: "Escalator up; step off the Z2 parapet gap into its path."
+  - A2 has no room for a planter, so the agents give it the cone bait; A3 has room, so it gets the planter ambush.
 - **The game:** `index.html`.
   - Prototype 9's Monument (art, fleet, decks, HUD, sound) with Prototype 10's red car.
   - It loads the plan unchanged, and Prototype 9's own clear carries the player to the next tile.
 - **Checks:**
   - Validator: 0 errors.
   - `engine/p9_tiles_test.js`: 9 of 9 tiles.
-  - The play test clears tiles 1–2 (80 s), with the first lesson.
-  - Headless bots clear every tile, in 5–88 s.
+  - The play test clears tiles 1–2 with the first lesson, cutting in ahead of the car.
+  - Headless bots (`engine/p9_probe.js`) score on every tile; see §2.
 - **Evidence:** every prompt, reply, review and log line is in the run folders. The video shows the runs and the game: `docs/pipeline_run.mp4`.
 
 ## 2. Manual steps left, and how to remove them
@@ -29,7 +30,7 @@
 | Step | Why it's still manual | How to remove it |
 |---|---|---|
 | Copy Prototypes 9 and 10 from Submission 6B (`VENDOR.md`) | Copied by hand; md5s are recorded | `pipeline/vendor.py`: fetch a pinned 6B commit, check the md5s |
-| Difficulty on Prototype 9's tiles | At 70% speed a flanking bot still clears B1, C2, B2, A2 and B3 in under 25 s, but needs 57 s on C1 and 64 s on C3. The rate measures are from the test road | Run the probe bots per tile inside ingest. Feed hits a minute to the designer, as `affordances.js` already feeds geometry |
+| Difficulty on Prototype 9's tiles | Fixed in the engine, measured by hand. Before: a bot dashing into a slowed car's corner cleared five tiles in under 25 s. Now that bot scores nothing (B1: 10 dashes, 10 at its own fault). A cut-in or cover bot clears A1 in 30 s, B1 26 s, C1 21 s, C2 116 s, B2 320 s, C3 237 s; it lands 1 of 2 hits on A2 and A3 and 1 of 3 on B3 in 6 min | Run `engine/p9_probe.js` per tile inside ingest. Feed hits a minute to the designer, as `affordances.js` already feeds geometry |
 | Judging fun | A human must play | A short recorded play session per tile in CI, for review |
 | Deploy, video | One command each, run by hand | One GitHub Action: build, test, deploy Pages, render the video |
 
@@ -43,7 +44,7 @@
 - **Alternative considered:** rebuild Prototype 9's tiles inside `TestRoadSim`, as levels of the test road.
   - That would lose the decks, the fleet, the story and the HUD.
   - It would also split Prototype 9 into two versions.
-- **Cost of the change:** the duel relies on a few internal names in Prototype 9's sims (`admit`, `meets`, `level.statics`). The build asserts every patch, so a change upstream fails loudly.
+- **Cost of the change:** the duel relies on a few internal names: Prototype 9's `admit`, `meets` and `level.statics`; Prototype 10's `manSpeed`, `watchField`, `spawnSpeed` and `searchStep` (the red car's brakes). The build asserts every patch, so a change upstream fails loudly.
 
 ## 4. Cost analysis (actual runs)
 
@@ -54,12 +55,13 @@
 | v3a | Prototype 9 tiles | Opus $0.4136 | Sonnet $0.1913 | Sonnet $0.1443 | Sonnet $0.0991 | $0.8483 |
 | v3b | + measured affordances | Opus $0.3599 | Sonnet $0.1567 | Sonnet $0.1470 | — | $0.6637 |
 | v3c | + playtest fixes | Opus $0.4381 | Sonnet $0.1573 | Sonnet $0.1440 | — | $0.7394 |
-| v3d (shipped) | + label rule; cached prompt | Opus $0.1726 | Sonnet $0.1378 | Sonnet $0.1085 | Sonnet $0.1044 | $0.5233 |
+| v3d | + label rule; cached prompt | Opus $0.1726 | Sonnet $0.1378 | Sonnet $0.1085 | Sonnet $0.1044 | $0.5233 |
+| v3e (shipped) | + fault rule, red brakes | Opus $0.4699 | Sonnet $0.1602 | Sonnet $0.1467 | — | $0.7768 |
 
-- **Total spent:** $7.4182 on 6 runs and 21 model calls. Building the pipeline and the integration in Claude Code isn't metered here.
-- **Most expensive step:** the Opus designer, at 35% of v1 and 54% of v3b. In v3d its prompt was still cached from v3c (71,280 tokens read from cache), and it cost $0.17.
+- **Total spent:** $8.1950 on 7 runs and 24 model calls. Building the pipeline and the integration in Claude Code isn't metered here.
+- **Most expensive step:** the Opus designer, at 35% of v1, 54% of v3b and 60% of v3e. In v3d its prompt was still cached from v3c (71,280 tokens read from cache), and it cost $0.17. v3e changed its prompt (the fault rule), so nothing was cached: $0.47.
 - **Solo sustainability:**
-  - At $0.52–0.74 a run, 3 maps × 10 iterations cost $16–22.
+  - At $0.52–0.78 a run, 3 maps × 10 iterations cost $16–23.
   - At v1's rate, the same work costs about $117.
 
 ## 5. Mid-project cost reduction
@@ -76,5 +78,5 @@
   - The filter alone cut the Opus designer by 77%.
   - The Sonnet swap cut the reviewer and refiner by 84%.
 - **v3b cost less than v2,** although it carries Prototype 9's tiles and measured facts. The facts left nothing to repair, so v3b needed no repair pass (v2 and v3a each needed one).
-- **The cheaper check is code:** the validator caught an impossible tile (a planter where none fits) before any play-test, and count-only labels after the playtest fixes.
+- **The cheaper check is code:** the validator caught an impossible tile (a planter where none fits) before any play-test, count-only labels after the playtest fixes, and text that has the dummy hit the car after the fault rule. On the v3d plan that last rule finds 7 errors; v3e passes with none.
 - **Second saving: run back to back.** The designer's prompt stays cached for a few minutes. v3d's designer read 32,143 tokens from cache and cost $0.17, against $0.44 in v3c.

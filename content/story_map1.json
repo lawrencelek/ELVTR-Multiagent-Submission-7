@@ -2,7 +2,7 @@
  "map": {
   "id": "monument",
   "title": "MAP 1 · MONUMENT",
-  "intro": "Dummy Corporation welcomes you off the factory floor. Nine tests, one red colleague who learns from each crash. Certification awaits."
+  "intro": "Dummy Corporation welcomes you off the factory floor. Your colleagues learn from every crash; Certification requires that you keep up."
  },
  "tiles": [
   {
@@ -10,150 +10,156 @@
    "tile": "A1",
    "title": "The welcome wall",
    "stage": "10.1",
-   "newIdea": "Controls; the red car drives straight through, learning nothing.",
+   "newIdea": "Controls: walk into the red car's path and let it hit you.",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "WALK INTO A CAR"
+    "label": "WALK INTO ITS PATH"
    },
-   "params": {},
-   "tale": "Fresh off the factory floor. The LED wall plays your welcome reel. Step in front of a colleague.",
-   "hint": "Walk into the red car's lane under the Z1 highway."
+   "params": {
+    "duel.redReturnSeconds": 2
+   },
+   "tale": "Fresh off the factory floor. Step into a colleague's path under the highway and let it hit you.",
+   "hint": "Walk into its lane under the highway."
   },
   {
    "n": 2,
    "tile": "B1",
    "title": "The podium bridge",
    "stage": "10.2",
-   "newIdea": "It learns: after one hit, it brakes for dummies in its lane.",
+   "newIdea": "Dash (Space): after one hit, it brakes for dummies in its lane.",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "DASH INTO A CAR"
+    "label": "DASH INTO ITS PATH"
    },
-   "params": {},
-   "tale": "Battery 1 is fitted. The skybridge was built for shoppers who never came; the red car now brakes for you.",
-   "hint": "Wait beside its lane under the skybridge; Space to dash in."
+   "params": {
+    "ui.lungeGuide": 1
+   },
+   "tale": "Battery 1 is fitted. Once hit, your colleague learns to brake for dummies in its lane.",
+   "hint": "Wait by the podium; Space dashes into its path."
   },
   {
    "n": 3,
    "tile": "C1",
    "title": "The LED drum",
    "stage": "10.3",
-   "newIdea": "Side sensors: it stops for dummies beside its road.",
+   "newIdea": "The drop: side sensors watch the kerb; fall from the Z2 deck.",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "DROP ONTO A CAR"
+    "label": "DROP INTO ITS PATH"
    },
    "params": {},
-   "tale": "Side sensors are fitted to the car. The Z2 highway remains out of its world: step off onto its roof.",
-   "hint": "Ride the Z2 escalator; walk off through the parapet gap."
+   "tale": "The LED drum lights the bend. Your colleague now watches the kerb, not the sky. Gravity is company policy.",
+   "hint": "Escalator up; step off the Z2 parapet gap into its path."
   },
   {
    "n": 4,
    "tile": "C2",
    "title": "The portal tower",
    "stage": "10.4",
-   "newIdea": "Roof lidar: it sees you fall; spring from cover instead.",
+   "newIdea": "Cover: roof lidar sees falls; spring from behind the portal tower.",
    "objective": {
     "kind": "hits",
     "count": 2,
     "label": "SPRING FROM COVER"
    },
    "params": {},
-   "tale": "A roof lidar now watches the sky. The portal tower still blocks its view: wait behind it, then step out.",
-   "hint": "Hide behind the portal tower; step out as it passes."
+   "tale": "The highway runs through the portal tower at the sixth floor. Roof lidar is expensed: falling is now visible.",
+   "hint": "Hide behind the portal tower; step out into its path."
   },
   {
    "n": 5,
    "tile": "B2",
    "title": "The monument",
    "stage": "10.5",
-   "newIdea": "Street cameras: watched cover no longer hides you.",
+   "newIdea": "Street cameras: watched cover stops hiding you; find the monument's blind side.",
    "objective": {
     "kind": "hits",
     "count": 1,
-    "label": "UNWATCHED COVER"
+    "label": "SPRING OUT OF CAMERA VIEW"
    },
    "params": {
-    "perception.streetCameraRange": 180
+    "perception.streetCameraRange": 300
    },
-   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Street cameras now watch the monument's corners.",
-   "hint": "Find cover the cameras miss round the monument; spring from it."
+   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Street cameras report to your colleague.",
+   "hint": "Hide behind the monument's far side from cameras; step into its path."
   },
   {
    "n": 6,
    "tile": "A2",
    "title": "The neon shops",
    "stage": "10.5",
-   "newIdea": "Hands 1: put a cone in its lane to stop it.",
+   "newIdea": "Cones (J): a cone in its lane makes it swerve into you.",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "CONE-BAITED CAR"
+    "label": "BAIT WITH A CONE"
    },
    "params": {},
-   "tale": "The arcade glows for nobody. Hands 1 is fitted: put a cone in the road and let a colleague stop.",
-   "hint": "J drops a cone ahead of it; strike as it slows."
+   "tale": "Neon shops sell nothing, yet traffic reads them. Hands 1 is fitted: bait a colleague with a cone.",
+   "hint": "J: put a cone in its lane; wait beside it."
   },
   {
    "n": 7,
    "tile": "A3",
    "title": "The stacked cubes",
    "stage": "10.6",
-   "newIdea": "Duck: hold C behind a planter, spring as it passes.",
+   "newIdea": "DUCK (hold C) behind low planters; cones stop working.",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "PLANTER AMBUSH"
+    "label": "DUCK, THEN SPRING"
    },
-   "params": {},
-   "tale": "Cones now stop the red car dead. The planters were budgeted, so use them: duck, wait, and spring.",
-   "hint": "Hold C behind a planter by the road; Space as it passes."
+   "params": {
+    "perception.duckNoticeFactor": 2
+   },
+   "tale": "DUCK is approved. The stacked cubes rose one budget at a time; their planters hide you the same way.",
+   "hint": "Hold C behind a planter; spring into its path."
   },
   {
    "n": 8,
    "tile": "B3",
    "title": "The LED canyon",
    "stage": "10.7",
-   "newIdea": "Crash memory: it watches every spot you struck from.",
+   "newIdea": "Crash memory: it watches every spot you were hit from.",
    "objective": {
     "kind": "hits",
-    "count": 3,
-    "label": "A NEW SPOT EACH TIME"
+    "count": 2,
+    "label": "NEW SPOT EACH TIME"
    },
    "params": {},
-   "tale": "Legs 1 is fitted. Between the screens, the red car remembers every crash site; never repeat yourself.",
-   "hint": "New spot each time; L jump from the skybridge side."
+   "tale": "Legs 1 is fitted. Between the LED walls, your colleague now watches every spot it hit you from.",
+   "hint": "Spring from a new wall each time; jump into its path."
   },
   {
    "n": 9,
    "tile": "C3",
    "title": "The LED gateway",
-   "stage": "10.9",
-   "newIdea": "Two-way white traffic: moving cover that never learns.",
+   "stage": "10.10",
+   "newIdea": "The Incident: white tailgaters rear-end the red car when it stops hard.",
    "objective": {
-    "kind": "hits",
-    "count": 3,
-    "label": "RED CAR HITS"
+    "kind": "incidents",
+    "count": 1,
+    "label": "CAUSE AN INCIDENT"
    },
    "params": {},
-   "tale": "The fleet joins: white colleagues that never learn. Hit the red car; white hits score a fifth.",
-   "hint": "Stand by the gateway kerb; step out from behind white traffic."
+   "tale": "The gateway thanks every driver for driving safely. Make the red car brake hard; traffic files the Incident.",
+   "hint": "Spring from cover into its path; tailgaters do the rest."
   }
  ],
- "rationale": "Only the validator error was fixed: tile 3's tale dropped 'red' to reach 20 words. Everything else is unchanged: tile ids, order, objectives, overrides and hints.",
+ "rationale": "Fixed the two labels to name the move. Cut the tile 3 override and shortened hints. Tile 5 drops to one hit as a breather; its camera range override softens the stage. Kept lungeGuide to help the first dash and duckNoticeFactor to soften the first planter test. Tile 8 now names the jump. Removed the cone-closure preview from the tile 7 tale.",
  "provenance": {
   "pipeline": "pipeline/run.py",
-  "run": "20261107-134502-v3",
+  "run": "20261107-154808-v3",
   "world": "p9",
   "models": {
    "designer": "opus",
    "reviewer": "sonnet",
    "refiner": "sonnet"
   },
-  "costUsd": 0.5233,
+  "costUsd": 0.7768,
   "validator": "pass",
   "review": "revise"
  }

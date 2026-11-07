@@ -27,6 +27,12 @@
   // Lawrence (7 Nov): a white car's hit scores a fifth of Prototype 9's points; the red car's, all of them plus its damage.
   // Proposed registry ids (not yet registered): scoring.whiteShare 0.2, scoring.redDamageBonus 1.
   const WHITE_SHARE = 0.2, RED_DAMAGE_BONUS = 1;
+  // Lawrence (7 Nov): only a vehicle that hits the dummy scores. At contact, the vehicle is at fault when its own motion gives at
+  // least half the closing speed along the contact normal and it moves at FAULT_MIN or more. Otherwise the dummy ran into it:
+  // damage, no points, no objective, no lesson. Every vehicle. Proposed registry ids: scoring.faultShare 0.5, scoring.faultMinSpeed 20.
+  // The red car brakes as Prototype 10 built it: the registry's traffic.hardBraking (600), not Prototype 9's Highway Code 79.
+  const TUNE = { faultShare: 0.5, faultMin: 20, redHard: X.REG['traffic.hardBraking'] };
+  const faultOf = (carPart, bodyPart) => (carPart >= TUNE.faultMin && carPart >= (carPart + Math.max(0, bodyPart)) * TUNE.faultShare ? 'car' : 'dummy');
   const ORIG = new WeakMap(); // a tile sim → its own prototype, statics and values, restored when the duel moves on
 
   function duelParams(def) {
@@ -56,7 +62,16 @@
     duelCar(c) { return !!c && this.duelOn && (c.red || (this.whiteFleet && c.white)); } // the red car; from 10.10 the fleet too, as Prototype 10's white cars
     assessBody(c) { return this.duelCar(c) ? TP.assessBody.call(this, c) : BP.assessBody.call(this, c); }
     occluded(self, x0, y0, x1, y1) { return this.duelCar(self) ? TP.occluded.call(this, self, x0, y0, x1, y1) : this.p9(() => BP.occluded.call(this, self, x0, y0, x1, y1)); }
-    choose(c, tg, opts) { return this.duelCar(c) ? TP.choose.call(this, c, tg, opts) : this.p9(() => BP.choose.call(this, c, tg, opts)); }
+    choose(c, tg, opts) { return this.duelCar(c) ? this.redBrakes(c, () => TP.choose.call(this, c, tg, opts)) : this.p9(() => BP.choose.call(this, c, tg, opts)); }
+    // the red car's brakes: Prototype 10's traffic.hardBraking (the registry's) wherever it plans or keeps a stop; the fleet keeps Prototype 9's
+    redBrakes(c, fn) {
+      const h = this.duelOn && c && c.red ? TUNE.redHard : 0, P = this.P; if (!(h > 0)) return fn();
+      const keep = P['traffic.hardBraking']; P['traffic.hardBraking'] = h; try { return fn(); } finally { P['traffic.hardBraking'] = keep; }
+    }
+    manSpeed(c, man, tau, sAt) { return this.redBrakes(c, () => TP.manSpeed.call(this, c, man, tau, sAt)); }
+    watchField(c, dt) { return this.redBrakes(c, () => TP.watchField.call(this, c, dt)); }
+    spawnSpeed(c) { return this.redBrakes(c, () => TP.spawnSpeed.call(this, c)); }
+    searchStep(c) { return this.redBrakes(c, () => TP.searchStep.call(this, c)); }
     carAI(dt) { if (this.whiteFleet) for (const c of this.cars) if (!c.red && !c.ghost && !(c.layer > 0)) c.white = true; return TP.carAI.call(this, dt); } // 10.10: the fleet tailgates (traffic.whiteTimeGap)
     whiteHides(self, x0, y0) { // 10.9 on: any car of the fleet between the red car's sensors and the dummy hides it (moving cover)
       if (!this.DP || !this.DP['duel.twoWay']) return false;
@@ -265,9 +280,17 @@
       for (const ct of contacts) {
         const c = ct.car && ct.car.ghost ? ct.car.real : ct.car, red = !!(c && c.red);
         if (red && still > 0 && !ct.drop && Math.abs(c.v) < still && b.alive && !c.spent) { this.emit('touch', { car: c.id, standstill: true }); continue; } // it has passed its test (row 668)
-        const e0 = this.events.length, p0 = this.run.points, f0 = this.effects.length;
-        if (super.account([ct])) positive = true;
+        if (ct.drop && !ct.fault) { ct.carPart = Math.abs(c.v); ct.bodyPart = 0; ct.fault = faultOf(ct.carPart, 0); this.knockFault = ct.fault; } // a drop: the car drives into the falling dummy, or it sits still
+        const e0 = this.events.length, p0 = this.run.points, f0 = this.effects.length, cb0 = b.combo;
+        const ok = super.account([ct]);
         const dp = this.run.points - p0, bursts = this.effects.slice(f0).filter((q) => q.type === 'burst'), hits = this.events.slice(e0).filter((e) => e.type === 'impact');
+        if (ct.fault === 'dummy') { // the dummy ran into it: the damage stands, nothing else (Lawrence, 7 Nov)
+          this.run.points = p0; b.combo = cb0; for (const q of bursts) q.type = 'touch';
+          for (const e of hits) { e.fault = 'dummy'; e.points = 0; this.emit('fault', { car: c.id, red, lost: e.lost, zone: e.zone, kind: e.kind, carPart: +(ct.carPart || 0).toFixed(1), bodyPart: +(ct.bodyPart || 0).toFixed(1) }); }
+          continue;
+        }
+        if (ok) positive = true;
+        for (const e of hits) { e.fault = 'car'; e.carPart = +(ct.carPart || 0).toFixed(1); e.bodyPart = +(ct.bodyPart || 0).toFixed(1); }
         if (!red && dp > 0) { this.run.points = p0 + dp * WHITE_SHARE; for (const q of bursts) q.v *= WHITE_SHARE; for (const e of hits) e.points = Math.round(dp * WHITE_SHARE); } // white cars: a fifth
         if (red) for (const e of hits) { const bonus = Math.max(0, e.lost || 0) * RED_DAMAGE_BONUS; this.run.points += bonus; for (const q of bursts) q.v += bonus; e.points = Math.round(dp + bonus); } // the red car: its points plus its damage
         if (red) for (const e of hits) this.duelImpact(e, c);
@@ -313,9 +336,21 @@
     }
     collideBody(contacts, k) { // carried by FARSIGHT it touches nothing (row 715); a dash vaults a planter, a walk does not (row 696)
       const b = this.body; if (b && b.lifted) return;
-      if (!this.duelT || !b || b.mode !== 'lunge' || !this.level || !this.level.statics.some((q) => q.kind === 'planter')) return super.collideBody(contacts, k);
-      const keep = this.level.statics; this.level.statics = keep.filter((q) => q.kind !== 'planter');
-      try { return super.collideBody(contacts, k); } finally { this.level.statics = keep; }
+      const n0 = contacts.length, pre = b ? { x: b.x, y: b.y, vx: b.vx, vy: b.vy, mode: b.mode, pushed: b.pushed, sling: b.sling } : null;
+      const vault = !!(this.duelT && b && b.mode === 'lunge' && this.level && this.level.statics.some((q) => q.kind === 'planter')), keep = this.level && this.level.statics;
+      if (vault) this.level.statics = keep.filter((q) => q.kind !== 'planter');
+      try { super.collideBody(contacts, k); } finally { if (vault) this.level.statics = keep; }
+      if (this.duelT && pre) for (let i = n0; i < contacts.length; i++) this.atFault(contacts[i], pre);
+    }
+    // who hit whom: the vehicle's and the dummy's speeds along the contact normal, just before it. A bounce off one car into
+    // another keeps the fault of the hit that threw it.
+    atFault(ct, pre) {
+      const g = ct.car, r = this.P['body.radius'], res = X.circleCar(pre.x, pre.y, r + 4, g);
+      let nx, ny; if (res) { nx = res.nx; ny = res.ny; } else { const dx = pre.x - g.x, dy = pre.y - g.y, l = hyp(dx, dy) || 1; nx = dx / l; ny = dy / l; }
+      ct.carPart = (g.vx || 0) * nx + (g.vy || 0) * ny; ct.bodyPart = -(pre.vx * nx + pre.vy * ny);
+      if (pre.mode === 'knock' && !pre.pushed && !pre.sling && this.knockFault) ct.fault = this.knockFault;
+      else ct.fault = faultOf(ct.carPart, ct.bodyPart);
+      this.knockFault = ct.fault;
     }
     // DUCK (rows 694, 696): from tile 6, hold C to duck: lower, slower, harder to notice
     canDuck() { const b = this.body; return !!this.duelDuck && !!this.duelT && b.alive && !b.lifted && (b.mode === 'idle' || b.mode === 'move' || b.mode === 'coast') && !b.stair && (b.level || 0) === 0; }
@@ -332,12 +367,17 @@
       const cars = (this.cars || []).filter((c) => !(c.layer > 0) && lvl === 0);
       const hitRect = (x, y, q) => x > q.x - r && x < q.x + q.w + r && y > q.y - r && y < q.y + q.h + r;
       const tAt = (d) => d <= R * df ? tf * d / (R * df) : tf + (T - tf) * (d - R * df) / (R * (1 - df)), free = (d) => !solids.some((q) => hitRect(b.x + ca * d, b.y + sa * d, q));
+      const at = (c, t) => ({ x: c.x + Math.cos(c.h) * c.v * t, y: c.y + Math.sin(c.h) * c.v * t, h: c.h, L: c.L, W: c.W });
+      const judge = (c, q, res, x, y, t, bvx, bvy) => { const cp = Math.cos(c.h) * c.v * res.nx + Math.sin(c.h) * c.v * res.ny, bp = -(bvx * res.nx + bvy * res.ny); return { x, y, t, car: c.id, red: !!c.red, fault: faultOf(cp, bp) }; };
       let x1 = b.x, y1 = b.y, hit = null; const N = Math.max(24, Math.ceil(R / 4));
       for (let i = 1; i <= N; i++) { const d = R * i / N;
         if (!free(d)) { let lo = R * (i - 1) / N, hi = d; for (let j = 0; j < 12; j++) { const mm = (lo + hi) / 2; if (free(mm)) lo = mm; else hi = mm; } x1 = b.x + ca * lo; y1 = b.y + sa * lo; break; }
         const t = tAt(d), x = b.x + ca * d, y = b.y + sa * d; x1 = x; y1 = y;
-        for (const c of cars) if (X.circleCar(x, y, r, { x: c.x + Math.cos(c.h) * c.v * t, y: c.y + Math.sin(c.h) * c.v * t, h: c.h, L: c.L, W: c.W })) { hit = { x, y, t, car: c.id, red: !!c.red }; break; }
+        const sp = d <= R * df ? R * df / tf : R * (1 - df) / (T - tf); // the dash's speed there: fast, then slow
+        for (const c of cars) { const q = at(c, t), res = X.circleCar(x, y, r, q); if (res) { hit = judge(c, q, res, x, y, t, ca * sp, sa * sp); break; } }
         if (hit) break; }
+      // landed in its way: the car arrives within duel's guide horizon and drives into a dummy that stands (its fault)
+      if (!hit) for (let t = T; t <= T + 0.8 && !hit; t += 0.05) for (const c of cars) { const q = at(c, t), res = X.circleCar(x1, y1, r, q); if (res) { hit = judge(c, q, res, x1, y1, t, 0, 0); hit.after = true; break; } }
       return { x0: b.x, y0: b.y, x1, y1, dir, R, hit, ready };
     }
     trace() { const tr = super.trace(); if (this.duelT) tr.duel = { tile: this.duelDef.tile, stage: this.duelDef.stage, rung: this.duelT.rung, hits: this.duelHits, lessons: this.duelT.lessons, crashes: this.duelT.crashes.length }; return tr; }
@@ -345,5 +385,5 @@
   STORY.StorySim = DuelStorySim;
   const taskText = STORY.taskText; // the tile card and HUD read the pipeline's objective
   STORY.taskText = (task, P) => (task && task.kind === 'red' ? { label: task.label, brief: task.brief } : taskText(task, P));
-  root.DUEL = { DuelTileSim, DuelStorySim, duelParams, laneInfo, placePlanters, placeCameras, RUNGS, MAP, version: 1 };
+  root.DUEL = { DuelTileSim, DuelStorySim, duelParams, laneInfo, placePlanters, placeCameras, RUNGS, MAP, TUNE, faultOf, version: 1 };
 })(typeof window !== 'undefined' ? window : globalThis);

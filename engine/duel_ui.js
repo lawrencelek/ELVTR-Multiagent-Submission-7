@@ -13,15 +13,15 @@
   const GRADE = { unseen: 'UNSEEN', lost: 'LOST', seen: 'SEEN' }, GRADE_C = { unseen: C.dummy, lost: C.search, seen: C.dim };
   // the lesson card: what each rung does, what it closes, what it leaves (GDD Edits 101-108, in Prototype 9's world)
   const LESSON = {
-    1: ['It brakes for a dummy in its lane and stops short of you.', 'Standing in its lane.', 'The flank: stay out of its lane; dash in from the side as it rolls past.'],
-    2: ['Side cones: it notices a dummy beside the road. It slows, then stops short. ? means it suspects you; ! means it has you.', 'The open flank.', 'Height: it watches the ground. Drop or jump onto it from a deck.'],
-    3: ['Roof lidar: it sees a dummy in the air, jumping or falling off a deck onto its road. Up on a deck you are still out of its world.', 'The drop and the jump onto it.', 'Cover: wait behind a building and spring as it passes.'],
-    4: ['Street cameras share what they see. Behind cover, a camera can still give you away.', 'Springs from cover a camera watches.', 'Cover the cameras miss; a cone in its lane makes it swerve.'],
-    5: ['Road items: it stops for a cone and never swerves round it.', 'The cone bait.', 'DUCK (hold C) behind a low planter; spring as it passes.'],
+    1: ['It brakes for a dummy in its lane and stops short of you.', 'Standing in its lane.', 'Cut in: wait beside the road; dash into its lane just ahead of its nose, too late to stop.'],
+    2: ['Side cones: it notices a dummy beside the road. It slows, then stops short. ? means it suspects you; ! means it has you.', 'Cutting in from beside the road, unseen.', 'Height: it watches the ground. Drop or jump onto it from a deck.'],
+    3: ['Roof lidar: it sees a dummy in the air, jumping or falling off a deck onto its road. Up on a deck you are still out of its world.', 'The drop and the jump onto it.', 'Cover: wait behind a building; spring into its path just ahead of it.'],
+    4: ['Street cameras share what they see. Behind cover, a camera can still give you away.', 'Springs from cover a camera watches.', 'Cover the cameras miss; a cone in its lane makes it swerve into you.'],
+    5: ['Road items: it stops for a cone and never swerves round it.', 'The cone bait.', 'DUCK (hold C) behind a low planter; spring into its path just ahead of it.'],
     6: ['Crash memory: it remembers every spot you struck from, and watches them.', 'The same spot twice.', 'A new spot every time.'],
     7: ['The search: seen, then hidden, it searches where it last saw you (the ghost).', 'Hiding after it has seen you.', 'Hide before it sees you, or crawl away from its ghost.'],
   };
-  const NEXT = { 1: 'a hit on its nose', 2: 'a hit from the side', 3: 'a hit from above, in its sight', 4: 'a hit sprung from cover', 5: 'a hit while it swerves round a cone', 6: 'a hit from a spot you struck from before', 7: 'a hit from cover just after it saw you' };
+  const NEXT = { 1: 'a hit on its nose', 2: 'a hit you cut in for', 3: 'a hit from above, in its sight', 4: 'a hit sprung from cover', 5: 'a hit while it swerves round a cone', 6: 'a hit from a spot you struck from before', 7: 'a hit from cover just after it saw you' };
   let ctx = null, s = null, T = null;
   const flashes = [], seen = new WeakMap();
   const rect = (x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); };
@@ -148,10 +148,12 @@
     const b = s.body; if (!s.lungePreview || !b || !b.alive || b.mode === 'lunge' || b.mode === 'recover' || b.lifted || !s.dashFitted() || (b.level || 0) > 0) return;
     if (!reds().some((c) => Math.hypot(c.x - b.x, c.y - b.y) < 2.6 * s.reach())) return;
     const cm = s.lastCmd || {}, g = s.lungePreview(cm.mx, cm.my); if (!g) return;
-    const hot = !!(g.hit && g.hit.red), col = !g.ready ? 'rgba(255,255,255,0.3)' : hot ? C.dummy : 'rgba(255,255,255,0.7)', ex = hot ? g.hit.x : g.x1, ey = hot ? g.hit.y : g.y1, r = T.P['body.radius'];
+    const red = !!(g.hit && g.hit.red), hot = red && g.hit.fault === 'car', mine = red && !hot; // HIT: it will drive into you. YOUR FAULT: you would run into it
+    const col = !g.ready ? 'rgba(255,255,255,0.3)' : hot ? C.dummy : mine ? C.dim : 'rgba(255,255,255,0.7)', ex = red ? g.hit.x : g.x1, ey = red ? g.hit.y : g.y1, r = T.P['body.radius'];
     ctx.save(); ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.setLineDash([2, 5]); ctx.beginPath(); ctx.moveTo(g.x0, g.y0); ctx.lineTo(ex, ey); ctx.stroke(); ctx.setLineDash([]);
     ctx.lineWidth = hot ? 3 : 2; ctx.beginPath(); ctx.arc(ex, ey, r, 0, TAU); ctx.stroke();
     if (hot && g.ready) { ctx.globalAlpha = 0.25; ctx.fillStyle = C.dummy; ctx.beginPath(); ctx.arc(ex, ey, r, 0, TAU); ctx.fill(); ctx.globalAlpha = 1; text('HIT', ex + r + 8, ey + 4, 11, C.dummy); }
+    else if (mine && g.ready) text('YOUR FAULT', ex + r + 8, ey + 4, 10, C.dim);
     ctx.restore();
   }
   function drawDrone(x, y, load) { for (const [dx, dy] of [[-9, -9], [9, -9], [-9, 9], [9, 9]]) { ctx.fillStyle = 'rgba(200,214,230,0.6)'; ctx.beginPath(); ctx.arc(x + dx, y + dy, 6, 0, TAU); ctx.fill(); } rect(x - 7, y - 5, 14, 10, '#20242e'); if (load) rect(x - 5, y + 7, 10, 8, C.dummy); }
@@ -177,7 +179,8 @@
     }
     feed.length = 0;
     let i = seen.get(s) || 0;
-    for (; i < s.events.length; i++) { const e = s.events[i]; if (e.type === 'touch' && e.standstill) flashes.push({ x: s.body.x, y: s.body.y - 34, t: 1.2, n: 'STANDSTILL · NO DAMAGE', c: C.dim }); }
+    for (; i < s.events.length; i++) { const e = s.events[i]; if (e.type === 'touch' && e.standstill) flashes.push({ x: s.body.x, y: s.body.y - 34, t: 1.2, n: 'STANDSTILL · NO DAMAGE', c: C.dim });
+      else if (e.type === 'fault') flashes.push({ x: s.body.x, y: s.body.y - 34, t: 1.6, n: 'YOU HIT IT · YOUR FAULT · NO POINTS', c: C.dim }); }
     seen.set(s, s.events.length > 4000 ? 0 : i);
   }
   const DUELR = () => (root.DUEL && root.DUEL.RUNGS) || [];

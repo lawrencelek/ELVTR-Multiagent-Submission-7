@@ -7,7 +7,7 @@
 - **World:** Prototype 9, unchanged. Districts, tiles, decks, fleet, tile cards, gifts, HUD, sound.
 - **Driver:** Prototype 10's red car (`testroad.js`, unchanged) drives the tile in test.
 - **Plan:** each tile reads one ladder stage from the pipeline (`content/story_map1.json`).
-- **New registry IDs:** none. Every value below is an existing ID.
+- **New registry IDs:** none registered. Four are proposed (§111.8, §111.9): `scoring.whiteShare`, `scoring.redDamageBonus`, `scoring.faultShare`, `scoring.faultMinSpeed`. Every other value is an existing ID.
 
 ## 111.2 The duel in a Prototype 9 tile
 
@@ -36,7 +36,7 @@
 
 - **Fleet:** Prototype 9's fleet never learns (`proto.learningEnabled` 0; `proto.learn.standoffEnabled` 0).
 - **Density, tiles 1–8:** 0.5 in the tile in test (`story.traffic.monument.<tile>`).
-- **Density, tile 9 (10.9):** 1.0. The fleet becomes moving cover (`duel.twoWay`).
+- **Density, tile 9 (10.9 or later; v3e plays 10.10):** 1.0. The fleet becomes moving cover (`duel.twoWay`).
 
 ## 111.5 Parts
 
@@ -85,3 +85,32 @@
   - A white car's hit scores 20% (proposed `scoring.whiteShare` 0.2, not yet registered).
   - The red car's hit scores 100% plus its damage (proposed `scoring.redDamageBonus` 1, not yet registered).
 - **Labels:** the validator refuses an objective label that only counts ("HITS: 3") or names write-offs.
+
+## 111.9 Fault and brakes (Lawrence, 7 November)
+
+- **Fault rule:** only a vehicle that hits the dummy scores.
+  - At contact, compare speeds along the contact normal, just before it.
+  - The vehicle is at fault when it gives at least half the closing speed (proposed `scoring.faultShare` 0.5).
+  - It must also move at 20 or more (proposed `scoring.faultMinSpeed` 20).
+  - Otherwise the dummy hit it. Damage stands. No points, no objective, no lesson.
+  - Flash: YOU HIT IT · YOUR FAULT · NO POINTS.
+  - Applies to every vehicle, red and white.
+  - A drop counts when the car moves at `scoring.faultMinSpeed` or more.
+  - A bounce off one car into another keeps the first hit's fault.
+- **What it closes:** dashing into a slow car's front corner. A probe logged 9 of 10 scoring hits that way: dummy at ~1,000 px/s, car at 9–85.
+- **What stays open:** be in its path, too late for it to stop.
+  - Cross its nose; the nose hits you: its fault.
+  - Dash into its side: yours.
+- **Red car's brakes:** `traffic.hardBraking` 600, the registry's value and Prototype 10's.
+  - The fleet keeps Prototype 9's 79 (Highway Code, P1.7).
+  - Prototype 10's safe envelope assumes 600. At 79 the car crawls by a suspected dummy: 44 px/s at a 300 gap. At 600: 146.
+  - Stop from cruise (`vehicles.sedan.cruiseSpeed` 138), `perception.reactionDelay` 0.3: 57 px. It was 162.
+- **Lunge guide:** HIT only where the car would hit the dummy. YOUR FAULT where the dummy would hit the car.
+- **Lesson text:** rung 1 opens the cut-in, not the flank. Rung 2 learns from a hit you cut in for.
+- **Plan text:** the validator refuses hints and labels that have the dummy hit the car ("into a car", "as it passes", "strike it").
+- **Measured (`engine/p9_probe.js`, plan v3d's counts):**
+  - The corner-dash bot scores nothing. B1: 10 dashes, all its own fault.
+  - Cut-in or cover bot, first clear: A1 30 s, B1 26 s, C1 21 s, C2 116 s, B2 320 s, C3 237 s.
+  - In 6 min: A2 and A3 1 of 2 hits; B3 1 of 3.
+- **Incident (v3e's tile 9, 10.10):** a cut-in bot, seen and stopped hard, caused one in 5 s. Tailgaters brake at `traffic.whiteBraking` 45; the red car at 600.
+

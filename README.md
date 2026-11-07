@@ -6,7 +6,7 @@
 | **Game** | DUMMIES |
 | **Playable link** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/** |
 | **Repository** | https://github.com/lawrencelek/ELVTR-Multiagent-Submission-7 |
-| **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) (3 min 7 s) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
+| **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) (2 min 10 s) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
 | **One-page audit** | [`docs/02_Pipeline_Audit.md`](docs/02_Pipeline_Audit.md) |
 | **P9 × P10 integration** | [`docs/01_P9_P10_Integration_Analysis.md`](docs/01_P9_P10_Integration_Analysis.md) · GDD [Edit 111](docs/DUMMIES_GDD_Edit111_Submission7_Integration.md) |
 | **Target engine** | Phaser 3 (next). Today: Prototype 9's HTML5 Canvas engine, with Prototype 10's driver |
@@ -30,14 +30,16 @@
 
 1. Open the link. Press **Enter** twice (the first press turns the sound on). STORY is selected; press **Enter**.
 2. The tile card shows the tale and the objective. Press **Enter** or **Space**. A drone drops you in.
-3. Move with **arrows or WASD**. Walk into the red car's lane: two hits clear tile 1, in about a minute.
-4. The dummy walks and runs at 70% of Prototype 9's speed: ambush the car, don't chase it. Later tiles bring more keys:
+3. Move with **arrows or WASD**. Walk into the red car's path and let it hit you: two hits clear tile 1, in about a minute.
+4. Only a car that hits you scores. Get into its path, too late for it to stop. Run or dash into a car and you take damage for nothing (YOUR FAULT).
+5. The dummy walks and runs at 70% of Prototype 9's speed: ambush the car, don't chase it. Later tiles bring more keys:
    - **Space** dashes (Battery 1, tile 2).
    - **J** puts down a cone (Hands 1, tile 6).
    - Hold **C** to duck (tile 6).
    - **L** jumps (Legs 1, tile 8).
    - Escalators lead up to the decks; drop onto a car through a gap in a deck's parapet.
-5. When the red car learns, its lesson card says what it now does, what that closes and what is still open.
+6. The lunge guide shows where a dash lands: **HIT** if the car would hit you there, YOUR FAULT if you would hit it.
+7. When the red car learns, its lesson card says what it now does, what that closes and what is still open.
 
 `junction.html` is the earlier version: the same plan on Prototype 10's one-junction test road.
 
@@ -65,7 +67,8 @@ python3 pipeline/run.py            # one command: ingest → designer → valida
 - **Replay:** `REPLAY=pipeline/runs/<run> python3 pipeline/run.py` re-runs from the saved replies, with no model calls.
 - **Tests:**
   - `node engine/p9_tiles_test.js`: all nine tiles start with their stage, rung and red car, with no page errors.
-  - `node engine/p9_play_test.js --tile N [--through M] [--video DIR]`: an autopilot plays from tile N.
+  - `node engine/p9_play_test.js --tile N [--through M] [--video DIR]`: an autopilot plays from tile N. It cuts in ahead of the red car.
+  - `node engine/p9_probe.js <tile> [flank|cutin|cover] [seconds]`: a headless bot per tile. It counts hits the car caused, contacts the dummy caused and the clear time.
   - `junction.html` keeps `engine/tiles_test.js` and `engine/play_test.js`.
 - **Video:** `python3 pipeline/make_video.py <run dirs>` builds `docs/pipeline_run.mp4` from the run logs, the plan and a recorded play test.
 
@@ -76,6 +79,8 @@ python3 pipeline/run.py            # one command: ingest → designer → valida
 - **`engine/duel.js` joins them at runtime.**
   - The tile in test's ground traffic sim swaps its prototype for `DuelTileSim`, a subclass of `TestRoadSim`. The red car gets Prototype 10's perception, lessons, memory and search; the fleet keeps Prototype 9's driver.
   - `DuelStorySim` (Prototype 9's story sim) routes the red car's hits to the duel. It clears the tile through Prototype 9's own write-off, report and ferry.
+  - **Fault rule:** a contact scores only when the vehicle hit the dummy (its share of the closing speed, at contact). Every vehicle.
+  - **Brakes:** the red car brakes at the registry's `traffic.hardBraking` (600, Prototype 10's). The fleet keeps Prototype 9's 79.
 - **`engine/duel_ui.js`** draws the red car's field and lessons on Prototype 9's HD layer.
 - **`engine/build_p9.py`** bundles everything into one `index.html`. Its patches to `game.js` (keys, hooks) are asserted at build time.
 - **The contract** is one file, `content/story_map1.json`, which the engine reads unchanged.
@@ -99,13 +104,14 @@ python3 pipeline/run.py            # one command: ingest → designer → valida
 | v3a | Prototype 9 | as v2, with tile geometry | 132,388 | 20,241 | $0.8483 |
 | v3b | Prototype 9 | as v3a, with measured affordances | 103,018 | 19,416 | $0.6637 |
 | v3c | Prototype 9 | after the playtest fixes (decks out of sight, 70% speed); count-only labels | 103,969 | 14,533 | $0.7394 |
-| v3d (shipped) | Prototype 9 | as v3c; the validator refuses count-only labels; the designer's prompt cached from v3c | 137,313 | 16,575 | **$0.5233** |
+| v3d | Prototype 9 | as v3c; the validator refuses count-only labels; the designer's prompt cached from v3c | 137,313 | 16,575 | $0.5233 |
+| v3e (shipped) | Prototype 9 | the fault rule and the red car's brakes; the validator refuses text that has the dummy hit the car | 105,337 | 16,134 | **$0.7768** |
 
 ## Layout
 
 ```
 pipeline/   run.py ingest.py validate.py llm.py make_video.py · agents/*.md · inputs/ · runs/<run>/
-engine/     build_p9.py duel.js duel_ui.js affordances.js p9_tiles_test.js p9_play_test.js · p9/ (Prototype 9) · vendor/ (Prototype 10)
+engine/     build_p9.py duel.js duel_ui.js affordances.js p9_tiles_test.js p9_play_test.js p9_probe.js · p9/ (Prototype 9) · vendor/ (Prototype 10)
             build.py tiles_test.js play_test.js story.js (junction.html)
 content/    story_map1.json   (pipeline output)
 audio/      Prototype 9's music and effects

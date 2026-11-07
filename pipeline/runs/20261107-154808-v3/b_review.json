@@ -1,0 +1,60 @@
+{
+ "verdict": "revise",
+ "issues": [
+  {
+   "tile": 6,
+   "problem": "Tile 6 reuses stage 10.5 with no new stage-level idea (cones are the new idea, but 10.5 only opens cone bait). The tale also says cameras watch the neon shops, repeating tile 5's idea.",
+   "fix": "Keep 10.5 only if the cone is explicitly its introduction, and cut the camera line from the tale so tile 5's idea is not repeated. Otherwise move the cone tile to a stage that opens it."
+  },
+  {
+   "tile": 9,
+   "problem": "Tile 9 jumps from 10.7 to 10.10 with no 10.8 or 10.9 introduction. The incident tile also teaches two new things at once: tailgating and the hard stop. The tale calls the red car 'colleague'. The red car brakes hard only when it cannot see you, so 'step into its path' will not reliably make it stop hard.",
+   "fix": "Insert 10.8 or 10.9 earlier, or accept the jump but make the hint specific: let it brake hard for a cone or the dummy while a white car follows. Add a count of 1 only if the measured rate (0.6 a minute) supports it."
+  },
+  {
+   "tile": 3,
+   "problem": "The drop needs a deck gap, and the tile has 'deckOverRoad' true, but from 10.3 a dummy on a deck is unseen. The hint is long and the stage's measured 'gap' is 2.07 against 'jump' 2.69. The override sideNoticeSeconds 0.8 is unclear: a longer notice time helps the drop only marginally and weakens the lesson.",
+   "fix": "Drop the override, or state its purpose. Shorten the hint to 'Take the Z2 escalator up; step off through the parapet gap into its path.' (under 12 words)."
+  },
+  {
+   "tile": 5,
+   "problem": "The override perception.streetCameraRange 300 is not clearly purposeful, and the hint 'monument columns no camera faces' is hard to act on. The monument's tall cover (14) is plentiful, but stage 10.5 measured only conebait 2.0 and lurk 0.8, with no cover-spring way. The objective 'unfilmed hits' is the hardest ask so far at count 2.",
+   "fix": "Lower the count to 1, or state the purpose of the range. Name one cover: 'Hide behind the monument's far side from the cameras; step out into its path.'"
+  },
+  {
+   "tile": 2,
+   "problem": "The tale is 20 words or more and mixes two sentences with 'one write-off' (inaccurate to the stage: the lesson comes after the first hit). 'ui.lungeGuide' is a registry id but has no stated purpose in the plan, and the 'Wait beside its lane, then dash' tale doubles the hint.",
+   "fix": "Trim the tale to 15-20 words and drop the repeated instruction. Keep lungeGuide, as it helps the first dash, and say so in the rationale."
+  },
+  {
+   "tile": 7,
+   "problem": "A3 asks for planter ambushes, but the 'combo' tile was built for combos and A3 has only 1 roadside planter, so the planter ambush is thinly supported ('planterRowsThatFit' 2). The 'duckNoticeFactor' override 2 makes ducking safer, which contradicts the stage's learning gate. The tale also says 'cones soon stop fooling colleagues' before that is taught.",
+   "fix": "Keep the override only if it is described as softening the first planter test, and rewrite the tale so it does not preview the cone closure."
+  },
+  {
+   "tile": 8,
+   "problem": "Tile 8 (B3) is the jump tile: it has Legs 1 and a skybridge, but the plan's objective and hint ignore the jump and say 'LED wall or planter'. Stage 10.7 closes the same spot twice, which fits poorly with a tile that has a single canyon jog. Also, the tale says 'Your colleague remembers every spot you used', which is 14 words after 'Legs 1 is fitted'; the tale repeats the original MAP1 text.",
+   "fix": "Name the jump or cover as the move, for example 'Jump from the canyon wall; use a different spot each time.' Rewrite the tale so it does not reuse the original text."
+  },
+  {
+   "tile": 0,
+   "problem": "Pacing: tiles 2-8 all ask for 2 hits, so there is no short early win beyond tile 1, no breather after the hard tiles (4, 5), and the end is a single Incident with no payoff tile. 'Stealth' is not used, which is correct, but the map has no easy-to-hard shape.",
+   "fix": "Set tile 4 or 6 to 1 hit as a breather, keep 2 on the other mid-map tiles, and give the finale a clear payoff."
+  },
+  {
+   "tile": 1,
+   "problem": "The tale 'Fresh off the factory floor. Step into a colleague's path under the highway and let it hit you.' is 19 words and fine, but the hint repeats 'let it hit you' and the objective label 'TWO WRITE-OFFS' with count 2 on a stage whose only way is walking in. The red car does not yet learn, so this is easy; the override 'redReturnSeconds 2' is the one with a clear purpose (shorter wait).",
+   "fix": "Keep the override and make the hint different from the tale, for example 'Walk into its lane under the highway.'"
+  },
+  {
+   "tile": 4,
+   "problem": "The override list is empty and the tale says the highway 'runs through the portal tower at the sixth floor' with 'a roof lidar is expensed: falling is now visible'. C2 has plantersForAnAmbush true but only 2 tall cover pieces, and cover is the stage's way. The hint 'spring into its path, close' is vague.",
+   "fix": "Name the tile's cover: 'Hide behind the portal tower; step out into its path as it nears.' (under 12 words)."
+  }
+ ],
+ "strengths": [
+  "Stages never go backwards, tile 1 is 10.1, and the last tile is 10.10.",
+  "Overrides use registry ids within range and avoid duel.startRung and duel.topRung.",
+  "Tile verbs follow Prototype 9's built set pieces and the measured deck and planter flags."
+ ]
+}

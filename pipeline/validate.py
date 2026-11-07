@@ -17,6 +17,8 @@ def words(s):
 
 
 TEST_ROAD_ONLY = ('plinth', 'barrier', 'junction')  # v3: features of the test road that Prototype 9's tiles do not have
+# the fault rule (Lawrence, 7 Nov): a dummy that runs into a car scores nothing, so no text may tell the player to
+YOUR_FAULT = re.compile(r"\binto (a|the|that) (red |white )?(car|sedan)\b(?!'s)|\bas it (passes|rolls past|goes by)\b|\bstrike (it|the car|as)\b")
 
 
 def check(plan, world='junction'):
@@ -32,6 +34,10 @@ def check(plan, world='junction'):
                 errs.append(f'tile {t.get("n")}: the plan uses a planter, but {t.get("tile")} has no roadside planter (measured)')
             if m and not m.get('deckOverRoad') and any(w in str(t.get('hint')).lower() for w in ('drop', 'parapet')):
                 errs.append(f'tile {t.get("n")}: the plan drops from a deck, but no deck crosses {t.get("tile")}\'s road (measured)')
+            for f in ('hint', 'tale', 'newIdea', 'label'):
+                txt = str(((t.get('objective') or {}).get('label') if f == 'label' else t.get(f)) or '').lower()
+                if YOUR_FAULT.search(txt):
+                    errs.append(f'tile {t.get("n")}: {f} {txt!r} has the dummy hit the car; only a car that hits the dummy scores (the fault rule): put the dummy in its path')
             for f in ('hint', 'tale', 'newIdea'):
                 bad = [w for w in TEST_ROAD_ONLY if w in str(t.get(f) or '').lower()]
                 if bad:
