@@ -1,0 +1,118 @@
+{
+ "id": "monument",
+ "name": "Monument",
+ "act": "ACT I · INDUCTION",
+ "intro": "Dummy Corporation welcomes you off the factory floor. The cars are your colleagues; Certification is your goal.",
+ "tiles": [
+  {
+   "id": "A1",
+   "n": 1,
+   "title": "The welcome wall",
+   "task": {
+    "kind": "any"
+   },
+   "gift": null,
+   "tale": "Fresh off the factory floor, you're ready to do some damage to yourself. Make your engineers proud."
+  },
+  {
+   "id": "B1",
+   "n": 2,
+   "title": "The podium bridge",
+   "task": {
+    "kind": "dash"
+   },
+   "gift": {
+    "node": "battery1"
+   },
+   "tale": "Battery 1 is fitted. The skybridge was built for shoppers who never came; staff watch you dash into a colleague."
+  },
+  {
+   "id": "C1",
+   "n": 3,
+   "title": "The LED drum",
+   "task": {
+    "kind": "drop"
+   },
+   "gift": null,
+   "tale": "The LED drum lights each bend. Step off the high road onto a car: gravity is company policy."
+  },
+  {
+   "id": "C2",
+   "n": 4,
+   "title": "The portal tower",
+   "task": {
+    "kind": "level"
+   },
+   "gift": null,
+   "tale": "The road runs through the portal tower at the sixth floor. Take your write-off up there; ignore the view."
+  },
+  {
+   "id": "B2",
+   "n": 5,
+   "title": "The monument",
+   "task": {
+    "kind": "struck"
+   },
+   "gift": null,
+   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Stand near it until a colleague finds you."
+  },
+  {
+   "id": "A2",
+   "n": 6,
+   "title": "The neon shops",
+   "task": {
+    "kind": "cone"
+   },
+   "gift": {
+    "node": "hands1"
+   },
+   "tale": "The neon shops sell nothing, but the traffic reads them. Hands 1 is fitted: bait a colleague with a cone."
+  },
+  {
+   "id": "A3",
+   "n": 7,
+   "title": "The stacked cubes",
+   "task": {
+    "kind": "combo",
+    "param": "story.task.comboEasy"
+   },
+   "gift": null,
+   "tale": "The stacked cubes rose one budget at a time. Build the same way: one hit, then another, quickly."
+  },
+  {
+   "id": "B3",
+   "n": 8,
+   "title": "The LED canyon",
+   "task": {
+    "kind": "jump"
+   },
+   "gift": {
+    "node": "legs1"
+   },
+   "tale": "Two screens advertise to each other all night. Legs 1 is fitted: jump into a car between them."
+  },
+  {
+   "id": "C3",
+   "n": 9,
+   "title": "The LED gateway",
+   "task": {
+    "kind": "bounce"
+   },
+   "gift": null,
+   "tale": "The gateway thanked the car that wrote you off for driving safely. Let one colleague throw you into the next."
+  }
+ ],
+ "taskLabels": {
+  "any": "ANY WRITE-OFF",
+  "dash": "DASH INTO A CAR",
+  "drop": "DROP ONTO A CAR",
+  "jump": "JUMP INTO A CAR",
+  "level": "ON A RAISED ROAD",
+  "cone": "CONE-BAITED CAR",
+  "push": "PUSH OFF A CAR",
+  "bounce": "THROWN INTO A CAR",
+  "struck": "STRUCK, NOT DASHING",
+  "combo": "COMBO ×{n}",
+  "cls": "A {cls}"
+ }
+}

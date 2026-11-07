@@ -1,0 +1,19 @@
+[11:02:19] run 20261107-110219-v2: models {'designer': 'opus', 'reviewer': 'sonnet', 'refiner': 'sonnet'}
+[11:02:19] 1 ingest: ingest: 10 stages; Map 1 9 tiles; registry 65 of 703 entries (filtered)
+[11:02:19]   inputs: 27,432 characters
+[11:02:19] 2 designer (opus) ...
+[11:03:42]   plan: 1 A1 10.1 hitsx2 | 2 B1 10.2 hitsx2 | 3 C1 10.3 hitsx2 | 4 C2 10.4 hitsx2 | 5 B2 10.5 hitsx2 | 6 A2 10.6 hitsx2 | 7 A3 10.7 hitsx3 | 8 B3 10.8 hitsx2 | 9 C3 10.9 hitsx4
+[11:03:42] 3 validate: 0 errors
+[11:03:42] 4 reviewer (sonnet) ...
+[11:04:28]   verdict revise: [high] tile 5: The tile introduces street cameras and Hands 1 cone bait together, which breaks one new idea per tile. MAP1 also gifts Hands 1 at tile 6, not tile 5.; [high] tile 2: The hint says to dash in once it brakes, but duel.standstillSpeed 5 means a dash into a stopped car does no damage and counts as a pass.; [medium] tile 4: The hint says to jump into the car, but MAP1 gifts Legs 1 at tile 8. MAP1's raised-road task for this tile is also ignored.; [medium] tile 3: The perception.sideNoticeSeconds 0.8 override has no stated purpose. It also invalidates the measured open ways, which were taken at 0.6 for this stage.; [medium] tile 5: Two overrides (duel.redReturnSeconds 3 and perception.sideNoticeSeconds 0.8) have no clear purpose. Tile 5 changes no side-sensor or return-time idea, and tile 1 uses 2 while this tile uses 3.; [medium] tile 8: The duel.searchSeconds 3 override shortens the search, which the tile is meant to teach. The 'OUTWIT THE SEARCH' label is also just a plain hits count, so it does not test the search.
+[11:04:28] 5 refiner (sonnet) ...
+[11:04:51]   validate: 1 errors; one repair pass
+[11:05:01]   validate: 0 errors
+[11:05:01]   cost a_designer   opus    $0.3205  in 2+16929 write+13177 read  out 9123  82.5 s
+[11:05:01]   cost b_reviewer   sonnet  $0.1914  in 2+31704 write+0 read  out 6459  45.8 s
+[11:05:01]   cost c_refiner    sonnet  $0.1290  in 2+22539 write+10472 read  out 3776  23.4 s
+[11:05:01]   cost d_repair     sonnet  $0.0933  in 2+19025 write+12345 read  out 1601  10.0 s
+[11:05:01]   run cost $0.7343
+[11:05:01] 6 integrate: wrote content/story_map1.json
+[11:05:01]   engine: wrote index.html 494,187 bytes; 9 tiles; first stage 10.1 (112 values)
+[11:05:01] done: open index.html to play Map 1

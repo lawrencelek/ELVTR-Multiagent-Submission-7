@@ -1,0 +1,4 @@
+pipeline/.video/
+docs/video/
+__pycache__/
+*.pyc

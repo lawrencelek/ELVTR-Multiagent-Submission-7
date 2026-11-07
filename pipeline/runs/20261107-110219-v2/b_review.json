@@ -1,0 +1,70 @@
+{
+ "verdict": "revise",
+ "issues": [
+  {
+   "tile": 5,
+   "severity": "high",
+   "problem": "The tile introduces street cameras and Hands 1 cone bait together, which breaks one new idea per tile. MAP1 also gifts Hands 1 at tile 6, not tile 5.",
+   "fix": "Make cone bait the tile's single idea and move the hands1 gift in MAP1 to tile 5. Alternatively, shift the camera lesson into the tale only."
+  },
+  {
+   "tile": 2,
+   "severity": "high",
+   "problem": "The hint says to dash in once it brakes, but duel.standstillSpeed 5 means a dash into a stopped car does no damage and counts as a pass.",
+   "fix": "Reword it to dash from the side while the car is still rolling, for example 'Stay out of its lane; dash in as it rolls past.'"
+  },
+  {
+   "tile": 4,
+   "severity": "medium",
+   "problem": "The hint says to jump into the car, but MAP1 gifts Legs 1 at tile 8. MAP1's raised-road task for this tile is also ignored.",
+   "fix": "Sync the jump arrival with the gift placement, or reword the hint to use only tools the player has by then."
+  },
+  {
+   "tile": 3,
+   "severity": "medium",
+   "problem": "The perception.sideNoticeSeconds 0.8 override has no stated purpose. It also invalidates the measured open ways, which were taken at 0.6 for this stage.",
+   "fix": "Drop the override. If it is kept, justify it and re-measure the stage."
+  },
+  {
+   "tile": 5,
+   "severity": "medium",
+   "problem": "Two overrides (duel.redReturnSeconds 3 and perception.sideNoticeSeconds 0.8) have no clear purpose. Tile 5 changes no side-sensor or return-time idea, and tile 1 uses 2 while this tile uses 3.",
+   "fix": "Remove both, or keep one with a stated reason such as slower returns to space out cone setups."
+  },
+  {
+   "tile": 8,
+   "severity": "medium",
+   "problem": "The duel.searchSeconds 3 override shortens the search, which the tile is meant to teach. The 'OUTWIT THE SEARCH' label is also just a plain hits count, so it does not test the search.",
+   "fix": "Keep the default 4, and relabel the objective as two hits to match what is actually measured (roam 2.87, lure 2.24)."
+  },
+  {
+   "tile": 6,
+   "severity": "medium",
+   "problem": "Tiles 5 and 6 are the two narrowest, hardest tiles and run back to back with no breather. The 10.6 duckNoticeFactor 2 override also shifts the measured planter 3.03.",
+   "fix": "Ease tile 6 to a lighter objective or drop the override, so tile 7's roaming win works as the breather."
+  },
+  {
+   "tile": 9,
+   "severity": "low",
+   "problem": "The payoff is only a bigger count (4 hits) on an open stage, with no distinct finale beat.",
+   "fix": "Make the objective a clear finale, for example hits using white cars as cover, with a stronger deadpan closing tale."
+  },
+  {
+   "tile": 0,
+   "severity": "low",
+   "problem": "'Your colleague' opens or recurs in the tales of tiles 1, 2, 3, 6 and 7, and 'Certification awaits' appears in both the intro and tile 9.",
+   "fix": "Vary the sentence structure across tiles and keep 'Certification awaits' in only one place."
+  },
+  {
+   "tile": 0,
+   "severity": "low",
+   "problem": "The rationale's reason for leaving out 10.10 (the search must come before rung-7 traffic) is not a real constraint, because 10.9 already follows 10.8.",
+   "fix": "State the real reason: a 10.9 finale is allowed and no incident objective is needed."
+  }
+ ],
+ "strengths": [
+  "Stages run 10.1 to 10.9 in order with no repeats, and the last tile is 10.9.",
+  "All tale word counts fall within 15 to 20 and all hints are 12 words or fewer.",
+  "Counts follow the measured open ways: 3 hits on the roaming tile 7 and 4 on the open tile 9."
+ ]
+}

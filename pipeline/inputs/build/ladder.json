@@ -1,0 +1,197 @@
+[
+ {
+  "stage": "10.1",
+  "title": "THE TEST ROAD",
+  "startRung": 0,
+  "topRung": 0,
+  "teaches": "Nothing. The red car drives straight through.",
+  "closes": "nothing",
+  "opens": "walk into its path; dash from the side",
+  "measuredOpenWays": "walkin 3.73, flank 2.54, aim 1.8, stand 1.27, standOff 1.27, standSouth 1.21, wander 0.93",
+  "keyValues": {
+   "duel.enabled": 1,
+   "duel.carsOnRoad": 1,
+   "duel.redReturnSeconds": 4,
+   "proto.learningEnabled": 0,
+   "proto.learn.standoffEnabled": 0,
+   "perception.forwardLength": 0,
+   "proto.driver.cautionZone": 0,
+   "run.appearances.road": 1000,
+   "run.quota.road": 1000000
+  }
+ },
+ {
+  "stage": "10.2",
+  "title": "THE FIRST LESSON",
+  "startRung": 0,
+  "topRung": 1,
+  "teaches": "After its first crash, a lesson: it brakes for a dummy in its lane (the beam).",
+  "closes": "standing in its lane",
+  "opens": "from the side: flank, a late walk-in",
+  "measuredOpenWays": "flank 2.81, walkin 1.94, aim 1.6, wander 0.53",
+  "keyValues": {
+   "perception.forwardLength": 720,
+   "duel.topRung": 1,
+   "duel.standstillSpeed": 5,
+   "duel.dashArrives": 2
+  }
+ },
+ {
+  "stage": "10.3",
+  "title": "THE SIDE SENSORS",
+  "startRung": 1,
+  "topRung": 2,
+  "teaches": "The side field: it notices a dummy beside the road and stops short of it.",
+  "closes": "the open flank",
+  "opens": "the plinth (raised), the jump, the gap",
+  "measuredOpenWays": "jump 2.69, plinth 2.67, gap 2.07, aim 2.0, flank 1.8, dashjump 0.47",
+  "keyValues": {
+   "proto.driver.cautionZone": 180,
+   "duel.topRung": 2,
+   "duel.dashArrives": 3,
+   "duel.startRung": 1,
+   "duel.jumpArrives": 2,
+   "perception.sideNoticeSeconds": 0.6
+  }
+ },
+ {
+  "stage": "10.4",
+  "title": "THE ROOF LIDAR",
+  "startRung": 2,
+  "topRung": 3,
+  "teaches": "Roof lidar: it sees a dummy raised on the plinth.",
+  "closes": "the plinth",
+  "opens": "the jump; springs from behind cover",
+  "measuredOpenWays": "jump 2.69, gap 2.21, aim 2.0, flank 1.8, dashjump 0.47",
+  "keyValues": {
+   "duel.topRung": 3,
+   "duel.startRung": 2,
+   "duel.jumpArrives": 3
+  }
+ },
+ {
+  "stage": "10.5",
+  "title": "THE STREET CAMERAS",
+  "startRung": 3,
+  "topRung": 4,
+  "teaches": "Street cameras: it sees behind cover through the link.",
+  "closes": "springs from cover",
+  "opens": "the cone bait (Hands 1); the sprint from beyond its field",
+  "measuredOpenWays": "conebait 2.0, lurk 0.8",
+  "keyValues": {
+   "duel.topRung": 4,
+   "duel.startRung": 3,
+   "duel.conesArrives": 2
+  }
+ },
+ {
+  "stage": "10.6",
+  "title": "DUCK",
+  "startRung": 4,
+  "topRung": 5,
+  "teaches": "It stops for cones; the dummy gets DUCK to hide behind low planters.",
+  "closes": "the cone bait",
+  "opens": "the planter ambush; the sprint from beyond its field",
+  "measuredOpenWays": "planter 3.03, lurk 0.8",
+  "keyValues": {
+   "duel.topRung": 5,
+   "duel.startRung": 4,
+   "duel.conesArrives": 3,
+   "duel.duckArrives": 2,
+   "duel.planters": 1,
+   "props.planter.height": 14,
+   "body.duckHeight": 6,
+   "movement.duckSpeedFactor": 0.35,
+   "perception.duckNoticeFactor": 1.5,
+   "perception.sensorHeight": 14,
+   "perception.lidarHeight": 26,
+   "perception.streetCameraHeight": 60
+  }
+ },
+ {
+  "stage": "10.7",
+  "title": "CRASH MEMORY",
+  "startRung": 5,
+  "topRung": 6,
+  "teaches": "Crash memory: it remembers every crash spot and watches it.",
+  "closes": "the same spot twice",
+  "opens": "a new spot each time (roaming)",
+  "measuredOpenWays": "roam 6.97, lurk 0.6, flankOpen 0.4",
+  "keyValues": {
+   "duel.redReturnSeconds": 2,
+   "duel.topRung": 6,
+   "duel.startRung": 5,
+   "duel.duckArrives": 3,
+   "duel.memoryRadius": 50,
+   "duel.memorySites": 3,
+   "duel.runInLength": 200,
+   "proto.health.standard": 500,
+   "duel.blockSeconds": 10
+  }
+ },
+ {
+  "stage": "10.8",
+  "title": "THE SEARCH",
+  "startRung": 6,
+  "topRung": 7,
+  "teaches": "The search: seen then hidden, it searches where it last saw you (a ghost). Sight cones; the lure; the lunge guide.",
+  "closes": "hiding after being seen",
+  "opens": "crawling away beyond the search; the lure; roaming",
+  "measuredOpenWays": "roam 2.87, lure 2.24, peekmove 1.21, flankOpen 1.07, lurk 0.8, gap 0.6",
+  "keyValues": {
+   "duel.topRung": 7,
+   "duel.startRung": 6,
+   "duel.searchRadius": 60,
+   "duel.searchSeconds": 4,
+   "perception.streetCameraFov": 60,
+   "perception.streetCameraPanArc": 60,
+   "perception.streetCameraPanSeconds": 3,
+   "perception.streetCameraPanHold": 1,
+   "scoring.stealthUnseen": 3,
+   "scoring.stealthLost": 2,
+   "scoring.stealthSeen": 1,
+   "ui.tip.holdSeconds": 7
+  }
+ },
+ {
+  "stage": "10.9",
+  "title": "THE TWO-WAY ROAD",
+  "startRung": 7,
+  "topRung": 7,
+  "teaches": "Two-way roads and white cars that never learn: moving cover and a hazard.",
+  "closes": "nothing new",
+  "opens": "moving cover: many ways reopen",
+  "measuredOpenWays": "flankOpen 4.85, roam 2.31, lure 2.23, kerb 2.09, peekmove 1.48, jump 1.27, gap 0.93",
+  "keyValues": {
+   "duel.startRung": 7,
+   "perception.forwardConeAngle": 10,
+   "perception.sideConeAxis": 52.5,
+   "perception.sideConeAngle": 42.5,
+   "duel.twoWay": 1,
+   "duel.whiteInterval": 3.5,
+   "traffic.junctionLookahead": 400,
+   "traffic.junctionGap": 2.2,
+   "perception.coneRadius": 340,
+   "perception.sideConeRatio": 0.6666666666666666,
+   "perception.forwardGrades": 3,
+   "perception.sideGrades": 2
+  }
+ },
+ {
+  "stage": "10.10",
+  "title": "THE INCIDENT",
+  "startRung": 7,
+  "topRung": 7,
+  "teaches": "White cars tailgate it: make it stop hard and the white car behind runs into it (an Incident, scored).",
+  "closes": "nothing new",
+  "opens": "the Incident; moving cover",
+  "measuredOpenWays": "flankOpen 5.4, kerb 2.76, lure 2.44, dashjump 2.08, roam 1.48, peekmove 1.34, jump 1.27; Incidents about 0.6 a minute",
+  "keyValues": {
+   "traffic.whiteTimeGap": 0.5,
+   "traffic.whiteBraking": 45,
+   "traffic.whiteSpeedRatio": 1.12,
+   "scoring.incidentPoints": 250,
+   "traffic.incidentSeconds": 2
+  }
+ }
+]

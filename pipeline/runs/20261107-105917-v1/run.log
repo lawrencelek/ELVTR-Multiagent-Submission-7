@@ -1,0 +1,17 @@
+[10:59:17] run 20261107-105917-v1: models {'designer': 'opus', 'reviewer': 'opus', 'refiner': 'opus'}
+[10:59:17] 1 ingest: ingest: 10 stages; Map 1 9 tiles; registry 703 of 703 entries (full)
+[10:59:17]   inputs: 296,724 characters
+[10:59:17] 2 designer (opus) ...
+[11:00:28]   plan: 1 A1 10.1 hitsx2 | 2 B1 10.2 hitsx2 | 3 C1 10.3 hitsx3 | 4 C2 10.4 hitsx3 | 5 B2 10.5 hitsx2 | 6 A2 10.6 hitsx2 | 7 A3 10.7 hitsx3 | 8 B3 10.8 hitsx2 | 9 C3 10.9 stealthx500
+[11:00:28] 3 validate: 0 errors
+[11:00:28] 4 reviewer (opus) ...
+[11:01:32]   verdict revise: [high] tile 9: The final tile switches to a stealth-points objective (500) that no earlier tile teaches or tests, and the LADDER gives no measured stealth scoring rate to support the 500 target.; [medium] tile 0: The plan delivers Battery 1, Legs 1 and Hands 1 by drone on tiles 2, 3 and 5, but MAP1 still gifts battery1 on B1, hands1 on A2 and legs1 on B3, so parts could be fitted twice or out of order.; [medium] tile 5: The tale says a cone makes colleagues stop, but at 10.5 the car swerves round cones (stopping for cones is what it learns in 10.6), and the hint assumes a cone is in hand before Hands 1 has arrived.; [medium] tile 6: The hint skips how DUCK is unlocked: it only arrives after the car first stops at a cone, so a player who goes straight to the planters has no duck.; [medium] tile 7: The label 'THREE HITS, THREE SPOTS' promises a distinct-spot rule that objective kind 'hits' does not check.; [medium] tile 8: Tile 8 introduces the search, sight cones, the lure and the lunge guide at once, and the hint names the lure without explaining it, which breaks one new idea per tile.
+[11:01:32] 5 refiner (opus) ...
+[11:02:10]   validate: 0 errors
+[11:02:10]   cost a_designer   opus    $1.3757  in 2+152479 write+0 read  out 7794  71.0 s
+[11:02:10]   cost b_reviewer   opus    $1.2849  in 2+143592 write+10472 read  out 6702  63.5 s
+[11:02:10]   cost c_refiner    opus    $1.2486  in 2+144894 write+10472 read  out 4368  38.4 s
+[11:02:10]   run cost $3.9092
+[11:02:10] 6 integrate: wrote content/story_map1.json
+[11:02:10]   engine: wrote index.html 494,854 bytes; 9 tiles; first stage 10.1 (112 values)
+[11:02:10] done: open index.html to play Map 1

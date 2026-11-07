@@ -1,0 +1,64 @@
+{
+ "verdict": "revise",
+ "issues": [
+  {
+   "tile": 9,
+   "severity": "high",
+   "problem": "The final tile switches to a stealth-points objective (500) that no earlier tile teaches or tests, and the LADDER gives no measured stealth scoring rate to support the 500 target.",
+   "fix": "Make tile 8 ask for one unseen hit to teach the stealth grade, then make tile 9 a count objective such as 'TWO UNSEEN HITS BY RED', or set the point target from a measured 10.9 stealth rate."
+  },
+  {
+   "tile": 0,
+   "severity": "medium",
+   "problem": "The plan delivers Battery 1, Legs 1 and Hands 1 by drone on tiles 2, 3 and 5, but MAP1 still gifts battery1 on B1, hands1 on A2 and legs1 on B3, so parts could be fitted twice or out of order.",
+   "fix": "Set every MAP1 tile gift to null and leave the drone arrivals to the stage's duel.*Arrives values."
+  },
+  {
+   "tile": 5,
+   "severity": "medium",
+   "problem": "The tale says a cone makes colleagues stop, but at 10.5 the car swerves round cones (stopping for cones is what it learns in 10.6), and the hint assumes a cone is in hand before Hands 1 has arrived.",
+   "fix": "Change the tale to 'a cone makes colleagues swerve', and make the hint 'Get spotted behind cover; a cone arrives. Bait its swerve.'"
+  },
+  {
+   "tile": 6,
+   "severity": "medium",
+   "problem": "The hint skips how DUCK is unlocked: it only arrives after the car first stops at a cone, so a player who goes straight to the planters has no duck.",
+   "fix": "Use the hint 'Cone it to a stop; DUCK arrives. Hide behind a planter.'"
+  },
+  {
+   "tile": 7,
+   "severity": "medium",
+   "problem": "The label 'THREE HITS, THREE SPOTS' promises a distinct-spot rule that objective kind 'hits' does not check.",
+   "fix": "Change the label to 'THREE HITS BY RED', or use an objective kind that requires a different spring spot for each hit."
+  },
+  {
+   "tile": 8,
+   "severity": "medium",
+   "problem": "Tile 8 introduces the search, sight cones, the lure and the lunge guide at once, and the hint names the lure without explaining it, which breaks one new idea per tile.",
+   "fix": "Keep the tale and hint on the search alone, and introduce the lure and lunge guide through ui.tip field notes or move them to tile 9."
+  },
+  {
+   "tile": 5,
+   "severity": "low",
+   "problem": "Tile 5 introduces two ideas at once (street cameras and the cone bait) on the stage with the fewest open ways (conebait 2.0, lurk 0.8).",
+   "fix": "Keep the count at 2, and have the tale lead with the cameras closing cover so the cone reads as the answer to them."
+  },
+  {
+   "tile": 2,
+   "severity": "low",
+   "problem": "The tale says 'It now stops for anyone in its lane' before the player has seen the lesson that teaches it.",
+   "fix": "Change the line to 'After one crash, it will stop for anyone in its lane.'"
+  },
+  {
+   "tile": 0,
+   "severity": "low",
+   "problem": "Tales repeat 'X arrives' on tiles 2, 3, 5 and 6 and 'Your colleague' on tiles 1, 2, 6 and 7, which flattens the deadpan voice.",
+   "fix": "Vary the delivery lines with Corporation phrasing such as 'is issued' or 'is requisitioned', and drop 'Your colleague' from at least two tales."
+  }
+ ],
+ "strengths": [
+  "One rung per tile from 10.1 to 10.9 with no backward steps; tile 1 is 10.1 and the last tile is a valid end stage.",
+  "Counts follow the measured open ways: 3 on the wide stages (10.3, 10.4, 10.7) and 2 on the narrow ones (10.5, 10.6).",
+  "Overrides are few, use registry ids, stay within min and max, avoid the rung params and each has a stated purpose."
+ ]
+}

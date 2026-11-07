@@ -1,0 +1,160 @@
+{
+ "map": {
+  "id": "monument",
+  "title": "MAP 1 · MONUMENT",
+  "intro": "Dummy Corporation welcomes you off the factory floor. One red colleague learns from every crash; out-learn it for Certification."
+ },
+ "tiles": [
+  {
+   "n": 1,
+   "tile": "A1",
+   "title": "The welcome wall",
+   "stage": "10.1",
+   "newIdea": "Controls: walk into the red colleague's path; it never brakes.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "TWO HITS BY RED"
+   },
+   "params": {},
+   "gift": null,
+   "tale": "Fresh off the factory floor. Your colleague has learned nothing yet. Neither have you. Make engineering proud.",
+   "hint": "Walk into its lane. It will not stop."
+  },
+  {
+   "n": 2,
+   "tile": "B1",
+   "title": "The podium bridge",
+   "stage": "10.2",
+   "newIdea": "After one crash it brakes for dummies in its lane.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "TWO HITS, ONE LESSON"
+   },
+   "params": {},
+   "gift": null,
+   "tale": "After one crash, it will stop for anyone in its lane. Battery 1 is issued when it first brakes.",
+   "hint": "Once it brakes for you, dash in from beside the lane."
+  },
+  {
+   "n": 3,
+   "tile": "C1",
+   "title": "The LED drum",
+   "stage": "10.3",
+   "newIdea": "Side sensors: it stops for a dummy waiting beside the road.",
+   "objective": {
+    "kind": "hits",
+    "count": 3,
+    "label": "THREE HITS BY RED"
+   },
+   "params": {
+    "perception.sideNoticeSeconds": 0.8
+   },
+   "gift": null,
+   "tale": "Side sensors fitted, per policy. Lingering at the kerb is now noticed. Legs 1 is requisitioned; go over, not beside.",
+   "hint": "Wait on the plinth, or jump in over the kerb."
+  },
+  {
+   "n": 4,
+   "tile": "C2",
+   "title": "The portal tower",
+   "stage": "10.4",
+   "newIdea": "Roof lidar: it sees a dummy raised on the plinth.",
+   "objective": {
+    "kind": "hits",
+    "count": 3,
+    "label": "THREE HITS BY RED"
+   },
+   "params": {},
+   "gift": null,
+   "tale": "Head office approved roof lidar. The plinth no longer hides you. Height was a privilege; jumping is a right.",
+   "hint": "Leave the plinth. Jump in from the gap or cover."
+  },
+  {
+   "n": 5,
+   "tile": "B2",
+   "title": "The monument",
+   "stage": "10.5",
+   "newIdea": "Street cameras: it sees a dummy hiding behind cover.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "TWO HITS BY RED"
+   },
+   "params": {
+    "duel.redReturnSeconds": 3
+   },
+   "gift": null,
+   "tale": "The plaque reads ZERO ACCIDENTS. Street cameras now watch behind cover. Hands 1 is issued: a cone makes colleagues swerve.",
+   "hint": "Get spotted behind cover; a cone arrives. Bait its swerve."
+  },
+  {
+   "n": 6,
+   "tile": "A2",
+   "title": "The neon shops",
+   "stage": "10.6",
+   "newIdea": "DUCK: crouch behind low planters; it now stops for cones.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "TWO HITS BY RED"
+   },
+   "params": {
+    "perception.duckNoticeFactor": 2
+   },
+   "gift": null,
+   "tale": "The neon shops sell nothing. Cones stop the red car. DUCK is requisitioned: the planters are low, so are you.",
+   "hint": "Cone it to a stop; DUCK arrives. Hide behind a planter."
+  },
+  {
+   "n": 7,
+   "tile": "A3",
+   "title": "The stacked cubes",
+   "stage": "10.7",
+   "newIdea": "Crash memory: it watches every spot where it hit you.",
+   "objective": {
+    "kind": "hits",
+    "count": 3,
+    "label": "THREE HITS BY RED"
+   },
+   "params": {},
+   "gift": null,
+   "tale": "The cubes rose one budget at a time. The red car keeps records. Never be filed in the same place.",
+   "hint": "Each hit from a new spot. It remembers the old ones."
+  },
+  {
+   "n": 8,
+   "tile": "B3",
+   "title": "The LED canyon",
+   "stage": "10.8",
+   "newIdea": "The search: lose it after being seen, and it hunts your ghost.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "TWO HITS BY RED"
+   },
+   "params": {},
+   "gift": null,
+   "tale": "Two screens advertise to each other all night. Seen, then hidden, you are searched for. Crawl further than its curiosity.",
+   "hint": "Once seen, crawl far from your ghost before it looks."
+  },
+  {
+   "n": 9,
+   "tile": "C3",
+   "title": "The LED gateway",
+   "stage": "10.9",
+   "newIdea": "Two-way roads: white colleagues that never learn give moving cover.",
+   "objective": {
+    "kind": "hits",
+    "count": 3,
+    "label": "THREE HITS BY RED"
+   },
+   "params": {},
+   "gift": null,
+   "tale": "The gateway thanks every car for driving safely. White colleagues never learn. Hide behind them; strike unseen for Certification.",
+   "hint": "Walk beside a white car, then dash at red unseen."
+  }
+ ],
+ "rationale": "One rung per tile, 10.1–10.9. Tile 9 now counts hits instead of an unmeasured stealth-points target; 3 suits its many open ways. MAP1 gifts are null so parts arrive only through each stage's duel.*Arrives drones. Tales and hints now describe how the dash, cones and DUCK unlock: swerve at 10.5, stop at 10.6. Tile 8 covers the search only; the lure and lunge guide stay in FARSIGHT field notes. Tile 7's label matches its check. Delivery wording varies."
+}
