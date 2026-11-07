@@ -6,7 +6,7 @@
 | **Game** | DUMMIES |
 | **Playable link** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/** |
 | **Repository** | https://github.com/lawrencelek/ELVTR-Multiagent-Submission-7 |
-| **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
+| **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) (3 min 7 s) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
 | **One-page audit** | [`docs/02_Pipeline_Audit.md`](docs/02_Pipeline_Audit.md) |
 | **P9 × P10 integration** | [`docs/01_P9_P10_Integration_Analysis.md`](docs/01_P9_P10_Integration_Analysis.md) · GDD [Edit 111](docs/DUMMIES_GDD_Edit111_Submission7_Integration.md) |
 | **Target engine** | Phaser 3 (next). Today: Prototype 9's HTML5 Canvas engine, with Prototype 10's driver |

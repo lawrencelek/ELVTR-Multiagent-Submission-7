@@ -39,7 +39,10 @@ const ORDER = ['A1', 'B1', 'C1', 'C2', 'B2', 'A2', 'A3', 'B3', 'C3'];
       if (s.phase === 'lesson' || s.phase === 'report' || s.phase === 'brief' || s.phase === 'gift') { ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].forEach((k) => key(k, false)); dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter', key: 'Enter' })); dispatchEvent(new KeyboardEvent('keyup', { code: 'Enter', key: 'Enter' })); return; }
       const b = s.body, T = s.duelT, c = T && T.cars.find((q) => q.red && !q.spent);
       let tx = b.x, ty = b.y;
-      if (c && b.alive) { const d = c.L / 2 + (bot === 'flank' ? 40 : 110), side = bot === 'flank' ? 56 : 0; tx = c.x + Math.cos(c.h) * d - Math.sin(c.h) * side; ty = c.y + Math.sin(c.h) * d + Math.cos(c.h) * side; }
+      if (c && b.alive) { // an ambush, not a chase (the dummy walks at 70%): a spot on the car's path well ahead of it, kept until that car has passed
+        const X = window.DUMMIES, side = bot === 'flank' ? 56 : 0;
+        if (!window.__spot || window.__spot.car !== c.id || c.s > window.__spot.s) { let sAt = c.s + 320; for (; sAt > c.s + 120; sAt -= 20) { const q = X.pathAt(c.path, sAt); if (q.x > 40 && q.x < 760 && q.y > 40 && q.y < 600) break; } window.__spot = { car: c.id, s: sAt }; }
+        const q = X.pathAt(c.path, window.__spot.s); tx = q.x + q.nx * side; ty = q.y + q.ny * side; }
       tx = Math.max(24, Math.min(776, tx)); ty = Math.max(24, Math.min(616, ty));
       const dx = tx - b.x, dy = ty - b.y;
       key('ArrowRight', dx > 6); key('ArrowLeft', dx < -6); key('ArrowDown', dy > 6); key('ArrowUp', dy < -6);
