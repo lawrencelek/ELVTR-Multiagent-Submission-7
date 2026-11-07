@@ -32,6 +32,10 @@ def check(plan, world='junction'):
                 errs.append(f'tile {t.get("n")}: label {lab!r} must name the move (the HUD counts the number; the objective is hits by the red car, not write-offs)')
             if m and not m.get('plantersForAnAmbush') and 'planter' in (str(t.get('hint')) + str(t.get('newIdea'))).lower():
                 errs.append(f'tile {t.get("n")}: the plan uses a planter, but {t.get("tile")} has no roadside planter (measured)')
+            cov = m.get('roadsideCover') or {}
+            for w in ('cabinet', 'kiosk', 'billboard', 'hedge', 'bollard'):
+                if m and not cov.get(w) and w in (str(t.get('hint')) + str(t.get('newIdea'))).lower():
+                    errs.append(f'tile {t.get("n")}: the plan uses a {w}, but {t.get("tile")} has none by its road (measured)')
             if m and not m.get('deckOverRoad') and any(w in str(t.get('hint')).lower() for w in ('drop', 'parapet')):
                 errs.append(f'tile {t.get("n")}: the plan drops from a deck, but no deck crosses {t.get("tile")}\'s road (measured)')
             for f in ('hint', 'tale', 'newIdea', 'label'):
@@ -96,8 +100,15 @@ def check(plan, world='junction'):
         if not t.get('title'):
             errs.append(f'tile {n}: no title')
     used = {str(t.get('stage')) for t in tiles}
-    if tiles and str(tiles[0].get('stage')) != '10.1':
-        errs.append('tile 1 must be stage 10.1')
+    first = '10.2' if world == 'p9' else '10.1'  # p9 (Lawrence, 7 Nov): the car learns at A1's clear, so tile 1 is the first lesson
+    if tiles and str(tiles[0].get('stage')) != first:
+        errs.append(f'tile 1 must be stage {first}')
+    if world == 'p9':  # one lesson a tile, at its clear: each tile starts where the last one's lesson left the car
+        rung = lambda st, k: (stages.get(st) or {}).get('flags', stages.get(st) or {}).get(k)
+        for a, b in zip(tiles, tiles[1:]):
+            sa, sb = str(a.get('stage')), str(b.get('stage'))
+            if sa in stages and sb in stages and rung(sb, 'duel.startRung') != rung(sa, 'duel.topRung'):
+                errs.append(f'tile {b.get("n")}: stage {sb} starts at rung {rung(sb, "duel.startRung")}, but tile {a.get("n")} ({sa}) ends at rung {rung(sa, "duel.topRung")}')
     if tiles and str(tiles[-1].get('stage')) not in ('10.9', '10.10'):
         errs.append('tile 9 must be stage 10.9 or 10.10')
     if len(used) < 7:

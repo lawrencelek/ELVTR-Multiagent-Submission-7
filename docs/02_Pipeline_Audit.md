@@ -6,15 +6,15 @@
 
 - **The plan:** `content/story_map1.json`. Map 1 (Monument), tiles 1–9.
   - Per tile: ladder stage, objective, overrides, title, tale, hint, new idea.
-  - Shipped run: `20261107-154808-v3` (v3e), $0.7768.
+  - Shipped run: `20261107-172210-v3` (v3f), $0.8443.
 - **Escalation:**
-  - Stages: 10.1 → 10.2 → 10.3 → 10.4 → 10.5 → 10.5 → 10.6 → 10.7 → 10.10.
-  - Tricks, tile by tile: walk into its path, dash into its path, drop into its path, spring from cover, unwatched cover, cone bait, duck then spring, a new spot each time.
+  - Stages, one a tile: 10.2 → 10.3 → 10.4 → 10.5 → 10.6 → 10.7 → 10.8 → 10.9 → 10.10. The car learns once a tile, at the clear.
+  - Tricks, tile by tile: walk into its path, dash into its path, drop into its path, spring from tall cover, cover the cameras miss, duck then step out, a new spot each hit, step out from behind traffic.
   - Then the Incident: make it stop hard, and a tailgater runs into it.
   - Every line puts the dummy in the car's path: only a car that hits the dummy scores (the fault rule).
 - **Hints name what the tile has:** they come from Prototype 9's plan and the measured affordances.
-  - C1: "Escalator up; step off the Z2 parapet gap into its path."
-  - A2 has no room for a planter, so the agents give it the cone bait; A3 has room, so it gets the planter ambush.
+  - C1: "Ride the Z2 escalator; walk off the parapet gap into its path."
+  - The hints name the tile's measured roadside cover: B1 "Wait by the kiosk", A2 "Hold C behind the planter", A3 "Billboard first, then the hedge".
 - **The game:** `index.html`.
   - Prototype 9's Monument (art, fleet, decks, HUD, sound) with Prototype 10's red car.
   - It loads the plan unchanged, and Prototype 9's own clear carries the player to the next tile.
@@ -30,7 +30,7 @@
 | Step | Why it's still manual | How to remove it |
 |---|---|---|
 | Copy Prototypes 9 and 10 from Submission 6B (`VENDOR.md`) | Copied by hand; md5s are recorded | `pipeline/vendor.py`: fetch a pinned 6B commit, check the md5s |
-| Difficulty on Prototype 9's tiles | Fixed in the engine, measured by hand. Before: a bot dashing into a slowed car's corner cleared five tiles in under 25 s. Now that bot scores nothing (B1: 10 dashes, 10 at its own fault). A cut-in or cover bot clears A1 in 30 s, B1 26 s, C1 21 s, C2 116 s, B2 320 s, C3 237 s; it lands 1 of 2 hits on A2 and A3 and 1 of 3 on B3 in 6 min | Run `engine/p9_probe.js` per tile inside ingest. Feed hits a minute to the designer, as `affordances.js` already feeds geometry |
+| Difficulty on Prototype 9's tiles | Fixed in the engine, measured by hand. Before: a bot dashing into a slowed car's corner cleared five tiles in under 25 s. Now that bot scores nothing (B1: 10 dashes, 10 at its own fault). On plan v3f a cover bot clears A1 in 19 s, B1 36, C1 57, C2 19, A2 20, A3 231, B3 7, C3 50 (Incident); B2 not in 8 min (it cannot path round the ring road) | Run `engine/p9_probe.js` per tile inside ingest. Feed hits a minute to the designer, as `affordances.js` already feeds geometry |
 | Judging fun | A human must play | A short recorded play session per tile in CI, for review |
 | Deploy, video | One command each, run by hand | One GitHub Action: build, test, deploy Pages, render the video |
 
@@ -56,12 +56,13 @@
 | v3b | + measured affordances | Opus $0.3599 | Sonnet $0.1567 | Sonnet $0.1470 | — | $0.6637 |
 | v3c | + playtest fixes | Opus $0.4381 | Sonnet $0.1573 | Sonnet $0.1440 | — | $0.7394 |
 | v3d | + label rule; cached prompt | Opus $0.1726 | Sonnet $0.1378 | Sonnet $0.1085 | Sonnet $0.1044 | $0.5233 |
-| v3e (shipped) | + fault rule, red brakes | Opus $0.4699 | Sonnet $0.1602 | Sonnet $0.1467 | — | $0.7768 |
+| v3e | + fault rule, red brakes | Opus $0.4699 | Sonnet $0.1602 | Sonnet $0.1467 | — | $0.7768 |
+| v3f (shipped) | + one lesson a tile, roadside cover | Opus $0.4648 | Sonnet $0.2374 | Sonnet $0.1422 | — | $0.8443 |
 
-- **Total spent:** $8.1950 on 7 runs and 24 model calls. Building the pipeline and the integration in Claude Code isn't metered here.
-- **Most expensive step:** the Opus designer, at 35% of v1, 54% of v3b and 60% of v3e. In v3d its prompt was still cached from v3c (71,280 tokens read from cache), and it cost $0.17. v3e changed its prompt (the fault rule), so nothing was cached: $0.47.
+- **Total spent:** $9.0393 on 8 runs and 27 model calls. Building the pipeline and the integration in Claude Code isn't metered here.
+- **Most expensive step:** the Opus designer, at 35% of v1, 54% of v3b, 60% of v3e and 55% of v3f. In v3d its prompt was still cached from v3c (71,280 tokens read from cache), and it cost $0.17. v3e changed its prompt (the fault rule), so nothing was cached: $0.47.
 - **Solo sustainability:**
-  - At $0.52–0.78 a run, 3 maps × 10 iterations cost $16–23.
+  - At $0.52–0.84 a run, 3 maps × 10 iterations cost $16–25.
   - At v1's rate, the same work costs about $117.
 
 ## 5. Mid-project cost reduction

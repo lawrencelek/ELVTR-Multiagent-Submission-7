@@ -36,6 +36,8 @@ def game_js():
          "    if (window.DUEL_UI) window.DUEL_UI.field(ctx, s, { FX, FY, FW, FH, RA, U }); // Submission 7: the red car's field, over the art\n    drawBubblesHD(s); // Edit 83"),
         ("\n    drawHUD(s);\n",
          "\n    drawHUD(s);\n    if (window.DUEL_UI) window.DUEL_UI.hud(ctx, s, { FX, FY, FW, FH, VW, VH }); // Submission 7: the duel's panel\n"),
+        ("    const s = app.sim;\n    drawField(s);\n    drawHUD(s);\n",
+         "    const s = app.sim;\n    const rp = window.DUEL_UI ? window.DUEL_UI.replayBegin(s, app.realT) : null; // Submission 7: the lesson's clip, drawn by the game from its recording\n    drawField(s);\n    if (rp) window.DUEL_UI.replayEnd(s, rp);\n    drawHUD(s);\n"),
         ("    else if (s.phase === 'gift') drawGiftPopup(s); // Edit 84",
          "    else if (s.phase === 'gift') drawGiftPopup(s); // Edit 84\n    else if (s.phase === 'lesson' && window.DUEL_UI) window.DUEL_UI.lesson(ctx, s, { FX, FY, FW, FH, VW, VH, RA, U, t: app.realT }); // Submission 7: the lesson (clip, fit, card)"),
         ("      if (s.phase === 'brief' && m === 'ok') { s.continueBrief(); clearEdges(); return; } // Edit 81: the tile card",
@@ -63,7 +65,18 @@ def world6_js():
          "    CAP = keep;\n"
          "  }\n"
          "  function paintPost(sc, x, y) { const keep = CAP; CAP = null; bollard(sc.B, x / U, y / U, LEDS[2 % LEDS.length]); CAP = keep; }\n"
-         "  const api = { paintPlanter, paintPost, artUnit: U, P6SIM, DISTRICTS,"),
+         "  // Submission 7 (Lawrence, 7 Nov): the roadside cover family, in the same kit: masses, hedges, lit faces, boards on legs\n"
+         "  function paintCover(sc, r) {\n"
+         "    if (r.kind === 'planter') return paintPlanter(sc, r);\n"
+         "    const keep = CAP; CAP = null; const B = sc.B, x0 = Math.round(r.x / U), y0 = Math.round(r.y / U), x1 = Math.round((r.x + r.w) / U) - 1, y1 = Math.round((r.y + r.h) / U) - 1, led = LEDS[(x0 + y0) % LEDS.length];\n"
+         "    if (r.kind === 'hedge') mass(B, chamf(x0, y0, x1, y1, 1), x0, y0, x1, y1, 0, 7, 'hedge', null, true, 'hedge');\n"
+         "    else if (r.kind === 'cabinet') { block(B, x0, y0, x1, y1, 1, 0, 14, 'conc', null, true); for (let t = 2; t < 13; t++) B.put(Math.round((x0 + x1) / 2), y1 - t, CON.d); for (let x = x0 + 1; x < x1; x++) B.put(x, y0 - 14, led); } // a signal cabinet: two doors, a lit lid\n"
+         "    else if (r.kind === 'kiosk') { block(B, x0, y0, x1, y1, 1, 0, 20, 'conc', null, true); for (let t = 4; t < 18; t++) for (let x = x0 + 1; x < x1; x++) B.put(x, y1 - t, t === 4 || t === 17 || x === x0 + 1 || x === x1 - 1 ? K.bldgOutline : mixK(led, K.white, (x + t) % 5 === 0 ? 0.5 : 0.12)); } // a digital kiosk: a lit screen on its road face\n"
+         "    else if (r.kind === 'billboard') billboard(B, (x0 + x1) / 2, y1, Math.max(8, x1 - x0), 12, 8, led); // a lit board on legs\n"
+         "    else if (r.kind === 'bollard') block(B, x0, y0, x1, y1, 1, 0, 5, 'conc', led, true); // a concrete bollard, lit cap\n"
+         "    CAP = keep;\n"
+         "  }\n"
+         "  const api = { paintPlanter, paintPost, paintCover, artUnit: U, P6SIM, DISTRICTS,"),
     ], 'world6.js')
 
 
@@ -87,6 +100,7 @@ def main():
     reg = json.loads((ROOT / 'pipeline' / 'inputs' / 'tuning.parameters.json').read_text(encoding='utf-8'))
     byid = {e['id']: e for e in reg['entries']}
     cues = json.loads((E / 'cues.json').read_text(encoding='utf-8'))
+    cues['params']['audio.settings.master'] = 5  # Lawrence (7 Nov): the volume starts at 5 of 10 (a saved setting still wins)
     js = lambda p: f'<script>\n{p.read_text(encoding="utf-8")}\n</script>\n'
     scripts = js(E / 'jump.js') + ''.join(js(E / f) for f in ('sim.js', 'pixel.js', 'lab.js', 'circus_valley.js'))
     scripts += f'<script>\n{world6_js()}\n</script>\n' + js(E / 'content.js')

@@ -18,6 +18,13 @@
     "setPiece": "LED-wall tower facing the entry",
     "builtFor": "any",
     "measured": {
+     "roadsideCover": {
+      "cabinet": 1,
+      "planter": 1,
+      "kiosk": 1,
+      "hedge": 1,
+      "bollard": 3
+     },
      "redLanes": 2,
      "roadOnScreen": [
       800,
@@ -25,9 +32,9 @@
      ],
      "deckOverRoad": true,
      "stairs": 2,
-     "roadsidePlanters": 0,
-     "planterRowsThatFit": 0,
-     "plantersForAnAmbush": false,
+     "roadsidePlanters": 1,
+     "planterRowsThatFit": 2,
+     "plantersForAnAmbush": true,
      "tallCoverByRoad": 4
     }
    }
@@ -48,6 +55,13 @@
     "setPiece": "Podium and tower at the bridge head",
     "builtFor": "dash",
     "measured": {
+     "roadsideCover": {
+      "cabinet": 1,
+      "planter": 1,
+      "kiosk": 1,
+      "hedge": 1,
+      "billboard": 1
+     },
      "redLanes": 2,
      "roadOnScreen": [
       792,
@@ -56,7 +70,7 @@
      "deckOverRoad": true,
      "stairs": 1,
      "roadsidePlanters": 0,
-     "planterRowsThatFit": 3,
+     "planterRowsThatFit": 2,
      "plantersForAnAmbush": true,
      "tallCoverByRoad": 3
     }
@@ -76,6 +90,14 @@
     "setPiece": "LED drum tower in the bend",
     "builtFor": "drop",
     "measured": {
+     "roadsideCover": {
+      "cabinet": 1,
+      "planter": 1,
+      "kiosk": 1,
+      "hedge": 1,
+      "billboard": 1,
+      "bollard": 3
+     },
      "redLanes": 2,
      "roadOnScreen": [
       872,
@@ -104,6 +126,12 @@
     "setPiece": "Portal tower and roof plaza (Chongqing)",
     "builtFor": "level",
     "measured": {
+     "roadsideCover": {
+      "cabinet": 1,
+      "planter": 1,
+      "kiosk": 1,
+      "hedge": 1
+     },
      "redLanes": 2,
      "roadOnScreen": [
       840,
@@ -112,7 +140,7 @@
      "deckOverRoad": true,
      "stairs": 2,
      "roadsidePlanters": 0,
-     "planterRowsThatFit": 1,
+     "planterRowsThatFit": 2,
      "plantersForAnAmbush": true,
      "tallCoverByRoad": 2
     }
@@ -132,6 +160,10 @@
     "setPiece": "The monument",
     "builtFor": "struck",
     "measured": {
+     "roadsideCover": {
+      "cabinet": 1,
+      "kiosk": 1
+     },
      "redLanes": 2,
      "roadOnScreen": [
       840,
@@ -140,7 +172,7 @@
      "deckOverRoad": true,
      "stairs": 4,
      "roadsidePlanters": 1,
-     "planterRowsThatFit": 0,
+     "planterRowsThatFit": 1,
      "plantersForAnAmbush": true,
      "tallCoverByRoad": 14
     }
@@ -162,6 +194,12 @@
     "setPiece": "Neon arcade along the road",
     "builtFor": "cone",
     "measured": {
+     "roadsideCover": {
+      "cabinet": 1,
+      "planter": 1,
+      "kiosk": 1,
+      "bollard": 3
+     },
      "redLanes": 2,
      "roadOnScreen": [
       880,
@@ -170,8 +208,8 @@
      "deckOverRoad": true,
      "stairs": 2,
      "roadsidePlanters": 0,
-     "planterRowsThatFit": 0,
-     "plantersForAnAmbush": false,
+     "planterRowsThatFit": 2,
+     "plantersForAnAmbush": true,
      "tallCoverByRoad": 5
     }
    }
@@ -191,6 +229,14 @@
     "setPiece": "Stacked LED cubes, each cantilevered off the one below",
     "builtFor": "combo",
     "measured": {
+     "roadsideCover": {
+      "cabinet": 1,
+      "planter": 1,
+      "kiosk": 1,
+      "hedge": 1,
+      "billboard": 1,
+      "bollard": 3
+     },
      "redLanes": 2,
      "roadOnScreen": [
       848,
@@ -221,6 +267,14 @@
     "setPiece": "LED canyon and its skybridge",
     "builtFor": "jump",
     "measured": {
+     "roadsideCover": {
+      "cabinet": 1,
+      "planter": 1,
+      "kiosk": 1,
+      "hedge": 1,
+      "billboard": 1,
+      "bollard": 3
+     },
      "redLanes": 2,
      "roadOnScreen": [
       848,
@@ -229,7 +283,7 @@
      "deckOverRoad": true,
      "stairs": 1,
      "roadsidePlanters": 0,
-     "planterRowsThatFit": 1,
+     "planterRowsThatFit": 2,
      "plantersForAnAmbush": true,
      "tallCoverByRoad": 5
     }
@@ -249,6 +303,13 @@
     "setPiece": "LED gateway arch over the road",
     "builtFor": "bounce",
     "measured": {
+     "roadsideCover": {
+      "cabinet": 1,
+      "planter": 1,
+      "kiosk": 1,
+      "hedge": 1,
+      "bollard": 3
+     },
      "redLanes": 2,
      "roadOnScreen": [
       800,

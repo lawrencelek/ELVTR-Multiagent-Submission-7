@@ -44,17 +44,17 @@ OPEN = {  # measured: approaches landing 0.3 hits a minute or more at the stage'
     '10.9': 'flankOpen 4.85, roam 2.31, lure 2.23, kerb 2.09, peekmove 1.48, jump 1.27, gap 0.93',
     '10.10': 'flankOpen 5.4, kerb 2.76, lure 2.44, dashjump 2.08, roam 1.48, peekmove 1.34, jump 1.27; Incidents about 0.6 a minute',
 }
-TEACH_P9 = {  # the same ladder in Prototype 9's world (engine/duel.js): decks are the height, P9's buildings and planters the cover
-    '10.1': ('Nothing. The red car drives straight through.', 'nothing', 'walk into its path and let it hit you'),
-    '10.2': ('After its first crash, a lesson: it brakes for a dummy in its lane (the beam).', 'standing in its lane', 'the cut-in: wait beside its lane; dash into its path just ahead of its nose, too late for it to stop'),
-    '10.3': ('Side cones: it notices a dummy beside the road, slows, then stops short of it. A dummy up on a deck is out of its world.', 'the open cut-in', 'height: drop through a gap in a deck over its road as it drives under, or jump into its path'),
-    '10.4': ('Roof lidar: it sees a dummy in the air (a jump, or a fall off a deck onto its road). Up on a deck you are still unseen.', 'the drop and the jump onto it', 'cover: spring from behind a building, column or kiosk into its path just ahead of it'),
-    '10.5': ('Kerbside street cameras share what they see: cover a camera watches no longer hides you.', 'springs from watched cover', 'cover the cameras miss; a cone in its lane makes it swerve into you'),
-    '10.6': ('It stops for cones and never swerves round them; the dummy gets DUCK (hold C) to hide behind low planters.', 'the cone bait', 'the planter ambush: duck behind a planter by its road; spring into its path just ahead of it'),
-    '10.7': ('Crash memory: it remembers every spot you struck from, and watches it.', 'the same spot twice', 'a new spot each time: roam the tile'),
-    '10.8': ('The search: seen then hidden, it searches where it last saw you (a ghost).', 'hiding after being seen', 'hide before it sees you; crawl away from its ghost; lure it to stop short'),
-    '10.9': ("Prototype 9's two-way traffic: the fleet are white cars that never learn, moving cover and a hazard.", 'nothing new', 'moving cover: many ways reopen'),
-    '10.10': ('White cars tailgate it: make it stop hard and the car behind runs into it (an Incident, scored).', 'nothing new', 'the Incident; moving cover'),
+TEACH_P9 = {  # Prototype 9's world (engine/duel.js). One lesson a tile, at its clear: (what it learns at the clear, the tile's trick, which that lesson closes, what stays open after)
+    '10.1': ('Nothing. The red car drives straight through.', 'walk into its path and let it hit you', 'walk into its path'),
+    '10.2': ('At the clear: the forward camera. It will brake for a dummy in its lane.', 'walk into its path and let it hit you (it senses nothing yet)', 'the cut-in: dash into its path just ahead of its nose'),
+    '10.3': ('At the clear: side sensors. It will notice a dummy beside the road and stop short.', 'the cut-in: wait beside its lane; dash into its path just ahead of its nose (Battery 1)', 'height: a deck over its road'),
+    '10.4': ('At the clear: the roof lidar. It will see a dummy in the air.', 'height: drop through a gap in a deck over its road as it drives under, or jump into its path', 'cover: tall roadside cover'),
+    '10.5': ('At the clear: street cameras. Cover a camera watches will no longer hide you.', 'cover: spring from behind a building, cabinet, kiosk or billboard into its path', 'cover the cameras miss; a cone in its lane'),
+    '10.6': ('At the clear: road items. It will stop for a cone, never swerve round it.', 'cover the cameras miss, or a cone in its lane: it swerves into you', 'low cover: duck (hold C) behind a planter or hedge'),
+    '10.7': ('At the clear: crash memory. It will watch every spot you struck from.', 'duck (hold C) behind a planter or hedge by its road; spring into its path', 'a new spot each time'),
+    '10.8': ('At the clear: the search. Seen then hidden, it will search where it last saw you.', 'a new spot each time: roam the tile\'s cover', 'hide before it sees you'),
+    '10.9': ("Nothing new: it has learned all it can. Prototype 9's two-way traffic is moving cover.", 'moving cover: step out from behind white traffic into its path', 'moving cover'),
+    '10.10': ('Nothing new. White cars tailgate it: make it stop hard and the car behind runs into it (an Incident, scored).', 'the Incident: make it stop hard in front of a tailgater', 'the Incident'),
 }
 
 

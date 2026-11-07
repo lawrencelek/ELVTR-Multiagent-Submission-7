@@ -1,132 +1,163 @@
 # DUMMIES GDD — Edit 111: Prototype 9 × Prototype 10 (Submission 7)
 
-**7 November 2026.** Story mode, Map 1 (Monument), tiles 1–9. Build: `index.html` (Submission 7). Sources: `engine/duel.js`, `engine/duel_ui.js`, `engine/build_p9.py`, `content/story_map1.json`.
+**7 November 2026, rewritten 17:50.** Story mode, Map 1 (Monument), tiles 1–9. Build: `index.html`. Sources: `engine/duel.js`, `engine/duel_ui.js`, `engine/build_p9.py`, `content/story_map1.json` (run `20261107-172210-v3`, v3f). This edit states the rules as built; §111.12 lists the playtest rounds that set them.
 
 ## 111.1 Scope
 
-- **World:** Prototype 9, unchanged. Districts, tiles, decks, fleet, tile cards, gifts, HUD, sound.
+- **World:** Prototype 9's game, unchanged on disk. Districts, tiles, decks, fleet, save screen, tile cards, gifts, HUD, sound.
 - **Driver:** Prototype 10's red car (`testroad.js`, unchanged) drives the tile in test.
-- **Plan:** each tile reads one ladder stage from the pipeline (`content/story_map1.json`).
-- **New registry IDs:** none registered. Five are proposed (§111.8–111.10): `scoring.whiteShare`, `scoring.redDamageBonus`, `scoring.faultShare`, `scoring.faultMinSpeed`, `traffic.hitStandSeconds`. Every other value is an existing ID.
+- **Plan:** the pipeline sets each tile's stage, objective, title, tale, hint and new idea.
+- **Registry:** every value is a registry ID. Proposed, not yet registered:
 
-## 111.2 The duel in a Prototype 9 tile
+  | ID | Value | Section |
+  |---|---|---|
+  | `scoring.whiteShare` | 0.2 | 111.6 |
+  | `scoring.redDamageBonus` | 1 | 111.6 |
+  | `scoring.faultShare` | 0.5 | 111.5 |
+  | `scoring.faultMinSpeed` | 20 | 111.5 |
+  | `traffic.hitStandSeconds` | 2 | 111.5 |
 
-- **Tile sim:** the tile in test's ground traffic sim takes the red car's brain. Other cars keep Prototype 9's driver.
-- **Red car:** one at a time (`duel.carsOnRoad`). It returns `duel.redReturnSeconds` after leaving the screen.
-- **Rung:** starts at `duel.startRung`; learns up to `duel.topRung`; one lesson per qualifying hit.
-- **Standstill:** a red car below `duel.standstillSpeed` takes no damage from a walk or a dash.
-- **Kerbs:** run kerb to kerb, across the oncoming lane where there is one.
-- **Height (rung 3):** a deck over its road is the plinth. A drop through a parapet gap counts as a hit from above.
-- **Cover:** Prototype 9's statics. Its planters are low cover at `props.planter.height`.
-- **Planter rows:** added along the road when `duel.planters` is 1, never under a deck. There must be room behind a row to crouch.
-- **Vault:** a dash vaults a planter; a walk does not.
-- **Street cameras (rung 4):** up to 3, on the kerb by tall cover, aimed back up the road. None has a roadside planter in reach. Range is `perception.streetCameraRange`; field is `perception.streetCameraFov`.
-- **Sight field:** 10.9's proportional cones (`perception.coneRadius`, `perception.forwardGrades`, `perception.sideGrades`) from rung 2 on.
-- **Block lift:** from 10.2, `duel.blockSeconds` 10 (10.7's value). After it, FARSIGHT sets the dummy down on free ground clear of every lane. No car waits for ever.
-- **Incident (10.10):** the fleet tailgates (`traffic.whiteTimeGap`) and brakes no harder than `traffic.whiteBraking`. An Incident scores `scoring.incidentPoints`. It counts toward the objective once the dummy has moved.
+## 111.2 Progression: one lesson a tile
 
-## 111.3 Objective and clear
+- **Stages:** one a tile, in order. Tile *k* starts where tile *k*−1's lesson left the car.
 
-- **Objective:** the plan's count of damaging red hits (10 or more lost) or stealth points (`scoring.stealthUnseen`, `scoring.stealthLost`, `scoring.stealthSeen`).
-- **Clear:** when the objective is met, Prototype 9's clear runs. Write-off, report, ferry, next card.
+  | Tile | Stage | Car plays at | Your trick (plan v3f) | Lesson at the clear |
+  |---|---|---|---|---|
+  | A1 | 10.2 | rung 0: senses nothing | walk into its path | forward camera |
+  | B1 | 10.3 | rung 1: brakes for you in its lane | cut in with the dash (Battery 1 arrives) | side sensors |
+  | C1 | 10.4 | rung 2: notices you beside the road | drop from the Z2 deck into its path | roof lidar |
+  | C2 | 10.5 | rung 3: sees you in the air | spring from tall cover | street cameras |
+  | B2 | 10.6 | rung 4: cameras watch cover | cover the cameras miss | road items |
+  | A2 | 10.7 | rung 5: stops for cones | duck behind a planter; step out (Hands 1 arrives) | crash memory |
+  | A3 | 10.8 | rung 6: watches your old spots | a new spot each hit | the search |
+  | B3 | 10.9 | rung 7: all it can learn | step out from behind white traffic (Legs 1 arrives) | none |
+  | C3 | 10.10 | rung 7 | the Incident | none |
+
+- **Objective:** only the red car's hits count, at its fault, with 10 or more lost. Or stealth points, or Incidents (10.10).
+- **No mid-tile learning.** The tile plays at its stage's `duel.startRung` throughout.
+- **The lesson:** after the hit that clears the tile and its write-off, before the report. It teaches `duel.startRung` → `duel.topRung`.
+- **Panel:** "CLEAR THE TILE: IT LEARNS ⟨sensor⟩ FROM THE LAST HIT".
+- **Between tiles:** the objective line shows the next tile's plan objective, never Prototype 9's write-off count.
+- **Validator:** tile 1 is 10.2; each tile's `duel.startRung` equals the last tile's `duel.topRung`.
+
+## 111.3 The lesson (Prototype 10's beats, in the game's graphics)
+
+- **Beat 1, the training clip** (`duel.lessonClipSeconds` 3):
+  - The game redraws the last 3 s of the tile from its recording: the tile's art, Prototype 9's sprites for cars and dummy.
+  - Camera marks over it: a light green tint, scan lines, REC, the clock.
+  - The frame of impact holds (`duel.lessonHoldSeconds` 0.8), boxed: IMPACT · ⟨zone⟩. Rung 6 marks the same spot; rung 7 the last-seen point.
+- **Beat 2, the fitting** (`duel.lessonFitSeconds` 2): on that frame, a drone lowers the sensor onto the red car. Its new field draws out from the car.
+- **Card:** what it now does, what is closed, what is open.
+- **Keys:** Enter skips to the card; Enter on the card continues to the report.
+
+## 111.4 The red car
+
+- **One at a time** (`duel.carsOnRoad`); back `duel.redReturnSeconds` after it leaves the screen.
+- **Brakes:** `traffic.hardBraking` 600, the registry's and Prototype 10's. The fleet keeps Prototype 9's 79 (Highway Code, P1.7).
+  - Prototype 10's safe envelope assumes 600. At 79 it crawls by a suspected dummy.
+  - Stop from cruise (`vehicles.sedan.cruiseSpeed` 138): 57 px with `perception.reactionDelay` 0.3.
+- **Cones:** it sees road items at every rung (`perception.forwardLength`). Rung 0 is blind to the dummy only.
+- **Standstill:** below `duel.standstillSpeed` a walk or a dash into it does nothing.
+- **Height:** a dummy on a deck or walkway is out of its world at every rung. Rung 3's lidar sees a jump or a fall onto its road.
+- **Line of sight:** Prototype 9's buildings, walls, booths, columns, sculptures and the monument block it. Masses by drawn height (`proto.art.extrusion`); low cover by `props.planter.height`.
+- **Sight field:** 10.9's proportional cones (`perception.coneRadius`, `perception.forwardGrades`, `perception.sideGrades`) from rung 2.
+- **Street cameras (rung 4):** up to 3, on the kerb by tall cover, aimed back up the road. None reaches a roadside planter or the tile's first tall cover piece: one hiding place is always unwatched.
+- **Block lift:** after `duel.blockSeconds` (10 from 10.2), a drone lifts the dummy clear of any car it keeps waiting: the red car, the red car that hit it, or the fleet.
+
+## 111.5 Contact: fault and the stop
+
+- **Fault:** at contact, compare speeds along the contact normal, just before it.
+  - The vehicle is at fault when it gives at least half the closing speed (`scoring.faultShare`) and moves at `scoring.faultMinSpeed` or more.
+  - Its fault: points, objective, lesson.
+  - Yours (you ran, dashed or stepped into it): damage only. Flash: YOU HIT IT · YOUR FAULT · NO POINTS.
+  - Every vehicle. A drop counts while the car moves. A bounce keeps the first hit's fault.
+- **The stop:** a car that hits the dummy, at either fault, brakes at `traffic.hardBraking` and stands `traffic.hitStandSeconds`. Then it drives on.
+  - Having hit you, the red car drives as Prototype 9's cars do: it stops for you and passes round you. It no longer watches its field.
+- **Lunge guide** (`ui.lungeGuide`): where a dash lands. HIT where the car would hit you; YOUR FAULT where you would hit it.
+
+## 111.6 Scoring
+
+- **Red car:** Prototype 9's points for the hit, plus its damage (`scoring.redDamageBonus`).
+- **White car:** a fifth of Prototype 9's points (`scoring.whiteShare`).
 - **Floor:** other hits in the tile in test hold at `story.missFloor` (`story.floorHold`).
-- **Clearing hit:** teaches nothing. The next tile's stage is the next lesson.
+- **Incident (10.10):** `scoring.incidentPoints`; counts toward the objective once the dummy has moved.
 
-## 111.4 White cars
+## 111.7 Cover
 
-- **Fleet:** Prototype 9's fleet never learns (`proto.learningEnabled` 0; `proto.learn.standoffEnabled` 0).
-- **Density, tiles 1–8:** 0.5 in the tile in test (`story.traffic.monument.<tile>`).
-- **Density, tile 9 (10.9 or later; v3e plays 10.10):** 1.0. The fleet becomes moving cover (`duel.twoWay`).
+- **Roadside cover on every tile**, one family a map. Placed by code beside the red car's road; painted into the tile's art; solid.
+- **Monument (urban):**
 
-## 111.5 Parts
+  | Kind | Size (w × d) | Hides |
+  |---|---|---|
+  | Signal cabinet | 44 × 22 | a standing dummy |
+  | Digital kiosk | 30 × 20 | a standing dummy |
+  | Billboard | 64 × 12 | a standing dummy |
+  | Planter | 120 × 16 | a ducking dummy (`props.planter.height`) |
+  | Hedge | 96 × 16 | a ducking dummy (18) |
+  | Bollard row | 10 × 10, 38 apart | nothing: it blocks the dummy, never a car |
 
-- **Gifts:** Battery 1 at B1, Hands 1 at A2, Legs 1 at B3, as Prototype 9 delivers them.
-- **Duel drone:** stays home (`duel.dashArrives`, `duel.jumpArrives`, `duel.conesArrives`, `duel.duckArrives` all 0).
-- **DUCK:** from tile 6 (stage 10.6). Hold C. Speed scales by `movement.duckSpeedFactor`.
+- **Placement rules:**
+  - On the kerb or a clear body-width off it, with a 34-wide strip behind to hide in.
+  - 30 clear of every static; never under a deck.
+  - Tall pieces stand north of a road that runs across the screen, so they never draw over the lane.
+- **Dash:** vaults a planter or a hedge; stops at tall cover and bollards.
+- **DUCK:** hold C on every tile. Speed × `movement.duckSpeedFactor`.
+- **Proposed families:** industrial (crates, K-rails, dumpsters) and garden (hedges, statues, columns) for Maps 2–3. Breakable and interactive pieces (shelters, hydrants, chargers, vendor carts) come later.
 
-## 111.6 The pipeline's view (v3)
+## 111.8 White cars
 
-- **Each tile's facts:** the agents see the tile's road and set piece from Prototype 9's district plan.
-- **Measured affordances:** `engine/affordances.js` measures each tile on the built world. It reports lanes, a deck over the road, roadside planters and tall cover.
-- **Validator:** refuses a plan that uses a planter, or a drop, a tile does not have. It also refuses test-road words (plinth, barrier, junction).
+- **Fleet:** Prototype 9's driver; it never learns (`proto.learningEnabled` 0, `proto.learn.standoffEnabled` 0).
+- **Density:** 0.5 in the tile in test until 10.9; 1.0 from 10.9 (`story.traffic.monument.<tile>`), where the fleet is moving cover (`duel.twoWay`).
+- **10.10:** the fleet tailgates (`traffic.whiteTimeGap`) and brakes no harder than `traffic.whiteBraking`. Open: Prototype 9's driver at a short gap instead (Lawrence).
+- **Fleet update (proposed, open):** the fleet takes the red car's certified lessons between maps, never between tiles.
 
-## 111.7 Interface
+## 111.9 The dummy
 
-- **Tile card:** Prototype 9's level card, with the plan's tale and objective, and a NEW line for the stage's idea.
-- **Panel:** the car's rung, and the hit that teaches the next rung.
-- **Lesson:** shows after the car leaves. Prototype 10's beats (§111.10), then the card: rung, the hit, what it now does, what is closed, what is open.
-- **Field overlays:**
-  - beam;
-  - cones and rings;
-  - ? and ! stages;
-  - notice meter;
-  - stop line;
-  - ghost;
-  - chalk outlines and remembered spots;
-  - cameras and link;
-  - lunge guide (`ui.lungeGuide`);
-  - block-lift countdown.
-- **Red car:** Prototype 9's sedan, repainted red, with a red outline.
+- **Speed:** 70% of Prototype 9's. `movement.walkSpeed` 56.7; `movement.runSpeed` 113.4.
+- **Parts:** Prototype 9's gifts: Battery 1 at B1, Hands 1 at A2, Legs 1 at B3. The duel's drone stays home (`duel.*Arrives` 0).
+- **Unstick:** pressed against a car and not moving for 0.6 s, the dummy steps to the nearest free ground.
 
-## 111.8 Playtest fixes (Lawrence, 7 November)
+## 111.10 Flow and interface
 
-- **Stuck against a white car:** duel planters sit on the kerb line or a clear body width off it. They also stay 30 clear of every static, so no slot is narrower than a body (`body.radius`).
-- **Unstick:** a dummy pressed against a car, moving and not moving for 0.6 s, steps to the nearest free ground.
-- **Height:** a dummy on a deck or walkway is out of the red car's world at every rung. Rung 3's lidar sees a jump or a fall onto its road, never the deck.
-- **Line of sight:** the level blocks it.
-  - Buildings, walls, booths, columns, sculptures and the monument block it.
-  - Masses block it by their drawn height (`ht`, `proto.art.extrusion`).
-  - Planters are low cover (`props.planter.height`).
-- **Native art:** duel planters and street-camera posts are painted into the tile's ground art, as Prototype 9 paints its own. They sit under decks, cars and props.
-- **Forward cone:** drawn from the nose on. Its edges still run through the front corners.
-- **Red car:** no outline box; red paint and roof sensors only.
-- **Dummy speed:** 70%. `movement.walkSpeed` 56.7; `movement.runSpeed` 113.4. It can no longer run alongside a car.
-- **Scoring:**
-  - A white car's hit scores 20% (proposed `scoring.whiteShare` 0.2, not yet registered).
-  - The red car's hit scores 100% plus its damage (proposed `scoring.redDamageBonus` 1, not yet registered).
-- **Labels:** the validator refuses an objective label that only counts ("HITS: 3") or names write-offs.
+- **Story:** Prototype 9's save screen (NEW GAME, CONTINUE, RENAME, ERASE), the name, the parts splash, the story map, the tile card.
+- **Tile card:** the plan's tale and objective; a NEW line for the stage's idea.
+- **Panel:** the car's rung, what it learns at the clear, HOLD C · DUCK.
+- **Field overlays:** beam; cones and rings; ? and ! stages; notice meter; stop line; ghost; crash outlines and remembered spots; cameras; lunge guide; block-lift countdown.
+- **Red car:** Prototype 9's sedan, repainted red; roof sensors.
+- **Sound:** volume starts at 5 of 10 (`audio.settings.master`); a saved setting wins.
 
-## 111.9 Fault and brakes (Lawrence, 7 November)
+## 111.11 The pipeline (v3)
 
-- **Fault rule:** only a vehicle that hits the dummy scores.
-  - At contact, compare speeds along the contact normal, just before it.
-  - The vehicle is at fault when it gives at least half the closing speed (proposed `scoring.faultShare` 0.5).
-  - It must also move at 20 or more (proposed `scoring.faultMinSpeed` 20).
-  - Otherwise the dummy hit it. Damage stands. No points, no objective, no lesson.
-  - Flash: YOU HIT IT · YOUR FAULT · NO POINTS.
-  - Applies to every vehicle, red and white.
-  - A drop counts when the car moves at `scoring.faultMinSpeed` or more.
-  - A bounce off one car into another keeps the first hit's fault.
-- **What it closes:** dashing into a slow car's front corner. A probe logged 9 of 10 scoring hits that way: dummy at ~1,000 px/s, car at 9–85.
-- **What stays open:** be in its path, too late for it to stop.
-  - Cross its nose; the nose hits you: its fault.
-  - Dash into its side: yours.
-- **Red car's brakes:** `traffic.hardBraking` 600, the registry's value and Prototype 10's.
-  - The fleet keeps Prototype 9's 79 (Highway Code, P1.7).
-  - Prototype 10's safe envelope assumes 600. At 79 the car crawls by a suspected dummy: 44 px/s at a 300 gap. At 600: 146.
-  - Stop from cruise (`vehicles.sedan.cruiseSpeed` 138), `perception.reactionDelay` 0.3: 57 px. It was 162.
-- **Lunge guide:** HIT only where the car would hit the dummy. YOUR FAULT where the dummy would hit the car.
-- **Lesson text:** rung 1 opens the cut-in, not the flank. Rung 2 learns from a hit you cut in for.
-- **Plan text:** the validator refuses hints and labels that have the dummy hit the car ("into a car", "as it passes", "strike it").
-- **Measured (`engine/p9_probe.js`, plan v3d's counts):**
-  - The corner-dash bot scores nothing. B1: 10 dashes, all its own fault.
-  - Cut-in or cover bot, first clear: A1 30 s, B1 26 s, C1 21 s, C2 116 s, B2 320 s, C3 237 s.
-  - In 6 min: A2 and A3 1 of 2 hits; B3 1 of 3.
-- **Incident (v3e's tile 9, 10.10):** a cut-in bot, seen and stopped hard, caused one in 5 s. Tailgaters brake at `traffic.whiteBraking` 45; the red car at 600.
+- **Each tile's facts:** road and set piece from Prototype 9's plan, and measured affordances (`engine/affordances.js`): lanes, a deck over the road, roadside cover by kind.
+- **Validator refuses:**
+  - test-road words (plinth, barrier, junction);
+  - a planter, a drop or a named cover kind the tile lacks;
+  - count-only labels;
+  - text that has the dummy hit the car;
+  - a stage sequence that breaks §111.2.
+- **Probes:** `engine/p9_probe.js` (flank, cut-in, cover bots).
 
-## 111.10 Playtest fixes 2 (Lawrence, 7 November, 16:16–16:19)
+  | Tile | Cover bot, clear time (plan v3f) |
+  |---|---|
+  | A1 | 19 s |
+  | B1 | 36 s |
+  | C1 | 57 s |
+  | C2 | 19 s |
+  | B2 | not cleared in 8 min (the bot cannot path round the ring road) |
+  | A2 | 20 s |
+  | A3 | 231 s |
+  | B3 | 7 s |
+  | C3 | 50 s (Incident) |
 
-- **A car that hits the dummy stops.**
-  - It brakes at `traffic.hardBraking` (600) and stands 2 s (proposed `traffic.hitStandSeconds`, after `traffic.incidentSeconds`). Then it drives on.
-  - Every vehicle, at either fault. No more shoving the dummy to the screen's edge.
-  - The red car, having hit you, drives off as Prototype 9's driver does: it stops for you and passes round you. It no longer ignores you (was row 681).
-  - It no longer watches its field once it has hit you: it drives on.
-- **Block lift for any car you keep waiting:** the red car, the red car that hit you, or the fleet. FARSIGHT lifts the dummy after `duel.blockSeconds`. Before, only the live red car counted, so a car held behind the dummy could stall the lesson.
-- **Cones:** the red car sees road items at every rung (`perception.forwardLength`). Rung 0 is blind to the dummy only.
-  - Before: rung 0 had no beam, so it ran over a cone. Prototype 9 shoves a struck cone aside, so the car seemed to drive through it.
-- **The lesson, as Prototype 10 played it:**
-  - Beat 1: your hit replayed as the car's training clip (`duel.lessonClipSeconds` 3). The frame of impact holds, boxed (`duel.lessonHoldSeconds` 0.8).
-  - Beat 2: a drone fits the new sensor; its field draws out (`duel.lessonFitSeconds` 2).
-  - Then the card. Enter skips to the card, then closes it.
-- **Fleet update (proposed, open):** the fleet takes the red car's certified lessons between maps, never between tiles. Within a map, only the red car learns.
+## 111.12 Playtest rounds (Lawrence, 7 November)
 
+1. **Seven errors:** stuck against a white car; deck sight; level sight; cone behind the car; the box; 70% speed; scoring.
+2. **Difficulty:** the fault rule; the red car's brakes.
+3. **16:16–16:19:** cars stop after a hit; cones at rung 0; the lesson's clip and fitting restored.
+4. **16:47:** the save screen restored.
+5. **17:06:**
+   - one lesson a tile, at the clear, with A1 teaching the forward camera;
+   - the clip in the game's graphics;
+   - volume 5;
+   - DUCK on every tile;
+   - roadside cover.

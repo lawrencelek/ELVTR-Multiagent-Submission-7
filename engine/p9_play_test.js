@@ -78,7 +78,7 @@ const ORDER = ['A1', 'B1', 'C1', 'C2', 'B2', 'A2', 'A3', 'B3', 'C3'];
   while (Date.now() - t0 < SECS * 1000) {
     s = await st();
     if (Date.now() - lastShot > (s.phase === 'lesson' ? 900 : 8000)) { await shot((s.phase === 'lesson' ? 'lesson_' : 'play_') + String(n++).padStart(2, '0')); lastShot = Date.now(); }
-    if (s.done >= THROUGH) break;
+    if (s.done >= THROUGH && s.phase !== 'writeoff' && s.phase !== 'lesson') break; // the tile's lesson plays after its write-off
     await pg.waitForTimeout(s.phase === 'lesson' ? 150 : 400);
   }
   await pg.evaluate(() => clearInterval(window.__auto));

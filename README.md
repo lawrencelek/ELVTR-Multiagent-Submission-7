@@ -41,8 +41,9 @@
    - **L** jumps (Legs 1, tile 8).
    - Escalators lead up to the decks; drop onto a car through a gap in a deck's parapet.
 6. The lunge guide shows where a dash lands: **HIT** if the car would hit you there, YOUR FAULT if you would hit it.
-7. When the red car learns, it replays your hit as its training clip, has the new sensor fitted, then its card says what it now does, what that closes and what is still open.
+7. Each tile ends with one lesson. After the hit that clears it, the red car replays your hit as its training clip, has the new sensor fitted, then its card says what it now does, what that closes and what is still open. The next tile starts there: A1 teaches the forward camera; at B1 you get the dash.
 8. A car that hits you stops, stands a moment, then drives round you.
+9. Every tile has roadside cover: signal cabinets, kiosks and billboards hide you standing; hold **C** to duck behind planters and hedges.
 
 `junction.html` is the earlier version: the same plan on Prototype 10's one-junction test road.
 
@@ -96,6 +97,7 @@ python3 pipeline/run.py            # one command: ingest → designer → valida
   | `title`, `tale`, `hint`, `newIdea` | Prototype 9's level card, objective line and the NEW line |
   | `provenance` | The run, world, models, validator result and cost |
 
+- **GDD:** Edit 111 states the rules as built; `docs/DUMMIES_GDD_Current_State.md` indexes the whole GDD with them merged (§13).
 - **Phaser (next):** the same split. Phaser draws Prototype 9's tiles; `sim.js`, `testroad.js` and `duel.js` run under it unchanged. The pipeline doesn't change.
 
 ## Cost (actual)
@@ -108,7 +110,8 @@ python3 pipeline/run.py            # one command: ingest → designer → valida
 | v3b | Prototype 9 | as v3a, with measured affordances | 103,018 | 19,416 | $0.6637 |
 | v3c | Prototype 9 | after the playtest fixes (decks out of sight, 70% speed); count-only labels | 103,969 | 14,533 | $0.7394 |
 | v3d | Prototype 9 | as v3c; the validator refuses count-only labels; the designer's prompt cached from v3c | 137,313 | 16,575 | $0.5233 |
-| v3e (shipped) | Prototype 9 | the fault rule and the red car's brakes; the validator refuses text that has the dummy hit the car | 105,337 | 16,134 | **$0.7768** |
+| v3e | Prototype 9 | the fault rule and the red car's brakes; the validator refuses text that has the dummy hit the car | 105,337 | 16,134 | $0.7768 |
+| v3f (shipped) | Prototype 9 | one lesson a tile, at the clear; roadside cover measured per tile | 107,026 | 22,468 | **$0.8443** |
 
 ## Layout
 

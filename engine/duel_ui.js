@@ -210,7 +210,7 @@
     ctx = cx; s = sim; T = sim && sim.duelT; const d = sim && sim.duelDef;
     if (!T || !d || sim.phase === 'brief' || sim.phase === 'lesson' || sim.duelDone) return;
     const ri = T.rungInfo(), top = Math.round(T.DP['duel.topRung'] || 0), nxt = T.rung < top ? DUELR()[T.rung + 1] : null, o = d.objective, n = Math.min(sim.duelProgress(), o.count);
-    const lines = [['RED-01 · RUNG ' + T.rung + ' · ' + (ri ? ri.name.toUpperCase() : '') + '   ◎ ' + n + ' / ' + o.count, C.red, 15], [nxt ? 'LEARNS ' + nxt.name.toUpperCase() + ' FROM ' + NEXT[nxt.rung].toUpperCase() : T.rung >= 1 ? 'ALL IT CAN LEARN HERE: OUTWIT IT' : 'IT SENSES NOTHING YET', C.dim, 12]];
+    const lines = [['RED-01 · RUNG ' + T.rung + ' · ' + (ri ? ri.name.toUpperCase() : '') + '   ◎ ' + n + ' / ' + o.count, C.red, 15], [nxt ? 'CLEAR THE TILE: IT LEARNS ' + nxt.name.toUpperCase() + ' FROM THE LAST HIT' : T.rung >= 1 ? 'ALL IT CAN LEARN: OUTWIT IT' : 'IT SENSES NOTHING YET', C.dim, 12], ['HOLD C · DUCK BEHIND LOW COVER', C.dim, 11]];
     ctx.save(); ctx.font = '700 19px B612, system-ui, sans-serif';
     const w = Math.max(...lines.map(([t, , z]) => { ctx.font = `700 ${z}px B612, system-ui, sans-serif`; return ctx.measureText(t).width; })) + 24, h = 16 + lines.length * 19, x = G.FX + 10, y = G.FY + 10;
     rect(x, y, w, h, C.panel); ctx.strokeStyle = C.red; ctx.lineWidth = 1.5; ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
@@ -231,56 +231,62 @@
     if (!L.skip && t < B.clip + B.hold + B.fit) return drawFit(L, t - B.clip - B.hold, B, G);
     L.card = true; drawCard(L, G);
   }
-  function drawClip(L, t, B, G) {
-    const k = G.RA / G.U, fr = L.clip.frames, tt = L.clip.hitT - B.clip + Math.min(t, B.clip); // then the frame of impact holds
-    let f = fr[0]; for (const q of fr) { if (q.t <= tt + 1e-6) f = q; else break; }
+  // The clip in the game's own graphics: game.js draws the field from the recorded frame (replayBegin/replayEnd around drawField):
+  // the tile's art, Prototype 9's sprites for the cars and the dummy. Here: the camera's marks over it.
+  function frameAt(L, t, B) { const fr = L.clip.frames, tt = L.clip.hitT - B.clip + Math.min(t, B.clip); let f = fr[0]; for (const q of fr) { if (q.t <= tt + 1e-6) f = q; else break; } return { f, tt }; }
+  function replayBegin(sim, now) {
+    const T2 = sim && sim.duelT, L = T2 && T2.lesson; if (!L || sim.phase !== 'lesson' || !L.clip || !L.clip.frames.length || L.card || L.skip) return null;
+    T = T2; if (L.ui0 == null) L.ui0 = now; const B = beats(L), t = now - L.ui0; if (t >= B.clip + B.hold + B.fit) return null;
+    const { f } = frameAt(L, t, B), keep = { view: sim.view, cars: sim.cars, body: sim.body, effects: sim.effects };
+    sim.view = f.view; sim.cars = f.view; if (f.b) sim.body = f.b; sim.effects = []; L.frame = f;
+    return keep;
+  }
+  function replayEnd(sim, keep) { if (keep) Object.assign(sim, keep); }
+  function camMarks(G, label, t, sub) { // REC, scan lines, the clip's name and clock
+    ctx.save(); for (let y = G.FY; y < G.FY + G.FH; y += 4) rect(G.FX, y, G.FW, 1, 'rgba(0,0,0,0.14)');
+    rect(G.FX, G.FY, G.FW, 46, 'rgba(6,10,18,0.72)'); text(label, G.FX + 20, G.FY + 31, 18, CAM);
+    if (Math.floor(t * 2) % 2 === 0) { ctx.fillStyle = C.red; ctx.beginPath(); ctx.arc(G.FX + G.FW - 70, G.FY + 25, 7, 0, TAU); ctx.fill(); }
+    text('REC', G.FX + G.FW - 20, G.FY + 31, 16, CAM, 'right');
+    if (sub) { rect(G.FX, G.FY + G.FH - 40, G.FW, 40, 'rgba(6,10,18,0.72)'); text(sub, G.FX + 20, G.FY + G.FH - 14, 16, CAM_DIM); }
+    text('ENTER · SKIP', G.FX + G.FW - 20, G.FY + G.FH - 14, 13, C.dim, 'right'); ctx.restore();
+  }
+  function drawClip(L, t, B, G) { // beat 1: your hit, as the car's training clip
+    const k = G.RA / G.U, { f, tt } = frameAt(L, t, B), o = f && f.b;
     ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip();
-    rect(G.FX, G.FY, G.FW, G.FH, 'rgba(6,22,16,0.86)'); // the camera's tint over the tile
+    rect(G.FX, G.FY, G.FW, G.FH, 'rgba(10,40,28,0.22)'); // the camera's tint
     ctx.translate(G.FX, G.FY); ctx.scale(k, k);
-    if (f) {
-      for (const c of f.cars) { ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.h); rect(-c.L / 2, -c.W / 2, c.L, c.W, c.red ? C.red : 'rgba(214,222,230,0.8)'); rect(c.L / 2 - 12, -c.W / 2 + 3, 6, c.W - 6, 'rgba(12,14,20,0.7)'); rect(-c.L / 2 + 5, -c.W / 2 + 3, 5, c.W - 6, 'rgba(12,14,20,0.5)'); ctx.restore(); }
-      const o = f.b; if (o && o.alive) { ctx.fillStyle = C.dummy; ctx.beginPath(); ctx.arc(o.x, o.y, o.duck ? 9 : 12, 0, TAU); ctx.fill(); ctx.strokeStyle = C.joint; ctx.lineWidth = 2; ctx.stroke(); }
-      if (o && t >= B.clip) {
-        ctx.strokeStyle = CAM; ctx.lineWidth = 2; ctx.strokeRect(o.x - 24, o.y - 24, 48, 48);
-        text('IMPACT · ' + (ZN[L.clip.zone] || String(L.clip.zone || '').toUpperCase()), Math.max(90, Math.min(710, o.x)), o.y - 32, 12, CAM, 'center');
-        if (L.to === 6 && L.origin) { const R = T.P['duel.memoryRadius'] || 30; ctx.strokeStyle = C.mem; ctx.beginPath(); ctx.arc(L.origin.x, L.origin.y, R, 0, TAU); ctx.stroke(); text('SAME SPOT AS BEFORE', L.origin.x, L.origin.y - R - 6, 12, C.mem, 'center'); }
-        if (L.to === 7 && L.seenAt) { const g = L.seenAt; ctx.strokeStyle = C.search; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.arc(g.x, g.y, 14, 0, TAU); ctx.moveTo(g.x, g.y); ctx.lineTo(o.x, o.y); ctx.stroke(); ctx.setLineDash([]); text('LAST SEEN · ' + (+g.ago || 0).toFixed(1) + ' s BEFORE', g.x, g.y - 22, 12, C.search, 'center'); }
-      }
+    if (o && t >= B.clip) {
+      ctx.strokeStyle = CAM; ctx.lineWidth = 2.5; ctx.strokeRect(o.x - 26, o.y - 40, 52, 58);
+      label('IMPACT · ' + (ZN[L.clip.zone] || String(L.clip.zone || '').toUpperCase()), Math.max(90, Math.min(710, o.x)), o.y - 48, 12, CAM);
+      if (L.to === 6 && L.origin) { const R = T.P['duel.memoryRadius'] || 30; ctx.strokeStyle = C.mem; ctx.beginPath(); ctx.arc(L.origin.x, L.origin.y, R, 0, TAU); ctx.stroke(); label('SAME SPOT AS BEFORE', L.origin.x, L.origin.y - R - 6, 12, C.mem); }
+      if (L.to === 7 && L.seenAt) { const g = L.seenAt; ctx.strokeStyle = C.search; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.arc(g.x, g.y, 14, 0, TAU); ctx.moveTo(g.x, g.y); ctx.lineTo(o.x, o.y); ctx.stroke(); ctx.setLineDash([]); label('LAST SEEN · ' + (+g.ago || 0).toFixed(1) + ' s BEFORE', g.x, g.y - 22, 12, C.search); }
     }
     ctx.restore();
-    ctx.save(); for (let y = G.FY; y < G.FY + G.FH; y += 4) rect(G.FX, y, G.FW, 1, 'rgba(0,0,0,0.18)'); // scan lines
-    text('TRAINING CLIP · ' + (L.model || 'RED-01'), G.FX + 20, G.FY + 34, 18, CAM);
-    if (Math.floor(t * 2) % 2 === 0) { ctx.fillStyle = C.red; ctx.beginPath(); ctx.arc(G.FX + G.FW - 70, G.FY + 28, 7, 0, TAU); ctx.fill(); }
-    text('REC', G.FX + G.FW - 20, G.FY + 34, 16, CAM, 'right');
-    const d = tt - L.clip.hitT; text((d < 0 ? '−' : '+') + Math.abs(d).toFixed(1) + ' s', G.FX + 20, G.FY + G.FH - 20, 16, CAM_DIM);
-    text('ENTER · SKIP', G.FX + G.FW - 20, G.FY + G.FH - 20, 13, C.dim, 'right');
-    ctx.restore();
+    const d = tt - L.clip.hitT; camMarks(G, 'TRAINING CLIP · ' + (L.model || 'RED-01'), t, (d < 0 ? '−' : '+') + Math.abs(d).toFixed(1) + ' s · YOUR HIT, AS THE CAR SAW IT');
   }
-  function drawFit(L, t, B, G) { // the car, large; a drone lowers the sensor; the new field draws out from it
-    const u = Math.min(1, t / B.fit), to = L.to, from = L.from, reach = Math.max(0, (u - 0.45) / 0.55), ri = DUELR()[to] || {};
-    const k = 4, cl = T.P['vehicles.sedan.length'], cw = T.P['vehicles.sedan.width'], cx = G.FX + G.FW * 0.32, cy = G.FY + G.FH * 0.56, nose = cx + cl / 2 * k, half = (cw / 2 + 4) * k, right = G.FX + G.FW;
-    const has = (r) => from >= r || (to === r && reach > 0), amt = (r) => (to === r ? reach : 1);
-    ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip(); rect(G.FX, G.FY, G.FW, G.FH, '#0c0e14');
-    if (has(1)) rect(nose, cy - half, amt(1) * (right - nose), 2 * half, 'rgba(244,248,250,0.10)'); // the beam
-    if (has(2)) for (const sg of [-1, 1]) { const h = amt(2) * 150; rect(cx - cl / 2 * k, sg > 0 ? cy + half : cy - half - h, right - cx + cl / 2 * k, h, 'rgba(127,168,188,0.13)'); } // side cones
-    if (to === 3 && reach > 0) { ctx.strokeStyle = CAM; ctx.lineWidth = 2; for (let i = 1; i <= 3; i++) { ctx.globalAlpha = Math.max(0, 1 - i / 3.5) * reach; ctx.beginPath(); ctx.arc(cx - 2 * k, cy, reach * 70 * i, 0, TAU); ctx.stroke(); } ctx.globalAlpha = 1; text('SEES A JUMP OR A FALL ONTO ITS ROAD', cx, cy + half + 70, 15, C.text, 'center'); } // the lidar's sweep
-    if (to === 4 && reach > 0) { ctx.strokeStyle = CAM; ctx.lineWidth = 2; ctx.setLineDash([6, 6]); ctx.globalAlpha = reach; for (const [x, y] of [[right - 260, G.FY + 150], [right - 190, cy], [right - 260, G.FY + G.FH - 130]]) { ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(cx - cl / 2 * k + 32, cy - half - 6); ctx.stroke(); rect(x - 3, y, 6, 30, C.joint); rect(x - 10, y - 10, 20, 12, '#2a2f3a'); ctx.fillStyle = CAM; ctx.beginPath(); ctx.arc(x + 6, y - 4, 3, 0, TAU); ctx.fill(); } ctx.setLineDash([]); ctx.globalAlpha = 1; text('STREET CAMERAS SHARE WHAT THEY SEE', cx, cy + half + 70, 15, C.text, 'center'); }
-    if (to === 5 && reach > 0) { const x = nose + 120; ctx.globalAlpha = reach; ctx.fillStyle = '#ff8a1f'; ctx.beginPath(); ctx.moveTo(x + 70, cy - 34); ctx.lineTo(x + 52, cy + 26); ctx.lineTo(x + 88, cy + 26); ctx.closePath(); ctx.fill(); rect(x, cy - half - 8, 6, 2 * half + 16, C.red); text('STOPS · NEVER SWERVES', x + 40, cy + half + 50, 15, C.text, 'center'); ctx.globalAlpha = 1; }
-    if (to === 6 && reach > 0) { ctx.globalAlpha = Math.min(1, reach * 2); ctx.strokeStyle = C.mem; ctx.lineWidth = 2; T.crashes.slice(-6).forEach((cr, i) => { const x = right - 300 + (i % 3) * 90, y = G.FY + 140 + Math.floor(i / 3) * 90; if (reach > (i + 1) / 7) { ctx.beginPath(); ctx.arc(x, y, 26, 0, TAU); ctx.stroke(); text('CRASH ' + cr.n, x, y + 4, 11, C.mem, 'center'); } }); ctx.globalAlpha = 1; text('REMEMBERS WHERE YOU STRUCK FROM', cx, cy + half + 70, 15, C.text, 'center'); }
-    if (to === 7 && reach > 0) { const gx = right - 200, gy = cy + 40; ctx.globalAlpha = Math.min(1, reach * 1.5); ctx.strokeStyle = C.search; ctx.setLineDash([8, 6]); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(gx, gy, 70, 0, TAU); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.arc(gx, gy - 16, 14, 0, TAU); ctx.stroke(); text('LAST SEEN', gx, gy - 90, 15, C.search, 'center'); text('SEARCHES WHERE IT LAST SAW YOU', cx, cy + half + 70, 15, C.text, 'center'); ctx.globalAlpha = 1; }
-    const fitted = u >= 0.45 ? to : from;
-    ctx.save(); ctx.translate(cx, cy); rect(-cl / 2 * k, -cw / 2 * k, cl * k, cw * k, C.red); rect(cl / 2 * k - 44, -cw / 2 * k + 10, 22, cw * k - 20, '#1b2a38'); rect(-cl / 2 * k + 18, -cw / 2 * k + 10, 16, cw * k - 20, '#1b2a38');
-    if (fitted >= 1) rect(cl / 2 * k - 8, -14, 8, 28, '#e8eef2'); // the forward camera
-    if (fitted >= 2) for (const sg of [-1, 1]) rect(-12, sg * cw / 2 * k - (sg > 0 ? 0 : 8), 24, 8, '#e8eef2'); // side sensors
-    if (fitted >= 3) { ctx.fillStyle = '#e8eef2'; ctx.beginPath(); ctx.arc(-8, 0, 14, 0, TAU); ctx.fill(); } // the roof lidar
+  function drawFit(L, t, B, G) { // beat 2: on the frame of impact, a drone lowers the new sensor onto the red car; its field draws out
+    const k = G.RA / G.U, u = Math.min(1, t / B.fit), to = L.to, reach = Math.max(0, (u - 0.45) / 0.55), ri = DUELR()[to] || {}, f = L.frame, c = f && f.view.find((q) => q.red && !q.ghost);
+    ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip();
+    rect(G.FX, G.FY, G.FW, G.FH, 'rgba(6,10,18,0.38)');
+    ctx.translate(G.FX, G.FY); ctx.scale(k, k);
+    if (c) {
+      if (reach > 0) {
+        ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.h);
+        if (to === 1) rect(c.L / 2, -(c.W / 2 + 13), reach * 520, c.W + 26, 'rgba(244,248,250,0.18)'); // the forward camera's beam
+        if (to === 2) for (const sg of [-1, 1]) rect(-c.L / 2 - 20, sg > 0 ? c.W / 2 : -c.W / 2 - reach * 130, c.L + 160, reach * 130, 'rgba(127,168,188,0.22)'); // side cones
+        if (to === 3) { ctx.strokeStyle = CAM; ctx.lineWidth = 2; for (let i = 1; i <= 3; i++) { ctx.globalAlpha = Math.max(0, 1 - i / 3.5); ctx.beginPath(); ctx.arc(0, 0, reach * 60 * i, 0, TAU); ctx.stroke(); } ctx.globalAlpha = 1; } // the roof lidar's sweep
+        if (to === 5) { rect(c.L / 2 + 60, -(c.W / 2 + 8), 5, c.W + 16, C.red); ctx.fillStyle = '#ff8a1f'; ctx.beginPath(); ctx.moveTo(c.L / 2 + 92, -9); ctx.lineTo(c.L / 2 + 84, 8); ctx.lineTo(c.L / 2 + 100, 8); ctx.closePath(); ctx.fill(); } // stops short of a cone
+        ctx.restore();
+        if (to === 4) { ctx.strokeStyle = CAM; ctx.lineWidth = 2; ctx.setLineDash([6, 6]); ctx.globalAlpha = reach; for (const cam of T.level.cameras || []) { ctx.beginPath(); ctx.moveTo(cam[0], cam[1] - 16); ctx.lineTo(c.x, c.y); ctx.stroke(); } ctx.setLineDash([]); ctx.globalAlpha = 1; } // the cameras link to it
+        if (to === 6) { ctx.strokeStyle = C.mem; ctx.lineWidth = 2; T.crashes.forEach((cr, i) => { if (reach > (i + 1) / (T.crashes.length + 1)) { ctx.beginPath(); ctx.arc(cr.ox, cr.oy, T.P['duel.memoryRadius'] || 30, 0, TAU); ctx.stroke(); } }); } // the spots it remembers
+        if (to === 7 && f.b) { ctx.strokeStyle = C.search; ctx.setLineDash([6, 5]); ctx.lineWidth = 2; ctx.globalAlpha = reach; ctx.beginPath(); ctx.arc(f.b.x, f.b.y, 60, 0, TAU); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1; label('LAST SEEN', f.b.x, f.b.y - 66, 12, C.search); }
+      }
+      const dy = u < 0.45 ? -150 * (1 - u / 0.45) : u < 0.7 ? -150 * ((u - 0.45) / 0.25) : null; // the drone: down to the car, the sensor fitted, away
+      if (dy != null) drawDrone(c.x, c.y - 24 + dy, u < 0.45);
+      ctx.strokeStyle = C.red; ctx.lineWidth = 2; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.arc(c.x, c.y, c.L * 0.75, 0, TAU); ctx.stroke(); ctx.setLineDash([]);
+    }
     ctx.restore();
-    const px = to === 1 ? cx + (cl / 2 - 4) * k : to === 2 ? cx : to === 4 ? cx + (-cl / 2 + 8) * k : to === 6 ? cx + (-cl / 2 + 14) * k : cx - 8;
-    const dy = u < 0.45 ? -170 + 170 * (u / 0.45) : u < 0.7 ? -170 * ((u - 0.45) / 0.25) : null;
-    if (dy != null) { ctx.save(); ctx.translate(px, cy + dy - 30); ctx.scale(2.4, 2.4); drawDrone(0, 0, u < 0.45); ctx.restore(); }
-    text(String(ri.fit || 'SENSOR') + ' FITTED · ' + String(ri.sensor || ri.name || '').toUpperCase(), G.FX + 40, G.FY + 64, 28, C.text, 'left', 900);
-    text((L.model || 'RED-01') + ' · RUNG ' + from + ' → ' + to, G.FX + 40, G.FY + 96, 16, C.dim);
-    text('ENTER · SKIP', G.FX + G.FW - 20, G.FY + G.FH - 20, 13, C.dim, 'right');
-    ctx.restore();
+    camMarks(G, String(ri.fit || 'SENSOR') + ' FITTED · ' + String(ri.sensor || ri.name || '').toUpperCase(), t, (L.model || 'RED-01') + ' · RUNG ' + L.from + ' → ' + to);
   }
   function drawCard(L, G) {
     const info = LESSON[L.to] || ['', '', ''], ri = DUELR()[L.to] || {};
@@ -295,8 +301,8 @@
     yy = wrap(info[0], x + 36, yy, w - 72, 30, 22, C.text) + 14;
     text('CLOSED', x + 36, yy, 15, C.red); yy = wrap(info[1], x + 150, yy, w - 186, 28, 20, C.text) + 10;
     text('OPEN', x + 36, yy, 15, '#9ff2c8'); yy = wrap(info[2], x + 150, yy, w - 186, 28, 20, '#9ff2c8') + 10;
-    if (Math.floor((G.t || 0) * 2) % 2 === 0) text('ENTER · BACK TO THE ROAD', x + w - 34, y + h - 30, 20, C.dummy, 'right', 900);
+    if (Math.floor((G.t || 0) * 2) % 2 === 0) text('ENTER · CONTINUE', x + w - 34, y + h - 30, 20, C.dummy, 'right', 900);
     ctx.restore();
   }
-  root.DUEL_UI = { field, hud, lesson, lessonKey, redSprite };
+  root.DUEL_UI = { field, hud, lesson, lessonKey, replayBegin, replayEnd, redSprite };
 })(typeof window !== 'undefined' ? window : globalThis);

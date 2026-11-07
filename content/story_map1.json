@@ -2,164 +2,158 @@
  "map": {
   "id": "monument",
   "title": "MAP 1 · MONUMENT",
-  "intro": "Dummy Corporation welcomes you off the factory floor. Your colleagues learn from every crash; Certification requires that you keep up."
+  "intro": "Dummy Corporation welcomes you off the factory floor. The cars are your colleagues; Certification is your goal."
  },
  "tiles": [
   {
    "n": 1,
    "tile": "A1",
    "title": "The welcome wall",
-   "stage": "10.1",
-   "newIdea": "Controls: walk into the red car's path and let it hit you.",
+   "stage": "10.2",
+   "newIdea": "Controls. At the clear it learns the forward camera: braking for you.",
    "objective": {
     "kind": "hits",
-    "count": 2,
+    "count": 1,
     "label": "WALK INTO ITS PATH"
    },
-   "params": {
-    "duel.redReturnSeconds": 2
-   },
-   "tale": "Fresh off the factory floor. Step into a colleague's path under the highway and let it hit you.",
-   "hint": "Walk into its lane under the highway."
+   "params": {},
+   "tale": "Fresh off the factory floor, walk into a colleague's path under the LED wall. Make your engineers proud.",
+   "hint": "Walk into its path by the LED wall; let it hit you."
   },
   {
    "n": 2,
    "tile": "B1",
    "title": "The podium bridge",
-   "stage": "10.2",
-   "newIdea": "Dash (Space): after one hit, it brakes for dummies in its lane.",
+   "stage": "10.3",
+   "newIdea": "Battery 1 dash. At the clear it fits side sensors.",
    "objective": {
     "kind": "hits",
     "count": 2,
     "label": "DASH INTO ITS PATH"
    },
-   "params": {
-    "ui.lungeGuide": 1
-   },
-   "tale": "Battery 1 is fitted. Once hit, your colleague learns to brake for dummies in its lane.",
-   "hint": "Wait by the podium; Space dashes into its path."
+   "params": {},
+   "tale": "Battery 1 is fitted. Shoppers never came to the skybridge; staff watch you dash into a colleague's path.",
+   "hint": "Wait by the kiosk; dash into its path ahead of its nose."
   },
   {
    "n": 3,
    "tile": "C1",
    "title": "The LED drum",
-   "stage": "10.3",
-   "newIdea": "The drop: side sensors watch the kerb; fall from the Z2 deck.",
+   "stage": "10.4",
+   "newIdea": "Height: drop from the Z2 deck. At the clear it fits roof lidar.",
    "objective": {
     "kind": "hits",
-    "count": 2,
+    "count": 1,
     "label": "DROP INTO ITS PATH"
    },
    "params": {},
-   "tale": "The LED drum lights the bend. Your colleague now watches the kerb, not the sky. Gravity is company policy.",
-   "hint": "Escalator up; step off the Z2 parapet gap into its path."
+   "tale": "The LED drum lights the bend. Ride up to Z2 and step off into its path: gravity is company policy.",
+   "hint": "Ride the Z2 escalator; walk off the parapet gap into its path."
   },
   {
    "n": 4,
    "tile": "C2",
    "title": "The portal tower",
-   "stage": "10.4",
-   "newIdea": "Cover: roof lidar sees falls; spring from behind the portal tower.",
+   "stage": "10.5",
+   "newIdea": "Tall cover: spring from the kiosk. At the clear: street cameras.",
    "objective": {
     "kind": "hits",
-    "count": 2,
-    "label": "SPRING FROM COVER"
+    "count": 1,
+    "label": "FROM BEHIND COVER"
    },
-   "params": {},
-   "tale": "The highway runs through the portal tower at the sixth floor. Roof lidar is expensed: falling is now visible.",
-   "hint": "Hide behind the portal tower; step out into its path."
+   "params": {
+    "perception.sideNoticeSeconds": 0.9
+   },
+   "tale": "The lidar now sees you fall from the portal tower. Hide behind street furniture instead; ignore the view.",
+   "hint": "Hide behind the kiosk; Space dash into its path."
   },
   {
    "n": 5,
    "tile": "B2",
    "title": "The monument",
-   "stage": "10.5",
-   "newIdea": "Street cameras: watched cover stops hiding you; find the monument's blind side.",
+   "stage": "10.6",
+   "newIdea": "Camera blind spots. At the clear it stops for cones.",
    "objective": {
     "kind": "hits",
     "count": 1,
-    "label": "SPRING OUT OF CAMERA VIEW"
+    "label": "STRUCK, NOT DASHING"
    },
-   "params": {
-    "perception.streetCameraRange": 300
-   },
-   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Street cameras report to your colleague.",
-   "hint": "Hide behind the monument's far side from cameras; step into its path."
+   "params": {},
+   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Find the side of it no camera watches.",
+   "hint": "Wait behind the kiosk, monument's blind side; walk into its path."
   },
   {
    "n": 6,
    "tile": "A2",
    "title": "The neon shops",
-   "stage": "10.5",
-   "newIdea": "Cones (J): a cone in its lane makes it swerve into you.",
+   "stage": "10.7",
+   "newIdea": "Duck behind planters. At the clear: crash memory.",
    "objective": {
     "kind": "hits",
-    "count": 2,
-    "label": "BAIT WITH A CONE"
+    "count": 1,
+    "label": "DUCK, THEN STEP OUT"
    },
    "params": {},
-   "tale": "Neon shops sell nothing, yet traffic reads them. Hands 1 is fitted: bait a colleague with a cone.",
-   "hint": "J: put a cone in its lane; wait beside it."
+   "tale": "Hands 1 is fitted, but colleagues now stop for cones. Duck behind a neon-lit planter and wait.",
+   "hint": "Hold C behind the planter; step out just ahead of its nose."
   },
   {
    "n": 7,
    "tile": "A3",
    "title": "The stacked cubes",
-   "stage": "10.6",
-   "newIdea": "DUCK (hold C) behind low planters; cones stop working.",
+   "stage": "10.8",
+   "newIdea": "A new spot each hit. At the clear: the search.",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "DUCK, THEN SPRING"
+    "label": "A NEW SPOT EACH HIT"
    },
-   "params": {
-    "perception.duckNoticeFactor": 2
-   },
-   "tale": "DUCK is approved. The stacked cubes rose one budget at a time; their planters hide you the same way.",
-   "hint": "Hold C behind a planter; spring into its path."
+   "params": {},
+   "tale": "The stacked cubes rose one budget at a time. Your colleague remembers each spot; never use one twice.",
+   "hint": "Billboard first, then the hedge."
   },
   {
    "n": 8,
    "tile": "B3",
    "title": "The LED canyon",
-   "stage": "10.7",
-   "newIdea": "Crash memory: it watches every spot you were hit from.",
+   "stage": "10.9",
+   "newIdea": "Two-way white traffic as moving cover. It learns nothing more.",
    "objective": {
     "kind": "hits",
-    "count": 2,
-    "label": "NEW SPOT EACH TIME"
+    "count": 1,
+    "label": "FROM BEHIND TRAFFIC"
    },
    "params": {},
-   "tale": "Legs 1 is fitted. Between the LED walls, your colleague now watches every spot it hit you from.",
-   "hint": "Spring from a new wall each time; jump into its path."
+   "tale": "Legs 1 is fitted. Two screens advertise to each other; white traffic hides you from your colleague.",
+   "hint": "Wait behind a white van; step out into its path."
   },
   {
    "n": 9,
    "tile": "C3",
    "title": "The LED gateway",
    "stage": "10.10",
-   "newIdea": "The Incident: white tailgaters rear-end the red car when it stops hard.",
+   "newIdea": "Tailgaters: make it stop hard; the white car behind runs in.",
    "objective": {
     "kind": "incidents",
     "count": 1,
     "label": "CAUSE AN INCIDENT"
    },
    "params": {},
-   "tale": "The gateway thanks every driver for driving safely. Make the red car brake hard; traffic files the Incident.",
-   "hint": "Spring from cover into its path; tailgaters do the rest."
+   "tale": "The gateway thanks every colleague for safe driving. Make one brake hard in front of a tailgater; Certification awaits.",
+   "hint": "Step into its lane early, with a white car close behind."
   }
  ],
- "rationale": "Fixed the two labels to name the move. Cut the tile 3 override and shortened hints. Tile 5 drops to one hit as a breather; its camera range override softens the stage. Kept lungeGuide to help the first dash and duckNoticeFactor to soften the first planter test. Tile 8 now names the jump. Removed the cone-closure preview from the tile 7 tale.",
+ "rationale": "Kept the order and stages. Tile 1's label now names the move. Counts fall to 1 on tiles 6 and 8, giving breathers after the thin stages and before the Incident. Tile 8 drops the jump, which the lidar would see. Hints name real cover and \"just ahead of its nose\". Removed the weak overrides on tiles 1 and 5.",
  "provenance": {
   "pipeline": "pipeline/run.py",
-  "run": "20261107-154808-v3",
+  "run": "20261107-172210-v3",
   "world": "p9",
   "models": {
    "designer": "opus",
    "reviewer": "sonnet",
    "refiner": "sonnet"
   },
-  "costUsd": 0.7768,
+  "costUsd": 0.8443,
   "validator": "pass",
   "review": "revise"
  }

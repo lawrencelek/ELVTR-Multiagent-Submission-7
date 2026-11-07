@@ -23,6 +23,7 @@ for (const t of order) {
   const p9planters = (sc.game.statics || []).filter((q) => q.kind === 'planter' && near(q)).length;
   const room = D.placePlanters(T, sc, P, { 'props.planter.height': 14 }, lanes).length;
   const tall = (sc.game.statics || []).filter((q) => ['block', 'booth', 'sculpture', 'column', 'monument'].includes(q.kind) && near(q)).length;
-  out[t] = { redLanes: lanes.length, roadOnScreen: lanes.map((l) => Math.round(l.exitS - l.enterS)), deckOverRoad: deck, stairs: (sc.stairs || []).length, roadsidePlanters: p9planters, planterRowsThatFit: room, plantersForAnAmbush: p9planters + room > 0, tallCoverByRoad: tall };
+  const cover = {}; for (const q of D.placeCover(T, sc, P, { 'props.planter.height': 14 }, lanes, D.FAMILY.monument)) cover[q.kind] = (cover[q.kind] || 0) + 1; // the roadside cover the duel adds (engine/duel.js)
+  out[t] = { roadsideCover: cover, redLanes: lanes.length, roadOnScreen: lanes.map((l) => Math.round(l.exitS - l.enterS)), deckOverRoad: deck, stairs: (sc.stairs || []).length, roadsidePlanters: p9planters, planterRowsThatFit: room, plantersForAnAmbush: p9planters + room > 0 || !!(cover.planter || cover.hedge), tallCoverByRoad: tall };
 }
 process.stdout.write(JSON.stringify(out, null, 1) + '\n');
