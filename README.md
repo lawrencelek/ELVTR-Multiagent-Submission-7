@@ -6,7 +6,7 @@
 | **Game** | DUMMIES |
 | **Playable link** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/** |
 | **Repository** | https://github.com/lawrencelek/ELVTR-Multiagent-Submission-7 |
-| **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) (2 min 10 s) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
+| **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) (2 min 4 s) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
 | **One-page audit** | [`docs/02_Pipeline_Audit.md`](docs/02_Pipeline_Audit.md) |
 | **P9 × P10 integration** | [`docs/01_P9_P10_Integration_Analysis.md`](docs/01_P9_P10_Integration_Analysis.md) · GDD [Edit 111](docs/DUMMIES_GDD_Edit111_Submission7_Integration.md) |
 | **Target engine** | Phaser 3 (next). Today: Prototype 9's HTML5 Canvas engine, with Prototype 10's driver |
@@ -39,7 +39,8 @@
    - **L** jumps (Legs 1, tile 8).
    - Escalators lead up to the decks; drop onto a car through a gap in a deck's parapet.
 6. The lunge guide shows where a dash lands: **HIT** if the car would hit you there, YOUR FAULT if you would hit it.
-7. When the red car learns, its lesson card says what it now does, what that closes and what is still open.
+7. When the red car learns, it replays your hit as its training clip, has the new sensor fitted, then its card says what it now does, what that closes and what is still open.
+8. A car that hits you stops, stands a moment, then drives round you.
 
 `junction.html` is the earlier version: the same plan on Prototype 10's one-junction test road.
 

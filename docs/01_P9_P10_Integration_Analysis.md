@@ -79,13 +79,14 @@ Also: the lunge guide, the stealth grade, the lure and stop line, the block lift
 | Height (rung 3) | A dummy up on a deck or walkway is out of the red car's world at every rung. The lidar sees a dummy in the air: a jump, or a fall off a deck onto its road. A drop through a parapet gap counts as a hit from above. |
 | Cover and low cover | Prototype 9's buildings, walls, columns, booths, sculptures and monument block the car's sight. Its masses block it by their drawn height; its planters are low cover (`props.planter.height`). From 10.6 (`duel.planters`), planter rows are added along the road and painted into the tile's art. They are never under a deck, and never leave a slot narrower than a body. |
 | Street cameras (rung 4) | Placed by code on the kerb by tall cover, clear of roadside planters, aimed back up the road. Their posts are painted into the tile's art. |
-| Hits, lessons, memory, search | `DuelStorySim` (Prototype 9's `StorySim`) routes red hits to the duel's crash record, stealth grade and `learnFrom`. A lesson card shows once the car has left. |
+| Hits, lessons, memory, search | `DuelStorySim` (Prototype 9's `StorySim`) routes red hits to the duel's crash record, stealth grade and `learnFrom`. Once the car has left, the lesson plays as in Prototype 10: your hit as its training clip, the sensor fitted, then the card. |
 | Objective and clear | The plan's count of red hits. When it is met, Prototype 9's own clear runs: write-off, report, ferry, the next tile's card. |
 | White cars | Prototype 9's fleet; no learning (`proto.learningEnabled` 0, `proto.learn.standoffEnabled` 0). From 10.9 it is moving cover (`whiteHides`). The fleet runs lighter in the tile in test until 10.9 (`story.traffic.monument.*` 0.5). |
 | Sight field | 10.9's proportional cones (x, 2x, 3x) for every stage from rung 2. |
 | Parts | Prototype 9's gifts (Battery 1 at B1, Hands 1 at A2, Legs 1 at B3). DUCK from tile 6 (hold C). |
 | Fault rule | A contact scores only when the vehicle hit the dummy: it gives at least half the closing speed at contact, at 20 px/s or more. A dummy that runs into a car takes damage and scores nothing. Every vehicle. GDD Edit 111 §111.9. |
 | Brakes | The red car brakes at the registry's `traffic.hardBraking` (600), as Prototype 10 was built. Prototype 9's 79 made its safe envelope crawl. The fleet keeps 79. |
+| After a hit | Every car stops at `traffic.hardBraking` and stands 2 s, then drives on round the dummy. The red car sees cones at every rung. |
 
-- **Not yet:** the Incident (10.10; no tile uses it); the lesson's training-clip replay (a card instead). Bot probes per tile run by hand (`engine/p9_probe.js`), not yet inside the pipeline.
+- **Not yet:** the Incident's tailgaters drive dumber than Prototype 9's fleet (10.10, tile 9; open). Bot probes per tile run by hand (`engine/p9_probe.js`), not yet inside the pipeline.
 - **Phaser next:** the same split. Phaser draws Prototype 9's tiles; the sim modules and `duel.js` run unchanged under it.

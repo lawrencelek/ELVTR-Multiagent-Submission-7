@@ -217,8 +217,72 @@
     lines.forEach(([t, col, z], i) => text(t, x + 12, y + 23 + i * 19, z, col)); ctx.restore();
   }
   // ---------- the lesson card: the car away being trained; what it now does, what that closes, what stays open
+  // ---------- the lesson, as Prototype 10 played it (handover v2 §9.1). Beat 1: your hit, replayed as the car's training clip; its
+  // frame of impact held, boxed. Beat 2: the sensor fitted by a drone, the new field drawing out. Then the card: what it now does,
+  // what that closes, what is open. Enter skips to the card; Enter on the card sends it back to the road.
+  const CAM = '#9ff2c8', CAM_DIM = 'rgba(159,242,200,0.55)', ZN = { front: 'FRONT', frontDiagonal: 'FRONT CORNER', side: 'SIDE', rearDiagonal: 'REAR CORNER', rear: 'REAR' };
+  const beats = (L) => { const P = T.DP || T.P, c = L.clip && L.clip.frames.length ? 1 : 0; return { clip: c * (P['duel.lessonClipSeconds'] || 3), hold: c * (P['duel.lessonHoldSeconds'] || 0.8), fit: P['duel.lessonFitSeconds'] || 2 }; };
+  function lessonKey(sim) { const L = sim && sim.duelT && sim.duelT.lesson; if (!L || L.card) return true; L.skip = true; return false; }
   function lesson(cx, sim, G) {
     ctx = cx; s = sim; T = sim && sim.duelT; const L = T && T.lesson; if (!L) return;
+    if (L.ui0 == null) L.ui0 = G.t;
+    const B = beats(L), t = G.t - L.ui0;
+    if (!L.skip && t < B.clip + B.hold) return drawClip(L, t, B, G);
+    if (!L.skip && t < B.clip + B.hold + B.fit) return drawFit(L, t - B.clip - B.hold, B, G);
+    L.card = true; drawCard(L, G);
+  }
+  function drawClip(L, t, B, G) {
+    const k = G.RA / G.U, fr = L.clip.frames, tt = L.clip.hitT - B.clip + Math.min(t, B.clip); // then the frame of impact holds
+    let f = fr[0]; for (const q of fr) { if (q.t <= tt + 1e-6) f = q; else break; }
+    ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip();
+    rect(G.FX, G.FY, G.FW, G.FH, 'rgba(6,22,16,0.86)'); // the camera's tint over the tile
+    ctx.translate(G.FX, G.FY); ctx.scale(k, k);
+    if (f) {
+      for (const c of f.cars) { ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.h); rect(-c.L / 2, -c.W / 2, c.L, c.W, c.red ? C.red : 'rgba(214,222,230,0.8)'); rect(c.L / 2 - 12, -c.W / 2 + 3, 6, c.W - 6, 'rgba(12,14,20,0.7)'); rect(-c.L / 2 + 5, -c.W / 2 + 3, 5, c.W - 6, 'rgba(12,14,20,0.5)'); ctx.restore(); }
+      const o = f.b; if (o && o.alive) { ctx.fillStyle = C.dummy; ctx.beginPath(); ctx.arc(o.x, o.y, o.duck ? 9 : 12, 0, TAU); ctx.fill(); ctx.strokeStyle = C.joint; ctx.lineWidth = 2; ctx.stroke(); }
+      if (o && t >= B.clip) {
+        ctx.strokeStyle = CAM; ctx.lineWidth = 2; ctx.strokeRect(o.x - 24, o.y - 24, 48, 48);
+        text('IMPACT · ' + (ZN[L.clip.zone] || String(L.clip.zone || '').toUpperCase()), Math.max(90, Math.min(710, o.x)), o.y - 32, 12, CAM, 'center');
+        if (L.to === 6 && L.origin) { const R = T.P['duel.memoryRadius'] || 30; ctx.strokeStyle = C.mem; ctx.beginPath(); ctx.arc(L.origin.x, L.origin.y, R, 0, TAU); ctx.stroke(); text('SAME SPOT AS BEFORE', L.origin.x, L.origin.y - R - 6, 12, C.mem, 'center'); }
+        if (L.to === 7 && L.seenAt) { const g = L.seenAt; ctx.strokeStyle = C.search; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.arc(g.x, g.y, 14, 0, TAU); ctx.moveTo(g.x, g.y); ctx.lineTo(o.x, o.y); ctx.stroke(); ctx.setLineDash([]); text('LAST SEEN · ' + (+g.ago || 0).toFixed(1) + ' s BEFORE', g.x, g.y - 22, 12, C.search, 'center'); }
+      }
+    }
+    ctx.restore();
+    ctx.save(); for (let y = G.FY; y < G.FY + G.FH; y += 4) rect(G.FX, y, G.FW, 1, 'rgba(0,0,0,0.18)'); // scan lines
+    text('TRAINING CLIP · ' + (L.model || 'RED-01'), G.FX + 20, G.FY + 34, 18, CAM);
+    if (Math.floor(t * 2) % 2 === 0) { ctx.fillStyle = C.red; ctx.beginPath(); ctx.arc(G.FX + G.FW - 70, G.FY + 28, 7, 0, TAU); ctx.fill(); }
+    text('REC', G.FX + G.FW - 20, G.FY + 34, 16, CAM, 'right');
+    const d = tt - L.clip.hitT; text((d < 0 ? '−' : '+') + Math.abs(d).toFixed(1) + ' s', G.FX + 20, G.FY + G.FH - 20, 16, CAM_DIM);
+    text('ENTER · SKIP', G.FX + G.FW - 20, G.FY + G.FH - 20, 13, C.dim, 'right');
+    ctx.restore();
+  }
+  function drawFit(L, t, B, G) { // the car, large; a drone lowers the sensor; the new field draws out from it
+    const u = Math.min(1, t / B.fit), to = L.to, from = L.from, reach = Math.max(0, (u - 0.45) / 0.55), ri = DUELR()[to] || {};
+    const k = 4, cl = T.P['vehicles.sedan.length'], cw = T.P['vehicles.sedan.width'], cx = G.FX + G.FW * 0.32, cy = G.FY + G.FH * 0.56, nose = cx + cl / 2 * k, half = (cw / 2 + 4) * k, right = G.FX + G.FW;
+    const has = (r) => from >= r || (to === r && reach > 0), amt = (r) => (to === r ? reach : 1);
+    ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip(); rect(G.FX, G.FY, G.FW, G.FH, '#0c0e14');
+    if (has(1)) rect(nose, cy - half, amt(1) * (right - nose), 2 * half, 'rgba(244,248,250,0.10)'); // the beam
+    if (has(2)) for (const sg of [-1, 1]) { const h = amt(2) * 150; rect(cx - cl / 2 * k, sg > 0 ? cy + half : cy - half - h, right - cx + cl / 2 * k, h, 'rgba(127,168,188,0.13)'); } // side cones
+    if (to === 3 && reach > 0) { ctx.strokeStyle = CAM; ctx.lineWidth = 2; for (let i = 1; i <= 3; i++) { ctx.globalAlpha = Math.max(0, 1 - i / 3.5) * reach; ctx.beginPath(); ctx.arc(cx - 2 * k, cy, reach * 70 * i, 0, TAU); ctx.stroke(); } ctx.globalAlpha = 1; text('SEES A JUMP OR A FALL ONTO ITS ROAD', cx, cy + half + 70, 15, C.text, 'center'); } // the lidar's sweep
+    if (to === 4 && reach > 0) { ctx.strokeStyle = CAM; ctx.lineWidth = 2; ctx.setLineDash([6, 6]); ctx.globalAlpha = reach; for (const [x, y] of [[right - 260, G.FY + 150], [right - 190, cy], [right - 260, G.FY + G.FH - 130]]) { ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(cx - cl / 2 * k + 32, cy - half - 6); ctx.stroke(); rect(x - 3, y, 6, 30, C.joint); rect(x - 10, y - 10, 20, 12, '#2a2f3a'); ctx.fillStyle = CAM; ctx.beginPath(); ctx.arc(x + 6, y - 4, 3, 0, TAU); ctx.fill(); } ctx.setLineDash([]); ctx.globalAlpha = 1; text('STREET CAMERAS SHARE WHAT THEY SEE', cx, cy + half + 70, 15, C.text, 'center'); }
+    if (to === 5 && reach > 0) { const x = nose + 120; ctx.globalAlpha = reach; ctx.fillStyle = '#ff8a1f'; ctx.beginPath(); ctx.moveTo(x + 70, cy - 34); ctx.lineTo(x + 52, cy + 26); ctx.lineTo(x + 88, cy + 26); ctx.closePath(); ctx.fill(); rect(x, cy - half - 8, 6, 2 * half + 16, C.red); text('STOPS · NEVER SWERVES', x + 40, cy + half + 50, 15, C.text, 'center'); ctx.globalAlpha = 1; }
+    if (to === 6 && reach > 0) { ctx.globalAlpha = Math.min(1, reach * 2); ctx.strokeStyle = C.mem; ctx.lineWidth = 2; T.crashes.slice(-6).forEach((cr, i) => { const x = right - 300 + (i % 3) * 90, y = G.FY + 140 + Math.floor(i / 3) * 90; if (reach > (i + 1) / 7) { ctx.beginPath(); ctx.arc(x, y, 26, 0, TAU); ctx.stroke(); text('CRASH ' + cr.n, x, y + 4, 11, C.mem, 'center'); } }); ctx.globalAlpha = 1; text('REMEMBERS WHERE YOU STRUCK FROM', cx, cy + half + 70, 15, C.text, 'center'); }
+    if (to === 7 && reach > 0) { const gx = right - 200, gy = cy + 40; ctx.globalAlpha = Math.min(1, reach * 1.5); ctx.strokeStyle = C.search; ctx.setLineDash([8, 6]); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(gx, gy, 70, 0, TAU); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.arc(gx, gy - 16, 14, 0, TAU); ctx.stroke(); text('LAST SEEN', gx, gy - 90, 15, C.search, 'center'); text('SEARCHES WHERE IT LAST SAW YOU', cx, cy + half + 70, 15, C.text, 'center'); ctx.globalAlpha = 1; }
+    const fitted = u >= 0.45 ? to : from;
+    ctx.save(); ctx.translate(cx, cy); rect(-cl / 2 * k, -cw / 2 * k, cl * k, cw * k, C.red); rect(cl / 2 * k - 44, -cw / 2 * k + 10, 22, cw * k - 20, '#1b2a38'); rect(-cl / 2 * k + 18, -cw / 2 * k + 10, 16, cw * k - 20, '#1b2a38');
+    if (fitted >= 1) rect(cl / 2 * k - 8, -14, 8, 28, '#e8eef2'); // the forward camera
+    if (fitted >= 2) for (const sg of [-1, 1]) rect(-12, sg * cw / 2 * k - (sg > 0 ? 0 : 8), 24, 8, '#e8eef2'); // side sensors
+    if (fitted >= 3) { ctx.fillStyle = '#e8eef2'; ctx.beginPath(); ctx.arc(-8, 0, 14, 0, TAU); ctx.fill(); } // the roof lidar
+    ctx.restore();
+    const px = to === 1 ? cx + (cl / 2 - 4) * k : to === 2 ? cx : to === 4 ? cx + (-cl / 2 + 8) * k : to === 6 ? cx + (-cl / 2 + 14) * k : cx - 8;
+    const dy = u < 0.45 ? -170 + 170 * (u / 0.45) : u < 0.7 ? -170 * ((u - 0.45) / 0.25) : null;
+    if (dy != null) { ctx.save(); ctx.translate(px, cy + dy - 30); ctx.scale(2.4, 2.4); drawDrone(0, 0, u < 0.45); ctx.restore(); }
+    text(String(ri.fit || 'SENSOR') + ' FITTED · ' + String(ri.sensor || ri.name || '').toUpperCase(), G.FX + 40, G.FY + 64, 28, C.text, 'left', 900);
+    text((L.model || 'RED-01') + ' · RUNG ' + from + ' → ' + to, G.FX + 40, G.FY + 96, 16, C.dim);
+    text('ENTER · SKIP', G.FX + G.FW - 20, G.FY + G.FH - 20, 13, C.dim, 'right');
+    ctx.restore();
+  }
+  function drawCard(L, G) {
     const info = LESSON[L.to] || ['', '', ''], ri = DUELR()[L.to] || {};
     ctx.save(); rect(G.FX, G.FY, G.FW, G.FH, 'rgba(5,7,15,0.82)');
     const w = Math.min(G.FW - 60, 980), x = G.FX + (G.FW - w) / 2, y = G.FY + 40, h = G.FH - 80;
@@ -234,5 +298,5 @@
     if (Math.floor((G.t || 0) * 2) % 2 === 0) text('ENTER · BACK TO THE ROAD', x + w - 34, y + h - 30, 20, C.dummy, 'right', 900);
     ctx.restore();
   }
-  root.DUEL_UI = { field, hud, lesson, redSprite };
+  root.DUEL_UI = { field, hud, lesson, lessonKey, redSprite };
 })(typeof window !== 'undefined' ? window : globalThis);

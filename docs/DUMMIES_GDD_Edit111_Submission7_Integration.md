@@ -7,7 +7,7 @@
 - **World:** Prototype 9, unchanged. Districts, tiles, decks, fleet, tile cards, gifts, HUD, sound.
 - **Driver:** Prototype 10's red car (`testroad.js`, unchanged) drives the tile in test.
 - **Plan:** each tile reads one ladder stage from the pipeline (`content/story_map1.json`).
-- **New registry IDs:** none registered. Four are proposed (§111.8, §111.9): `scoring.whiteShare`, `scoring.redDamageBonus`, `scoring.faultShare`, `scoring.faultMinSpeed`. Every other value is an existing ID.
+- **New registry IDs:** none registered. Five are proposed (§111.8–111.10): `scoring.whiteShare`, `scoring.redDamageBonus`, `scoring.faultShare`, `scoring.faultMinSpeed`, `traffic.hitStandSeconds`. Every other value is an existing ID.
 
 ## 111.2 The duel in a Prototype 9 tile
 
@@ -54,7 +54,7 @@
 
 - **Tile card:** Prototype 9's level card, with the plan's tale and objective, and a NEW line for the stage's idea.
 - **Panel:** the car's rung, and the hit that teaches the next rung.
-- **Lesson card:** shows after the car leaves. Rung, the hit, what it now does, what is closed, what is open.
+- **Lesson:** shows after the car leaves. Prototype 10's beats (§111.10), then the card: rung, the hit, what it now does, what is closed, what is open.
 - **Field overlays:**
   - beam;
   - cones and rings;
@@ -113,4 +113,20 @@
   - Cut-in or cover bot, first clear: A1 30 s, B1 26 s, C1 21 s, C2 116 s, B2 320 s, C3 237 s.
   - In 6 min: A2 and A3 1 of 2 hits; B3 1 of 3.
 - **Incident (v3e's tile 9, 10.10):** a cut-in bot, seen and stopped hard, caused one in 5 s. Tailgaters brake at `traffic.whiteBraking` 45; the red car at 600.
+
+## 111.10 Playtest fixes 2 (Lawrence, 7 November, 16:16–16:19)
+
+- **A car that hits the dummy stops.**
+  - It brakes at `traffic.hardBraking` (600) and stands 2 s (proposed `traffic.hitStandSeconds`, after `traffic.incidentSeconds`). Then it drives on.
+  - Every vehicle, at either fault. No more shoving the dummy to the screen's edge.
+  - The red car, having hit you, drives off as Prototype 9's driver does: it stops for you and passes round you. It no longer ignores you (was row 681).
+  - It no longer watches its field once it has hit you: it drives on.
+- **Block lift for any car you keep waiting:** the red car, the red car that hit you, or the fleet. FARSIGHT lifts the dummy after `duel.blockSeconds`. Before, only the live red car counted, so a car held behind the dummy could stall the lesson.
+- **Cones:** the red car sees road items at every rung (`perception.forwardLength`). Rung 0 is blind to the dummy only.
+  - Before: rung 0 had no beam, so it ran over a cone. Prototype 9 shoves a struck cone aside, so the car seemed to drive through it.
+- **The lesson, as Prototype 10 played it:**
+  - Beat 1: your hit replayed as the car's training clip (`duel.lessonClipSeconds` 3). The frame of impact holds, boxed (`duel.lessonHoldSeconds` 0.8).
+  - Beat 2: a drone fits the new sensor; its field draws out (`duel.lessonFitSeconds` 2).
+  - Then the card. Enter skips to the card, then closes it.
+- **Fleet update (proposed, open):** the fleet takes the red car's certified lessons between maps, never between tiles. Within a map, only the red car learns.
 

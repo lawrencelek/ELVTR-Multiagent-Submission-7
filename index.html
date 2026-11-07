@@ -12948,7 +12948,9 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
   // least half the closing speed along the contact normal and it moves at FAULT_MIN or more. Otherwise the dummy ran into it:
   // damage, no points, no objective, no lesson. Every vehicle. Proposed registry ids: scoring.faultShare 0.5, scoring.faultMinSpeed 20.
   // The red car brakes as Prototype 10 built it: the registry's traffic.hardBraking (600), not Prototype 9's Highway Code 79.
-  const TUNE = { faultShare: 0.5, faultMin: 20, redHard: X.REG['traffic.hardBraking'] };
+  // Lawrence (7 Nov): a car that hits the dummy brakes to a stop (traffic.hardBraking, the registry's) and stands, then drives on.
+  // Proposed registry id: traffic.hitStandSeconds 2 (as traffic.incidentSeconds holds two cars after an Incident).
+  const TUNE = { faultShare: 0.5, faultMin: 20, redHard: X.REG['traffic.hardBraking'], hitStand: 2 };
   const faultOf = (carPart, bodyPart) => (carPart >= TUNE.faultMin && carPart >= (carPart + Math.max(0, bodyPart)) * TUNE.faultShare ? 'car' : 'dummy');
   const ORIG = new WeakMap(); // a tile sim → its own prototype, statics and values, restored when the duel moves on
 
@@ -12977,7 +12979,11 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
       return this.p9call('meets', c);
     }
     duelCar(c) { return !!c && this.duelOn && (c.red || (this.whiteFleet && c.white)); } // the red car; from 10.10 the fleet too, as Prototype 10's white cars
-    assessBody(c) { return this.duelCar(c) ? TP.assessBody.call(this, c) : BP.assessBody.call(this, c); }
+    assessBody(c) {
+      if (c && c.red && this.duelOn && c.spent) return this.body && this.body.lifted ? null : BP.assessBody.call(this, c); // having hit you, it drives off as any driver would: round you, never through you (Lawrence, 7 Nov)
+      if (c && c.red && this.duelOn && this.rung < 1) return null; // rung 0 senses no dummy
+      return this.duelCar(c) ? TP.assessBody.call(this, c) : BP.assessBody.call(this, c);
+    }
     occluded(self, x0, y0, x1, y1) { return this.duelCar(self) ? TP.occluded.call(this, self, x0, y0, x1, y1) : this.p9(() => BP.occluded.call(this, self, x0, y0, x1, y1)); }
     choose(c, tg, opts) { return this.duelCar(c) ? this.redBrakes(c, () => TP.choose.call(this, c, tg, opts)) : this.p9(() => BP.choose.call(this, c, tg, opts)); }
     // the red car's brakes: Prototype 10's traffic.hardBraking (the registry's) wherever it plans or keeps a stop; the fleet keeps Prototype 9's
@@ -12986,7 +12992,7 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
       const keep = P['traffic.hardBraking']; P['traffic.hardBraking'] = h; try { return fn(); } finally { P['traffic.hardBraking'] = keep; }
     }
     manSpeed(c, man, tau, sAt) { return this.redBrakes(c, () => TP.manSpeed.call(this, c, man, tau, sAt)); }
-    watchField(c, dt) { return this.redBrakes(c, () => TP.watchField.call(this, c, dt)); }
+    watchField(c, dt) { if (c && c.red && c.spent) return false; return this.redBrakes(c, () => TP.watchField.call(this, c, dt)); } // having hit you, it no longer watches its field: it drives on, round you
     spawnSpeed(c) { return this.redBrakes(c, () => TP.spawnSpeed.call(this, c)); }
     searchStep(c) { return this.redBrakes(c, () => TP.searchStep.call(this, c)); }
     carAI(dt) { if (this.whiteFleet) for (const c of this.cars) if (!c.red && !c.ghost && !(c.layer > 0)) c.white = true; return TP.carAI.call(this, dt); } // 10.10: the fleet tailgates (traffic.whiteTimeGap)
@@ -12997,11 +13003,17 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
       for (let i = 1; i < n; i++) { const u = i / n, px = x0 + (b.x - x0) * u, py = y0 + (b.y - y0) * u; if (ws.some((o) => X.circleCar(px, py, 1, o))) return true; }
       return false;
     }
-    beamFor() { return this.rung >= 1 ? (this.DP['perception.forwardLength'] || 720) : 0; }
+    // Lawrence (7 Nov): the red car sees road items (cones) at every rung, as Prototype 9's cars do; rung 0 is blind to the dummy only
+    beamFor() { return this.DP['perception.forwardLength'] || 720; }
+    perceive(c) { const r = BP.perceive.call(this, c); if (c && c.red && this.duelOn && this.rung < 1) r.side = false; return r; }
     fieldFor() { const P = this.P, keep = P['proto.driver.cautionZone']; P['proto.driver.cautionZone'] = this.DP['proto.driver.cautionZone'] || keep; try { return TP.fieldFor.call(this); } finally { P['proto.driver.cautionZone'] = keep; } }
     fromAbove(e) { return e.kind === 'drop' || TP.fromAbove.call(this, e); } // Prototype 9's drop off a deck is the hit from above
     emit(type, data) { BP.emit.call(this, type, data); if (this.duelOn && this.duelFeed) this.duelFeed.push(this.events[this.events.length - 1]); }
     admit() { this.p9call('admit'); if (this.duelOn) this.admitRed(); }
+    // the block lift (row 715) for any car the dummy keeps waiting: the red car, the red car that has hit it and stood, the fleet
+    blocked() { const r = TP.blocked.call(this); if (r) return r; const b = this.body; if (!b || !b.alive || b.lifted) return null; return this.onRoad().find((q) => !q.ghost && !q.hitStand && q.v < 1 && q.hz && q.hz.inPath && (q.spent || !q.red)) || null; }
+    carPassed(c) { return !c || c.gone || (c.spent && c.v >= 1); }
+    stepLift(dt) { const P = this.P, k = P['duel.twoWay']; P['duel.twoWay'] = 1; try { return TP.stepLift.call(this, dt); } finally { P['duel.twoWay'] = k; } } // every stage counts a car the dummy keeps waiting
     // the red car: one at a time, on a lane of the tile's road; back duel.redReturnSeconds after it leaves the screen
     admitRed() {
       const P = this.P, DP = this.DP;
@@ -13124,7 +13136,7 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
       Object.assign(this, { duelT: T, duelSc: sc, duelDef: def, duelDP: DP, duelHits: 0, duelIncidents: 0, duelMovedAt: null, duelInc0: 0, duelPending: false, duelDone: false, duelDuck: stageN(def.stage) >= 6, duelT0: this.t });
       this.emit('duel-start', { tile: def.tile, stage: def.stage, rung: T.rung, top: Math.round(DP['duel.topRung'] || 0), lanes: T.redLanes.length });
     }
-    duelStop() { if (this.duelT) leave(this.duelT, this.W6.sims); this.duelT = null; this.duelDef = null; this.duelSc = null; if (this.body) { this.body.duck = false; this.body.lifted = false; } }
+    duelStop() { this.clipRing = []; if (this.duelT) leave(this.duelT, this.W6.sims); this.duelT = null; this.duelDef = null; this.duelSc = null; if (this.body) { this.body.duck = false; this.body.lifted = false; } }
     duelProgress() { const d = this.duelDef, T = this.duelT; if (!d) return 0; return d.objective.kind === 'stealth' ? (T ? T.stealth.points : 0) : d.objective.kind === 'incidents' ? (T && this.duelMovedAt != null ? (T.run.incidents || 0) - this.duelInc0 : 0) : this.duelHits; } // an Incident counts once the dummy has moved: it made the car brake
     duelObjective() {
       const d = this.duelDef; if (!d || !this.duelT || this.duelDone) return null;
@@ -13161,7 +13173,25 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
       this.lastCmd = cmd || {};
       if (T && this.duelMovedAt == null && this.phase === 'play' && !this.rescue && (Math.abs(this.lastCmd.mx || 0) + Math.abs(this.lastCmd.my || 0) > 0.1 || this.lastCmd.aPress)) { this.duelMovedAt = this.t; this.duelInc0 = T.run.incidents || 0; }
       super.step(cmd);
-      if (T) { this.redSweep(); if (b && b.duck && !this.canDuck()) this.stand(); this.incidentCheck(); this.unstick(cmd || {}); }
+      this.holdHits();
+      if (T) { this.redSweep(); if (b && b.duck && !this.canDuck()) this.stand(); this.incidentCheck(); this.unstick(cmd || {}); this.recordClip(); }
+    }
+    // A car that has hit the dummy brakes to a stop at traffic.hardBraking and stands TUNE.hitStand seconds; then it drives on
+    hitStand(c) { if (c && !c.ghost) { c.hitStand = { left: TUNE.hitStand, v: c.v }; this.emit('hit-stand', { car: c.id }); } }
+    holdHits() {
+      const sims = (this.W6 && this.W6.sims) || []; if (!sims.some((q) => q.cars.some((c) => c.hitStand || (c.real && c.real.hitStand)))) return;
+      const dt = 1 / this.P['simulation.tickRate'], a = TUNE.redHard;
+      for (const q of sims) for (const c of q.cars) { const h = !c.ghost && c.hitStand; if (!h) continue;
+        const cap = Math.max(0, h.v - a * dt); if (c.v > cap) { c.s -= (c.v - cap) * dt; c.v = cap; q.pose(c); }
+        h.v = c.v; if (c.v < 1) h.left -= dt; if (h.left <= 0) c.hitStand = null; }
+      for (const q of sims) for (const c of q.cars) if (c.ghost && c.real && c.real.hitStand && c.v > c.real.v) { c.s -= (c.v - c.real.v) * dt; c.v = c.real.v; q.pose(c); } // its ghost next door keeps pace
+    }
+    // Beat 1 of a lesson (Prototype 10): the last duel.lessonClipSeconds of the tile in test, replayed as the car's training clip
+    recordClip(force) {
+      const T = this.duelT, b = this.body; if (!T || (!force && this.phase !== 'play') || this.sc !== T.duelSc) return;
+      const ring = this.clipRing || (this.clipRing = []), CL = (T.DP['duel.lessonClipSeconds'] || 3) + 0.1;
+      ring.push({ t: this.t, cars: T.cars.filter((c) => !c.ghost && !c.gone && !(c.layer > 0)).map((c) => ({ x: c.x, y: c.y, h: c.h, L: c.L, W: c.W, red: !!c.red })), b: b ? { x: b.x, y: b.y, alive: b.alive, duck: !!b.duck } : null });
+      while (ring.length && this.t - ring[0].t > CL) ring.shift();
     }
     incidentCheck() { // row 740: an Incident scores scoring.incidentPoints for the player; the plan's count of them clears the tile
       const T = this.duelT, n = T.run.incidents || 0;
@@ -13201,6 +13231,7 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
         const e0 = this.events.length, p0 = this.run.points, f0 = this.effects.length, cb0 = b.combo;
         const ok = super.account([ct]);
         const dp = this.run.points - p0, bursts = this.effects.slice(f0).filter((q) => q.type === 'burst'), hits = this.events.slice(e0).filter((e) => e.type === 'impact');
+        if (hits.some((e) => e.lost > 0)) this.hitStand(c); // it stops (Lawrence, 7 Nov): no more shoving the dummy along
         if (ct.fault === 'dummy') { // the dummy ran into it: the damage stands, nothing else (Lawrence, 7 Nov)
           this.run.points = p0; b.combo = cb0; for (const q of bursts) q.type = 'touch';
           for (const e of hits) { e.fault = 'dummy'; e.points = 0; this.emit('fault', { car: c.id, red, lost: e.lost, zone: e.zone, kind: e.kind, carPart: +(ct.carPart || 0).toFixed(1), bodyPart: +(ct.bodyPart || 0).toFixed(1) }); }
@@ -13229,7 +13260,7 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
       T.emit('crash', { n: T.crashes.length, x: e.origin.x, y: e.origin.y, cover: o.cover, habit: e.habit, prev: prev ? prev.n : null, grade: e.grade, mult, points: pts, kind: e.kind, zone: e.zone });
       this.duelHits++;
       if (this.duelProgress() >= this.duelDef.objective.count && !this.duelDone) this.duelPending = true;
-      else T.learnFrom(e); // the hit that clears the tile teaches nothing: the next tile is the next lesson
+      else { T.learnFrom(e); if (T.lesson && !T.lesson.clip) { this.recordClip(true); T.lesson.clip = { frames: (this.clipRing || []).slice(), hitT: this.t, zone: e.zone }; } } // the hit that clears the tile teaches nothing: the next tile is the next lesson
     }
     // the objective met: Prototype 9's clear (the chassis written off to the brief, the report, the ferry, the next tile's card)
     writeOff() {
@@ -13526,8 +13557,72 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
     lines.forEach(([t, col, z], i) => text(t, x + 12, y + 23 + i * 19, z, col)); ctx.restore();
   }
   // ---------- the lesson card: the car away being trained; what it now does, what that closes, what stays open
+  // ---------- the lesson, as Prototype 10 played it (handover v2 §9.1). Beat 1: your hit, replayed as the car's training clip; its
+  // frame of impact held, boxed. Beat 2: the sensor fitted by a drone, the new field drawing out. Then the card: what it now does,
+  // what that closes, what is open. Enter skips to the card; Enter on the card sends it back to the road.
+  const CAM = '#9ff2c8', CAM_DIM = 'rgba(159,242,200,0.55)', ZN = { front: 'FRONT', frontDiagonal: 'FRONT CORNER', side: 'SIDE', rearDiagonal: 'REAR CORNER', rear: 'REAR' };
+  const beats = (L) => { const P = T.DP || T.P, c = L.clip && L.clip.frames.length ? 1 : 0; return { clip: c * (P['duel.lessonClipSeconds'] || 3), hold: c * (P['duel.lessonHoldSeconds'] || 0.8), fit: P['duel.lessonFitSeconds'] || 2 }; };
+  function lessonKey(sim) { const L = sim && sim.duelT && sim.duelT.lesson; if (!L || L.card) return true; L.skip = true; return false; }
   function lesson(cx, sim, G) {
     ctx = cx; s = sim; T = sim && sim.duelT; const L = T && T.lesson; if (!L) return;
+    if (L.ui0 == null) L.ui0 = G.t;
+    const B = beats(L), t = G.t - L.ui0;
+    if (!L.skip && t < B.clip + B.hold) return drawClip(L, t, B, G);
+    if (!L.skip && t < B.clip + B.hold + B.fit) return drawFit(L, t - B.clip - B.hold, B, G);
+    L.card = true; drawCard(L, G);
+  }
+  function drawClip(L, t, B, G) {
+    const k = G.RA / G.U, fr = L.clip.frames, tt = L.clip.hitT - B.clip + Math.min(t, B.clip); // then the frame of impact holds
+    let f = fr[0]; for (const q of fr) { if (q.t <= tt + 1e-6) f = q; else break; }
+    ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip();
+    rect(G.FX, G.FY, G.FW, G.FH, 'rgba(6,22,16,0.86)'); // the camera's tint over the tile
+    ctx.translate(G.FX, G.FY); ctx.scale(k, k);
+    if (f) {
+      for (const c of f.cars) { ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.h); rect(-c.L / 2, -c.W / 2, c.L, c.W, c.red ? C.red : 'rgba(214,222,230,0.8)'); rect(c.L / 2 - 12, -c.W / 2 + 3, 6, c.W - 6, 'rgba(12,14,20,0.7)'); rect(-c.L / 2 + 5, -c.W / 2 + 3, 5, c.W - 6, 'rgba(12,14,20,0.5)'); ctx.restore(); }
+      const o = f.b; if (o && o.alive) { ctx.fillStyle = C.dummy; ctx.beginPath(); ctx.arc(o.x, o.y, o.duck ? 9 : 12, 0, TAU); ctx.fill(); ctx.strokeStyle = C.joint; ctx.lineWidth = 2; ctx.stroke(); }
+      if (o && t >= B.clip) {
+        ctx.strokeStyle = CAM; ctx.lineWidth = 2; ctx.strokeRect(o.x - 24, o.y - 24, 48, 48);
+        text('IMPACT · ' + (ZN[L.clip.zone] || String(L.clip.zone || '').toUpperCase()), Math.max(90, Math.min(710, o.x)), o.y - 32, 12, CAM, 'center');
+        if (L.to === 6 && L.origin) { const R = T.P['duel.memoryRadius'] || 30; ctx.strokeStyle = C.mem; ctx.beginPath(); ctx.arc(L.origin.x, L.origin.y, R, 0, TAU); ctx.stroke(); text('SAME SPOT AS BEFORE', L.origin.x, L.origin.y - R - 6, 12, C.mem, 'center'); }
+        if (L.to === 7 && L.seenAt) { const g = L.seenAt; ctx.strokeStyle = C.search; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.arc(g.x, g.y, 14, 0, TAU); ctx.moveTo(g.x, g.y); ctx.lineTo(o.x, o.y); ctx.stroke(); ctx.setLineDash([]); text('LAST SEEN · ' + (+g.ago || 0).toFixed(1) + ' s BEFORE', g.x, g.y - 22, 12, C.search, 'center'); }
+      }
+    }
+    ctx.restore();
+    ctx.save(); for (let y = G.FY; y < G.FY + G.FH; y += 4) rect(G.FX, y, G.FW, 1, 'rgba(0,0,0,0.18)'); // scan lines
+    text('TRAINING CLIP · ' + (L.model || 'RED-01'), G.FX + 20, G.FY + 34, 18, CAM);
+    if (Math.floor(t * 2) % 2 === 0) { ctx.fillStyle = C.red; ctx.beginPath(); ctx.arc(G.FX + G.FW - 70, G.FY + 28, 7, 0, TAU); ctx.fill(); }
+    text('REC', G.FX + G.FW - 20, G.FY + 34, 16, CAM, 'right');
+    const d = tt - L.clip.hitT; text((d < 0 ? '−' : '+') + Math.abs(d).toFixed(1) + ' s', G.FX + 20, G.FY + G.FH - 20, 16, CAM_DIM);
+    text('ENTER · SKIP', G.FX + G.FW - 20, G.FY + G.FH - 20, 13, C.dim, 'right');
+    ctx.restore();
+  }
+  function drawFit(L, t, B, G) { // the car, large; a drone lowers the sensor; the new field draws out from it
+    const u = Math.min(1, t / B.fit), to = L.to, from = L.from, reach = Math.max(0, (u - 0.45) / 0.55), ri = DUELR()[to] || {};
+    const k = 4, cl = T.P['vehicles.sedan.length'], cw = T.P['vehicles.sedan.width'], cx = G.FX + G.FW * 0.32, cy = G.FY + G.FH * 0.56, nose = cx + cl / 2 * k, half = (cw / 2 + 4) * k, right = G.FX + G.FW;
+    const has = (r) => from >= r || (to === r && reach > 0), amt = (r) => (to === r ? reach : 1);
+    ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip(); rect(G.FX, G.FY, G.FW, G.FH, '#0c0e14');
+    if (has(1)) rect(nose, cy - half, amt(1) * (right - nose), 2 * half, 'rgba(244,248,250,0.10)'); // the beam
+    if (has(2)) for (const sg of [-1, 1]) { const h = amt(2) * 150; rect(cx - cl / 2 * k, sg > 0 ? cy + half : cy - half - h, right - cx + cl / 2 * k, h, 'rgba(127,168,188,0.13)'); } // side cones
+    if (to === 3 && reach > 0) { ctx.strokeStyle = CAM; ctx.lineWidth = 2; for (let i = 1; i <= 3; i++) { ctx.globalAlpha = Math.max(0, 1 - i / 3.5) * reach; ctx.beginPath(); ctx.arc(cx - 2 * k, cy, reach * 70 * i, 0, TAU); ctx.stroke(); } ctx.globalAlpha = 1; text('SEES A JUMP OR A FALL ONTO ITS ROAD', cx, cy + half + 70, 15, C.text, 'center'); } // the lidar's sweep
+    if (to === 4 && reach > 0) { ctx.strokeStyle = CAM; ctx.lineWidth = 2; ctx.setLineDash([6, 6]); ctx.globalAlpha = reach; for (const [x, y] of [[right - 260, G.FY + 150], [right - 190, cy], [right - 260, G.FY + G.FH - 130]]) { ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(cx - cl / 2 * k + 32, cy - half - 6); ctx.stroke(); rect(x - 3, y, 6, 30, C.joint); rect(x - 10, y - 10, 20, 12, '#2a2f3a'); ctx.fillStyle = CAM; ctx.beginPath(); ctx.arc(x + 6, y - 4, 3, 0, TAU); ctx.fill(); } ctx.setLineDash([]); ctx.globalAlpha = 1; text('STREET CAMERAS SHARE WHAT THEY SEE', cx, cy + half + 70, 15, C.text, 'center'); }
+    if (to === 5 && reach > 0) { const x = nose + 120; ctx.globalAlpha = reach; ctx.fillStyle = '#ff8a1f'; ctx.beginPath(); ctx.moveTo(x + 70, cy - 34); ctx.lineTo(x + 52, cy + 26); ctx.lineTo(x + 88, cy + 26); ctx.closePath(); ctx.fill(); rect(x, cy - half - 8, 6, 2 * half + 16, C.red); text('STOPS · NEVER SWERVES', x + 40, cy + half + 50, 15, C.text, 'center'); ctx.globalAlpha = 1; }
+    if (to === 6 && reach > 0) { ctx.globalAlpha = Math.min(1, reach * 2); ctx.strokeStyle = C.mem; ctx.lineWidth = 2; T.crashes.slice(-6).forEach((cr, i) => { const x = right - 300 + (i % 3) * 90, y = G.FY + 140 + Math.floor(i / 3) * 90; if (reach > (i + 1) / 7) { ctx.beginPath(); ctx.arc(x, y, 26, 0, TAU); ctx.stroke(); text('CRASH ' + cr.n, x, y + 4, 11, C.mem, 'center'); } }); ctx.globalAlpha = 1; text('REMEMBERS WHERE YOU STRUCK FROM', cx, cy + half + 70, 15, C.text, 'center'); }
+    if (to === 7 && reach > 0) { const gx = right - 200, gy = cy + 40; ctx.globalAlpha = Math.min(1, reach * 1.5); ctx.strokeStyle = C.search; ctx.setLineDash([8, 6]); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(gx, gy, 70, 0, TAU); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.arc(gx, gy - 16, 14, 0, TAU); ctx.stroke(); text('LAST SEEN', gx, gy - 90, 15, C.search, 'center'); text('SEARCHES WHERE IT LAST SAW YOU', cx, cy + half + 70, 15, C.text, 'center'); ctx.globalAlpha = 1; }
+    const fitted = u >= 0.45 ? to : from;
+    ctx.save(); ctx.translate(cx, cy); rect(-cl / 2 * k, -cw / 2 * k, cl * k, cw * k, C.red); rect(cl / 2 * k - 44, -cw / 2 * k + 10, 22, cw * k - 20, '#1b2a38'); rect(-cl / 2 * k + 18, -cw / 2 * k + 10, 16, cw * k - 20, '#1b2a38');
+    if (fitted >= 1) rect(cl / 2 * k - 8, -14, 8, 28, '#e8eef2'); // the forward camera
+    if (fitted >= 2) for (const sg of [-1, 1]) rect(-12, sg * cw / 2 * k - (sg > 0 ? 0 : 8), 24, 8, '#e8eef2'); // side sensors
+    if (fitted >= 3) { ctx.fillStyle = '#e8eef2'; ctx.beginPath(); ctx.arc(-8, 0, 14, 0, TAU); ctx.fill(); } // the roof lidar
+    ctx.restore();
+    const px = to === 1 ? cx + (cl / 2 - 4) * k : to === 2 ? cx : to === 4 ? cx + (-cl / 2 + 8) * k : to === 6 ? cx + (-cl / 2 + 14) * k : cx - 8;
+    const dy = u < 0.45 ? -170 + 170 * (u / 0.45) : u < 0.7 ? -170 * ((u - 0.45) / 0.25) : null;
+    if (dy != null) { ctx.save(); ctx.translate(px, cy + dy - 30); ctx.scale(2.4, 2.4); drawDrone(0, 0, u < 0.45); ctx.restore(); }
+    text(String(ri.fit || 'SENSOR') + ' FITTED · ' + String(ri.sensor || ri.name || '').toUpperCase(), G.FX + 40, G.FY + 64, 28, C.text, 'left', 900);
+    text((L.model || 'RED-01') + ' · RUNG ' + from + ' → ' + to, G.FX + 40, G.FY + 96, 16, C.dim);
+    text('ENTER · SKIP', G.FX + G.FW - 20, G.FY + G.FH - 20, 13, C.dim, 'right');
+    ctx.restore();
+  }
+  function drawCard(L, G) {
     const info = LESSON[L.to] || ['', '', ''], ri = DUELR()[L.to] || {};
     ctx.save(); rect(G.FX, G.FY, G.FW, G.FH, 'rgba(5,7,15,0.82)');
     const w = Math.min(G.FW - 60, 980), x = G.FX + (G.FW - w) / 2, y = G.FY + 40, h = G.FH - 80;
@@ -13543,7 +13638,7 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
     if (Math.floor((G.t || 0) * 2) % 2 === 0) text('ENTER · BACK TO THE ROAD', x + w - 34, y + h - 30, 20, C.dummy, 'right', 900);
     ctx.restore();
   }
-  root.DUEL_UI = { field, hud, lesson, redSprite };
+  root.DUEL_UI = { field, hud, lesson, lessonKey, redSprite };
 })(typeof window !== 'undefined' ? window : globalThis);
 
 </script>
@@ -14687,7 +14782,7 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
         continue;
       }
       if (!s) continue;
-      if (s.phase === 'lesson') { if (m === 'ok' || m === 'a') { s.continueLesson(); clearEdges(); return; } continue; } // Submission 7: the lesson card
+      if (s.phase === 'lesson') { if (m === 'ok' || m === 'a') { if (!window.DUEL_UI || window.DUEL_UI.lessonKey(s)) s.continueLesson(); clearEdges(); return; } continue; } // Submission 7: the lesson (Enter skips to the card, then closes it)
       if (s.phase === 'brief' && m === 'ok') { s.continueBrief(); clearEdges(); return; } // Edit 81: the tile card
       if (s.phase === 'unveil') { if (m === 'ok' && unveilReady()) { s.continueUnveil(); fx.unveil = null; app.endSel = 0; clearEdges(); if (!AUD) Snd.tone(660, 990, 0.1, 'triangle', 0.05); return; } continue; } // Edit 94 (P7.13): A goes on to the ship; manual review: once the cloth is off
       if (s.phase === 'gift') { if (m === 'ok' && giftReady()) { s.continueGift(); fx.gift = null; clearEdges(); if (!AUD) Snd.tone(660, 990, 0.1, 'triangle', 0.05); return; } continue; } // Edit 84: the gift screen
@@ -16951,7 +17046,7 @@ window.STORY_MAP1 = {"map": {"id": "monument", "title": "MAP 1 · MONUMENT", "in
     if (app.paused) { if (!app.touchEdit) drawPause(s); } // Edit 87: placing the touch controls shows the game, dimmed, not the menu
     else if (s.phase === 'brief') { if (CARD) drawLevelCard(s); else drawBrief(s); } // Edit 81: the tile card. Edit 98 (P8.3): the level card, both modes
     else if (s.phase === 'gift') drawGiftPopup(s); // Edit 84
-    else if (s.phase === 'lesson' && window.DUEL_UI) window.DUEL_UI.lesson(ctx, s, { FX, FY, FW, FH, VW, VH, t: app.realT }); // Submission 7: the lesson
+    else if (s.phase === 'lesson' && window.DUEL_UI) window.DUEL_UI.lesson(ctx, s, { FX, FY, FW, FH, VW, VH, RA, U, t: app.realT }); // Submission 7: the lesson (clip, fit, card)
     else if (s.phase === 'unveil') drawUnveil(s); // Edit 94 (P7.13): the plaque
     else if (s.phase === 'report') drawReport(s);
     else if (s.phase === 'shop') drawShop(s);

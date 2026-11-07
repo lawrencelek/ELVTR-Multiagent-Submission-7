@@ -42,10 +42,12 @@ const ORDER = ['A1', 'B1', 'C1', 'C2', 'B2', 'A2', 'A3', 'B3', 'C3'];
     let plan = null, cool = 0;
     window.__auto = setInterval(() => {
       const s = window.__dummies.sim; if (!s) return;
-      if (s.phase === 'lesson' || s.phase === 'report' || s.phase === 'brief' || s.phase === 'gift') { steer(0, 0, 1); key('KeyC', false); tap('Enter'); return; }
+      if (s.phase === 'lesson') { steer(0, 0, 1); key('KeyC', false); const L = s.duelT && s.duelT.lesson; if (!L || (L.card && (window.__cardAt = window.__cardAt || Date.now()) && Date.now() - window.__cardAt > 1500)) { window.__cardAt = 0; tap('Enter'); } return; } // watch the clip and the fitting, as a player would
+      if (s.phase === 'report' || s.phase === 'brief' || s.phase === 'gift') { steer(0, 0, 1); key('KeyC', false); tap('Enter'); return; }
       const X = window.DUMMIES, b = s.body, T = s.duelT, c = T && T.cars.find((q) => q.red && !q.spent && q.wasOn);
       cool -= 0.05;
       if (T && s.sc && T.duelSc && s.sc !== T.duelSc && b.alive && !T.lift) { const tx = 400 + (T.duelSc.col - s.sc.col) * 600, ty = 320 + (T.duelSc.row - s.sc.row) * 500; key('KeyC', false); steer(tx - b.x, ty - b.y, 6); return; } // back to the tile in test
+      if (!c && b.alive && !T.lift && (b.level || 0) === 0 && window.__wait) { key('KeyC', false); steer(window.__wait.x - b.x, window.__wait.y - b.y, 6); return; } // between cars: off the road, out of every lane
       if (!c || !b.alive || (b.level || 0) > 0 || T.lift) { steer(0, 0, 1); key('KeyC', false); return; }
       const nose = c.s + c.L / 2;
       if (bot === 'walkin') { const q = X.pathAt(c.path, nose + 140); steer(q.x - b.x, q.y - b.y, 6); return; }
@@ -61,7 +63,7 @@ const ORDER = ['A1', 'B1', 'C1', 'C2', 'B2', 'A2', 'A3', 'B3', 'C3'];
             if (T.rung >= 4 && T.seeingCamera()) n = k;
             const cost = (k ? n / k : 1) * 400 + Math.hypot(x - b.x, y - b.y) * 0.5 + (fwd < 0.3 ? 120 : 0) /* a dash with the car, not across it: it lands ahead, never in its side */; if (!best || cost < best.cost) best = { car: c.id, Ls, x, y, lx: L.x, ly: L.y, dx, dy, cost }; } } }
         finally { TB.x = keep.x; TB.y = keep.y; TB.duck = keep.duck; }
-        if (best) plan = best;
+        if (best) { plan = best; window.__wait = { x: best.x, y: best.y }; }
       }
       if (plan.x == null) { steer(0, 0, 1); return; }
       const gap = plan.Ls - nose, m = Math.hypot(plan.x - b.x, plan.y - b.y);
@@ -74,9 +76,9 @@ const ORDER = ['A1', 'B1', 'C1', 'C2', 'B2', 'A2', 'A3', 'B3', 'C3'];
   const t0 = Date.now(); let n = 0, lastShot = 0;
   while (Date.now() - t0 < SECS * 1000) {
     s = await st();
-    if (Date.now() - lastShot > 8000) { await shot('play_' + String(n++).padStart(2, '0')); lastShot = Date.now(); }
+    if (Date.now() - lastShot > (s.phase === 'lesson' ? 900 : 8000)) { await shot((s.phase === 'lesson' ? 'lesson_' : 'play_') + String(n++).padStart(2, '0')); lastShot = Date.now(); }
     if (s.done >= THROUGH) break;
-    await pg.waitForTimeout(400);
+    await pg.waitForTimeout(s.phase === 'lesson' ? 150 : 400);
   }
   await pg.evaluate(() => clearInterval(window.__auto));
   await shot('zz_end');
