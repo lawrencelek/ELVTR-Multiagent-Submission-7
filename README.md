@@ -6,24 +6,40 @@
 | **Game** | DUMMIES |
 | **Playable link** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/** |
 | **Repository** | https://github.com/lawrencelek/ELVTR-Multiagent-Submission-7 |
-| **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) (1 min 36 s) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
+| **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
 | **One-page audit** | [`docs/02_Pipeline_Audit.md`](docs/02_Pipeline_Audit.md) |
-| **P9 × P10 integration analysis** | [`docs/01_P9_P10_Integration_Analysis.md`](docs/01_P9_P10_Integration_Analysis.md) |
-| **Target engine** | Phaser 3 (next). Today: the Prototype 10 web build, HTML5 Canvas 2D |
+| **P9 × P10 integration** | [`docs/01_P9_P10_Integration_Analysis.md`](docs/01_P9_P10_Integration_Analysis.md) · GDD [Edit 111](docs/DUMMIES_GDD_Edit111_Submission7_Integration.md) |
+| **Target engine** | Phaser 3 (next). Today: Prototype 9's HTML5 Canvas engine, with Prototype 10's driver |
 
 ## Concept
 
-- You are a crash-test dummy at a city junction. You score by getting hit by a red self-driving car.
-- The car learns from every crash and closes the trick you used, so you need a new one each tile.
-- Dummy Corporation narrates. Certification is the goal.
-- Map 1 (Monument) has nine tiles. Each tile adds one rung of the car's learning ladder: the beam, side sensors, roof lidar, street cameras, cones, crash memory, the search, then two-way traffic.
+- You are a crash-test dummy in Dummy Corporation's smart city. You score by getting hit by a red self-driving car.
+- The red car learns from every crash and closes the trick you used, so you need a new one on each tile.
+- The rest of the traffic never learns. It is cover, and later a hazard.
+- Map 1 (Monument) has nine tiles. Each tile adds one rung of the car's learning ladder:
+  - the beam;
+  - side cones;
+  - roof lidar (it sees you up on a deck);
+  - street cameras;
+  - road items;
+  - crash memory;
+  - the search;
+  - then the Incident, where tailgating traffic runs into the red car.
 
 ## Play (2 minutes)
 
-1. Open the link. Tile 1's card shows the story, the objective and the keys.
-2. Press **Enter** (or click START TILE).
-3. Move with **arrows or WASD** and walk into the red car's lane. Two hits pass tile 1, which takes about a minute.
-4. Tile 2 opens. **Space** dashes. **R** restarts a tile. Progress saves in the browser.
+1. Open the link. Press **Enter** twice (the first press turns the sound on). STORY is selected; press **Enter**.
+2. The tile card shows the tale and the objective. Press **Enter** or **Space**. A drone drops you in.
+3. Move with **arrows or WASD**. Walk into the red car's lane: two hits clear tile 1, in about a minute.
+4. Later tiles bring more keys:
+   - **Space** dashes (Battery 1, tile 2).
+   - **J** puts down a cone (Hands 1, tile 6).
+   - Hold **C** to duck (tile 6).
+   - **L** jumps (Legs 1, tile 8).
+   - Escalators lead up to the decks; drop onto a car through a gap in a deck's parapet.
+5. When the red car learns, its lesson card says what it now does, what that closes and what is still open.
+
+`junction.html` is the earlier version: the same plan on Prototype 10's one-junction test road.
 
 ## Pipeline
 
@@ -33,53 +49,64 @@ python3 pipeline/run.py            # one command: ingest → designer → valida
 
 | # | Step | Kind | In → out |
 |---|---|---|---|
-| 1 | `ingest.py` | code | 6B's registry (703 values), story file and ladder → `pipeline/inputs/build/{ladder,map1,registry}.json` (registry filtered to 65) |
-| 2 | designer (`agents/designer.md`) | Claude Opus | inputs → a nine-tile plan (JSON) |
-| 3 | `validate.py` | code | schema, registry ids and ranges, stage order, word counts → errors |
-| 4 | reviewer (`agents/reviewer.md`) | Claude Sonnet | plan → issues against the fun-escalation rules |
-| 5 | refiner (`agents/refiner.md`) | Claude Sonnet | plan + review (+ validator errors) → final plan; one repair pass if it still fails |
-| 6 | integrate | code | final plan + provenance → `content/story_map1.json` → `engine/build.py` → `index.html` |
+| 1 | `ingest.py` | code | The ladder (10 stages), Map 1's tiles with their Prototype 9 geometry, and the registry (65 of 703 values). `engine/affordances.js` measures each tile on the built world: lanes, a deck over the road, roadside planters, tall cover |
+| 2 | designer (`agents/designer.md` + `world_p9.md`) | Claude Opus | inputs → a nine-tile plan (JSON) |
+| 3 | `validate.py` | code | Schema, registry ids and ranges, stage order, word counts. It also refuses test-road features and anything a tile does not have, as measured |
+| 4 | reviewer | Claude Sonnet | plan → issues against the fun-escalation rules |
+| 5 | refiner | Claude Sonnet | plan + review (+ validator errors) → final plan; one repair pass if it still fails |
+| 6 | integrate | code | final plan + provenance → `content/story_map1.json` → `engine/build_p9.py` → `index.html` (and `engine/build.py` → `junction.html`) |
 
 - **Model calls:** headless `claude -p` with a fixed system prompt and no tools. Every prompt, raw reply, cost and token count is saved under `pipeline/runs/<run>/`.
-- **Gate:** if the plan still fails validation after the repair pass, the run stops and integrates nothing.
+- **Gate:** a plan that still fails validation is not integrated.
+- **Versions:**
+  - `--v1`: the full registry, Opus throughout.
+  - `--world junction`: v2, the test road.
+  - The default is v3: Prototype 9's tiles.
 - **Replay:** `REPLAY=pipeline/runs/<run> python3 pipeline/run.py` re-runs from the saved replies, with no model calls.
 - **Tests:**
-  - `node engine/tiles_test.js`: all nine tiles load with their stage values.
-  - `node engine/play_test.js [--video docs/video]`: an autopilot plays tile 1 to PASSED.
-- **Video:** `python3 pipeline/make_video.py <run dirs>` builds `docs/pipeline_run.mp4` from the run logs, the plan and the recorded play test.
+  - `node engine/p9_tiles_test.js`: all nine tiles start with their stage, rung and red car, with no page errors.
+  - `node engine/p9_play_test.js --tile N [--through M] [--video DIR]`: an autopilot plays from tile N.
+  - `junction.html` keeps `engine/tiles_test.js` and `engine/play_test.js`.
+- **Video:** `python3 pipeline/make_video.py <run dirs>` builds `docs/pipeline_run.mp4` from the run logs, the plan and a recorded play test.
 
 ## Engine integration
 
-- **Contract:** the engine and the pipeline share one file, `content/story_map1.json`. The engine reads it unchanged.
+- **The game is Prototype 9:** districts, tiles, decks, escalators, art, fleet, tile cards, gifts, HUD and sound. It is vendored unchanged in `engine/p9`.
+- **The driver is Prototype 10:** `engine/vendor/testroad.js`, also unchanged.
+- **`engine/duel.js` joins them at runtime.**
+  - The tile in test's ground traffic sim swaps its prototype for `DuelTileSim`, a subclass of `TestRoadSim`. The red car gets Prototype 10's perception, lessons, memory and search; the fleet keeps Prototype 9's driver.
+  - `DuelStorySim` (Prototype 9's story sim) routes the red car's hits to the duel. It clears the tile through Prototype 9's own write-off, report and ferry.
+- **`engine/duel_ui.js`** draws the red car's field and lessons on Prototype 9's HD layer.
+- **`engine/build_p9.py`** bundles everything into one `index.html`. Its patches to `game.js` (keys, hooks) are asserted at build time.
+- **The contract** is one file, `content/story_map1.json`, which the engine reads unchanged.
 
   | Field | Engine use |
   |---|---|
-  | `stage` | That stage's registry values (`window.DUMMIES_STAGES[stage].flags`): what the red car knows |
+  | `stage` | That stage's values: the red car's start rung, top rung, sensors |
   | `params` | Registry overrides on top (validated ids, min/max) |
-  | `objective` | `engine/story.js`: HUD counter and win test (hits by red, stealth points, incidents) |
-  | `title`, `tale`, `hint`, `newIdea` | The tile card |
-  | `provenance` | Shown on every card: run, models, validator, cost |
+  | `objective` | The tile's count of red hits, stealth points or Incidents; met, the tile clears |
+  | `title`, `tale`, `hint`, `newIdea` | Prototype 9's level card, objective line and the NEW line |
+  | `provenance` | The run, world, models, validator result and cost |
 
-- **Today:** `engine/build.py` bundles the vendored Prototype 10 engine (`engine/vendor`, byte-identical to Submission 6B at `18860f1`; see `VENDOR.md`) with the plan into one self-contained `index.html`. GitHub Pages serves it.
-- **Phaser (next):**
-  - A boot scene loads the same JSON (`this.load.json`).
-  - A `TileScene` per tile builds the sim from the tile's stage values plus overrides, steps it in `update()`, and draws with Phaser.
-  - The pipeline doesn't change.
-  - Prerequisite: lift the red-car systems out of `TestRoadSim` into an engine-agnostic module (analysis §3).
+- **Phaser (next):** the same split. Phaser draws Prototype 9's tiles; `sim.js`, `testroad.js` and `duel.js` run under it unchanged. The pipeline doesn't change.
 
 ## Cost (actual)
 
-| Run | Models | Registry sent | Input tokens | Output tokens | Cost |
+| Run | World | Models | Input tokens | Output tokens | Cost |
 |---|---|---|---|---|---|
-| v1 (before) | Opus × 3 | 703 entries | 461,915 | 18,864 | $3.9092 |
-| v2 (after, shipped) | Opus designer; Sonnet reviewer, refiner, repair | 65 entries | 126,199 | 20,959 | **$0.7343 (−81%)** |
+| v1 | test road | Opus × 3, full registry | 461,915 | 18,864 | $3.9092 |
+| v2 | test road | Opus designer; Sonnet reviewer, refiner, repair; 65 values | 126,199 | 20,959 | $0.7343 |
+| v3a | Prototype 9 | as v2, with tile geometry | 132,388 | 20,241 | $0.8483 |
+| v3b (shipped) | Prototype 9 | as v3a, with measured affordances | 103,018 | 19,416 | **$0.6637** |
 
 ## Layout
 
 ```
 pipeline/   run.py ingest.py validate.py llm.py make_video.py · agents/*.md · inputs/ · runs/<run>/
-engine/     build.py story.js tiles_test.js play_test.js · vendor/ (Prototype 10, from Submission 6B)
+engine/     build_p9.py duel.js duel_ui.js affordances.js p9_tiles_test.js p9_play_test.js · p9/ (Prototype 9) · vendor/ (Prototype 10)
+            build.py tiles_test.js play_test.js story.js (junction.html)
 content/    story_map1.json   (pipeline output)
-docs/       01 analysis · 02 audit · pipeline_run.mp4
-index.html  the playable build
+audio/      Prototype 9's music and effects
+docs/       01 analysis · 02 audit · GDD Edit 111 · pipeline_run.mp4
+index.html  the playable build · junction.html  the test-road build
 ```

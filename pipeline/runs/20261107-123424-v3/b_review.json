@@ -1,0 +1,64 @@
+{
+ "verdict": "revise",
+ "issues": [
+  {
+   "tile": 4,
+   "severity": "high",
+   "problem": "Stage 10.4 closes the drop from above, yet the objective 'DROP, THEN SPRING' and the tale and hint tell the player to drop from the plaza.",
+   "fix": "Make the objective cover springs only (for example 'SPRING FROM COVER'), and rewrite the tale and hint around hiding behind the portal tower."
+  },
+  {
+   "tile": 5,
+   "severity": "high",
+   "problem": "Stage 10.5 measures only conebait 2.0 and lurk 0.8, and cones are not yet available on this tile, so two hits by lurking is too hard for a tile that introduces cameras.",
+   "fix": "Cut the count to 1, or move the cone-bait tile before the camera tile so the strongest open way is available."
+  },
+  {
+   "tile": 9,
+   "severity": "high",
+   "problem": "The finale asks for two Incidents although Incidents run only about 0.6 a minute. It also jumps from 10.7 to 10.10 and introduces tailgating and the Incident at once, so nothing is introduced before it is tested.",
+   "fix": "Set the count to 1, or add a short 10.9 tile before the finale. Also make the 0.4 time-gap override stronger or drop it, since the drop from 0.5 to 0.4 is too small to matter."
+  },
+  {
+   "tile": 7,
+   "severity": "medium",
+   "problem": "The objective kind is 'hits' with a COMBO label, which does not match MAP1's combo kind (story.task.comboEasy). It also stacks a combo on the new DUCK idea, and the planter ambush is the only open way (3.03).",
+   "fix": "Use a plain hits objective for the duck ambush, or use the combo kind with its comboEasy param."
+  },
+  {
+   "tile": 8,
+   "severity": "medium",
+   "problem": "Tile 8 introduces both the jump (Legs 1) and crash memory, asks for the highest count (3), and follows the hard combo tile with no breather before the finale.",
+   "fix": "Introduce only one idea here. Make the jump the verb and keep memory as background, or lower the count and give tile 7 an easier objective."
+  },
+  {
+   "tile": 3,
+   "severity": "medium",
+   "problem": "The override perception.sideNoticeSeconds 0.8 has no clear purpose on a drop tile, since a drop from a deck does not depend on how fast the side sensors notice.",
+   "fix": "Remove the override, or state a purpose for it such as softening the side sensors for a new player."
+  },
+  {
+   "tile": 6,
+   "severity": "low",
+   "problem": "Tile 6 repeats stage 10.5 and reuses the MAP1 tale word for word, so it adds no new escalation step beyond the cone gift.",
+   "fix": "Keep the repeat, which is valid, but rewrite the tale in a new line that does not copy MAP1."
+  },
+  {
+   "tile": 0,
+   "severity": "low",
+   "problem": "Words and phrases repeat across tales and hints: 'colleague' in most tales, 'fitted' on tiles 2, 6 and 8, 'spring' on tiles 4, 5 and 7, and 'each time' twice on tile 8.",
+   "fix": "Vary the vocabulary so each tale and hint is distinct."
+  },
+  {
+   "tile": 5,
+   "severity": "low",
+   "problem": "The streetCameraRange 300 override has no stated purpose, and registry notes say 10.6 sets 180, so 300 is arbitrary.",
+   "fix": "Justify 300 as an easier range for the first camera tile, or remove the override."
+  }
+ ],
+ "strengths": [
+  "Stages never go backwards, tile 1 is 10.1, the last tile is 10.10, and eight distinct stages are used.",
+  "All overrides use registry ids within range, and none touch startRung or topRung.",
+  "Tiles use their built verbs and measured affordances: the planter ambush only where planters exist, and drops only where a deck crosses the road."
+ ]
+}

@@ -21,7 +21,13 @@ TEST_ROAD_ONLY = ('plinth', 'barrier', 'junction')  # v3: features of the test r
 def check(plan, world='junction'):
     errs = []
     if world == 'p9':
+        aff = {t['id']: (t.get('prototype9') or {}).get('measured') or {} for t in json.loads((ROOT / 'pipeline' / 'inputs' / 'build' / 'map1.json').read_text(encoding='utf-8'))['tiles']}
         for t in plan.get('tiles', []):
+            m = aff.get(t.get('tile'), {})
+            if m and not m.get('plantersForAnAmbush') and 'planter' in (str(t.get('hint')) + str(t.get('newIdea'))).lower():
+                errs.append(f'tile {t.get("n")}: the plan uses a planter, but {t.get("tile")} has no roadside planter (measured)')
+            if m and not m.get('deckOverRoad') and any(w in str(t.get('hint')).lower() for w in ('drop', 'parapet')):
+                errs.append(f'tile {t.get("n")}: the plan drops from a deck, but no deck crosses {t.get("tile")}\'s road (measured)')
             for f in ('hint', 'tale', 'newIdea'):
                 bad = [w for w in TEST_ROAD_ONLY if w in str(t.get(f) or '').lower()]
                 if bad:

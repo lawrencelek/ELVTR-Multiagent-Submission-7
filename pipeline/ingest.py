@@ -13,6 +13,8 @@
 import re
 import argparse
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -92,8 +94,11 @@ def main():
             'taskLabels': {k: v['label'] for k, v in story['tasks'].items()}}
     if a.world == 'p9':
         geo = p9_tiles()
+        if not (ROOT / 'engine' / '.cache' / 'runtime.json').exists():  # the built world's values, for the headless measure
+            subprocess.run([sys.executable, str(ROOT / 'engine' / 'build_p9.py')], check=True, capture_output=True)
+        aff = json.loads(subprocess.run(['node', str(ROOT / 'engine' / 'affordances.js')], check=True, capture_output=True, text=True).stdout)
         for t in map1['tiles']:
-            t['prototype9'] = dict(geo[t['id']], builtFor=(t.get('task') or {}).get('kind'))
+            t['prototype9'] = dict(geo[t['id']], builtFor=(t.get('task') or {}).get('kind'), measured=aff[t['id']])
         map1['controls'] = 'Arrows or WASD move; Space dash (Battery 1, from B1); L jump (Legs 1, from B3); J picks up and puts down a cone (Hands 1, from A2); hold C to duck (from tile 6); walk off a deck through a gap in its parapet to drop.'
     reg = json.loads((INP / 'tuning.parameters.json').read_text(encoding='utf-8'))['entries']
     keep = [e for e in reg if a.full or e['id'].startswith(PREFIXES)]

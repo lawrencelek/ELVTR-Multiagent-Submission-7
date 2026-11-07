@@ -16,7 +16,20 @@
    "prototype9": {
     "road": "Start, west edge. The road passes under the Z1 highway (north–south) at 90°; escalators",
     "setPiece": "LED-wall tower facing the entry",
-    "builtFor": "any"
+    "builtFor": "any",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      800,
+      800
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 1,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 4
+    }
    }
   },
   {
@@ -33,7 +46,20 @@
    "prototype9": {
     "road": "A Z1 skybridge crosses the road at 90°, from a podium roof to the walkway ring",
     "setPiece": "Podium and tower at the bridge head",
-    "builtFor": "dash"
+    "builtFor": "dash",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      792,
+      800
+     ],
+     "deckOverRoad": true,
+     "stairs": 1,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 3,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 3
+    }
    }
   },
   {
@@ -48,7 +74,20 @@
    "prototype9": {
     "road": "Under the Z2 highway at 90°, then an R96 bend south; Z2 escalators (run 112)",
     "setPiece": "LED drum tower in the bend",
-    "builtFor": "drop"
+    "builtFor": "drop",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      872,
+      960
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 3,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 2
+    }
    }
   },
   {
@@ -63,7 +102,20 @@
    "prototype9": {
     "road": "A 45° corner cut, then under the Z2 highway at 90°. The highway runs through a tower; a roof plaza at Z2 opens off its parapet, and an escalator drops from the plaza to the street",
     "setPiece": "Portal tower and roof plaza (Chongqing)",
-    "builtFor": "level"
+    "builtFor": "level",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      840,
+      928
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 2,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 2
+    }
    }
   },
   {
@@ -78,7 +130,20 @@
    "prototype9": {
     "road": "The road splits round the monument\\'s island; the walkway ring bridges both lanes at Z1; skybridge north",
     "setPiece": "The monument",
-    "builtFor": "struck"
+    "builtFor": "struck",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      840,
+      840
+     ],
+     "deckOverRoad": true,
+     "stairs": 4,
+     "roadsidePlanters": 1,
+     "planterRowsThatFit": 2,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 14
+    }
    }
   },
   {
@@ -95,7 +160,20 @@
    "prototype9": {
     "road": "Under the Z1 highway at 90°, then an R96 bend south",
     "setPiece": "Neon arcade along the road",
-    "builtFor": "cone"
+    "builtFor": "cone",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      880,
+      784
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 0,
+     "plantersForAnAmbush": false,
+     "tallCoverByRoad": 5
+    }
    }
   },
   {
@@ -111,7 +189,20 @@
    "prototype9": {
     "road": "A 45° corner cut, then under the Z1 highway at 90°",
     "setPiece": "Stacked LED cubes, each cantilevered off the one below",
-    "builtFor": "combo"
+    "builtFor": "combo",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      848,
+      760
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 1,
+     "planterRowsThatFit": 2,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 4
+    }
    }
   },
   {
@@ -128,7 +219,20 @@
    "prototype9": {
     "road": "A 45° jog between two LED walls; a Z1 skybridge crosses the jog at 90°",
     "setPiece": "LED canyon and its skybridge",
-    "builtFor": "jump"
+    "builtFor": "jump",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      848,
+      848
+     ],
+     "deckOverRoad": true,
+     "stairs": 1,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 2,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 5
+    }
    }
   },
   {
@@ -143,7 +247,20 @@
    "prototype9": {
     "road": "Under the Z2 highway at 90°; the exit through an LED gateway",
     "setPiece": "LED gateway arch over the road",
-    "builtFor": "bounce"
+    "builtFor": "bounce",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      800,
+      800
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 2,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 1
+    }
    }
   }
  ],

@@ -18,14 +18,16 @@
 - **Kerbs:** run kerb to kerb, across the oncoming lane where there is one.
 - **Height (rung 3):** a deck over its road is the plinth. A drop through a parapet gap counts as a hit from above.
 - **Cover:** Prototype 9's statics. Its planters are low cover at `props.planter.height`.
-- **Planter rows:** added along the road when `duel.planters` is 1, never under a deck.
-- **Street cameras (rung 4):** two per lane, on the kerb, aimed back up the road. Range is `perception.streetCameraRange`; field is `perception.streetCameraFov`.
+- **Planter rows:** added along the road when `duel.planters` is 1, never under a deck. There must be room behind a row to crouch.
+- **Vault:** a dash vaults a planter; a walk does not.
+- **Street cameras (rung 4):** up to 3, on the kerb by tall cover, aimed back up the road. None has a roadside planter in reach. Range is `perception.streetCameraRange`; field is `perception.streetCameraFov`.
 - **Sight field:** 10.9's proportional cones (`perception.coneRadius`, `perception.forwardGrades`, `perception.sideGrades`) from rung 2 on.
-- **Block lift:** after `duel.blockSeconds`, FARSIGHT sets the dummy down on free ground clear of every lane.
+- **Block lift:** from 10.2, `duel.blockSeconds` 10 (10.7's value). After it, FARSIGHT sets the dummy down on free ground clear of every lane. No car waits for ever.
+- **Incident (10.10):** the fleet tailgates (`traffic.whiteTimeGap`) and brakes no harder than `traffic.whiteBraking`. An Incident scores `scoring.incidentPoints`. It counts toward the objective once the dummy has moved.
 
 ## 111.3 Objective and clear
 
-- **Objective:** the plan's count of damaging red hits (1 or more lost) or stealth points (`scoring.stealthUnseen`, `scoring.stealthLost`, `scoring.stealthSeen`).
+- **Objective:** the plan's count of damaging red hits (10 or more lost) or stealth points (`scoring.stealthUnseen`, `scoring.stealthLost`, `scoring.stealthSeen`).
 - **Clear:** when the objective is met, Prototype 9's clear runs. Write-off, report, ferry, next card.
 - **Floor:** other hits in the tile in test hold at `story.missFloor` (`story.floorHold`).
 - **Clearing hit:** teaches nothing. The next tile's stage is the next lesson.
@@ -42,7 +44,13 @@
 - **Duel drone:** stays home (`duel.dashArrives`, `duel.jumpArrives`, `duel.conesArrives`, `duel.duckArrives` all 0).
 - **DUCK:** from tile 6 (stage 10.6). Hold C. Speed scales by `movement.duckSpeedFactor`.
 
-## 111.6 Interface
+## 111.6 The pipeline's view (v3)
+
+- **Each tile's facts:** the agents see the tile's road and set piece from Prototype 9's district plan.
+- **Measured affordances:** `engine/affordances.js` measures each tile on the built world. It reports lanes, a deck over the road, roadside planters and tall cover.
+- **Validator:** refuses a plan that uses a planter, or a drop, a tile does not have. It also refuses test-road words (plinth, barrier, junction).
+
+## 111.7 Interface
 
 - **Tile card:** Prototype 9's level card, with the plan's tale and objective, and a NEW line for the stage's idea.
 - **Panel:** the car's rung, and the hit that teaches the next rung.

@@ -1,0 +1,151 @@
+{
+ "map": {
+  "id": "monument",
+  "title": "MAP 1 · MONUMENT",
+  "intro": "Dummy Corporation welcomes you off the factory floor. Your colleagues learn from every crash; Certification awaits the dummy who keeps finding new ones."
+ },
+ "tiles": [
+  {
+   "n": 1,
+   "tile": "A1",
+   "title": "The welcome wall",
+   "stage": "10.1",
+   "newIdea": "Move and walk into the red car's path.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "WALK INTO A COLLEAGUE"
+   },
+   "params": {
+    "duel.redReturnSeconds": 2
+   },
+   "tale": "Dummy Corporation welcomes you. Your colleague has learned nothing yet. Walk into its path; the LED wall applauds.",
+   "hint": "Walk into the red car's lane under the highway."
+  },
+  {
+   "n": 2,
+   "tile": "B1",
+   "title": "The podium bridge",
+   "stage": "10.2",
+   "newIdea": "Dash (Space); after one hit, the car brakes for you in its lane.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "DASH INTO A CAR"
+   },
+   "params": {},
+   "tale": "Battery 1 arrives by drone. The sedan now brakes for dummies ahead. Dash in from beside it, under the skybridge.",
+   "hint": "Wait beside the lane by the podium; Space as it passes."
+  },
+  {
+   "n": 3,
+   "tile": "C1",
+   "title": "The LED drum",
+   "stage": "10.3",
+   "newIdea": "Side sensors close the flank; drop onto it through a deck gap.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "DROP ONTO A CAR"
+   },
+   "params": {},
+   "tale": "Side sensors now watch the kerb. Nothing watches upward. Step off the Z2 highway onto a roof; gravity is policy.",
+   "hint": "Ride the Z2 escalator; walk through the parapet gap as it nears."
+  },
+  {
+   "n": 4,
+   "tile": "C2",
+   "title": "The portal tower",
+   "stage": "10.4",
+   "newIdea": "Roof lidar sees the deck; spring from behind the tower instead.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "SPRING FROM COVER"
+   },
+   "params": {},
+   "tale": "The lidar now sees the highway deck. Wait behind the portal tower and let the road come to you.",
+   "hint": "Hide behind the portal tower; spring as it passes."
+  },
+  {
+   "n": 5,
+   "tile": "B2",
+   "title": "The monument",
+   "stage": "10.5",
+   "newIdea": "Street cameras watch some cover; find the column they miss.",
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "STRUCK, NOT DASHING"
+   },
+   "params": {},
+   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Cameras now report you. Find cover they miss.",
+   "hint": "Circle the monument; hide by a column no camera faces; step out."
+  },
+  {
+   "n": 6,
+   "tile": "A2",
+   "title": "The neon shops",
+   "stage": "10.5",
+   "newIdea": "Hands 1: place a cone (J) to bait the car.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "CONE-BAITED CAR"
+   },
+   "params": {},
+   "tale": "Hands 1 is on the shelf. The arcade glows; the traffic reads it. Place a cone and sprint in.",
+   "hint": "Put a cone (J) in its lane by the arcade; sprint in."
+  },
+  {
+   "n": 7,
+   "tile": "A3",
+   "title": "The stacked cubes",
+   "stage": "10.6",
+   "newIdea": "DUCK (hold C): ambush it from behind a roadside planter.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "SPRING FROM A PLANTER"
+   },
+   "params": {
+    "perception.duckNoticeFactor": 2
+   },
+   "tale": "The stacked cubes rose one budget at a time. Be patient: crouch low, wait, then strike the passing car.",
+   "hint": "Hold C behind the planter by the corner cut; spring."
+  },
+  {
+   "n": 8,
+   "tile": "B3",
+   "title": "The LED canyon",
+   "stage": "10.7",
+   "newIdea": "Jump (L) into the car; it remembers spots, so vary them.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "JUMP INTO A CAR"
+   },
+   "params": {},
+   "tale": "Legs 1 is bolted on. The canyon walls advertise to each other; jump into a car between them.",
+   "hint": "Jump (L) from beside the car as it crosses the canyon."
+  },
+  {
+   "n": 9,
+   "tile": "C3",
+   "title": "The LED gateway",
+   "stage": "10.10",
+   "newIdea": "White cars tailgate it; make it stop hard for an Incident.",
+   "objective": {
+    "kind": "incidents",
+    "count": 1,
+    "label": "CAUSE AN INCIDENT"
+   },
+   "params": {
+    "traffic.whiteTimeGap": 0.25
+   },
+   "tale": "The fleet tailgates the red car under the gateway. Stop it hard and the car behind files the report.",
+   "hint": "Step into its lane by the gateway when a white car follows."
+  }
+ ],
+ "rationale": "Tile 4 now teaches springs only, since lidar closes drops. Tile 5 asks one hit, and its arbitrary camera range is gone. Tile 7 is a plain planter ambush. Tile 8 teaches only the jump, count 2. Tile 3's purposeless override is removed. The finale asks one Incident with a tighter tailgate. Tale vocabulary varied."
+}

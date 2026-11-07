@@ -24,7 +24,7 @@ const ORDER = ['A1', 'B1', 'C1', 'C2', 'B2', 'A2', 'A3', 'B3', 'C3'];
     if (SHOTS) await pg.screenshot({ path: path.join(SHOTS, 'tile' + k + '_play.png') });
     const r = await pg.evaluate(() => {
       const s = window.__dummies.sim, T = s.duelT, d = s.duelDef, st = window.DUMMIES_STAGES[d.stage].flags;
-      const keys = Object.keys(st).filter((q) => q.startsWith('duel.') && !/Arrives$|standstill|redReturn/.test(q));
+      const keys = Object.keys(st).filter((q) => q.startsWith('duel.') && !/Arrives$|standstill|redReturn|blockSeconds/.test(q));
       const bad = keys.filter((q) => JSON.stringify(T.P[q]) !== JSON.stringify(d.params && d.params[q] != null ? d.params[q] : st[q]));
       return { tile: d.tile, screen: s.screenName(), stage: d.stage, rung: T.rung, startRung: st['duel.startRung'], reds: T.redSeq, phase: s.phase, cams: (T.level.cameras || []).length, planters: T.level.statics.filter((q) => q.kind === 'planter').length, objective: s.duelObjective() && s.duelObjective()[1].slice(0, 40), mismatched: bad.slice(0, 4) };
     });

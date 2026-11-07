@@ -36,6 +36,7 @@
     DP['ui.lungeGuide'] = 1; // the lunge guide on every tile (row 732)
     if (!(DP['duel.standstillSpeed'] > 0)) DP['duel.standstillSpeed'] = 5;
     if (!(DP['duel.redReturnSeconds'] > 0)) DP['duel.redReturnSeconds'] = 2;
+    if (stageN(def.stage) >= 2 && !(DP['duel.blockSeconds'] > 0)) DP['duel.blockSeconds'] = 10; // the block lift (row 715) from the first lesson on: a car never waits for ever
     return DP;
   }
 
@@ -109,31 +110,37 @@
     return out;
   }
   function rectHits(a, list, m) { return list.some((q) => a.x < q.x + q.w + m && a.x + a.w > q.x - m && a.y < q.y + q.h + m && a.y + a.h > q.y - m); }
-  function placePlanters(T, sc, P, DP, lanes) { // 10.6 (row 696): low planter rows along the red car's road, on the kerb
-    const pw = P['world.gardenPlanter'] || 30, ph = DP['props.planter.height'] || 14, LW = P['world.laneWidth'], W = P['world.width'], H = P['world.height'], out = [];
-    const solid = (sc.game.statics || []).concat(sc.stairs || []);
-    for (const ln of lanes) for (const f of [0.22, 0.5, 0.78]) {
-      if (out.length >= 4) break;
-      const s = ln.enterS + (ln.exitS - ln.enterS) * f, q = X.pathAt(ln.path, s), ax = Math.abs(q.tx) > 0.9, ay = Math.abs(q.ty) > 0.9; if (!ax && !ay) continue;
-      for (const sg of [1, -1]) {
-        const off = sg > 0 ? ln.path.edges[1] + 34 : ln.path.edges[0] - 34, cx = q.x + q.nx * off, cy = q.y + q.ny * off, len = 5 * pw;
+  function placePlanters(T, sc, P, DP, lanes) { // 10.6 (row 696): low planter rows along the red car's road, on the kerb, never under a deck
+    const pw = P['world.gardenPlanter'] || 30, ph = DP['props.planter.height'] || 14, LW = P['world.laneWidth'], W = P['world.width'], H = P['world.height'], out = [], len = 4 * pw;
+    const solid = (sc.game.statics || []).filter((q) => q.kind !== 'mass').concat(sc.stairs || []), cands = [];
+    for (const ln of lanes) for (let s = ln.enterS + 80; s <= ln.exitS - 80; s += 30) {
+      const q = X.pathAt(ln.path, s), ax = Math.abs(q.tx) > 0.95, ay = Math.abs(q.ty) > 0.95; if (!ax && !ay) continue;
+      for (const sg of [1, -1]) for (const gap of [26, 40, 56]) {
+        const off = sg > 0 ? ln.path.edges[1] + gap : ln.path.edges[0] - gap, cx = q.x + q.nx * off, cy = q.y + q.ny * off;
         const r = ax ? { x: cx - len / 2, y: cy - 8, w: len, h: 16 } : { x: cx - 8, y: cy - len / 2, w: 16, h: len };
-        if (r.x < 8 || r.y < 8 || r.x + r.w > W - 8 || r.y + r.h > H - 8 || rectHits(r, solid, 12) || rectHits(r, out, 40)) continue;
-        if ((T.level.lanes || []).some((p) => [[r.x, r.y], [r.x + r.w, r.y], [r.x, r.y + r.h], [r.x + r.w, r.y + r.h], [r.x + r.w / 2, r.y + r.h / 2]].some(([x, y]) => Math.abs(X.pathProject(p, x, y).lat) < LW / 2 + 14))) continue;
-        if ((sc.layers || []).some((l) => l.inBand && [[r.x, r.y], [r.x + r.w, r.y + r.h], [r.x + r.w / 2, r.y + r.h / 2]].some(([x, y]) => l.inBand(x, y)))) continue; // never under a deck
-        out.push(Object.assign(r, { kind: 'planter', low: true, height: ph, id: 'planter' + out.length, duel: true })); break;
+        const ux = Math.round(q.nx * sg), uy = Math.round(q.ny * sg), behind = { x: r.x + (ux > 0 ? r.w : ux < 0 ? -34 : 0), y: r.y + (uy > 0 ? r.h : uy < 0 ? -34 : 0), w: ux ? 34 : r.w, h: uy ? 34 : r.h }; // the strip a dummy crouches in
+        if (r.x < 24 || r.y < 24 || r.x + r.w > W - 24 || r.y + r.h > H - 24 || rectHits(r, solid, 6) || rectHits(behind, solid, 2) || behind.x < 8 || behind.y < 8 || behind.x + behind.w > W - 8 || behind.y + behind.h > H - 8) continue;
+        const pts = [[r.x, r.y], [r.x + r.w, r.y], [r.x, r.y + r.h], [r.x + r.w, r.y + r.h], [r.x + r.w / 2, r.y + r.h / 2]];
+        if ((T.level.lanes || []).some((p) => pts.some(([x, y]) => Math.abs(X.pathProject(p, x, y).lat) < LW / 2 + 12))) continue;
+        if ((sc.layers || []).some((l) => l.inBand && pts.some(([x, y]) => l.inBand(x, y)))) continue;
+        cands.push(Object.assign(r, { score: Math.hypot(cx - W / 2, cy - H / 2) + gap }));
       }
     }
+    cands.sort((a, b) => a.score - b.score);
+    for (const r of cands) { if (out.length >= 3) break; if (rectHits(r, out, 90)) continue; delete r.score; out.push(Object.assign(r, { kind: 'planter', low: true, height: ph, id: 'planter' + out.length, duel: true })); }
     return out;
   }
-  function placeCameras(sc, P, lanes) { // rung 4's street cameras: on the kerb, at a third and two thirds of the road, each aimed along it
-    const LW = P['world.laneWidth'], W = P['world.width'], H = P['world.height'], out = [], solid = (sc.game.statics || []);
-    for (const ln of lanes.slice(0, 2)) for (const f of [0.3, 0.7]) {
-      const s = ln.enterS + (ln.exitS - ln.enterS) * f, q = X.pathAt(ln.path, s), sg = ln.path.edges[1] > LW ? -1 : 1, off = sg * (LW / 2 + 26), x = q.x + q.nx * off, y = q.y + q.ny * off;
-      if (x < 12 || y < 24 || x > W - 12 || y > H - 12 || solid.some((st) => x > st.x && x < st.x + st.w && y > st.y && y < st.y + st.h)) continue;
-      const aim = Math.atan2(-q.ty, -q.tx) * 180 / Math.PI; // it looks back up the road, toward the car's approach
-      if (!out.some((c) => hyp(c[0] - x, c[1] - y) < 160)) out.push([x, y, aim, out.length * 0.25]);
+  function placeCameras(sc, P, lanes, low) { // rung 4's street cameras: on the kerb, by the tall cover they watch, clear of the low cover (planters stay a hiding place)
+    const LW = P['world.laneWidth'], W = P['world.width'], H = P['world.height'], out = [], tall = (sc.game.statics || []).filter((q) => q.kind === 'block' || q.kind === 'booth' || q.kind === 'sculpture' || q.kind === 'column' || q.kind === 'monument'), cands = [];
+    for (const ln of lanes) for (let s = ln.enterS + 60; s <= ln.exitS - 60; s += 40) {
+      const q = X.pathAt(ln.path, s), sg = ln.path.edges[1] > LW ? -1 : 1, off = sg * (LW / 2 + 26), x = q.x + q.nx * off, y = q.y + q.ny * off;
+      if (x < 12 || y < 24 || x > W - 12 || y > H - 12 || tall.some((st) => x > st.x - 4 && x < st.x + st.w + 4 && y > st.y - 4 && y < st.y + st.h + 4)) continue;
+      const R = P['perception.streetCameraRange'] || 180; if (low.some((q2) => hyp(clamp(x, q2.x, q2.x + q2.w) - x, clamp(y, q2.y, q2.y + q2.h) - y) < R + 30)) continue; // no roadside planter in its reach
+      const cover = tall.filter((st) => hyp(st.x + st.w / 2 - x, st.y + st.h / 2 - y) < 150).length;
+      cands.push({ x, y, aim: Math.atan2(-q.ty, -q.tx) * 180 / Math.PI, cover }); // it looks back up the road, toward the car's approach
     }
+    cands.sort((a, b) => b.cover - a.cover);
+    for (const c of cands) { if (out.length >= 3) break; if (out.some((o) => hyp(o[0] - c.x, o[1] - c.y) < 200)) continue; out.push([c.x, c.y, c.aim, out.length * 0.25]); }
     return out;
   }
   function join(T, sc, DP, feed) {
@@ -151,7 +158,8 @@
     // Prototype 9's statics hide the dummy from the red car's own sensors; its planters are low cover (rows 696-697), as the duel's
     const ph = DP['props.planter.height'] || 14;
     T.level.statics = (sc.game.statics || []).filter((s) => !s.duel && s.kind !== 'bound' && s.kind !== 'mass').map((s) => (s.kind === 'planter' ? Object.assign({}, s, { low: true, height: ph }) : s)).concat(planters);
-    T.level.cameras = Math.round(DP['duel.topRung'] || 0) >= 4 ? placeCameras(sc, P, T.redLanes) : [];
+    const roadside = T.level.statics.filter((q) => q.low && T.redLanes.some((ln) => Math.abs(X.pathProject(ln.path, q.x + q.w / 2, q.y + q.h / 2).lat) < 160)); // the planters an ambush uses
+    T.level.cameras = Math.round(DP['duel.topRung'] || 0) >= 4 ? placeCameras(sc, P, T.redLanes, roadside) : [];
     return T;
   }
   function leave(T, sims) {
@@ -174,11 +182,11 @@
       const sc = this.W6.at('ABC'.indexOf(act[0]), +act[1] - 1), T = sc && (sc.main || sc.lab), DP = duelParams(def);
       if (!T || !DP) return;
       this.duelFeed = []; join(T, sc, DP, this.duelFeed);
-      Object.assign(this, { duelT: T, duelSc: sc, duelDef: def, duelDP: DP, duelHits: 0, duelIncidents: 0, duelPending: false, duelDone: false, duelDuck: stageN(def.stage) >= 6, duelT0: this.t });
+      Object.assign(this, { duelT: T, duelSc: sc, duelDef: def, duelDP: DP, duelHits: 0, duelIncidents: 0, duelMovedAt: null, duelInc0: 0, duelPending: false, duelDone: false, duelDuck: stageN(def.stage) >= 6, duelT0: this.t });
       this.emit('duel-start', { tile: def.tile, stage: def.stage, rung: T.rung, top: Math.round(DP['duel.topRung'] || 0), lanes: T.redLanes.length });
     }
     duelStop() { if (this.duelT) leave(this.duelT, this.W6.sims); this.duelT = null; this.duelDef = null; this.duelSc = null; if (this.body) { this.body.duck = false; this.body.lifted = false; } }
-    duelProgress() { const d = this.duelDef, T = this.duelT; if (!d) return 0; return d.objective.kind === 'stealth' ? (T ? T.stealth.points : 0) : d.objective.kind === 'incidents' ? (T ? T.run.incidents || 0 : 0) : this.duelHits; }
+    duelProgress() { const d = this.duelDef, T = this.duelT; if (!d) return 0; return d.objective.kind === 'stealth' ? (T ? T.stealth.points : 0) : d.objective.kind === 'incidents' ? (T && this.duelMovedAt != null ? (T.run.incidents || 0) - this.duelInc0 : 0) : this.duelHits; } // an Incident counts once the dummy has moved: it made the car brake
     duelObjective() {
       const d = this.duelDef; if (!d || !this.duelT || this.duelDone) return null;
       const o = d.objective, n = Math.min(this.duelProgress(), o.count), here = this.screenName() === d.tile;
@@ -186,8 +194,8 @@
     }
     redCars() { const out = []; for (const s of this.W6.sims) for (const c of s.cars) if (c.red && !c.ghost) out.push(c); return out; }
     redOnScreen() { return this.redCars().length > 0; }
-    redSweep() { // a red car that has left the screen in view goes (Prototype 10's exit); its lesson can then show
-      const T = this.duelT, P = this.P, W = P['world.width'], H = P['world.height'], act = this.sc;
+    redSweep() { // a red car that has left its tile goes (Prototype 10's exit); its lesson can then show
+      const T = this.duelT, P = this.P, W = P['world.width'], H = P['world.height'], act = (T && T.duelSc) || this.sc;
       for (const s of this.W6.sims) {
         const keep = [];
         for (const c of s.cars) {
@@ -212,13 +220,14 @@
       if (T && T.lift && T.lift.state !== 'inbound' && T.lift.state !== 'outbound') cmd = {}; // in FARSIGHT's grip: no control
       if (T && b && this.phase === 'play') this.duckFor(cmd || {});
       this.lastCmd = cmd || {};
+      if (T && this.duelMovedAt == null && this.phase === 'play' && !this.rescue && (Math.abs(this.lastCmd.mx || 0) + Math.abs(this.lastCmd.my || 0) > 0.1 || this.lastCmd.aPress)) { this.duelMovedAt = this.t; this.duelInc0 = T.run.incidents || 0; }
       super.step(cmd);
       if (T) { this.redSweep(); if (b && b.duck && !this.canDuck()) this.stand(); this.incidentCheck(); }
     }
     incidentCheck() { // row 740: an Incident scores scoring.incidentPoints for the player; the plan's count of them clears the tile
       const T = this.duelT, n = T.run.incidents || 0;
       if (n > (this.duelIncidents || 0)) { this.run.points += (n - (this.duelIncidents || 0)) * (T.P['scoring.incidentPoints'] || 0); this.duelIncidents = n; this.emit('incident-scored', { n }); }
-      const d = this.duelDef; if (d && d.objective.kind === 'incidents' && !this.duelDone && this.phase === 'play' && this.body && this.body.alive && n >= d.objective.count) { this.duelPending = true; this.body.health = 0; this.writeOff(); }
+      const d = this.duelDef; if (d && d.objective.kind === 'incidents' && !this.duelDone && this.phase === 'play' && this.body && this.body.alive && this.duelProgress() >= d.objective.count) { this.duelPending = true; this.body.health = 0; this.writeOff(); }
     }
     continueLesson() {
       const T = this.duelT; this.phase = 'play';
@@ -247,7 +256,7 @@
     duelImpact(e, c) {
       const T = this.duelT, b = this.body, DP = T.DP, clip = DP['duel.lessonClipSeconds'] || 3;
       e.red = true; e.sight = +(c.sightT || 0).toFixed(2); e.above = T.fromAbove(e); e.cover = T.coverHid(c); e.coned = e.coned || T.itemHit(c); e.ducked = !!b.duck;
-      if (!(e.lost >= 1)) return; // a graze is not a hit
+      if (!(e.lost >= 10)) return; // a graze is not a hit: the objective counts real damage
       const o = T.springOrigin(e), fx = this.effects.filter((q) => q.type === 'burst').pop(), prev = o.cover ? T.nearSite(o.x, o.y) : null;
       const sn = (e.kind === 'dash' || e.kind === 'jump') && T.spring ? T.spring.seen : null;
       e.lostSight = !!(o.cover && sn && sn.ago <= clip + 1e-9); e.seenAt = e.lostSight ? { x: +sn.x.toFixed(1), y: +sn.y.toFixed(1), ago: +sn.ago.toFixed(2) } : null;
@@ -280,7 +289,12 @@
       super.tryJump();
       if (T && b.mode === 'jump' && b.jump) { b.jump.fromRaised = up; if (!dashing) T.spring = { x, y, t: T.t, cover, seen }; }
     }
-    collideBody(contacts, k) { if (this.body && this.body.lifted) return; return super.collideBody(contacts, k); }
+    collideBody(contacts, k) { // carried by FARSIGHT it touches nothing (row 715); a dash vaults a planter, a walk does not (row 696)
+      const b = this.body; if (b && b.lifted) return;
+      if (!this.duelT || !b || b.mode !== 'lunge' || !this.level || !this.level.statics.some((q) => q.kind === 'planter')) return super.collideBody(contacts, k);
+      const keep = this.level.statics; this.level.statics = keep.filter((q) => q.kind !== 'planter');
+      try { return super.collideBody(contacts, k); } finally { this.level.statics = keep; }
+    }
     // DUCK (rows 694, 696): from tile 6, hold C to duck: lower, slower, harder to notice
     canDuck() { const b = this.body; return !!this.duelDuck && !!this.duelT && b.alive && !b.lifted && (b.mode === 'idle' || b.mode === 'move' || b.mode === 'coast') && !b.stair && (b.level || 0) === 0; }
     duckFor(cmd) { const b = this.body, want = !!(cmd && cmd.duck) && this.canDuck(); if (want && !b.duck) { b.duck = true; this.emit('duck', {}); } else if (!want && b.duck) this.stand(); }
@@ -309,5 +323,5 @@
   STORY.StorySim = DuelStorySim;
   const taskText = STORY.taskText; // the tile card and HUD read the pipeline's objective
   STORY.taskText = (task, P) => (task && task.kind === 'red' ? { label: task.label, brief: task.brief } : taskText(task, P));
-  root.DUEL = { DuelTileSim, DuelStorySim, duelParams, RUNGS, MAP, version: 1 };
+  root.DUEL = { DuelTileSim, DuelStorySim, duelParams, laneInfo, placePlanters, placeCameras, RUNGS, MAP, version: 1 };
 })(typeof window !== 'undefined' ? window : globalThis);

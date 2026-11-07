@@ -1,0 +1,18 @@
+[12:34:24] run 20261107-123424-v3: models {'designer': 'opus', 'reviewer': 'sonnet', 'refiner': 'sonnet'}; world p9
+[12:34:27] 1 ingest: ingest: 10 stages; Map 1 9 tiles (p9); registry 65 of 703 entries (filtered)
+[12:34:27]   inputs: 32,155 characters
+[12:34:27] 2 designer (opus) ...
+[12:35:46]   plan: 1 A1 10.1 hitsx2 | 2 B1 10.2 hitsx2 | 3 C1 10.3 hitsx2 | 4 C2 10.4 hitsx2 | 5 B2 10.5 hitsx2 | 6 A2 10.5 hitsx2 | 7 A3 10.6 hitsx2 | 8 B3 10.7 hitsx3 | 9 C3 10.10 incidentsx2
+[12:35:46] 3 validate: 0 errors
+[12:35:46] 4 reviewer (sonnet) ...
+[12:36:29]   verdict revise: [high] tile 4: Stage 10.4 closes the drop from above, yet the objective 'DROP, THEN SPRING' and the tale and hint tell the player to drop from the plaza.; [high] tile 5: Stage 10.5 measures only conebait 2.0 and lurk 0.8, and cones are not yet available on this tile, so two hits by lurking is too hard for a tile that introduces cameras.; [high] tile 9: The finale asks for two Incidents although Incidents run only about 0.6 a minute. It also jumps from 10.7 to 10.10 and introduces tailgating and the Incident at once, so nothing is introduced before it is tested.; [medium] tile 7: The objective kind is 'hits' with a COMBO label, which does not match MAP1's combo kind (story.task.comboEasy). It also stacks a combo on the new DUCK idea, and the planter ambush is the only open way (3.03).; [medium] tile 8: Tile 8 introduces both the jump (Legs 1) and crash memory, asks for the highest count (3), and follows the hard combo tile with no breather before the finale.; [medium] tile 3: The override perception.sideNoticeSeconds 0.8 has no clear purpose on a drop tile, since a drop from a deck does not depend on how fast the side sensors notice.
+[12:36:29] 5 refiner (sonnet) ...
+[12:36:57]   validate: 0 errors
+[12:36:57]   cost a_designer   opus    $0.3599  in 2+22363 write+10472 read  out 8945  78.9 s
+[12:36:57]   cost b_reviewer   sonnet  $0.1567  in 2+24002 write+10472 read  out 5966  43.0 s
+[12:36:57]   cost c_refiner    sonnet  $0.1470  in 2+25231 write+10472 read  out 4505  28.4 s
+[12:36:57]   run cost $0.6637
+[12:36:57] 6 integrate: wrote content/story_map1.json
+[12:36:57]   engine: wrote index.html 1,613,617 bytes; P9 + P10 duel; Map 1 from 20261107-123424-v3; md5 1b6534e8
+[12:36:58]   engine: wrote junction.html 495,105 bytes; 9 tiles; first stage 10.1 (112 values)
+[12:36:58] done: open index.html to play Map 1
