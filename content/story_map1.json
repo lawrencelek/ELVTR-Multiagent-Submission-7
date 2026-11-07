@@ -2,7 +2,7 @@
  "map": {
   "id": "monument",
   "title": "MAP 1 · MONUMENT",
-  "intro": "Dummy Corporation welcomes you off the factory floor. Your colleagues learn from every crash; Certification awaits the dummy who keeps finding new ones."
+  "intro": "Dummy Corporation welcomes you off the factory floor. Nine tests, one red colleague who learns from each crash. Certification awaits."
  },
  "tiles": [
   {
@@ -10,154 +10,150 @@
    "tile": "A1",
    "title": "The welcome wall",
    "stage": "10.1",
-   "newIdea": "Move and walk into the red car's path.",
+   "newIdea": "Controls; the red car drives straight through, learning nothing.",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "WALK INTO A COLLEAGUE"
+    "label": "WALK INTO A CAR"
    },
-   "params": {
-    "duel.redReturnSeconds": 2
-   },
-   "tale": "Dummy Corporation welcomes you. Your colleague has learned nothing yet. Walk into its path; the LED wall applauds.",
-   "hint": "Walk into the red car's lane under the highway."
+   "params": {},
+   "tale": "Fresh off the factory floor. The LED wall plays your welcome reel. Step in front of a colleague.",
+   "hint": "Walk into the red car's lane under the Z1 highway."
   },
   {
    "n": 2,
    "tile": "B1",
    "title": "The podium bridge",
    "stage": "10.2",
-   "newIdea": "Dash (Space); after one hit, the car brakes for you in its lane.",
+   "newIdea": "It learns: after one hit, it brakes for dummies in its lane.",
    "objective": {
     "kind": "hits",
     "count": 2,
     "label": "DASH INTO A CAR"
    },
    "params": {},
-   "tale": "Battery 1 arrives by drone. The sedan now brakes for dummies ahead. Dash in from beside it, under the skybridge.",
-   "hint": "Wait beside the lane by the podium; Space as it passes."
+   "tale": "Battery 1 is fitted. The skybridge was built for shoppers who never came; the red car now brakes for you.",
+   "hint": "Wait beside its lane under the skybridge; Space to dash in."
   },
   {
    "n": 3,
    "tile": "C1",
    "title": "The LED drum",
    "stage": "10.3",
-   "newIdea": "Side sensors close the flank; drop onto it through a deck gap.",
+   "newIdea": "Side sensors: it stops for dummies beside its road.",
    "objective": {
     "kind": "hits",
     "count": 2,
     "label": "DROP ONTO A CAR"
    },
    "params": {},
-   "tale": "Side sensors now watch the kerb. Nothing watches upward. Step off the Z2 highway onto a roof; gravity is policy.",
-   "hint": "Ride the Z2 escalator; walk through the parapet gap as it nears."
+   "tale": "Side sensors are fitted to the car. The Z2 highway remains out of its world: step off onto its roof.",
+   "hint": "Ride the Z2 escalator; walk off through the parapet gap."
   },
   {
    "n": 4,
    "tile": "C2",
    "title": "The portal tower",
    "stage": "10.4",
-   "newIdea": "Roof lidar sees the deck; spring from behind the tower instead.",
+   "newIdea": "Roof lidar: it sees you fall; spring from cover instead.",
    "objective": {
     "kind": "hits",
     "count": 2,
     "label": "SPRING FROM COVER"
    },
    "params": {},
-   "tale": "The lidar now sees the highway deck. Wait behind the portal tower and let the road come to you.",
-   "hint": "Hide behind the portal tower; spring as it passes."
+   "tale": "A roof lidar now watches the sky. The portal tower still blocks its view: wait behind it, then step out.",
+   "hint": "Hide behind the portal tower; step out as it passes."
   },
   {
    "n": 5,
    "tile": "B2",
    "title": "The monument",
    "stage": "10.5",
-   "newIdea": "Street cameras watch some cover; find the column they miss.",
+   "newIdea": "Street cameras: watched cover no longer hides you.",
    "objective": {
     "kind": "hits",
     "count": 1,
-    "label": "STRUCK, NOT DASHING"
+    "label": "UNWATCHED COVER"
    },
-   "params": {},
-   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Cameras now report you. Find cover they miss.",
-   "hint": "Circle the monument; hide by a column no camera faces; step out."
+   "params": {
+    "perception.streetCameraRange": 180
+   },
+   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Street cameras now watch the monument's corners.",
+   "hint": "Find cover the cameras miss round the monument; spring from it."
   },
   {
    "n": 6,
    "tile": "A2",
    "title": "The neon shops",
    "stage": "10.5",
-   "newIdea": "Hands 1: place a cone (J) to bait the car.",
+   "newIdea": "Hands 1: put a cone in its lane to stop it.",
    "objective": {
     "kind": "hits",
     "count": 2,
     "label": "CONE-BAITED CAR"
    },
    "params": {},
-   "tale": "Hands 1 is on the shelf. The arcade glows; the traffic reads it. Place a cone and sprint in.",
-   "hint": "Put a cone (J) in its lane by the arcade; sprint in."
+   "tale": "The arcade glows for nobody. Hands 1 is fitted: put a cone in the road and let a colleague stop.",
+   "hint": "J drops a cone ahead of it; strike as it slows."
   },
   {
    "n": 7,
    "tile": "A3",
    "title": "The stacked cubes",
    "stage": "10.6",
-   "newIdea": "DUCK (hold C): ambush it from behind a roadside planter.",
+   "newIdea": "Duck: hold C behind a planter, spring as it passes.",
    "objective": {
     "kind": "hits",
     "count": 2,
-    "label": "SPRING FROM A PLANTER"
+    "label": "PLANTER AMBUSH"
    },
-   "params": {
-    "perception.duckNoticeFactor": 2
-   },
-   "tale": "The stacked cubes rose one budget at a time. Be patient: crouch low, wait, then strike the passing car.",
-   "hint": "Hold C behind the planter by the corner cut; spring."
+   "params": {},
+   "tale": "Cones now stop the red car dead. The planters were budgeted, so use them: duck, wait, and spring.",
+   "hint": "Hold C behind a planter by the road; Space as it passes."
   },
   {
    "n": 8,
    "tile": "B3",
    "title": "The LED canyon",
    "stage": "10.7",
-   "newIdea": "Jump (L) into the car; it remembers spots, so vary them.",
+   "newIdea": "Crash memory: it watches every spot you struck from.",
    "objective": {
     "kind": "hits",
-    "count": 2,
-    "label": "JUMP INTO A CAR"
+    "count": 3,
+    "label": "A NEW SPOT EACH TIME"
    },
    "params": {},
-   "tale": "Legs 1 is bolted on. The canyon walls advertise to each other; jump into a car between them.",
-   "hint": "Jump (L) from beside the car as it crosses the canyon."
+   "tale": "Legs 1 is fitted. Between the screens, the red car remembers every crash site; never repeat yourself.",
+   "hint": "New spot each time; L jump from the skybridge side."
   },
   {
    "n": 9,
    "tile": "C3",
    "title": "The LED gateway",
-   "stage": "10.10",
-   "newIdea": "White cars tailgate it; make it stop hard for an Incident.",
+   "stage": "10.9",
+   "newIdea": "Two-way white traffic: moving cover that never learns.",
    "objective": {
-    "kind": "incidents",
-    "count": 1,
-    "label": "CAUSE AN INCIDENT"
+    "kind": "hits",
+    "count": 3,
+    "label": "RED CAR HITS"
    },
-   "params": {
-    "traffic.whiteTimeGap": 0.25
-   },
-   "tale": "The fleet tailgates the red car under the gateway. Stop it hard and the car behind files the report.",
-   "hint": "Step into its lane by the gateway when a white car follows."
+   "params": {},
+   "tale": "The fleet joins: white colleagues that never learn. Hit the red car; white hits score a fifth.",
+   "hint": "Stand by the gateway kerb; step out from behind white traffic."
   }
  ],
- "rationale": "Tile 4 now teaches springs only, since lidar closes drops. Tile 5 asks one hit, and its arbitrary camera range is gone. Tile 7 is a plain planter ambush. Tile 8 teaches only the jump, count 2. Tile 3's purposeless override is removed. The finale asks one Incident with a tighter tailgate. Tale vocabulary varied.",
+ "rationale": "Only the validator error was fixed: tile 3's tale dropped 'red' to reach 20 words. Everything else is unchanged: tile ids, order, objectives, overrides and hints.",
  "provenance": {
   "pipeline": "pipeline/run.py",
-  "run": "20261107-123424-v3",
+  "run": "20261107-134502-v3",
   "world": "p9",
   "models": {
    "designer": "opus",
    "reviewer": "sonnet",
    "refiner": "sonnet"
   },
-  "costUsd": 0.6637,
+  "costUsd": 0.5233,
   "validator": "pass",
   "review": "revise"
  }

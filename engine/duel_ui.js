@@ -15,7 +15,7 @@
   const LESSON = {
     1: ['It brakes for a dummy in its lane and stops short of you.', 'Standing in its lane.', 'The flank: stay out of its lane; dash in from the side as it rolls past.'],
     2: ['Side cones: it notices a dummy beside the road. It slows, then stops short. ? means it suspects you; ! means it has you.', 'The open flank.', 'Height: it watches the ground. Drop or jump onto it from a deck.'],
-    3: ['Roof lidar: it sees height. A dummy up on a deck, or in the air, is in its world now.', 'The drop and the jump from above.', 'Cover: wait behind a building and spring as it passes.'],
+    3: ['Roof lidar: it sees a dummy in the air, jumping or falling off a deck onto its road. Up on a deck you are still out of its world.', 'The drop and the jump onto it.', 'Cover: wait behind a building and spring as it passes.'],
     4: ['Street cameras share what they see. Behind cover, a camera can still give you away.', 'Springs from cover a camera watches.', 'Cover the cameras miss; a cone in its lane makes it swerve.'],
     5: ['Road items: it stops for a cone and never swerves round it.', 'The cone bait.', 'DUCK (hold C) behind a low planter; spring as it passes.'],
     6: ['Crash memory: it remembers every spot you struck from, and watches them.', 'The same spot twice.', 'A new spot every time.'],
@@ -52,11 +52,12 @@
     const cones = [{ k: 'forward', a: Fa, a0: lk - A, a1: lk + A, R: Gf * x, G: Gf, sens: Fs }, { k: 'side', a: O, a0: e0, a1: e1, R: Gs * x, G: Gs, sens: Ss }, { k: 'side', a: O, a0: -e1, a1: -e0, R: Gs * x, G: Gs, sens: Ss }];
     const ray = (q) => { ctx.beginPath(); ctx.moveTo(q.a, 0); ctx.arc(q.a, 0, BIG, q.a0, q.a1); ctx.closePath(); }, circ = (r) => { ctx.beginPath(); ctx.arc(O, 0, r, 0, TAU); };
     const notForward = () => { ctx.beginPath(); ctx.rect(-BIG, -BIG, 2 * BIG, 2 * BIG); ctx.moveTo(Fa, 0); ctx.arc(Fa, 0, BIG, cones[0].a0, cones[0].a1); ctx.closePath(); ctx.clip('evenodd'); };
-    const clipTo = (q) => { ray(q); ctx.clip(); circ(q.R + 1); ctx.clip(); if (q.k === 'side') notForward(); };
+    const nose = () => { ctx.beginPath(); ctx.rect(c.L / 2, -BIG, 2 * BIG, 2 * BIG); ctx.clip(); }; // the forward cone shows from the nose on (its edges still run through the front corners)
+    const clipTo = (q) => { ray(q); ctx.clip(); circ(q.R + 1); ctx.clip(); if (q.k === 'side') notForward(); else nose(); };
     for (const q of cones) { const k = q.sens == null ? 1 : q.sens, line = `rgba(255,255,255,${(0.18 + 0.4 * k).toFixed(3)})`;
       ctx.save(); clipTo(q); ctx.fillStyle = near ? `rgba(255,212,0,${(0.07 + 0.15 * k).toFixed(3)})` : `rgba(127,168,188,${(0.05 + 0.2 * k).toFixed(3)})`; ctx.fillRect(-BIG, -BIG, 2 * BIG, 2 * BIG);
       ctx.strokeStyle = line; ctx.lineWidth = 1.2; ctx.setLineDash([4, 6]); for (let i = 1; i <= q.G; i++) { circ(x * i); ctx.stroke(); } ctx.restore();
-      ctx.save(); circ(q.R); ctx.clip(); if (q.k === 'side') notForward(); ctx.strokeStyle = line; ctx.lineWidth = 1.2; ctx.setLineDash([4, 6]); ctx.beginPath(); for (const an of [q.a0, q.a1]) { ctx.moveTo(q.a, 0); ctx.lineTo(q.a + Math.cos(an) * BIG, Math.sin(an) * BIG); } ctx.stroke(); ctx.setLineDash([]); ctx.restore(); }
+      ctx.save(); circ(q.R); ctx.clip(); if (q.k === 'side') notForward(); else nose(); ctx.strokeStyle = line; ctx.lineWidth = 1.2; ctx.setLineDash([4, 6]); ctx.beginPath(); for (const an of [q.a0, q.a1]) { ctx.moveTo(q.a, 0); ctx.lineTo(q.a + Math.cos(an) * BIG, Math.sin(an) * BIG); } ctx.stroke(); ctx.setLineDash([]); ctx.restore(); }
     beam(c, near);
     const st = T.sideStage(c), hz = c.hz;
     if (st >= 1 && hz && (hz.cone === 'forward' || hz.cone === 'side')) { const b = T.body, ly = -Math.sin(c.h) * (b.x - c.x) + Math.cos(c.h) * (b.y - c.y), q = hz.cone === 'forward' ? cones[0] : ly >= 0 ? cones[1] : cones[2], i = Math.min(q.G, Math.max(1, Math.ceil(hz.dist / x - 1e-9)));
@@ -69,9 +70,8 @@
     if (T.propField()) drawPropCones(c, !!c.noticed); else beam(c);
     ctx.restore();
   }
-  function drawHalo(c) { // the learning car reads at a glance: a red outline, its roof dome, the lidar's sweep from rung 3
+  function drawHalo(c) { // the learning car's sensors on its roof: the lidar's sweep from rung 3, the search beacon from rung 7
     ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.h);
-    ctx.strokeStyle = 'rgba(255,61,61,0.9)'; ctx.lineWidth = 2; ctx.strokeRect(-c.L / 2 - 3, -c.W / 2 - 3, c.L + 6, c.W + 6);
     if (T.rung >= 3) { const a = T.t * 6; ctx.strokeStyle = C.cam; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(-2 + Math.cos(a) * 3, Math.sin(a) * 3); ctx.lineTo(-2 + Math.cos(a) * 9, Math.sin(a) * 9); ctx.stroke(); }
     if (T.rung >= 7) { const on = c.lkp ? Math.floor(T.t * 6) % 2 === 0 : false; ctx.fillStyle = on ? C.search : C.searchDim; ctx.beginPath(); ctx.arc(9, 0, 2.6, 0, TAU); ctx.fill(); }
     ctx.restore();
@@ -135,14 +135,15 @@
       if (R > 0) { ctx.save(); ctx.strokeStyle = C.camDim; ctx.lineWidth = 1; ctx.setLineDash([2, 6]); ctx.beginPath();
         if (F < 360 && aim != null) { ctx.moveTo(x, y); ctx.arc(x, y, R, (aim - F / 2) * D, (aim + F / 2) * D); ctx.closePath(); ctx.fillStyle = C.camCone; ctx.fill(); } else ctx.arc(x, y, R, 0, TAU);
         ctx.stroke(); ctx.restore(); }
-      rect(x - 1.5, y - 14, 3, 14, C.joint); rect(x - 6, y - 20, 12, 7, C.joint); ctx.fillStyle = C.cam; ctx.beginPath(); ctx.arc(x + (aim != null ? Math.cos(aim * D) * 4 : 3), y - 16.5, 2, 0, TAU); ctx.fill(); }
+      if (!root.WORLD6 || !root.WORLD6.paintPost) { rect(x - 1.5, y - 14, 3, 14, C.joint); rect(x - 6, y - 20, 12, 7, C.joint); } ctx.fillStyle = C.cam; ctx.beginPath(); ctx.arc(x + (aim != null ? Math.cos(aim * D) * 4 : 3), y - 16.5, 2, 0, TAU); ctx.fill(); }
     const cam = T.seeingCamera(), hid = reds().filter((c) => c.hidden && (c.noticed || (c.hz && c.hz.inPath)));
     if (!cam || !hid.length || !b || !b.alive) return;
     ctx.save(); ctx.strokeStyle = C.cam; ctx.lineWidth = 1.5; ctx.setLineDash([5, 5]);
     for (const c of hid) { ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(cam[0], cam[1] - 16); ctx.lineTo(c.x, c.y); ctx.stroke(); }
     ctx.setLineDash([]); ctx.strokeRect(b.x - 16, b.y - 16, 32, 32); ctx.restore(); label('LINKED', b.x, b.y - 22, 9, C.cam);
   }
-  function drawPlanters() { for (const q of T.level.statics) if (q.kind === 'planter' && q.duel) { rect(q.x - 1, q.y + 2, q.w + 2, q.h, 'rgba(0,0,0,0.35)'); rect(q.x, q.y, q.w, q.h, '#5b6270'); rect(q.x + 2, q.y + 2, q.w - 4, q.h - 4, C.planter); for (let i = 0; i < 5; i++) { const cx = q.x + (q.w > q.h ? q.w * (i + 0.5) / 5 : q.w / 2), cy = q.y + (q.w > q.h ? q.h / 2 : q.h * (i + 0.5) / 5); ctx.fillStyle = C.planterTop; ctx.beginPath(); ctx.arc(cx, cy, Math.min(q.w, q.h) * 0.42, 0, TAU); ctx.fill(); } } }
+  // the duel's planters are painted in the tile's art when world6 offers it (build_p9.py); drawn here only without it
+  function drawPlanters() { if (root.WORLD6 && root.WORLD6.paintPlanter) return; for (const q of T.level.statics) if (q.kind === 'planter' && q.duel) { rect(q.x - 1, q.y + 2, q.w + 2, q.h, 'rgba(0,0,0,0.35)'); rect(q.x, q.y, q.w, q.h, '#5b6270'); rect(q.x + 2, q.y + 2, q.w - 4, q.h - 4, C.planter); for (let i = 0; i < 5; i++) { const cx = q.x + (q.w > q.h ? q.w * (i + 0.5) / 5 : q.w / 2), cy = q.y + (q.w > q.h ? q.h / 2 : q.h * (i + 0.5) / 5); ctx.fillStyle = C.planterTop; ctx.beginPath(); ctx.arc(cx, cy, Math.min(q.w, q.h) * 0.42, 0, TAU); ctx.fill(); } } }
   function drawLungeGuide() { // row 732: where a dash pressed now would land; yellow when the red car will be there
     const b = s.body; if (!s.lungePreview || !b || !b.alive || b.mode === 'lunge' || b.mode === 'recover' || b.lifted || !s.dashFitted() || (b.level || 0) > 0) return;
     if (!reds().some((c) => Math.hypot(c.x - b.x, c.y - b.y) < 2.6 * s.reach())) return;

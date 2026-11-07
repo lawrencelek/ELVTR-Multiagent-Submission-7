@@ -1,0 +1,1296 @@
+## LADDER
+```json
+[
+ {
+  "stage": "10.1",
+  "title": "THE TEST ROAD",
+  "startRung": 0,
+  "topRung": 0,
+  "teaches": "Nothing. The red car drives straight through.",
+  "closes": "nothing",
+  "opens": "walk into its path; dash from the side",
+  "measuredOpenWaysOnTheTestRoad": "walkin 3.73, flank 2.54, aim 1.8, stand 1.27, standOff 1.27, standSouth 1.21, wander 0.93",
+  "keyValues": {
+   "duel.enabled": 1,
+   "duel.carsOnRoad": 1,
+   "duel.redReturnSeconds": 4,
+   "proto.learningEnabled": 0,
+   "proto.learn.standoffEnabled": 0,
+   "perception.forwardLength": 0,
+   "proto.driver.cautionZone": 0,
+   "run.appearances.road": 1000,
+   "run.quota.road": 1000000
+  }
+ },
+ {
+  "stage": "10.2",
+  "title": "THE FIRST LESSON",
+  "startRung": 0,
+  "topRung": 1,
+  "teaches": "After its first crash, a lesson: it brakes for a dummy in its lane (the beam).",
+  "closes": "standing in its lane",
+  "opens": "the flank: dash in from beside its lane as it rolls past",
+  "measuredOpenWaysOnTheTestRoad": "flank 2.81, walkin 1.94, aim 1.6, wander 0.53",
+  "keyValues": {
+   "perception.forwardLength": 720,
+   "duel.topRung": 1,
+   "duel.standstillSpeed": 5,
+   "duel.dashArrives": 2
+  }
+ },
+ {
+  "stage": "10.3",
+  "title": "THE SIDE SENSORS",
+  "startRung": 1,
+  "topRung": 2,
+  "teaches": "Side cones: it notices a dummy beside the road, slows, then stops short of it. A dummy up on a deck is out of its world.",
+  "closes": "the open flank",
+  "opens": "height: drop onto it through a gap in a deck over its road, or jump",
+  "measuredOpenWaysOnTheTestRoad": "jump 2.69, plinth 2.67, gap 2.07, aim 2.0, flank 1.8, dashjump 0.47",
+  "keyValues": {
+   "proto.driver.cautionZone": 180,
+   "duel.topRung": 2,
+   "duel.dashArrives": 3,
+   "duel.startRung": 1,
+   "duel.jumpArrives": 2,
+   "perception.sideNoticeSeconds": 0.6
+  }
+ },
+ {
+  "stage": "10.4",
+  "title": "THE ROOF LIDAR",
+  "startRung": 2,
+  "topRung": 3,
+  "teaches": "Roof lidar: it sees a dummy in the air (a jump, or a fall off a deck onto its road). Up on a deck you are still unseen.",
+  "closes": "the drop and the jump onto it",
+  "opens": "cover: spring from behind a building, column or kiosk as it passes",
+  "measuredOpenWaysOnTheTestRoad": "jump 2.69, gap 2.21, aim 2.0, flank 1.8, dashjump 0.47",
+  "keyValues": {
+   "duel.topRung": 3,
+   "duel.startRung": 2,
+   "duel.jumpArrives": 3
+  }
+ },
+ {
+  "stage": "10.5",
+  "title": "THE STREET CAMERAS",
+  "startRung": 3,
+  "topRung": 4,
+  "teaches": "Kerbside street cameras share what they see: cover a camera watches no longer hides you.",
+  "closes": "springs from watched cover",
+  "opens": "cover the cameras miss; the sprint from beyond its cones",
+  "measuredOpenWaysOnTheTestRoad": "conebait 2.0, lurk 0.8",
+  "keyValues": {
+   "duel.topRung": 4,
+   "duel.startRung": 3,
+   "duel.conesArrives": 2
+  }
+ },
+ {
+  "stage": "10.6",
+  "title": "DUCK",
+  "startRung": 4,
+  "topRung": 5,
+  "teaches": "It stops for cones and never swerves round them; the dummy gets DUCK (hold C) to hide behind low planters.",
+  "closes": "the cone bait",
+  "opens": "the planter ambush: duck behind a planter by its road; spring as it passes",
+  "measuredOpenWaysOnTheTestRoad": "planter 3.03, lurk 0.8",
+  "keyValues": {
+   "duel.topRung": 5,
+   "duel.startRung": 4,
+   "duel.conesArrives": 3,
+   "duel.duckArrives": 2,
+   "duel.planters": 1,
+   "props.planter.height": 14,
+   "body.duckHeight": 6,
+   "movement.duckSpeedFactor": 0.35,
+   "perception.duckNoticeFactor": 1.5,
+   "perception.sensorHeight": 14,
+   "perception.lidarHeight": 26,
+   "perception.streetCameraHeight": 60
+  }
+ },
+ {
+  "stage": "10.7",
+  "title": "CRASH MEMORY",
+  "startRung": 5,
+  "topRung": 6,
+  "teaches": "Crash memory: it remembers every spot you struck from, and watches it.",
+  "closes": "the same spot twice",
+  "opens": "a new spot each time: roam the tile",
+  "measuredOpenWaysOnTheTestRoad": "roam 6.97, lurk 0.6, flankOpen 0.4",
+  "keyValues": {
+   "duel.redReturnSeconds": 2,
+   "duel.topRung": 6,
+   "duel.startRung": 5,
+   "duel.duckArrives": 3,
+   "duel.memoryRadius": 50,
+   "duel.memorySites": 3,
+   "duel.runInLength": 200,
+   "proto.health.standard": 500,
+   "duel.blockSeconds": 10
+  }
+ },
+ {
+  "stage": "10.8",
+  "title": "THE SEARCH",
+  "startRung": 6,
+  "topRung": 7,
+  "teaches": "The search: seen then hidden, it searches where it last saw you (a ghost).",
+  "closes": "hiding after being seen",
+  "opens": "hide before it sees you; crawl away from its ghost; lure it to stop short",
+  "measuredOpenWaysOnTheTestRoad": "roam 2.87, lure 2.24, peekmove 1.21, flankOpen 1.07, lurk 0.8, gap 0.6",
+  "keyValues": {
+   "duel.topRung": 7,
+   "duel.startRung": 6,
+   "duel.searchRadius": 60,
+   "duel.searchSeconds": 4,
+   "perception.streetCameraFov": 60,
+   "perception.streetCameraPanArc": 60,
+   "perception.streetCameraPanSeconds": 3,
+   "perception.streetCameraPanHold": 1,
+   "scoring.stealthUnseen": 3,
+   "scoring.stealthLost": 2,
+   "scoring.stealthSeen": 1,
+   "ui.tip.holdSeconds": 7
+  }
+ },
+ {
+  "stage": "10.9",
+  "title": "THE TWO-WAY ROAD",
+  "startRung": 7,
+  "topRung": 7,
+  "teaches": "Prototype 9's two-way traffic: the fleet are white cars that never learn, moving cover and a hazard.",
+  "closes": "nothing new",
+  "opens": "moving cover: many ways reopen",
+  "measuredOpenWaysOnTheTestRoad": "flankOpen 4.85, roam 2.31, lure 2.23, kerb 2.09, peekmove 1.48, jump 1.27, gap 0.93",
+  "keyValues": {
+   "duel.startRung": 7,
+   "perception.forwardConeAngle": 10,
+   "perception.sideConeAxis": 52.5,
+   "perception.sideConeAngle": 42.5,
+   "duel.twoWay": 1,
+   "duel.whiteInterval": 3.5,
+   "traffic.junctionLookahead": 400,
+   "traffic.junctionGap": 2.2,
+   "perception.coneRadius": 340,
+   "perception.sideConeRatio": 0.6666666666666666,
+   "perception.forwardGrades": 3,
+   "perception.sideGrades": 2
+  }
+ },
+ {
+  "stage": "10.10",
+  "title": "THE INCIDENT",
+  "startRung": 7,
+  "topRung": 7,
+  "teaches": "White cars tailgate it: make it stop hard and the car behind runs into it (an Incident, scored).",
+  "closes": "nothing new",
+  "opens": "the Incident; moving cover",
+  "measuredOpenWaysOnTheTestRoad": "flankOpen 5.4, kerb 2.76, lure 2.44, dashjump 2.08, roam 1.48, peekmove 1.34, jump 1.27; Incidents about 0.6 a minute",
+  "keyValues": {
+   "traffic.whiteTimeGap": 0.5,
+   "traffic.whiteBraking": 45,
+   "traffic.whiteSpeedRatio": 1.12,
+   "scoring.incidentPoints": 250,
+   "traffic.incidentSeconds": 2
+  }
+ }
+]
+```
+
+## MAP1
+```json
+{
+ "id": "monument",
+ "name": "Monument",
+ "act": "ACT I · INDUCTION",
+ "intro": "Dummy Corporation welcomes you off the factory floor. The cars are your colleagues; Certification is your goal.",
+ "tiles": [
+  {
+   "id": "A1",
+   "n": 1,
+   "title": "The welcome wall",
+   "task": {
+    "kind": "any"
+   },
+   "gift": null,
+   "tale": "Fresh off the factory floor, you're ready to do some damage to yourself. Make your engineers proud.",
+   "prototype9": {
+    "road": "Start, west edge. The road passes under the Z1 highway (north–south) at 90°; escalators",
+    "setPiece": "LED-wall tower facing the entry",
+    "builtFor": "any",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      800,
+      800
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 0,
+     "plantersForAnAmbush": false,
+     "tallCoverByRoad": 4
+    }
+   }
+  },
+  {
+   "id": "B1",
+   "n": 2,
+   "title": "The podium bridge",
+   "task": {
+    "kind": "dash"
+   },
+   "gift": {
+    "node": "battery1"
+   },
+   "tale": "Battery 1 is fitted. The skybridge was built for shoppers who never came; staff watch you dash into a colleague.",
+   "prototype9": {
+    "road": "A Z1 skybridge crosses the road at 90°, from a podium roof to the walkway ring",
+    "setPiece": "Podium and tower at the bridge head",
+    "builtFor": "dash",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      792,
+      800
+     ],
+     "deckOverRoad": true,
+     "stairs": 1,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 3,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 3
+    }
+   }
+  },
+  {
+   "id": "C1",
+   "n": 3,
+   "title": "The LED drum",
+   "task": {
+    "kind": "drop"
+   },
+   "gift": null,
+   "tale": "The LED drum lights each bend. Step off the high road onto a car: gravity is company policy.",
+   "prototype9": {
+    "road": "Under the Z2 highway at 90°, then an R96 bend south; Z2 escalators (run 112)",
+    "setPiece": "LED drum tower in the bend",
+    "builtFor": "drop",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      872,
+      960
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 2,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 2
+    }
+   }
+  },
+  {
+   "id": "C2",
+   "n": 4,
+   "title": "The portal tower",
+   "task": {
+    "kind": "level"
+   },
+   "gift": null,
+   "tale": "The road runs through the portal tower at the sixth floor. Take your write-off up there; ignore the view.",
+   "prototype9": {
+    "road": "A 45° corner cut, then under the Z2 highway at 90°. The highway runs through a tower; a roof plaza at Z2 opens off its parapet, and an escalator drops from the plaza to the street",
+    "setPiece": "Portal tower and roof plaza (Chongqing)",
+    "builtFor": "level",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      840,
+      928
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 1,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 2
+    }
+   }
+  },
+  {
+   "id": "B2",
+   "n": 5,
+   "title": "The monument",
+   "task": {
+    "kind": "struck"
+   },
+   "gift": null,
+   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Stand near it until a colleague finds you.",
+   "prototype9": {
+    "road": "The road splits round the monument\\'s island; the walkway ring bridges both lanes at Z1; skybridge north",
+    "setPiece": "The monument",
+    "builtFor": "struck",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      840,
+      840
+     ],
+     "deckOverRoad": true,
+     "stairs": 4,
+     "roadsidePlanters": 1,
+     "planterRowsThatFit": 0,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 14
+    }
+   }
+  },
+  {
+   "id": "A2",
+   "n": 6,
+   "title": "The neon shops",
+   "task": {
+    "kind": "cone"
+   },
+   "gift": {
+    "node": "hands1"
+   },
+   "tale": "The neon shops sell nothing, but the traffic reads them. Hands 1 is fitted: bait a colleague with a cone.",
+   "prototype9": {
+    "road": "Under the Z1 highway at 90°, then an R96 bend south",
+    "setPiece": "Neon arcade along the road",
+    "builtFor": "cone",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      880,
+      784
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 0,
+     "plantersForAnAmbush": false,
+     "tallCoverByRoad": 5
+    }
+   }
+  },
+  {
+   "id": "A3",
+   "n": 7,
+   "title": "The stacked cubes",
+   "task": {
+    "kind": "combo",
+    "param": "story.task.comboEasy"
+   },
+   "gift": null,
+   "tale": "The stacked cubes rose one budget at a time. Build the same way: one hit, then another, quickly.",
+   "prototype9": {
+    "road": "A 45° corner cut, then under the Z1 highway at 90°",
+    "setPiece": "Stacked LED cubes, each cantilevered off the one below",
+    "builtFor": "combo",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      848,
+      760
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 1,
+     "planterRowsThatFit": 2,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 4
+    }
+   }
+  },
+  {
+   "id": "B3",
+   "n": 8,
+   "title": "The LED canyon",
+   "task": {
+    "kind": "jump"
+   },
+   "gift": {
+    "node": "legs1"
+   },
+   "tale": "Two screens advertise to each other all night. Legs 1 is fitted: jump into a car between them.",
+   "prototype9": {
+    "road": "A 45° jog between two LED walls; a Z1 skybridge crosses the jog at 90°",
+    "setPiece": "LED canyon and its skybridge",
+    "builtFor": "jump",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      848,
+      848
+     ],
+     "deckOverRoad": true,
+     "stairs": 1,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 1,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 5
+    }
+   }
+  },
+  {
+   "id": "C3",
+   "n": 9,
+   "title": "The LED gateway",
+   "task": {
+    "kind": "bounce"
+   },
+   "gift": null,
+   "tale": "The gateway thanked the car that wrote you off for driving safely. Let one colleague throw you into the next.",
+   "prototype9": {
+    "road": "Under the Z2 highway at 90°; the exit through an LED gateway",
+    "setPiece": "LED gateway arch over the road",
+    "builtFor": "bounce",
+    "measured": {
+     "redLanes": 2,
+     "roadOnScreen": [
+      800,
+      800
+     ],
+     "deckOverRoad": true,
+     "stairs": 2,
+     "roadsidePlanters": 0,
+     "planterRowsThatFit": 2,
+     "plantersForAnAmbush": true,
+     "tallCoverByRoad": 1
+    }
+   }
+  }
+ ],
+ "taskLabels": {
+  "any": "ANY WRITE-OFF",
+  "dash": "DASH INTO A CAR",
+  "drop": "DROP ONTO A CAR",
+  "jump": "JUMP INTO A CAR",
+  "level": "ON A RAISED ROAD",
+  "cone": "CONE-BAITED CAR",
+  "push": "PUSH OFF A CAR",
+  "bounce": "THROWN INTO A CAR",
+  "struck": "STRUCK, NOT DASHING",
+  "combo": "COMBO ×{n}",
+  "cls": "A {cls}"
+ },
+ "controls": "Arrows or WASD move; Space dash (Battery 1, from B1); L jump (Legs 1, from B3); J picks up and puts down a cone (Hands 1, from A2); hold C to duck (from tile 6); walk off a deck through a gap in its parapet to drop."
+}
+```
+
+## REGISTRY
+```json
+[
+ {
+  "id": "perception.reactionDelay",
+  "label": "Reaction delay",
+  "unit": "s",
+  "default": 0.3,
+  "min": 0,
+  "max": null,
+  "about": "Vehicle sensing response delay."
+ },
+ {
+  "id": "perception.sideRadius",
+  "label": "Side-sensor reach",
+  "unit": "px",
+  "default": 100,
+  "min": 0,
+  "max": null,
+  "about": "Short side sensors at the nose."
+ },
+ {
+  "id": "perception.sideNoticeSeconds",
+  "label": "Side notice time",
+  "unit": "s",
+  "default": 0.6,
+  "min": 0,
+  "max": 5,
+  "about": "Rung 2's side sensors notice a dummy in the driver's field (proto.driver.cautionZone either side of its path) after it has stayed there this long. Weaker than t"
+ },
+ {
+  "id": "perception.sideCloseRange",
+  "label": "Side field: close range",
+  "unit": "px",
+  "default": 0,
+  "min": 0,
+  "max": 720,
+  "about": "Rung 2 up: a dummy in the field within this distance of the car's nose (beside it, its gap from the flank) is CLOSE: about the dash's reach. The car slows to pe"
+ },
+ {
+  "id": "perception.sideWaryRange",
+  "label": "Side field: wary range",
+  "unit": "px",
+  "default": 0,
+  "min": 0,
+  "max": 720,
+  "about": "Rung 2 up: a dummy in the field beyond perception.sideCloseRange but within this distance of the car's nose is WARY: the car slows to perception.sideWarySpeed; "
+ },
+ {
+  "id": "perception.sideAwareSpeed",
+  "label": "Side field: aware speed",
+  "unit": "fraction",
+  "default": 1,
+  "min": 0,
+  "max": 1,
+  "about": "Rung 2 up, staged: AWARE (in the field, beyond perception.sideWaryRange), the car's speed is capped at this share of its cruise. 10.8 sets 0.85"
+ },
+ {
+  "id": "perception.sideWarySpeed",
+  "label": "Side field: wary speed",
+  "unit": "fraction",
+  "default": 1,
+  "min": 0,
+  "max": 1,
+  "about": "Rung 2 up, staged: WARY, the car's speed is capped at this share of its cruise. 10.8 sets 0.6"
+ },
+ {
+  "id": "perception.sideCloseSpeed",
+  "label": "Side field: close speed",
+  "unit": "fraction",
+  "default": 1,
+  "min": 0,
+  "max": 1,
+  "about": "Rung 2 up, staged: CLOSE, the car's speed is capped at this share of its cruise, until it notices the dummy and stops. 10.8 sets 0.35"
+ },
+ {
+  "id": "perception.sideAwareNoticeRate",
+  "label": "Side field: aware notice rate",
+  "unit": "fraction",
+  "default": 1,
+  "min": 0,
+  "max": 1,
+  "about": "Rung 2 up, staged: AWARE, the notice meter fills at this share of its speed: noticed after perception.sideNoticeSeconds divided by it. 0: aware, but it never no"
+ },
+ {
+  "id": "perception.sideWaryNoticeRate",
+  "label": "Side field: wary notice rate",
+  "unit": "fraction",
+  "default": 1,
+  "min": 0,
+  "max": 1,
+  "about": "Rung 2 up, staged: WARY, the notice meter fills at this share of its speed: noticed after perception.sideNoticeSeconds divided by it. 10.8 sets 1 (a slower WARY"
+ },
+ {
+  "id": "vehicles.sedan.cruiseSpeed",
+  "label": "Sedan cruise speed",
+  "unit": "px/s",
+  "default": 138,
+  "min": 0,
+  "max": null,
+  "about": "Nominal class cruise speed; changing this is not changing the fixed damage-reference speed."
+ },
+ {
+  "id": "perception.forwardLength",
+  "label": "Forward beam length",
+  "unit": "world units",
+  "default": 320,
+  "min": 0,
+  "max": 2000,
+  "about": "A car's forward beam: a rectangle from the nose along its heading. The P1.7 driver override sets 560 in every prototype sim"
+ },
+ {
+  "id": "perception.sideHalfAngle",
+  "label": "Side arcs half-angle",
+  "unit": "degrees",
+  "default": 80,
+  "min": 0,
+  "max": 180,
+  "about": "Half-angle of the drawn side arcs (with perception.sideRadius). Since P1.7 they drive nothing; the driver's field (proto.driver.cautionZone) slows the car (row "
+ },
+ {
+  "id": "duel.enabled",
+  "label": "The test road",
+  "unit": "flag",
+  "default": 0,
+  "min": 0,
+  "max": 1,
+  "about": "1: the Monument test road (prototypes/p10/testroad.js): scenario A, one sedan type, the red car alone on the road. Prototype 10 sets 1"
+ },
+ {
+  "id": "duel.carsOnRoad",
+  "label": "Cars on the test road",
+  "unit": "count",
+  "default": 1,
+  "min": 1,
+  "max": 20,
+  "about": "Most cars on the test road at once. 10.1 to 10.7: the red car alone"
+ },
+ {
+  "id": "duel.redReturnSeconds",
+  "label": "Red car return",
+  "unit": "s",
+  "default": 4,
+  "min": 0,
+  "max": 60,
+  "about": "Seconds between the red car leaving the screen and its next appearance (V29: models return soon enough to see them adapt)"
+ },
+ {
+  "id": "duel.startRung",
+  "label": "Red car start rung",
+  "unit": "rung",
+  "default": 0,
+  "min": 0,
+  "max": 6,
+  "about": "The red car's rung at the start. 0: it senses and learns nothing (10.1). Each lesson teaches the next rung (handover v2 §12, §14.2)"
+ },
+ {
+  "id": "duel.topRung",
+  "label": "Highest rung taught",
+  "unit": "rung",
+  "default": 0,
+  "min": 0,
+  "max": 6,
+  "about": "The highest rung a lesson can teach in this build. 10.1: 0, no lessons. 10.2: 1, the forward camera: a hit on its nose teaches it"
+ },
+ {
+  "id": "duel.standstillSpeed",
+  "label": "Standstill speed",
+  "unit": "world units/s",
+  "default": 0,
+  "min": 0,
+  "max": 60,
+  "about": "A car slower than this is at a standstill. A dash or a walk into it does no damage and teaches nothing: it passed its test. 0: off (10.1). 10.2 sets 5, the thre"
+ },
+ {
+  "id": "duel.dashArrives",
+  "label": "Dash arrives",
+  "unit": "enum",
+  "default": 0,
+  "min": 0,
+  "max": 3,
+  "about": "When Battery 1, the dash, arrives by drone on the test road. 0: never; on foot (10.1). 1: as the rung-1 lesson ends. 2: the first time the learning car brakes f"
+ },
+ {
+  "id": "duel.jumpArrives",
+  "label": "Jump arrives",
+  "unit": "enum",
+  "default": 0,
+  "min": 0,
+  "max": 3,
+  "about": "When Legs 1, the jump, arrives by drone on the test road. 0: never. 1: as the rung-2 lesson ends. 2: the first time the learning car swerves away from the dummy"
+ },
+ {
+  "id": "duel.conesArrives",
+  "label": "Cones arrive",
+  "unit": "enum",
+  "default": 0,
+  "min": 0,
+  "max": 3,
+  "about": "When Hands 1, the cones, arrive by drone on the test road. 0: never. 1: as the rung-4 lesson ends. 2: the first time the learning car stops for a dummy only its"
+ },
+ {
+  "id": "duel.duckArrives",
+  "label": "Duck arrives",
+  "unit": "enum",
+  "default": 0,
+  "min": 0,
+  "max": 3,
+  "about": "When DUCK arrives by drone on the test road. 0: never. 1: as the rung-5 lesson ends. 2: the first time the learning car stops at a cone instead of swerving (the"
+ },
+ {
+  "id": "duel.planters",
+  "label": "Planters by the road",
+  "unit": "flag",
+  "default": 0,
+  "min": 0,
+  "max": 1,
+  "about": "Low planter rows by the test road: 0 none; 1 three rows (north of road A, west; south of road A, east; east of road B, south). Five planters to a row (world.gar"
+ },
+ {
+  "id": "perception.duckNoticeFactor",
+  "label": "Ducked notice",
+  "unit": "ratio",
+  "default": 1.5,
+  "min": 1,
+  "max": 4,
+  "about": "DUCK: the driver's field takes this many times perception.sideNoticeSeconds to notice a ducked dummy (stealth games: awareness fills slower crouched)"
+ },
+ {
+  "id": "perception.sensorHeight",
+  "label": "Sensor height",
+  "unit": "world units",
+  "default": 14,
+  "min": 1,
+  "max": 40,
+  "about": "Rungs 1–2: the height of the learning car's camera and side sensors. Sightlines over low cover start here"
+ },
+ {
+  "id": "perception.lidarHeight",
+  "label": "Lidar height",
+  "unit": "world units",
+  "default": 26,
+  "min": 1,
+  "max": 60,
+  "about": "Rung 3 and up: the roof lidar's height, above the roof (vehicles.sedan.height). It sees over low cover sooner"
+ },
+ {
+  "id": "perception.streetCameraHeight",
+  "label": "Street camera height",
+  "unit": "world units",
+  "default": 60,
+  "min": 10,
+  "max": 200,
+  "about": "Rung 4 and up: the street cameras' height on their posts. Sightlines over low cover start here"
+ },
+ {
+  "id": "perception.streetCameraRange",
+  "label": "Street camera range",
+  "unit": "world units",
+  "default": 0,
+  "min": 0,
+  "max": 1000,
+  "about": "Rung 4 and up: a street camera sees a dummy within this of its post. 0: the whole screen (10.5). 10.6 sets 180: the barrier and the building corner, which they "
+ },
+ {
+  "id": "perception.streetCameraFov",
+  "label": "Street camera field of view",
+  "unit": "degrees",
+  "default": 360,
+  "min": 10,
+  "max": 360,
+  "about": "Rung 4 and up: a street camera sees only within this angle, centred on its aim along the cover it was put up for. 360: all round (10.5–10.7). 10.8 sets 60"
+ },
+ {
+  "id": "perception.streetCameraPanArc",
+  "label": "Street camera pan arc",
+  "unit": "degrees",
+  "default": 0,
+  "min": 0,
+  "max": 180,
+  "about": "Rung 4 and up: the arc a street camera's aim sweeps across, centred on its aim, as Metal Gear Solid's cameras pan. 0: fixed (10.5–10.7). 10.8 sets 60"
+ },
+ {
+  "id": "perception.streetCameraPanSeconds",
+  "label": "Street camera pan time",
+  "unit": "seconds",
+  "default": 3,
+  "min": 0.5,
+  "max": 20,
+  "about": "Seconds a panning street camera takes to sweep from one end of perception.streetCameraPanArc to the other, at a steady rate. 10.8 sets 3"
+ },
+ {
+  "id": "perception.streetCameraPanHold",
+  "label": "Street camera pan hold",
+  "unit": "seconds",
+  "default": 1,
+  "min": 0,
+  "max": 10,
+  "about": "Seconds a panning street camera rests at each end of its sweep. 10.8 sets 1"
+ },
+ {
+  "id": "duel.lessonClipSeconds",
+  "label": "Lesson clip",
+  "unit": "s",
+  "default": 3,
+  "min": 0.5,
+  "max": 10,
+  "about": "Beat 1 of a lesson: the seconds before the hit, replayed as the car's training clip. The sim waits meanwhile. Also what the clip must show (rows 685, 687): rung"
+ },
+ {
+  "id": "duel.lessonHoldSeconds",
+  "label": "Lesson hold",
+  "unit": "s",
+  "default": 0.8,
+  "min": 0,
+  "max": 5,
+  "about": "Beat 1 ends on the hit: the frame of impact holds this long, boxed as the car's vision would mark it"
+ },
+ {
+  "id": "duel.lessonFitSeconds",
+  "label": "Lesson fitting",
+  "unit": "s",
+  "default": 2,
+  "min": 0.5,
+  "max": 10,
+  "about": "Beat 2 of a lesson: the new sensor fitted on screen, after the clip. Then play resumes and the car drives back in"
+ },
+ {
+  "id": "duel.runInLength",
+  "label": "Run-in length",
+  "unit": "world units",
+  "default": 0,
+  "min": 0,
+  "max": 2000,
+  "about": "How far before the screen's edge the red car appears on the test road. 0: the forward beam plus a car length (10.2–10.6, row 670). Above 0, the car appears at t"
+ },
+ {
+  "id": "duel.memoryRadius",
+  "label": "Crash memory radius",
+  "unit": "world units",
+  "default": 0,
+  "min": 0,
+  "max": 400,
+  "about": "Rung 6: a crash's spring spot covers this radius. A hit sprung within it of an earlier crash's spot teaches rung 6; at rung 6 a dummy within it of a remembered "
+ },
+ {
+  "id": "duel.memorySites",
+  "label": "Crash memory sites",
+  "unit": "count",
+  "default": 0,
+  "min": 0,
+  "max": 100,
+  "about": "Rung 6: how many crash spots the car remembers, the latest first. 0: every crash. An older spot falls out of memory (counters are capped and can fall back; hand"
+ },
+ {
+  "id": "duel.blockSeconds",
+  "label": "Block lift",
+  "unit": "seconds",
+  "default": 0,
+  "min": 0,
+  "max": 120,
+  "about": "A car kept waiting for the dummy (in its path, or noticed in its field) this long calls FARSIGHT: a drone lifts the dummy to the side of the road, holds it unti"
+ },
+ {
+  "id": "duel.searchRadius",
+  "label": "Search radius",
+  "unit": "world units",
+  "default": 0,
+  "min": 0,
+  "max": 400,
+  "about": "Rung 7: a dummy within this of the ghost (where the car last had it, before cover took it away) is found: cover does not hide it and the field notices it at onc"
+ },
+ {
+  "id": "duel.searchSeconds",
+  "label": "Search time",
+  "unit": "seconds",
+  "default": 0,
+  "min": 0,
+  "max": 60,
+  "about": "Rung 7: how long the car searches after it loses the dummy behind cover. It slows to stop short of the ghost meanwhile; then it gives up and drives on. 0: no se"
+ },
+ {
+  "id": "perception.forwardConeAngle",
+  "label": "Field: forward cone half-angle",
+  "unit": "degrees",
+  "default": 0,
+  "min": 0,
+  "max": 60,
+  "about": "Rung 2 up: the driver's field is three cones, not a rectangle. The forward cone runs from the nose, this many degrees either side of the heading, out to percept"
+ },
+ {
+  "id": "perception.sideConeAxis",
+  "label": "Field: side cone axis",
+  "unit": "degrees",
+  "default": 60,
+  "min": 0,
+  "max": 180,
+  "about": "Coned field: each side cone's centre line, this many degrees off the heading, from the nose (row 733; row 731 measured from the centre). A side cone begins no n"
+ },
+ {
+  "id": "perception.sideConeAngle",
+  "label": "Field: side cone half-angle",
+  "unit": "degrees",
+  "default": 45,
+  "min": 0,
+  "max": 90,
+  "about": "Coned field: each side cone spans this many degrees either side of perception.sideConeAxis, clipped at the forward cone's edge. 10.8 sets 45: 30° to 120° off th"
+ },
+ {
+  "id": "perception.sideConeRange",
+  "label": "Field: side cone range",
+  "unit": "px",
+  "default": 220,
+  "min": 0,
+  "max": 720,
+  "about": "Coned field: each side cone reaches this far from the nose (plus body.radius; row 733). 10.8 sets 240 (220 in row 731)"
+ },
+ {
+  "id": "perception.forwardConeSensitivity",
+  "label": "Field: forward cone sensitivity",
+  "unit": "fraction",
+  "default": 1,
+  "min": 0.05,
+  "max": 1,
+  "about": "Coned field: the forward cone's sensitivity. It scales the stage ranges (perception.sideCloseRange, perception.sideWaryRange) and the notice meter's fill rate. "
+ },
+ {
+  "id": "perception.sideConeSensitivity",
+  "label": "Field: side cone sensitivity",
+  "unit": "fraction",
+  "default": 1,
+  "min": 0.05,
+  "max": 1,
+  "about": "Coned field: each side cone's sensitivity. A dummy must come this much closer for each stage; the notice meter fills this much slower. 10.8 sets 0.5"
+ },
+ {
+  "id": "ui.lungeGuide",
+  "label": "Lunge guide",
+  "unit": "flag",
+  "default": 0,
+  "min": 0,
+  "max": 1,
+  "about": "1: while a car is near, a dotted line and a reticle show where a dash pressed now would land. Yellow with HIT when it meets the red car on its predicted path; w"
+ },
+ {
+  "id": "perception.trackSeconds",
+  "label": "Field: tracking after notice",
+  "unit": "seconds",
+  "default": 0,
+  "min": 0,
+  "max": 30,
+  "about": "Coned field: a dummy the car has noticed and then lost from its cones and path stays tracked this long (inside the rung's rectangle), then is forgotten: the not"
+ },
+ {
+  "id": "duel.twoWay",
+  "label": "Two-way roads",
+  "unit": "flag",
+  "default": 0,
+  "min": 0,
+  "max": 1,
+  "about": "1: the junction's two roads carry traffic both ways, on the left (London): road A eastbound in its north lane, westbound in its south lane; road B southbound in"
+ },
+ {
+  "id": "duel.whiteInterval",
+  "label": "White traffic interval",
+  "unit": "seconds",
+  "default": 0,
+  "min": 0,
+  "max": 30,
+  "about": "Seconds between white sedans entering, on average (each 60–140% of it), on a lane chosen by the golden ratio. White sedans never learn: they brake for what is i"
+ },
+ {
+  "id": "traffic.junctionLookahead",
+  "label": "Give way: lookahead",
+  "unit": "px",
+  "default": 0,
+  "min": 0,
+  "max": 1000,
+  "about": "Two-way roads: a car decides at the junction from this far before the box, before it is too close to stop gently (row 735; row 734: road B held while road A was"
+ },
+ {
+  "id": "perception.coneRadius",
+  "label": "Field: radius",
+  "unit": "px",
+  "default": 0,
+  "min": 0,
+  "max": 720,
+  "about": "Rung 2 up, coned: the proportional field (row 735). The forward cone reaches this far from the car's middle; the side cones perception.sideConeRatio of it. 0: t"
+ },
+ {
+  "id": "perception.sideConeRatio",
+  "label": "Field: side reach",
+  "unit": "fraction",
+  "default": 0.8,
+  "min": 0.1,
+  "max": 1,
+  "about": "Proportional field: each side cone reaches this fraction of perception.coneRadius. 10.9 sets 0.8"
+ },
+ {
+  "id": "perception.forwardGrades",
+  "label": "Field: forward grades",
+  "unit": "count",
+  "default": 3,
+  "min": 1,
+  "max": 3,
+  "about": "Proportional field: equal rings split the forward cone into this many grades, outermost AWARE, then SLOWING, then CRAWLING. 10.9 sets 3"
+ },
+ {
+  "id": "perception.sideGrades",
+  "label": "Field: side grades",
+  "unit": "count",
+  "default": 2,
+  "min": 1,
+  "max": 3,
+  "about": "Proportional field: equal rings split each side cone into this many grades, outermost AWARE, then SLOWING. 10.9 sets 2"
+ },
+ {
+  "id": "perception.coneGrowthPerMemory",
+  "label": "Field: growth per memory",
+  "unit": "fraction",
+  "default": 0,
+  "min": 0,
+  "max": 0.5,
+  "about": "Proportional field: the radius grows by this fraction for each crash spot the car remembers (duel.memorySites), up to perception.coneGrowthMax: the field is par"
+ },
+ {
+  "id": "perception.coneGrowthMax",
+  "label": "Field: growth cap",
+  "unit": "fraction",
+  "default": 0,
+  "min": 0,
+  "max": 1,
+  "about": "Proportional field: the most the radius grows, as a fraction. 10.9 sets 0.2 (320 to 384: 60% of the screen)"
+ },
+ {
+  "id": "traffic.junctionGap",
+  "label": "Give way: gap",
+  "unit": "seconds",
+  "default": 0,
+  "min": 0,
+  "max": 10,
+  "about": "Two-way roads: a road B car gives way while a road A car would reach the junction box within this many seconds; any car waits while a crossing car is in the box"
+ },
+ {
+  "id": "traffic.whiteTimeGap",
+  "label": "White traffic: time gap",
+  "unit": "seconds",
+  "default": 0,
+  "min": 0,
+  "max": 5,
+  "about": "White sedans follow the car ahead at this time gap instead of traffic.timeGap: they tailgate. 0: traffic.timeGap. 10.10 sets 0.5"
+ },
+ {
+  "id": "traffic.whiteBraking",
+  "label": "White traffic: braking",
+  "unit": "px/s²",
+  "default": 0,
+  "min": 0,
+  "max": 400,
+  "about": "White sedans brake no harder than this (traffic.hardBraking is the red car's). 0: no limit. 10.10 sets 45"
+ },
+ {
+  "id": "scoring.incidentPoints",
+  "label": "Incident points",
+  "unit": "points",
+  "default": 0,
+  "min": 0,
+  "max": 5000,
+  "about": "A white sedan runs into the back of the red car (it stopped hard; the white car could not): an Incident, worth this. 0: off. 10.10 sets 250"
+ },
+ {
+  "id": "traffic.incidentSeconds",
+  "label": "Incident: standstill",
+  "unit": "seconds",
+  "default": 0,
+  "min": 0,
+  "max": 10,
+  "about": "After an Incident the two cars stand this long, then drive on. 10.10 sets 2"
+ },
+ {
+  "id": "traffic.whiteSpeedRatio",
+  "label": "White traffic: speed",
+  "unit": "ratio",
+  "default": 0,
+  "min": 0,
+  "max": 2,
+  "about": "White sedans cruise at this multiple of their cruise speed: they close on the red car and sit at traffic.whiteTimeGap behind it. 0: their cruise speed. 10.10 se"
+ }
+]
+```
+
+## PLAN
+```json
+{
+ "map": {
+  "id": "monument",
+  "title": "MAP 1 · MONUMENT",
+  "intro": "Dummy Corporation welcomes you off the factory floor. Nine tests, one red colleague who learns from each crash. Certification awaits."
+ },
+ "tiles": [
+  {
+   "n": 1,
+   "tile": "A1",
+   "title": "The welcome wall",
+   "stage": "10.1",
+   "newIdea": "Controls; the red car drives straight through, learning nothing.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "ANY WRITE-OFF"
+   },
+   "params": {},
+   "tale": "Fresh off the factory floor. The LED wall plays your welcome reel. Step in front of a colleague.",
+   "hint": "Walk into the red car's lane under the Z1 highway."
+  },
+  {
+   "n": 2,
+   "tile": "B1",
+   "title": "The podium bridge",
+   "stage": "10.2",
+   "newIdea": "It learns: after one hit, it brakes for dummies in its lane.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "DASH INTO A CAR"
+   },
+   "params": {},
+   "tale": "Battery 1 is fitted. Your colleague now studies each crash; staff on the skybridge watch you dash in from beside.",
+   "hint": "Wait beside its lane under the skybridge; Space to dash in."
+  },
+  {
+   "n": 3,
+   "tile": "C1",
+   "title": "The LED drum",
+   "stage": "10.3",
+   "newIdea": "Side sensors: it stops for dummies beside its road.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "DROP ONTO A CAR"
+   },
+   "params": {
+    "perception.sideNoticeSeconds": 0.9
+   },
+   "tale": "Your colleague has fitted side sensors. The Z2 highway is out of its world: step off onto its roof.",
+   "hint": "Ride the Z2 escalator; walk off through the parapet gap."
+  },
+  {
+   "n": 4,
+   "tile": "C2",
+   "title": "The portal tower",
+   "stage": "10.4",
+   "newIdea": "Roof lidar: it sees you fall; spring from cover instead.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "SPRING FROM COVER"
+   },
+   "params": {},
+   "tale": "A roof lidar now watches the sky. The portal tower still blocks its view: wait behind it, then step out.",
+   "hint": "Drop once from the roof plaza, then hide behind the tower."
+  },
+  {
+   "n": 5,
+   "tile": "B2",
+   "title": "The monument",
+   "stage": "10.5",
+   "newIdea": "Street cameras: watched cover no longer hides you.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "UNWATCHED COVER"
+   },
+   "params": {
+    "perception.streetCameraRange": 180
+   },
+   "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Street cameras now watch the monument's corners.",
+   "hint": "Find cover the cameras miss round the monument; spring from it."
+  },
+  {
+   "n": 6,
+   "tile": "A2",
+   "title": "The neon shops",
+   "stage": "10.5",
+   "newIdea": "Hands 1: put a cone in its lane to stop it.",
+   "objective": {
+    "kind": "hits",
+    "count": 3,
+    "label": "CONE-BAITED CAR"
+   },
+   "params": {},
+   "tale": "The neon shops sell nothing, but the traffic reads them. Hands 1 is fitted: bait a colleague with a cone.",
+   "hint": "J drops a cone ahead of it; strike as it slows."
+  },
+  {
+   "n": 7,
+   "tile": "A3",
+   "title": "The stacked cubes",
+   "stage": "10.6",
+   "newIdea": "Duck: hold C behind a planter, spring as it passes.",
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "PLANTER AMBUSH"
+   },
+   "params": {},
+   "tale": "Your colleague now stops for cones and never swerves. The planters were budgeted, so use them: duck.",
+   "hint": "Hold C behind a planter by the road; Space as it passes."
+  },
+  {
+   "n": 8,
+   "tile": "B3",
+   "title": "The LED canyon",
+   "stage": "10.7",
+   "newIdea": "Crash memory: it watches every spot you struck from.",
+   "objective": {
+    "kind": "hits",
+    "count": 3,
+    "label": "A NEW SPOT EACH TIME"
+   },
+   "params": {},
+   "tale": "Legs 1 is fitted. Your colleague now remembers every crash site between the screens; never repeat yourself.",
+   "hint": "Strike from a new spot each time; roam the whole canyon."
+  },
+  {
+   "n": 9,
+   "tile": "C3",
+   "title": "The LED gateway",
+   "stage": "10.9",
+   "newIdea": "Two-way white traffic: moving cover that never learns.",
+   "objective": {
+    "kind": "hits",
+    "count": 4,
+    "label": "CERTIFICATION RUN"
+   },
+   "params": {},
+   "tale": "The fleet joins: white colleagues that never learn. Let one throw you into the red car, then certify.",
+   "hint": "Stand by the gateway kerb; step out from behind white traffic."
+  }
+ ],
+ "rationale": "Tile 1 teaches the controls against a car that learns nothing. Tiles 2–4 each close the previous way in: flank, then drop, then cover. Each one first opens the move the tile was built for. Tile 5 brings in cameras, with a shorter camera range because few ways stay open. Tile 6 keeps 10.5 so cones arrive alone. Duck and crash memory come next with small counts. Two-way traffic in tile 9 reopens many ways for a four-hit payoff."
+}
+```
+
+## REVIEW
+```json
+{
+ "verdict": "revise",
+ "issues": [
+  {
+   "tile": 4,
+   "severity": "high",
+   "problem": "The hint says to drop from the roof plaza, but at 10.4 the roof lidar sees a fall off a deck, so the drop is closed and the hint contradicts the objective.",
+   "fix": "Rewrite the hint as cover only, for example 'Hide behind the portal tower; step out as it passes', and keep the plaza as scenery."
+  },
+  {
+   "tile": 5,
+   "severity": "high",
+   "problem": "The objective is 2 hits from unwatched cover, but the only open ways at 10.5 are conebait 2.0 and lurk 0.8, and cover is the one way that stage closes, so it is likely too hard.",
+   "fix": "Drop the count to 1, or set the objective to lurk-style ambushes from cover the 180 camera range misses."
+  },
+  {
+   "tile": 6,
+   "severity": "medium",
+   "problem": "Tile 6 asks for 3 hits right after the hard camera tile, with no breather, and it is a new verb (cones) at a higher count than tile 5.",
+   "fix": "Set tile 6's count to 2, since conebait is the strongest open way at 10.5, so it works as a breather."
+  },
+  {
+   "tile": 3,
+   "severity": "medium",
+   "problem": "The override perception.sideNoticeSeconds 0.9 has no clear purpose for a drop objective. It only slows the side sensors' notice, which the drop never uses.",
+   "fix": "Remove the override, or state in the plan that it is there to ease a fallback flank."
+  },
+  {
+   "tile": 9,
+   "severity": "medium",
+   "problem": "The tile has 4 hits and no override, and the objective does not say whether white-car hits count. A white car's hit scores a fifth, and the tale mentions being thrown by one.",
+   "fix": "Say the 4 hits are red-car hits, and keep the count at 3 or 4 so the finale pays off."
+  },
+  {
+   "tile": 8,
+   "severity": "low",
+   "problem": "Legs 1 is fitted here, but the jump (built for B3) is never an objective and the ladder opens it at 10.3. The tile's own verb is wasted.",
+   "fix": "Mention the jump in the hint as an optional way to reach a new spot, or use B3's skybridge as one of the strike spots."
+  },
+  {
+   "tile": 0,
+   "severity": "low",
+   "problem": "Tales for tiles 2, 3, 7 and 8 open with 'Your colleague now/has...', and tiles 5 and 6 reuse MAP1 text almost verbatim, so the voice repeats across tiles.",
+   "fix": "Vary the sentence openers and give tiles 5 and 6 fresh deadpan lines."
+  },
+  {
+   "tile": 2,
+   "severity": "low",
+   "problem": "Tile 2's tale is long, at 19 words, with two clauses that both say what the car learns.",
+   "fix": "Cut it to one lesson clause and keep the Battery 1 line."
+  }
+ ],
+ "strengths": [
+  "Stages never go backwards: tile 1 is 10.1, the last tile is 10.9, and eight distinct stages are used.",
+  "Only two overrides, both in registry range and under the cap, and never startRung or topRung.",
+  "Planter ambush is used only on tile 7, where plantersForAnAmbush is true, and the drop only on decks that cross the road."
+ ]
+}
+```
+
+## VALIDATOR ERRORS
+- tile 1: label 'ANY WRITE-OFF' must name the move (the HUD counts the number; the objective is hits by the red car, not write-offs)
+
+Produce the final plan now.

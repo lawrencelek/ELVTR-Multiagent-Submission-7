@@ -1,5 +1,6 @@
 """Step 3 (no model): hard checks on a story-mode plan. Returns a list of errors; empty means the engine can load it."""
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,6 +25,9 @@ def check(plan, world='junction'):
         aff = {t['id']: (t.get('prototype9') or {}).get('measured') or {} for t in json.loads((ROOT / 'pipeline' / 'inputs' / 'build' / 'map1.json').read_text(encoding='utf-8'))['tiles']}
         for t in plan.get('tiles', []):
             m = aff.get(t.get('tile'), {})
+            lab = str((t.get('objective') or {}).get('label') or '').upper()
+            if 'WRITE-OFF' in lab or re.fullmatch(r'(HITS?|INCIDENTS?|POINTS?)\s*:?\s*\d*', lab.strip()):
+                errs.append(f'tile {t.get("n")}: label {lab!r} must name the move (the HUD counts the number; the objective is hits by the red car, not write-offs)')
             if m and not m.get('plantersForAnAmbush') and 'planter' in (str(t.get('hint')) + str(t.get('newIdea'))).lower():
                 errs.append(f'tile {t.get("n")}: the plan uses a planter, but {t.get("tile")} has no roadside planter (measured)')
             if m and not m.get('deckOverRoad') and any(w in str(t.get('hint')).lower() for w in ('drop', 'parapet')):

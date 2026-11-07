@@ -24,6 +24,9 @@
   // values the duel keeps out of the tile sim's own P (Prototype 9's fleet reads them): the red car gets them another way
   const duelKey = (k) => (k.startsWith('duel.') || (k.startsWith('perception.') && k !== 'perception.forwardLength' && k !== 'perception.reactionDelay') ||
     k.startsWith('scoring.stealth') || k.startsWith('scoring.incident') || k.startsWith('traffic.white') || k.startsWith('traffic.incident') || k === 'props.planter.height' || k === 'body.duckHeight' || k === 'movement.duckSpeedFactor' || k === 'ui.lungeGuide' || k === 'ui.tip.holdSeconds');
+  // Lawrence (7 Nov): a white car's hit scores a fifth of Prototype 9's points; the red car's, all of them plus its damage.
+  // Proposed registry ids (not yet registered): scoring.whiteShare 0.2, scoring.redDamageBonus 1.
+  const WHITE_SHARE = 0.2, RED_DAMAGE_BONUS = 1;
   const ORIG = new WeakMap(); // a tile sim → its own prototype, statics and values, restored when the duel moves on
 
   function duelParams(def) {
@@ -46,8 +49,8 @@
     p9(fn) { const o = ORIG.get(this), keep = this.level.statics; this.level.statics = o ? o.statics : []; try { return fn(); } finally { this.level.statics = keep; } }
     p9call(name, ...a) { const o = ORIG.get(this), f = o && o.own[name]; return f ? f.apply(this, a) : BP[name].apply(this, a); } // world6 sets some methods on each traffic sim (quiet, linkWorld): they stay the base
     // rung 3, the roof lidar, sees height: a dummy up on a deck over its road is in its world (Prototype 10's plinth)
-    meets(c) {
-      if (c && c.red && this.duelOn && this.rung >= 3) { const b = this.body; if (b && b.alive && !b.stair && b.mode !== 'drop' && b.mode !== 'hitch' && b.mode !== 'rescue' && (b.level || 0) >= 1 && !(c.layer > 0)) return true; }
+    meets(c) { // a dummy on another level (a deck, a walkway) is out of its world at every rung; rung 3's lidar sees one falling off a deck onto its road
+      if (c && c.red && this.duelOn && this.rung >= 3) { const b = this.body; if (b && b.alive && b.mode === 'drop' && !(c.layer > 0)) return true; }
       return this.p9call('meets', c);
     }
     duelCar(c) { return !!c && this.duelOn && (c.red || (this.whiteFleet && c.white)); } // the red car; from 10.10 the fleet too, as Prototype 10's white cars
@@ -115,13 +118,13 @@
     const solid = (sc.game.statics || []).filter((q) => q.kind !== 'mass').concat(sc.stairs || []), cands = [];
     for (const ln of lanes) for (let s = ln.enterS + 80; s <= ln.exitS - 80; s += 30) {
       const q = X.pathAt(ln.path, s), ax = Math.abs(q.tx) > 0.95, ay = Math.abs(q.ty) > 0.95; if (!ax && !ay) continue;
-      for (const sg of [1, -1]) for (const gap of [26, 40, 56]) {
+      for (const sg of [1, -1]) for (const gap of [2, 42]) { // on the kerb line, or a clear body-width off it: never a slot a dummy can be wedged in
         const off = sg > 0 ? ln.path.edges[1] + gap : ln.path.edges[0] - gap, cx = q.x + q.nx * off, cy = q.y + q.ny * off;
         const r = ax ? { x: cx - len / 2, y: cy - 8, w: len, h: 16 } : { x: cx - 8, y: cy - len / 2, w: 16, h: len };
         const ux = Math.round(q.nx * sg), uy = Math.round(q.ny * sg), behind = { x: r.x + (ux > 0 ? r.w : ux < 0 ? -34 : 0), y: r.y + (uy > 0 ? r.h : uy < 0 ? -34 : 0), w: ux ? 34 : r.w, h: uy ? 34 : r.h }; // the strip a dummy crouches in
-        if (r.x < 24 || r.y < 24 || r.x + r.w > W - 24 || r.y + r.h > H - 24 || rectHits(r, solid, 6) || rectHits(behind, solid, 2) || behind.x < 8 || behind.y < 8 || behind.x + behind.w > W - 8 || behind.y + behind.h > H - 8) continue;
+        if (r.x < 24 || r.y < 24 || r.x + r.w > W - 24 || r.y + r.h > H - 24 || rectHits(r, solid, 30) || rectHits(behind, solid, 2) || behind.x < 8 || behind.y < 8 || behind.x + behind.w > W - 8 || behind.y + behind.h > H - 8) continue;
         const pts = [[r.x, r.y], [r.x + r.w, r.y], [r.x, r.y + r.h], [r.x + r.w, r.y + r.h], [r.x + r.w / 2, r.y + r.h / 2]];
-        if ((T.level.lanes || []).some((p) => pts.some(([x, y]) => Math.abs(X.pathProject(p, x, y).lat) < LW / 2 + 12))) continue;
+        if ((T.level.lanes || []).some((p) => pts.some(([x, y]) => Math.abs(X.pathProject(p, x, y).lat) < LW / 2 + 1))) continue;
         if ((sc.layers || []).some((l) => l.inBand && pts.some(([x, y]) => l.inBand(x, y)))) continue;
         cands.push(Object.assign(r, { score: Math.hypot(cx - W / 2, cy - H / 2) + gap }));
       }
@@ -143,23 +146,27 @@
     for (const c of cands) { if (out.length >= 3) break; if (out.some((o) => hyp(o[0] - c.x, o[1] - c.y) < 200)) continue; out.push([c.x, c.y, c.aim, out.length * 0.25]); }
     return out;
   }
-  function join(T, sc, DP, feed) {
+  function join(T, sc, DP, feed, PP) {
     if (!ORIG.has(T)) ORIG.set(T, { proto: Object.getPrototypeOf(T), statics: T.level.statics, P: T.P, cameras: T.level.cameras, own: {} });
     const o = ORIG.get(T), P = Object.assign({}, o.P);
     for (const k of ['admit', 'meets']) if (Object.prototype.hasOwnProperty.call(T, k)) { o.own[k] = T[k]; delete T[k]; }
     for (const k of Object.keys(DP)) if (duelKey(k)) P[k] = DP[k];
+    if (PP) for (const k of ['movement.walkSpeed', 'movement.runSpeed', 'movement.lungeDistance']) P[k] = PP[k]; // the envelope reads the dummy's own speed
     Object.setPrototypeOf(T, DuelTileSim.prototype);
     Object.assign(T, { P, DP, duelOn: true, testRoad: true, duelSc: sc, duelFeed: feed, rung: clamp(Math.round(DP['duel.startRung'] || 0), 0, RUNGS.length - 1),
       lesson: null, lessons: [], delivery: null, firstBrakeT: null, firstSideT: null, firstCoverT: null, firstItemT: null, crashes: [], spring: null,
       whiteFleet: (DP['scoring.incidentPoints'] || 0) > 0, stealth: { points: 0, unseen: 0, lost: 0, seen: 0, last: null }, lift: null, blockT: 0, leftAt: -1e9, redSeq: 0, stageCaution: null, carKeepTG: null });
     T.run.incidents = 0; T.redLanes = laneInfo(T, P);
     const planters = DP['duel.planters'] > 0 ? placePlanters(T, sc, P, DP, T.redLanes) : [];
-    for (const q of planters) if (!sc.game.statics.some((s) => s.duel && s.x === q.x && s.y === q.y)) sc.game.statics.push(q); // the dummy walks round them too
+    for (const q of planters) if (!sc.game.statics.some((s) => s.duel && s.x === q.x && s.y === q.y)) { sc.game.statics.push(q); if (W6.paintPlanter) W6.paintPlanter(sc, q); } // part of the tile: walked round, painted as Prototype 9 paints its own
     // Prototype 9's statics hide the dummy from the red car's own sensors; its planters are low cover (rows 696-697), as the duel's
     const ph = DP['props.planter.height'] || 14;
-    T.level.statics = (sc.game.statics || []).filter((s) => !s.duel && s.kind !== 'bound' && s.kind !== 'mass').map((s) => (s.kind === 'planter' ? Object.assign({}, s, { low: true, height: ph }) : s)).concat(planters);
+    // the level's own shapes block its sightline: buildings, walls, columns, sculptures; masses (terraces, cubes, pools' rims) by their drawn height; planters are low cover
+    const massH = (q) => (q.ht || 0) * ((W6.artUnit || 2.5) / (P['proto.art.extrusion'] || 0.3));
+    T.level.statics = (sc.game.statics || []).filter((s) => !s.duel && s.kind !== 'bound').map((s) => (s.kind === 'planter' ? Object.assign({}, s, { low: true, height: ph }) : s.kind === 'mass' ? Object.assign({}, s, { low: true, height: massH(s) }) : s)).concat(planters);
     const roadside = T.level.statics.filter((q) => q.low && T.redLanes.some((ln) => Math.abs(X.pathProject(ln.path, q.x + q.w / 2, q.y + q.h / 2).lat) < 160)); // the planters an ambush uses
     T.level.cameras = Math.round(DP['duel.topRung'] || 0) >= 4 ? placeCameras(sc, P, T.redLanes, roadside) : [];
+    sc.duelPosts = sc.duelPosts || []; for (const c of T.level.cameras) if (!sc.duelPosts.some((q) => q[0] === c[0] && q[1] === c[1])) { sc.duelPosts.push(c); if (W6.paintPost) W6.paintPost(sc, c[0], c[1]); } // its post, in the tile's art
     return T;
   }
   function leave(T, sims) {
@@ -181,7 +188,7 @@
       if (!def) return;
       const sc = this.W6.at('ABC'.indexOf(act[0]), +act[1] - 1), T = sc && (sc.main || sc.lab), DP = duelParams(def);
       if (!T || !DP) return;
-      this.duelFeed = []; join(T, sc, DP, this.duelFeed);
+      this.duelFeed = []; join(T, sc, DP, this.duelFeed, this.P);
       Object.assign(this, { duelT: T, duelSc: sc, duelDef: def, duelDP: DP, duelHits: 0, duelIncidents: 0, duelMovedAt: null, duelInc0: 0, duelPending: false, duelDone: false, duelDuck: stageN(def.stage) >= 6, duelT0: this.t });
       this.emit('duel-start', { tile: def.tile, stage: def.stage, rung: T.rung, top: Math.round(DP['duel.topRung'] || 0), lanes: T.redLanes.length });
     }
@@ -222,12 +229,24 @@
       this.lastCmd = cmd || {};
       if (T && this.duelMovedAt == null && this.phase === 'play' && !this.rescue && (Math.abs(this.lastCmd.mx || 0) + Math.abs(this.lastCmd.my || 0) > 0.1 || this.lastCmd.aPress)) { this.duelMovedAt = this.t; this.duelInc0 = T.run.incidents || 0; }
       super.step(cmd);
-      if (T) { this.redSweep(); if (b && b.duck && !this.canDuck()) this.stand(); this.incidentCheck(); }
+      if (T) { this.redSweep(); if (b && b.duck && !this.canDuck()) this.stand(); this.incidentCheck(); this.unstick(cmd || {}); }
     }
     incidentCheck() { // row 740: an Incident scores scoring.incidentPoints for the player; the plan's count of them clears the tile
       const T = this.duelT, n = T.run.incidents || 0;
       if (n > (this.duelIncidents || 0)) { this.run.points += (n - (this.duelIncidents || 0)) * (T.P['scoring.incidentPoints'] || 0); this.duelIncidents = n; this.emit('incident-scored', { n }); }
       const d = this.duelDef; if (d && d.objective.kind === 'incidents' && !this.duelDone && this.phase === 'play' && this.body && this.body.alive && this.duelProgress() >= d.objective.count) { this.duelPending = true; this.body.health = 0; this.writeOff(); }
+    }
+    // Pressed against a car and something solid, trying to move and not moving for 0.6 s: the dummy steps to the nearest free ground
+    unstick(cmd) {
+      const b = this.body, P = this.P, r = P['body.radius'], dt = 1 / P['simulation.tickRate'];
+      if (!b || !b.alive || b.lifted || this.phase !== 'play' || (b.level || 0) !== 0 || b.mode === 'lunge' || b.mode === 'jump' || b.mode === 'rescue') { this.stuckT = 0; this.stuckAt = null; return; }
+      const want = Math.hypot(cmd.mx || 0, cmd.my || 0) > 0.5, at = this.stuckAt, moved = at ? Math.hypot(b.x - at.x, b.y - at.y) : 99; this.stuckAt = { x: b.x, y: b.y };
+      const touching = this.cars.some((c) => !(c.layer > 0) && Math.hypot(c.x - b.x, c.y - b.y) < c.L / 2 + r + 6);
+      this.stuckT = want && moved < 0.4 && touching ? (this.stuckT || 0) + dt : 0;
+      if (this.stuckT < 0.6) return;
+      const solid = (x, y) => this.level.statics.some((q) => x > q.x - r && x < q.x + q.w + r && y > q.y - r && y < q.y + q.h + r) || this.cars.some((c) => !(c.layer > 0) && X.circleCar(x, y, r + 2, c)) || x < r || y < r || x > P['world.width'] - r || y > P['world.height'] - r;
+      for (let d = 12; d <= 96; d += 6) for (let i = 0; i < 16; i++) { const a = Math.atan2(cmd.my || 0, cmd.mx || 0) + i * Math.PI / 8 * (i % 2 ? 1 : -1) * 0.5, x = b.x + Math.cos(a) * d, y = b.y + Math.sin(a) * d;
+        if (!solid(x, y)) { Object.assign(b, { x, y, px: x, py: y, vx: 0, vy: 0 }); this.stuckT = 0; this.emit('unstuck', { x: +x.toFixed(1), y: +y.toFixed(1) }); return; } }
     }
     continueLesson() {
       const T = this.duelT; this.phase = 'play';
@@ -246,9 +265,12 @@
       for (const ct of contacts) {
         const c = ct.car && ct.car.ghost ? ct.car.real : ct.car, red = !!(c && c.red);
         if (red && still > 0 && !ct.drop && Math.abs(c.v) < still && b.alive && !c.spent) { this.emit('touch', { car: c.id, standstill: true }); continue; } // it has passed its test (row 668)
-        const e0 = this.events.length;
+        const e0 = this.events.length, p0 = this.run.points, f0 = this.effects.length;
         if (super.account([ct])) positive = true;
-        if (red) for (const e of this.events.slice(e0)) if (e.type === 'impact') this.duelImpact(e, c);
+        const dp = this.run.points - p0, bursts = this.effects.slice(f0).filter((q) => q.type === 'burst'), hits = this.events.slice(e0).filter((e) => e.type === 'impact');
+        if (!red && dp > 0) { this.run.points = p0 + dp * WHITE_SHARE; for (const q of bursts) q.v *= WHITE_SHARE; for (const e of hits) e.points = Math.round(dp * WHITE_SHARE); } // white cars: a fifth
+        if (red) for (const e of hits) { const bonus = Math.max(0, e.lost || 0) * RED_DAMAGE_BONUS; this.run.points += bonus; for (const q of bursts) q.v += bonus; e.points = Math.round(dp + bonus); } // the red car: its points plus its damage
+        if (red) for (const e of hits) this.duelImpact(e, c);
         if (this.duelPending && b.alive) { b.health = 0; this.writeOff(); }
       }
       return positive;

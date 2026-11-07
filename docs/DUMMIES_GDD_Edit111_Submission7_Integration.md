@@ -67,3 +67,21 @@
   - lunge guide (`ui.lungeGuide`);
   - block-lift countdown.
 - **Red car:** Prototype 9's sedan, repainted red, with a red outline.
+
+## 111.8 Playtest fixes (Lawrence, 7 November)
+
+- **Stuck against a white car:** duel planters sit on the kerb line or a clear body width off it. They also stay 30 clear of every static, so no slot is narrower than a body (`body.radius`).
+- **Unstick:** a dummy pressed against a car, moving and not moving for 0.6 s, steps to the nearest free ground.
+- **Height:** a dummy on a deck or walkway is out of the red car's world at every rung. Rung 3's lidar sees a jump or a fall onto its road, never the deck.
+- **Line of sight:** the level blocks it.
+  - Buildings, walls, booths, columns, sculptures and the monument block it.
+  - Masses block it by their drawn height (`ht`, `proto.art.extrusion`).
+  - Planters are low cover (`props.planter.height`).
+- **Native art:** duel planters and street-camera posts are painted into the tile's ground art, as Prototype 9 paints its own. They sit under decks, cars and props.
+- **Forward cone:** drawn from the nose on. Its edges still run through the front corners.
+- **Red car:** no outline box; red paint and roof sensors only.
+- **Dummy speed:** 70%. `movement.walkSpeed` 56.7; `movement.runSpeed` 113.4. It can no longer run alongside a car.
+- **Scoring:**
+  - A white car's hit scores 20% (proposed `scoring.whiteShare` 0.2, not yet registered).
+  - The red car's hit scores 100% plus its damage (proposed `scoring.redDamageBonus` 1, not yet registered).
+- **Labels:** the validator refuses an objective label that only counts ("HITS: 3") or names write-offs.

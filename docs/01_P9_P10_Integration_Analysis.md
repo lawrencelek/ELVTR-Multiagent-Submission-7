@@ -76,9 +76,9 @@ Also: the lunge guide, the stealth grade, the lure and stop line, the block lift
 |---|---|
 | The red car's brain | The tile in test's ground traffic sim swaps its prototype for `DuelTileSim`, a subclass of `TestRoadSim`. Red cars get Prototype 10's perception and choices; every other car keeps Prototype 9's (`p9call`, `p9`). The swap is undone when the tile clears. |
 | Lanes and kerbs | Read from the tile's own lanes. The kerbs (`path.edges`) run across the oncoming lane where one exists. |
-| Height (rung 3) | Prototype 9's decks are the plinth. The lidar meets a dummy on a deck (`meets`). A drop through a parapet gap counts as a hit from above. |
-| Cover and low cover | Prototype 9's statics hide the dummy. Its planters are low cover (`props.planter.height`). Planter rows are added along the road from 10.6 (`duel.planters`), never under a deck. |
-| Street cameras (rung 4) | Placed by code on the kerb, at a third and two thirds of the road, aimed back up it. |
+| Height (rung 3) | A dummy up on a deck or walkway is out of the red car's world at every rung. The lidar sees a dummy in the air: a jump, or a fall off a deck onto its road. A drop through a parapet gap counts as a hit from above. |
+| Cover and low cover | Prototype 9's buildings, walls, columns, booths, sculptures and monument block the car's sight. Its masses block it by their drawn height; its planters are low cover (`props.planter.height`). From 10.6 (`duel.planters`), planter rows are added along the road and painted into the tile's art. They are never under a deck, and never leave a slot narrower than a body. |
+| Street cameras (rung 4) | Placed by code on the kerb by tall cover, clear of roadside planters, aimed back up the road. Their posts are painted into the tile's art. |
 | Hits, lessons, memory, search | `DuelStorySim` (Prototype 9's `StorySim`) routes red hits to the duel's crash record, stealth grade and `learnFrom`. A lesson card shows once the car has left. |
 | Objective and clear | The plan's count of red hits. When it is met, Prototype 9's own clear runs: write-off, report, ferry, the next tile's card. |
 | White cars | Prototype 9's fleet; no learning (`proto.learningEnabled` 0, `proto.learn.standoffEnabled` 0). From 10.9 it is moving cover (`whiteHides`). The fleet runs lighter in the tile in test until 10.9 (`story.traffic.monument.*` 0.5). |

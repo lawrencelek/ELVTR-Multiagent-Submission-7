@@ -61,6 +61,21 @@ def game_js():
     ], 'game.js')
 
 
+def world6_js():
+    w = (E / 'world6.js').read_text(encoding='utf-8')
+    return patch(w, [
+        ("  const api = { P6SIM, DISTRICTS,",
+         "  // Submission 7: the duel's low planters and street-camera posts, painted into the tile's ground art as Prototype 9 paints its own\n"
+         "  function paintPlanter(sc, r) {\n"
+         "    const fp = chamf(Math.round(r.x / U), Math.round(r.y / U), Math.round((r.x + r.w) / U) - 1, Math.round((r.y + r.h) / U) - 1, 2), keep = CAP; CAP = null;\n"
+         "    mass(sc.B, fp, r.x / U, r.y / U, (r.x + r.w) / U - 1, (r.y + r.h) / U - 1, 0, 3, 'conc', LEDS[1], true); mass(sc.B, (px, py, k) => fp(px, py, (k || 0) + 2), r.x / U, r.y / U, (r.x + r.w) / U - 1, (r.y + r.h) / U - 1, 3, 4, 'hedge', null, false, 'hedge');\n"
+         "    CAP = keep;\n"
+         "  }\n"
+         "  function paintPost(sc, x, y) { const keep = CAP; CAP = null; bollard(sc.B, x / U, y / U, LEDS[2 % LEDS.length]); CAP = keep; }\n"
+         "  const api = { paintPlanter, paintPost, artUnit: U, P6SIM, DISTRICTS,"),
+    ], 'world6.js')
+
+
 def story_json(plan):
     d = json.loads((E / 'story_v2.json').read_text(encoding='utf-8'))
     mon = next(x for x in d['districts'] if x['id'] == 'monument')
@@ -82,7 +97,8 @@ def main():
     byid = {e['id']: e for e in reg['entries']}
     cues = json.loads((E / 'cues.json').read_text(encoding='utf-8'))
     js = lambda p: f'<script>\n{p.read_text(encoding="utf-8")}\n</script>\n'
-    scripts = js(E / 'jump.js') + ''.join(js(E / f) for f in ('sim.js', 'pixel.js', 'lab.js', 'circus_valley.js', 'world6.js', 'content.js'))
+    scripts = js(E / 'jump.js') + ''.join(js(E / f) for f in ('sim.js', 'pixel.js', 'lab.js', 'circus_valley.js'))
+    scripts += f'<script>\n{world6_js()}\n</script>\n' + js(E / 'content.js')
     scripts += f'<script>\nwindow.FLEET_DB = {(E / "fleet.json").read_text(encoding="utf-8")};\n</script>\n'
     scripts += f'<script>\nwindow.DUMMIES_STORY = {json.dumps(story_json(plan), ensure_ascii=False)}; // story_v2.json; Map 1 from content/story_map1.json\n</script>\n'
     scripts += js(E / 'lore.js')
@@ -100,6 +116,8 @@ def main():
                 'economy.price.ability.level1': 2, 'economy.price.ability.level2': 4, 'economy.price.ability.level3': 6, 'economy.price.ability.level4': 8})
     # Submission 7: white cars never learn (D101); the tile in test runs a lighter fleet until 10.9, where traffic is the lesson
     sim['proto.learningEnabled'] = 0; sim['proto.learn.standoffEnabled'] = 0
+    for k in ('movement.walkSpeed', 'movement.runSpeed'):  # Lawrence (7 Nov): 70%, so the dummy cannot run alongside a car and chase it down
+        sim[k] = round(byid[k]['default'] * 0.7, 1)
     for t in plan['tiles']:
         sim[f'story.traffic.monument.{t["tile"]}'] = 1.0 if int(t['stage'].split('.')[1]) >= 9 else 0.5
     assert all(k in byid for k in sim), [k for k in sim if k not in byid]

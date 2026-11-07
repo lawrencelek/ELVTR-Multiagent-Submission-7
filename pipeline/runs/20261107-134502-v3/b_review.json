@@ -1,0 +1,58 @@
+{
+ "verdict": "revise",
+ "issues": [
+  {
+   "tile": 4,
+   "severity": "high",
+   "problem": "The hint says to drop from the roof plaza, but at 10.4 the roof lidar sees a fall off a deck, so the drop is closed and the hint contradicts the objective.",
+   "fix": "Rewrite the hint as cover only, for example 'Hide behind the portal tower; step out as it passes', and keep the plaza as scenery."
+  },
+  {
+   "tile": 5,
+   "severity": "high",
+   "problem": "The objective is 2 hits from unwatched cover, but the only open ways at 10.5 are conebait 2.0 and lurk 0.8, and cover is the one way that stage closes, so it is likely too hard.",
+   "fix": "Drop the count to 1, or set the objective to lurk-style ambushes from cover the 180 camera range misses."
+  },
+  {
+   "tile": 6,
+   "severity": "medium",
+   "problem": "Tile 6 asks for 3 hits right after the hard camera tile, with no breather, and it is a new verb (cones) at a higher count than tile 5.",
+   "fix": "Set tile 6's count to 2, since conebait is the strongest open way at 10.5, so it works as a breather."
+  },
+  {
+   "tile": 3,
+   "severity": "medium",
+   "problem": "The override perception.sideNoticeSeconds 0.9 has no clear purpose for a drop objective. It only slows the side sensors' notice, which the drop never uses.",
+   "fix": "Remove the override, or state in the plan that it is there to ease a fallback flank."
+  },
+  {
+   "tile": 9,
+   "severity": "medium",
+   "problem": "The tile has 4 hits and no override, and the objective does not say whether white-car hits count. A white car's hit scores a fifth, and the tale mentions being thrown by one.",
+   "fix": "Say the 4 hits are red-car hits, and keep the count at 3 or 4 so the finale pays off."
+  },
+  {
+   "tile": 8,
+   "severity": "low",
+   "problem": "Legs 1 is fitted here, but the jump (built for B3) is never an objective and the ladder opens it at 10.3. The tile's own verb is wasted.",
+   "fix": "Mention the jump in the hint as an optional way to reach a new spot, or use B3's skybridge as one of the strike spots."
+  },
+  {
+   "tile": 0,
+   "severity": "low",
+   "problem": "Tales for tiles 2, 3, 7 and 8 open with 'Your colleague now/has...', and tiles 5 and 6 reuse MAP1 text almost verbatim, so the voice repeats across tiles.",
+   "fix": "Vary the sentence openers and give tiles 5 and 6 fresh deadpan lines."
+  },
+  {
+   "tile": 2,
+   "severity": "low",
+   "problem": "Tile 2's tale is long, at 19 words, with two clauses that both say what the car learns.",
+   "fix": "Cut it to one lesson clause and keep the Battery 1 line."
+  }
+ ],
+ "strengths": [
+  "Stages never go backwards: tile 1 is 10.1, the last tile is 10.9, and eight distinct stages are used.",
+  "Only two overrides, both in registry range and under the cap, and never startRung or topRung.",
+  "Planter ambush is used only on tile 7, where plantersForAnAmbush is true, and the drop only on decks that cross the road."
+ ]
+}

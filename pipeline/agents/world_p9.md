@@ -1,7 +1,9 @@
 
 THE WORLD (v3): the game is now Prototype 9's Monument district, with Prototype 10's red car driving the tile in test.
 - MAP1's tiles each carry `prototype9`: the tile's road and set piece as built, and the verb the tile was built for. Use them.
-- Height is a deck: Z1 and Z2 highways, skybridges and walkways over the road, reached by escalators. A dummy drops onto a car through a gap in a deck's parapet. There is no plinth.
+- Height is a deck: Z1 and Z2 highways, skybridges and walkways over the road, reached by escalators. A dummy up on a deck is out of the red car's world at every rung; it drops onto a car through a gap in a deck's parapet. From rung 3 the lidar sees the fall, not the deck. There is no plinth.
+- The dummy walks and runs at 70% of before: it cannot run alongside a car and chase it down. Ambush, do not chase.
+- Scoring: a white car's hit scores a fifth; the red car's, its full points plus its damage.
 - Cover is the tile's own buildings, columns, kiosks and set pieces; low cover is Prototype 9's planters. There is no barrier and no junction box.
 - Prototype 9's fleet (sedans, vans, buses) drives every tile. They are white cars: they never learn. Only the red car learns.
 - Open ways were measured on the test road: read them as relative difficulty, not as rates on these tiles.

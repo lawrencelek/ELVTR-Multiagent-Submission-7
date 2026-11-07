@@ -1,0 +1,80 @@
+{
+ "run": "20261107-134502-v3",
+ "models": {
+  "designer": "opus",
+  "reviewer": "sonnet",
+  "refiner": "sonnet"
+ },
+ "registry": "filtered",
+ "world": "p9",
+ "calls": [
+  {
+   "label": "a_designer",
+   "role": "designer",
+   "model": "opus",
+   "seconds": 71.8,
+   "cost_usd": 0.17258460000000003,
+   "input_tokens": 2,
+   "cache_write_tokens": 841,
+   "cache_read_tokens": 32143,
+   "output_tokens": 7971,
+   "prompt_chars": 36864,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  {
+   "label": "b_reviewer",
+   "role": "reviewer",
+   "model": "sonnet",
+   "seconds": 38.9,
+   "cost_usd": 0.13783630000000002,
+   "input_tokens": 2,
+   "cache_write_tokens": 21316,
+   "cache_read_tokens": 13183,
+   "output_tokens": 5125,
+   "prompt_chars": 40134,
+   "models": [
+    "claude-sonnet-5-5"
+   ]
+  },
+  {
+   "label": "c_refiner",
+   "role": "refiner",
+   "model": "sonnet",
+   "seconds": 11.1,
+   "cost_usd": 0.1084817,
+   "input_tokens": 2,
+   "cache_write_tokens": 22595,
+   "cache_read_tokens": 12977,
+   "output_tokens": 1680,
+   "prompt_chars": 42694,
+   "models": [
+    "claude-sonnet-5-5"
+   ]
+  },
+  {
+   "label": "d_repair",
+   "role": "refiner",
+   "model": "sonnet",
+   "seconds": 10.4,
+   "cost_usd": 0.1043837,
+   "input_tokens": 2,
+   "cache_write_tokens": 21273,
+   "cache_read_tokens": 12977,
+   "output_tokens": 1799,
+   "prompt_chars": 39437,
+   "models": [
+    "claude-sonnet-5-5"
+   ]
+  }
+ ],
+ "cost_usd": 0.5233,
+ "input_chars": 32272,
+ "tokens": {
+  "input_tokens": 8,
+  "cache_write_tokens": 66025,
+  "cache_read_tokens": 71280,
+  "output_tokens": 16575
+ }
+}

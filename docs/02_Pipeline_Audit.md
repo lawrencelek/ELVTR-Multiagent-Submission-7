@@ -6,13 +6,13 @@
 
 - **The plan:** `content/story_map1.json`. Map 1 (Monument), tiles 1–9.
   - Per tile: ladder stage, objective, overrides, title, tale, hint, new idea.
-  - Shipped run: `20261107-123424-v3`, $0.6637.
+  - Shipped run: `20261107-134502-v3`, $0.5233.
 - **Escalation:**
-  - Stages: 10.1 → 10.2 → 10.3 → 10.4 → 10.5 → 10.5 → 10.6 → 10.7 → 10.10.
-  - Tricks, tile by tile: walk-in, dash, deck drop, cover, the camera-blind column, cone bait, planter ambush, jump.
-  - Then the Incident.
+  - Stages: 10.1 → 10.2 → 10.3 → 10.4 → 10.5 → 10.5 → 10.6 → 10.7 → 10.9.
+  - Tricks, tile by tile: walk-in, dash, deck drop, cover, unwatched cover, cone bait, planter ambush, a new spot each time.
+  - Then white-car cover.
 - **Hints name what the tile has:** they come from Prototype 9's plan and the measured affordances.
-  - C1: "Ride the Z2 escalator; walk through the parapet gap as it nears."
+  - C1: "Ride the Z2 escalator; walk off through the parapet gap."
   - A2 had no room for a planter, so the agents gave it the cone bait; A3 has room, so it got the planter ambush.
 - **The game:** `index.html`.
   - Prototype 9's Monument (art, fleet, decks, HUD, sound) with Prototype 10's red car.
@@ -21,7 +21,7 @@
   - Validator: 0 errors.
   - `engine/p9_tiles_test.js`: 9 of 9 tiles.
   - The play test clears tiles 1–2 (80 s), with the first lesson.
-  - Headless bots clear every tile, in 4–42 s.
+  - Headless bots clear every tile, in 5–88 s.
 - **Evidence:** every prompt, reply, review and log line is in the run folders. The video shows the runs and the game: `docs/pipeline_run.mp4`.
 
 ## 2. Manual steps left, and how to remove them
@@ -29,7 +29,7 @@
 | Step | Why it's still manual | How to remove it |
 |---|---|---|
 | Copy Prototypes 9 and 10 from Submission 6B (`VENDOR.md`) | Copied by hand; md5s are recorded | `pipeline/vendor.py`: fetch a pinned 6B commit, check the md5s |
-| Difficulty on Prototype 9's tiles | A chasing-dash bot clears most of tiles 2–8 in under 20 s. The rate measures are from the test road | Run the probe bots per tile inside ingest. Feed hits a minute to the designer, as `affordances.js` already feeds geometry |
+| Difficulty on Prototype 9's tiles | At 70% speed a flanking bot still clears B1, C2, B2, A2 and B3 in under 25 s, but needs 57 s on C1 and 64 s on C3. The rate measures are from the test road | Run the probe bots per tile inside ingest. Feed hits a minute to the designer, as `affordances.js` already feeds geometry |
 | Judging fun | A human must play | A short recorded play session per tile in CI, for review |
 | Deploy, video | One command each, run by hand | One GitHub Action: build, test, deploy Pages, render the video |
 
@@ -52,12 +52,14 @@
 | v1 | test road, full registry | Opus $1.3757 | Opus $1.2849 | Opus $1.2486 | — | $3.9092 |
 | v2 | test road, 65 values | Opus $0.3205 | Sonnet $0.1914 | Sonnet $0.1290 | Sonnet $0.0933 | $0.7343 |
 | v3a | Prototype 9 tiles | Opus $0.4136 | Sonnet $0.1913 | Sonnet $0.1443 | Sonnet $0.0991 | $0.8483 |
-| v3b (shipped) | + measured affordances | Opus $0.3599 | Sonnet $0.1567 | Sonnet $0.1470 | — | $0.6637 |
+| v3b | + measured affordances | Opus $0.3599 | Sonnet $0.1567 | Sonnet $0.1470 | — | $0.6637 |
+| v3c | + playtest fixes | Opus $0.4381 | Sonnet $0.1573 | Sonnet $0.1440 | — | $0.7394 |
+| v3d (shipped) | + label rule; cached prompt | Opus $0.1726 | Sonnet $0.1378 | Sonnet $0.1085 | Sonnet $0.1044 | $0.5233 |
 
-- **Total spent:** $6.1555 on 4 runs and 14 model calls. Building the pipeline and the integration in Claude Code isn't metered here.
-- **Most expensive step:** the Opus designer, at 35% of v1 and 54% of v3b.
+- **Total spent:** $7.4182 on 6 runs and 21 model calls. Building the pipeline and the integration in Claude Code isn't metered here.
+- **Most expensive step:** the Opus designer, at 35% of v1 and 54% of v3b. In v3d its prompt was still cached from v3c (71,280 tokens read from cache), and it cost $0.17.
 - **Solo sustainability:**
-  - At $0.66 a run, 3 maps × 10 iterations cost about $20.
+  - At $0.52–0.74 a run, 3 maps × 10 iterations cost $16–22.
   - At v1's rate, the same work costs about $117.
 
 ## 5. Mid-project cost reduction
@@ -74,4 +76,5 @@
   - The filter alone cut the Opus designer by 77%.
   - The Sonnet swap cut the reviewer and refiner by 84%.
 - **v3b cost less than v2,** although it carries Prototype 9's tiles and measured facts. The facts left nothing to repair, so v3b needed no repair pass (v2 and v3a each needed one).
-- **The cheaper check is code:** the validator caught an impossible tile (a planter where none fits) before any play-test.
+- **The cheaper check is code:** the validator caught an impossible tile (a planter where none fits) before any play-test, and count-only labels after the playtest fixes.
+- **Second saving: run back to back.** The designer's prompt stays cached for a few minutes. v3d's designer read 32,143 tokens from cache and cost $0.17, against $0.44 in v3c.

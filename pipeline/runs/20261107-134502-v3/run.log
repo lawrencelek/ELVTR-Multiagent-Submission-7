@@ -1,0 +1,21 @@
+[13:45:02] run 20261107-134502-v3: models {'designer': 'opus', 'reviewer': 'sonnet', 'refiner': 'sonnet'}; world p9
+[13:45:06] 1 ingest: ingest: 10 stages; Map 1 9 tiles (p9); registry 65 of 703 entries (filtered)
+[13:45:06]   inputs: 32,272 characters
+[13:45:06] 2 designer (opus) ...
+[13:46:17]   plan: 1 A1 10.1 hitsx2 | 2 B1 10.2 hitsx2 | 3 C1 10.3 hitsx2 | 4 C2 10.4 hitsx2 | 5 B2 10.5 hitsx2 | 6 A2 10.5 hitsx3 | 7 A3 10.6 hitsx2 | 8 B3 10.7 hitsx3 | 9 C3 10.9 hitsx4
+[13:46:17] 3 validate: 1 errors
+    - tile 1: label 'ANY WRITE-OFF' must name the move (the HUD counts the number; the objective is hits by the red car, not write-offs)
+[13:46:17] 4 reviewer (sonnet) ...
+[13:46:56]   verdict revise: [high] tile 4: The hint says to drop from the roof plaza, but at 10.4 the roof lidar sees a fall off a deck, so the drop is closed and the hint contradicts the objective.; [high] tile 5: The objective is 2 hits from unwatched cover, but the only open ways at 10.5 are conebait 2.0 and lurk 0.8, and cover is the one way that stage closes, so it is likely too hard.; [medium] tile 6: Tile 6 asks for 3 hits right after the hard camera tile, with no breather, and it is a new verb (cones) at a higher count than tile 5.; [medium] tile 3: The override perception.sideNoticeSeconds 0.9 has no clear purpose for a drop objective. It only slows the side sensors' notice, which the drop never uses.; [medium] tile 9: The tile has 4 hits and no override, and the objective does not say whether white-car hits count. A white car's hit scores a fifth, and the tale mentions being thrown by one.; [low] tile 8: Legs 1 is fitted here, but the jump (built for B3) is never an objective and the ladder opens it at 10.3. The tile's own verb is wasted.
+[13:46:56] 5 refiner (sonnet) ...
+[13:47:07]   validate: 1 errors; one repair pass
+[13:47:18]   validate: 0 errors
+[13:47:18]   cost a_designer   opus    $0.1726  in 2+841 write+32143 read  out 7971  71.8 s
+[13:47:18]   cost b_reviewer   sonnet  $0.1378  in 2+21316 write+13183 read  out 5125  38.9 s
+[13:47:18]   cost c_refiner    sonnet  $0.1085  in 2+22595 write+12977 read  out 1680  11.1 s
+[13:47:18]   cost d_repair     sonnet  $0.1044  in 2+21273 write+12977 read  out 1799  10.4 s
+[13:47:18]   run cost $0.5233
+[13:47:18] 6 integrate: wrote content/story_map1.json
+[13:47:18]   engine: wrote index.html 1,618,324 bytes; P9 + P10 duel; Map 1 from 20261107-134502-v3; md5 724d83a1
+[13:47:18]   engine: wrote junction.html 494,820 bytes; 9 tiles; first stage 10.1 (112 values)
+[13:47:18] done: open index.html to play Map 1

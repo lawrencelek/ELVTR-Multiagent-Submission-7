@@ -26,8 +26,8 @@
      "deckOverRoad": true,
      "stairs": 2,
      "roadsidePlanters": 0,
-     "planterRowsThatFit": 1,
-     "plantersForAnAmbush": true,
+     "planterRowsThatFit": 0,
+     "plantersForAnAmbush": false,
      "tallCoverByRoad": 4
     }
    }
@@ -84,7 +84,7 @@
      "deckOverRoad": true,
      "stairs": 2,
      "roadsidePlanters": 0,
-     "planterRowsThatFit": 3,
+     "planterRowsThatFit": 2,
      "plantersForAnAmbush": true,
      "tallCoverByRoad": 2
     }
@@ -112,7 +112,7 @@
      "deckOverRoad": true,
      "stairs": 2,
      "roadsidePlanters": 0,
-     "planterRowsThatFit": 2,
+     "planterRowsThatFit": 1,
      "plantersForAnAmbush": true,
      "tallCoverByRoad": 2
     }
@@ -140,7 +140,7 @@
      "deckOverRoad": true,
      "stairs": 4,
      "roadsidePlanters": 1,
-     "planterRowsThatFit": 2,
+     "planterRowsThatFit": 0,
      "plantersForAnAmbush": true,
      "tallCoverByRoad": 14
     }
@@ -229,7 +229,7 @@
      "deckOverRoad": true,
      "stairs": 1,
      "roadsidePlanters": 0,
-     "planterRowsThatFit": 2,
+     "planterRowsThatFit": 1,
      "plantersForAnAmbush": true,
      "tallCoverByRoad": 5
     }

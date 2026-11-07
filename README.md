@@ -31,7 +31,7 @@
 1. Open the link. Press **Enter** twice (the first press turns the sound on). STORY is selected; press **Enter**.
 2. The tile card shows the tale and the objective. Press **Enter** or **Space**. A drone drops you in.
 3. Move with **arrows or WASD**. Walk into the red car's lane: two hits clear tile 1, in about a minute.
-4. Later tiles bring more keys:
+4. The dummy walks and runs at 70% of Prototype 9's speed: ambush the car, don't chase it. Later tiles bring more keys:
    - **Space** dashes (Battery 1, tile 2).
    - **J** puts down a cone (Hands 1, tile 6).
    - Hold **C** to duck (tile 6).
@@ -97,7 +97,9 @@ python3 pipeline/run.py            # one command: ingest → designer → valida
 | v1 | test road | Opus × 3, full registry | 461,915 | 18,864 | $3.9092 |
 | v2 | test road | Opus designer; Sonnet reviewer, refiner, repair; 65 values | 126,199 | 20,959 | $0.7343 |
 | v3a | Prototype 9 | as v2, with tile geometry | 132,388 | 20,241 | $0.8483 |
-| v3b (shipped) | Prototype 9 | as v3a, with measured affordances | 103,018 | 19,416 | **$0.6637** |
+| v3b | Prototype 9 | as v3a, with measured affordances | 103,018 | 19,416 | $0.6637 |
+| v3c | Prototype 9 | after the playtest fixes (decks out of sight, 70% speed); count-only labels | 103,969 | 14,533 | $0.7394 |
+| v3d (shipped) | Prototype 9 | as v3c; the validator refuses count-only labels; the designer's prompt cached from v3c | 137,313 | 16,575 | **$0.5233** |
 
 ## Layout
 
