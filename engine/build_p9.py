@@ -54,6 +54,64 @@ def game_js():
     ], 'game.js')
 
 
+def p11_game_js(g):
+    """Prototype 11 (GDD Edit 113): the puzzle game's hooks, on top of Submission 7's."""
+    return patch(g, [
+        ("KeyC: 'duck', ControlLeft: 'duck', ControlRight: 'duck', // Submission 7: DUCK\n",
+         "KeyC: 'duck', ControlLeft: 'duck', ControlRight: 'duck', KeyR: 'restart', // Submission 7: DUCK. Prototype 11: R restarts the puzzle\n"),
+        ("  const SAVE_KEY = 'dummies.p7.story', SLOT_KEY = 'dummies.p7.save', MOVED_KEY = 'dummies.p7.saveMoved', memSlots = {};",
+         "  const SAVE_KEY = 'dummies.p11.story', SLOT_KEY = 'dummies.p11.save', MOVED_KEY = 'dummies.p11.saveMoved', memSlots = {}; // Prototype 11: its own save slots"),
+        ("new STORY.StorySim(LEVEL_LIST[i], Object.assign({ 'proto.difficulty': app.difficulty }, app.tune, FIELD), app.story)",
+         "new STORY.StorySim(LEVEL_LIST[i], Object.assign({ 'proto.difficulty': app.difficulty }, app.tune, FIELD), window.P11 ? window.P11.progressFor(app.story) : app.story)"),
+        ("      for (const m of menuQ) if (m === 'pause' && s.phase === 'play') {",
+         "      for (const m of menuQ) if (m === 'restart' && s.p11 && s.phase === 'play') s.restart('R'); // Prototype 11: R, any time in play\n"
+         "      for (const m of menuQ) if (m === 'pause' && s.phase === 'play') {"),
+        ("else if (it === 'ARCADE') { app.mode = 'arcade'; app.screen = 'arcade'; }",
+         "else if (it === 'ARCADE') { if (window.P11 && !window.P11.arcadeOpen()) toast('Arcade is locked. Pass Certification, puzzle 9, to open it'); else { app.mode = 'arcade'; app.screen = 'arcade'; } }"),  # Prototype 11: locked until Map 1 is solved (no comment: the line goes on)
+        ("      STORY: ['STORY', LT('n03', 'The Test City, tile by tile. Each tile wants its write-offs to Farsight\\'s brief.'), sub] };\n",
+         "      STORY: ['STORY', LT('n03', 'The Test City, tile by tile. Each tile wants its write-offs to Farsight\\'s brief.'), sub] };\n"
+         "    if (window.P11) window.P11.titleCards(cardOf, pr, last); // Prototype 11: nine puzzles; Arcade locked\n"),
+        ("  function renderScreen() {",
+         "  const p11G = () => ({ FX, FY, FW, FH, VW, VH, t: app.realT, hit: hitbox, push: (m) => menuQ.push(m), touch: TOUCH.on, pad: app.device === 'pad', U: { rr, txt, panel, wrapText, fitText, FT, C, F_UI, F_BRAND } }); // Prototype 11: the frame's helpers\n"
+         "  function renderScreen() {"),
+        ("    if (app.screen === 'storymap') { drawStoryMap(); return; }",
+         "    if (app.screen === 'storymap') { if (window.P11_UI) { drawField(preview(Math.max(0, LEVEL_LIST.indexOf('monument'))), true); veil(); window.P11_UI.grid(ctx, app, p11G()); } else drawStoryMap(); return; } // Prototype 11: the puzzle grid"),
+        ("      if (app.screen === 'storymap') { // Edit 81",
+         "      if (app.screen === 'storymap' && window.P11) { const r = window.P11.mapKey(app, m); if (r === 'deploy') { startStory(); return; } if (r === 'back') toSaves(); continue; } // Prototype 11: the puzzle grid\n"
+         "      if (app.screen === 'storymap') { // Edit 81"),
+        ("    const x = 96 - 60 * (1 - inK), w = Math.min(760, ddx - 40 - 96);",
+         "    if (s.p11 && window.P11) ({ head, sub, story, goal, extra } = window.P11.cardText(s)); // Prototype 11: the puzzle's card\n"
+         "    const x = 96 - 60 * (1 - inK), w = Math.min(760, ddx - 40 - 96);"),
+        ("  const pauseItems = () => (app.mode === 'story' ? PAUSE_STORY : PAUSE_ITEMS);",
+         "  const PAUSE_P11 = ['Resume', 'Restart puzzle', 'Puzzle grid', 'Options', 'Controls', 'Show trace', 'Quit to title']; // Prototype 11\n"
+         "  const pauseItems = () => (app.mode === 'story' ? (window.P11 ? PAUSE_P11 : PAUSE_STORY) : PAUSE_ITEMS);"),
+        ("          else if (item === 'Story map') { toStoryMap(); return; }",
+         "          else if (item === 'Story map' || item === 'Puzzle grid') { toStoryMap(); return; }\n"
+         "          else if (item === 'Restart puzzle') { app.paused = false; if (s && s.restart) s.restart('pause'); } // Prototype 11"),
+        ("    else if (s.phase === 'report') drawReport(s);",
+         "    else if (s.phase === 'report') { if (s.p11 && window.P11_UI) window.P11_UI.result(ctx, s, p11G()); else drawReport(s); } // Prototype 11: the stars"),
+        ("      if (s.phase === 'report' && m === 'ok') s.continueReport();",
+         "      if (s.phase === 'report' && s.p11) { s.resultKey(m, app.realT); continue; } // Prototype 11: Enter on, R again, Shift the grid\n"
+         "      if (s.phase === 'report' && m === 'ok') s.continueReport();"),
+        ("      if (s.phase === 'next' && app.mode === 'story') { saveStory(); startLevel(LEVEL_LIST.indexOf(app.story.district)); }",
+         "      if (s.p11Go) { const go = s.p11Go; s.p11Go = null; saveStory(); if (go === 'map') toStoryMap(); else startStory(); } // Prototype 11: the next puzzle, the same again, or the grid\n"
+         "      else if (s.phase === 'next' && app.mode === 'story') { saveStory(); startLevel(LEVEL_LIST.indexOf(app.story.district)); }"),
+    ], 'game.js (P11)')
+
+
+def p11_plan(pz):
+    """content/puzzles_map1.json as the duel's plan (window.STORY_MAP1): one tile a puzzle, its rungs and lane as params."""
+    tiles = []
+    for q in pz['puzzles']:
+        params = {'duel.startRung': q['startRung'], 'duel.topRung': q['topRung']}
+        if q.get('route') is not None:
+            params['duel.route'] = q['route']
+        params.update(q.get('params', {}))
+        tiles.append({'n': q['n'], 'tile': q['tile'], 'title': q['name'], 'stage': q['stage'], 'earns': q.get('earns'), 'level': q['level'], 'newIdea': q['new'],
+                      'objective': q['objective'], 'params': params, 'tale': q['tale'], 'hint': q['hints'][0]})
+    return {'map': pz['map'], 'tiles': tiles, 'provenance': {'run': 'content/puzzles_map1.json (set by hand, Edit 113)'}}
+
+
 def world6_js():
     w = (E / 'world6.js').read_text(encoding='utf-8')
     return patch(w, [
@@ -84,7 +142,7 @@ def world6_js():
 RULES = json.loads((ROOT / 'engine' / 'progression.json').read_text(encoding='utf-8'))  # car, player and level: one thing a tile
 
 
-def story_json(plan):
+def story_json(plan, gifts=True):
     d = json.loads((E / 'story_v2.json').read_text(encoding='utf-8'))
     mon = next(x for x in d['districts'] if x['id'] == 'monument')
     assert mon['order'] == [t['tile'] for t in plan['tiles']], 'Map 1 tile order differs from the plan'
@@ -93,7 +151,10 @@ def story_json(plan):
         what = {'hits': f'{o["count"]} damaging hit{"s" if o["count"] != 1 else ""} by the red car', 'stealth': f'{o["count"]} stealth points from the red car', 'incidents': f'{o["count"]} Incidents'}[o['kind']]
         tile.update({'title': t['title'], 'tale': t['tale'], 'stage': t['stage'], 'newIdea': t.get('newIdea', ''), 'hint': t.get('hint', ''),
                      'task': {'kind': 'red', 'label': o['label'], 'brief': f'{what}. {t.get("hint", "")}'.strip(), 'count': o['count'], 'objective': o['kind']}})
-    if any(t.get('earns') for t in plan['tiles']):  # Lawrence (7 Nov): a part earned at a tile's clear rides in on the drone to the next tile
+    if not gifts:  # Prototype 11: each puzzle sets its kit; no drone gifts
+        for t in plan['tiles']:
+            mon['tiles'][t['tile']]['gift'] = None
+    elif any(t.get('earns') for t in plan['tiles']):  # Lawrence (7 Nov): a part earned at a tile's clear rides in on the drone to the next tile
         parts = RULES['parts']
         for t in plan['tiles']:
             mon['tiles'][t['tile']]['gift'] = None
@@ -106,22 +167,26 @@ def story_json(plan):
     return d
 
 
-def main():
-    plan = json.loads((ROOT / 'content' / 'story_map1.json').read_text(encoding='utf-8'))
+def main(p11=False):
+    pz = json.loads((ROOT / 'content' / 'puzzles_map1.json').read_text(encoding='utf-8')) if p11 else None
+    plan = p11_plan(pz) if p11 else json.loads((ROOT / 'content' / 'story_map1.json').read_text(encoding='utf-8'))
+    rules = dict(RULES, levels=dict(RULES['levels'], **pz.get('levels', {}))) if p11 else RULES  # Prototype 11's own level profiles (the boss)
     stages = json.loads((V / 'sim_flags.json').read_text(encoding='utf-8'))['stages']
     reg = json.loads((ROOT / 'pipeline' / 'inputs' / 'tuning.parameters.json').read_text(encoding='utf-8'))
     byid = {e['id']: e for e in reg['entries']}
     cues = json.loads((E / 'cues.json').read_text(encoding='utf-8'))
+    if p11:
+        cues['base'] = '../audio/'  # p11/index.html: the shared audio folder
     cues['params']['audio.settings.master'] = 5  # Lawrence (7 Nov): the volume starts at 5 of 10 (a saved setting still wins)
     js = lambda p: f'<script>\n{p.read_text(encoding="utf-8")}\n</script>\n'
     scripts = js(E / 'jump.js') + ''.join(js(E / f) for f in ('sim.js', 'pixel.js', 'lab.js', 'circus_valley.js'))
     scripts += f'<script>\n{world6_js()}\n</script>\n' + js(E / 'content.js')
     scripts += f'<script>\nwindow.FLEET_DB = {(E / "fleet.json").read_text(encoding="utf-8")};\n</script>\n'
-    scripts += f'<script>\nwindow.DUMMIES_STORY = {json.dumps(story_json(plan), ensure_ascii=False)}; // story_v2.json; Map 1 from content/story_map1.json\n</script>\n'
+    scripts += f'<script>\nwindow.DUMMIES_STORY = {json.dumps(story_json(plan, not p11), ensure_ascii=False)}; // story_v2.json; Map 1 from content/story_map1.json\n</script>\n'
     scripts += js(E / 'lore.js')
     cr = cues['credits']
     credit = ['Music by ' + cr['music'].replace(' on itch.io', ''), 'Sound effects by ' + cr['sfx'].replace(' on itch.io', '')]
-    scripts += ("<script>\nwindow.DUMMIES_LORE.build = 'P9 × P10';\n"
+    scripts += (f"<script>\nwindow.DUMMIES_LORE.build = '{'P11 · PUZZLES' if p11 else 'P9 × P10'}';\n"
                 f"window.DUMMIES_CREDITS.lines = window.DUMMIES_CREDITS.lines.concat({json.dumps(credit, ensure_ascii=False)});\n</script>\n")
     # Prototype 9's values (prototypes/p9/build.py, Edits 97-100), then the integration's
     sim = dict({'arcade.grades': 1, 'ui.introScreen': 1, 'ui.levelCard': 1, 'world.droneDropIn': 1, 'ui.storySplash': 1},
@@ -137,6 +202,9 @@ def main():
         sim[k] = round(byid[k]['default'] * 0.7, 1)
     for t in plan['tiles']:
         sim[f'story.traffic.monument.{t["tile"]}'] = 1.0 if int(t['stage'].split('.')[1]) >= 9 else 0.5
+    if p11:  # Prototype 11: the puzzle's fleet; 0 keeps the tile clear (engine/p11.js removes white ground cars)
+        for q in pz['puzzles']:
+            sim[f'story.traffic.monument.{q["tile"]}'] = q['fleet'] if q['fleet'] > 0 else 0.25
     assert all(k in byid for k in sim), [k for k in sim if k not in byid]
     scripts += f'<script>\nwindow.DUMMIES_SIM = {json.dumps(sim)}; // Prototype 9 (Edits 97-100) + Submission 7; registry {reg["registryVersion"]}\n</script>\n'
     scripts += js(E / 'story7.js') + js(E / 'pads.js')
@@ -144,19 +212,24 @@ def main():
     scripts += js(V / 'testroad.js')
     scripts += '<script>\n' + f'window.DUMMIES_STAGES = {json.dumps({k: {"title": v["title"], "flags": v["flags"]} for k, v in stages.items()})};\n'
     scripts += f'window.STORY_MAP1 = {json.dumps(plan, ensure_ascii=False)}; // content/story_map1.json, written by pipeline/run.py\n</script>\n'
-    scripts += f'<script>\nwindow.DUEL_RULES = {json.dumps(RULES, ensure_ascii=False)}; // engine/progression.json\n</script>\n'
+    scripts += f'<script>\nwindow.DUEL_RULES = {json.dumps(rules, ensure_ascii=False)}; // engine/progression.json\n</script>\n'
     scripts += js(ROOT / 'engine' / 'duel.js') + js(ROOT / 'engine' / 'duel_ui.js')
-    scripts += f'<script>\n{game_js()}\n</script>\n'
+    if p11:
+        scripts += f'<script>\nwindow.P11_PUZZLES = {json.dumps(pz, ensure_ascii=False)}; // content/puzzles_map1.json\n</script>\n'
+        scripts += js(ROOT / 'engine' / 'p11.js') + js(ROOT / 'engine' / 'p11_ui.js')
+    scripts += f'<script>\n{p11_game_js(game_js()) if p11 else game_js()}\n</script>\n'
     shell = (E / 'shell.html').read_text(encoding='utf-8')
-    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · Story Mode</title>')], 'shell.html')
+    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · Puzzles (Prototype 11)</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
     cache = ROOT / 'engine' / '.cache'; cache.mkdir(exist_ok=True)  # for headless checks (node): the same values the page gets
-    (cache / 'runtime.json').write_text(json.dumps({'sim': sim, 'story': story_json(plan), 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': RULES}), encoding='utf-8')
-    out = ROOT / 'index.html'
+    (cache / ('runtime_p11.json' if p11 else 'runtime.json')).write_text(json.dumps({'sim': sim, 'story': story_json(plan, not p11), 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': rules, 'puzzles': pz}), encoding='utf-8')
+    out = ROOT / 'p11' / 'index.html' if p11 else ROOT / 'index.html'
+    out.parent.mkdir(exist_ok=True)
     out.write_text(shell.replace('<!--SCRIPTS-->', scripts), encoding='utf-8')
     missing = [f for c in cues['sfx'].values() for f in c.get('files', []) + c.get('alternates', []) + ([c['tone']] if c.get('tone') else []) if not (ROOT / 'audio' / cues['files'].get(f, {}).get('dir', 'sfx') / f).exists()]
     assert not missing, missing[:5]
-    print(f'engine: wrote index.html {out.stat().st_size:,} bytes; P9 + P10 duel; Map 1 from {plan["provenance"]["run"]}; md5 {hashlib.md5(out.read_bytes()).hexdigest()[:8]}')
+    print(f'engine: wrote {out.relative_to(ROOT)} {out.stat().st_size:,} bytes; {"P11 puzzles" if p11 else "P9 + P10 duel"}; Map 1 from {plan["provenance"]["run"]}; md5 {hashlib.md5(out.read_bytes()).hexdigest()[:8]}')
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    main('--p11' in sys.argv)

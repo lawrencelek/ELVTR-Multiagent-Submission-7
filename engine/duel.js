@@ -108,7 +108,7 @@
       if (this.lesson || !this.redLanes || !this.redLanes.length) return;
       if (this.cars.some((c) => c.red && !c.ghost && !c.gone)) return;
       if (this.t + 1e-9 < this.leftAt + DP['duel.redReturnSeconds']) return;
-      const k = this.redSeq || 0, ln = this.redLanes[Math.floor(((k * 0.6180339887 + 0.31) % 1) * this.redLanes.length)], gap = 2 * P['vehicles.sedan.length'] + 30;
+      const k = this.redSeq || 0, rt = DP['duel.route'], ln = (rt != null && this.redLanes.find((q) => q.i === rt)) || this.redLanes[Math.floor(((k * 0.6180339887 + 0.31) % 1) * this.redLanes.length)], gap = 2 * P['vehicles.sedan.length'] + 30;
       let s0 = null; for (let s = ln.s0; s <= ln.enterS - P['vehicles.sedan.length']; s += 15) if (!this.cars.some((o) => o.path === ln.path && !o.gone && Math.abs(o.s - s) < gap + (o.L || 0) / 2)) { s0 = s; break; }
       if (s0 == null) return; // its lane's run-in is full: next tick
       const keep = P['perception.forwardLength']; P['perception.forwardLength'] = this.beamFor();

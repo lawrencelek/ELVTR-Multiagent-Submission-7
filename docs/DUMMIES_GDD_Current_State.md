@@ -156,3 +156,16 @@
 - **Cover and DUCK:** roadside cover by the tile's level (kerb, setback, rail, tall, low, watched); DUCK once Super Knees is earned (§111.7).
 - **Fleet:** never learns. 10.10's tailgaters and the fleet update between maps are open (§111.8).
 - **Full rules:** `docs/DUMMIES_GDD_Edit111_Submission7_Integration.md` (Submission 7).
+
+## 14 Prototype 11: Map 1 as nine puzzles (Edits 112–113)
+
+- **A puzzle game with progression.** Nine puzzles, A1 to C3; Arcade opens after Certification (§112.2).
+- **Built:** the frame, L1 First Contact, L9 Certification. L2–L8 in build (§113.1).
+- **Flow:** title, saves, name, splash, puzzle grid, card, drone drop, play, write-off, result, lesson or part, next card (§113.2).
+- **Rules:** one tile, fenced; a kit per puzzle; one lane for the red car; R restarts in place (§113.4).
+- **Stars:** ★ Clear, ★ Untouched, ★ Par. Par runs on the attempt clock (§113.4, changes §112.8).
+- **Hint:** after two failed passes (`story.puzzle.hintPasses`, proposed).
+- **Boss:** three hits; lessons mid-puzzle (crash memory, then search); a breakable street camera (§113.6).
+- **Upgrade every third level:** parked; parts already arrive at L2, L4, L7 (§113.5).
+- **Full rules:** `docs/DUMMIES_GDD_Edit113_Prototype_11_Architecture.md`. Build: `p11/index.html`.
+

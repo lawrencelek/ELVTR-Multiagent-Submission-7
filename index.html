@@ -13040,7 +13040,7 @@ window.DUEL_RULES = {"about": "Lawrence (7 Nov, 18:06): each tile progresses one
       if (this.lesson || !this.redLanes || !this.redLanes.length) return;
       if (this.cars.some((c) => c.red && !c.ghost && !c.gone)) return;
       if (this.t + 1e-9 < this.leftAt + DP['duel.redReturnSeconds']) return;
-      const k = this.redSeq || 0, ln = this.redLanes[Math.floor(((k * 0.6180339887 + 0.31) % 1) * this.redLanes.length)], gap = 2 * P['vehicles.sedan.length'] + 30;
+      const k = this.redSeq || 0, rt = DP['duel.route'], ln = (rt != null && this.redLanes.find((q) => q.i === rt)) || this.redLanes[Math.floor(((k * 0.6180339887 + 0.31) % 1) * this.redLanes.length)], gap = 2 * P['vehicles.sedan.length'] + 30;
       let s0 = null; for (let s = ln.s0; s <= ln.enterS - P['vehicles.sedan.length']; s += 15) if (!this.cars.some((o) => o.path === ln.path && !o.gone && Math.abs(o.s - s) < gap + (o.L || 0) / 2)) { s0 = s; break; }
       if (s0 == null) return; // its lane's run-in is full: next tick
       const keep = P['perception.forwardLength']; P['perception.forwardLength'] = this.beamFor();
@@ -13625,7 +13625,7 @@ window.DUEL_RULES = {"about": "Lawrence (7 Nov, 18:06): each tile progresses one
     ctx = cx; s = sim; T = sim && sim.duelT; const d = sim && sim.duelDef;
     if (!T || !d || sim.phase === 'brief' || sim.phase === 'lesson' || sim.duelDone) return;
     const RU = root.DUEL_RULES || { parts: {} }, earnPt = d.earns && d.earns !== 'car' ? RU.parts[d.earns] : null, ri = T.rungInfo(), top = Math.round(T.DP['duel.topRung'] || 0), nxt = T.rung < top ? DUELR()[T.rung + 1] : null, o = d.objective, n = Math.min(sim.duelProgress(), o.count);
-    const lines = [['RED-01 · RUNG ' + T.rung + ' · ' + (ri ? ri.name.toUpperCase() : '') + '   ◎ ' + n + ' / ' + o.count, C.red, 15], [earnPt ? 'CLEAR THE TILE: YOU EARN ' + earnPt.name.toUpperCase() + ' (' + earnPt.verb + ')' : nxt ? 'CLEAR THE TILE: IT LEARNS ' + nxt.name.toUpperCase() + ' FROM THE LAST HIT' : T.rung >= 1 ? 'ALL IT CAN LEARN: OUTWIT IT' : 'IT SENSES NOTHING YET', earnPt ? C.dummy : C.dim, 12]].concat(sim.duelDuck ? [['HOLD C · DUCK BEHIND LOW COVER', C.dim, 11]] : []);
+    const lines = [['RED-01 · RUNG ' + T.rung + ' · ' + (ri ? ri.name.toUpperCase() : '') + '   ◎ ' + n + ' / ' + o.count, C.red, 15], [earnPt ? 'CLEAR THE TILE: YOU EARN ' + earnPt.name.toUpperCase() + ' (' + earnPt.verb + ')' : nxt && sim.p11 ? (o.count > 1 ? 'YOUR NEXT HIT TEACHES IT ' : 'YOUR HIT TEACHES IT ') + nxt.name.toUpperCase() : nxt ? 'CLEAR THE TILE: IT LEARNS ' + nxt.name.toUpperCase() + ' FROM THE LAST HIT' : T.rung >= 1 ? 'ALL IT CAN LEARN: OUTWIT IT' : 'IT SENSES NOTHING YET', earnPt ? C.dummy : C.dim, 12]].concat(sim.duelDuck ? [['HOLD C · DUCK BEHIND LOW COVER', C.dim, 11]] : []);
     ctx.save(); ctx.font = '700 19px B612, system-ui, sans-serif';
     const w = Math.max(...lines.map(([t, , z]) => { ctx.font = `700 ${z}px B612, system-ui, sans-serif`; return ctx.measureText(t).width; })) + 24, h = 16 + lines.length * 19, x = G.FX + 10, y = G.FY + 10;
     rect(x, y, w, h, C.panel); ctx.strokeStyle = C.red; ctx.lineWidth = 1.5; ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
@@ -13711,7 +13711,8 @@ window.DUEL_RULES = {"about": "Lawrence (7 Nov, 18:06): each tile progresses one
     text('PART EARNED: ' + String(pt.name || L.part).toUpperCase(), x + 34, y + 104, 40, C.dummy, 'left', 900);
     text(String(pt.verb || '') + ' · ' + String(pt.key || '').toUpperCase(), x + 36, y + 150, 24, C.text, 'left', 900);
     text(String(pt.text || ''), x + 36, y + 196, 20, C.text);
-    text(pt.p9 ? 'The drone fits it on the way to ' + (L.next || 'the next tile') + '. You will need it there.' : 'Fitted now. You will need it on ' + (L.next || 'the next tile') + '.', x + 36, y + 236, 18, '#9ff2c8');
+    const nx = root.P11 && root.P11.lessonNext ? root.P11.lessonNext(s) : null; // Prototype 11: the next puzzle
+    text(nx ? 'Fitted for the next puzzle. ' + nx : pt.p9 ? 'The drone fits it on the way to ' + (L.next || 'the next tile') + '. You will need it there.' : 'Fitted now. You will need it on ' + (L.next || 'the next tile') + '.', x + 36, y + 236, 18, '#9ff2c8');
     if (Math.floor((G.t || 0) * 2) % 2 === 0) text('ENTER · CONTINUE', x + w - 34, y + h - 30, 20, C.dummy, 'right', 900);
     ctx.restore();
   }
@@ -13728,7 +13729,9 @@ window.DUEL_RULES = {"about": "Lawrence (7 Nov, 18:06): each tile progresses one
     let yy = y + 196;
     yy = wrap(info[0], x + 36, yy, w - 72, 30, 22, C.text) + 14;
     text('CLOSED', x + 36, yy, 15, C.red); yy = wrap(info[1], x + 150, yy, w - 186, 28, 20, C.text) + 10;
-    text('OPEN', x + 36, yy, 15, '#9ff2c8'); yy = wrap(info[2], x + 150, yy, w - 186, 28, 20, '#9ff2c8') + 10;
+    const nx = root.P11 && root.P11.lessonNext ? root.P11.lessonNext(s) : null; // Prototype 11: the next puzzle, not how to beat it
+    if (nx) { text('NEXT', x + 36, yy, 15, C.dummy); yy = wrap(nx, x + 150, yy, w - 186, 28, 20, C.dummy) + 10; }
+    else { text('OPEN', x + 36, yy, 15, '#9ff2c8'); yy = wrap(info[2], x + 150, yy, w - 186, 28, 20, '#9ff2c8') + 10; }
     if (Math.floor((G.t || 0) * 2) % 2 === 0) text('ENTER · CONTINUE', x + w - 34, y + h - 30, 20, C.dummy, 'right', 900);
     ctx.restore();
   }

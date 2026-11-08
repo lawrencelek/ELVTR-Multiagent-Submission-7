@@ -9,6 +9,7 @@
 | **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) (2 min 48 s) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
 | **One-page audit** | [`docs/02_Pipeline_Audit.md`](docs/02_Pipeline_Audit.md) |
 | **P9 × P10 integration** | [`docs/01_P9_P10_Integration_Analysis.md`](docs/01_P9_P10_Integration_Analysis.md) · GDD [Edit 111](docs/DUMMIES_GDD_Edit111_Submission7_Integration.md) |
+| **Prototype 11 (puzzles)** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11/** · GDD [Edit 113](docs/DUMMIES_GDD_Edit113_Prototype_11_Architecture.md) |
 | **Target engine** | Phaser 3 (next). Today: Prototype 9's HTML5 Canvas engine, with Prototype 10's driver |
 
 ## Concept
@@ -46,6 +47,16 @@
 9. Each tile's level sets its cover: signal cabinets, kiosks and billboards hide you standing; K-rails need a jump; once you earn Super Knees, hold **C** to duck behind planters and hedges.
 
 `junction.html` is the earlier version: the same plan on Prototype 10's one-junction test road.
+
+## Prototype 11: the puzzle game (8 Nov, GDD Edits 112–113)
+
+- Story Map 1 as nine puzzles, A1 to C3, after Joshua Burdick's 1-on-1: one new thing a puzzle, three stars, instant retry, a level grid (Hitman GO's structure).
+- **Built:** the frame, puzzle 1 (First Contact) and puzzle 9 (Certification, the boss). Puzzles 2–8 show IN BUILD; puzzle 1 opens puzzle 9.
+- **Keys:** as above, plus **R** to restart the puzzle in place. Pause has Restart puzzle and the puzzle grid.
+- **Stars:** ★ Clear (the red car hits you, its fault) · ★ Untouched (no white car, no fault of yours) · ★ Par (the attempt's time).
+- **The boss:** three hits; it learns crash memory after the first and the search after the second. A dash into a street camera's post breaks it.
+- **Arcade:** locked until Certification is passed. Saves are Prototype 11's own (three slots).
+- Content: `content/puzzles_map1.json` (set by hand). Engine: `engine/p11.js`, `engine/p11_ui.js`. Build: `python3 engine/build_p9.py --p11`. Test: `node engine/p11_test.js --boss 200`.
 
 ## Pipeline
 
@@ -119,9 +130,10 @@ python3 pipeline/run.py            # one command: ingest → designer → valida
 ```
 pipeline/   run.py ingest.py validate.py llm.py make_video.py · agents/*.md · inputs/ · runs/<run>/
 engine/     build_p9.py duel.js duel_ui.js affordances.js p9_tiles_test.js p9_play_test.js p9_probe.js · p9/ (Prototype 9) · vendor/ (Prototype 10)
+            p11.js p11_ui.js p11_test.js p11_goto.js (Prototype 11: build_p9.py --p11)
             build.py tiles_test.js play_test.js story.js (junction.html)
-content/    story_map1.json   (pipeline output)
+content/    story_map1.json   (pipeline output) · puzzles_map1.json (Prototype 11, by hand)
 audio/      Prototype 9's music and effects
 docs/       01 analysis · 02 audit · GDD Edit 111 · pipeline_run.mp4
-index.html  the playable build · junction.html  the test-road build
+index.html  the playable build · junction.html  the test-road build · p11/index.html  Prototype 11, the puzzles
 ```
