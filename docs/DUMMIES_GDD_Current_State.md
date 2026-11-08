@@ -170,3 +170,7 @@
 - **Full rules:** `docs/DUMMIES_GDD_Edit113_Prototype_11_Architecture.md`. Build: `p11/index.html`.
 - **Pressure test (Edit 114):** keep A1; fix B1, C1, C2, B2, A3, C3; rework A2, B3. A3 has no camera today.
 - **Vehicles (Edit 114 §114.6):** one learner per map. Monument: RED-01, a sedan. Proposed: Parkland a van, Waterfront a police car.
+- **Map 1 redesigned (Edit 115):** nine puzzles train RED-01, rungs 0 to 7. All nine built. Order A1 B1 C1 B2 A2 A3 C2 B3 C3.
+- **The escalation:** certified, RED-01 returns on Map 2 as a drone car; a van learns there. The light and the clients move to Map 2.
+- **Inventory:** `docs/DUMMIES_Level_Inventory.md`; 27 tiles and the level design assets.
+

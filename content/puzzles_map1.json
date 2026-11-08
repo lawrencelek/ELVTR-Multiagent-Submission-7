@@ -1,122 +1,496 @@
 {
-  "about": "Prototype 11: Story Map 1 as nine puzzles (GDD Edit 112 §112.4, §112.8; Edit 113). Set by hand. 'built' puzzles play; the rest show IN BUILD on the grid. Rungs: 0 blind, 1 forward camera, 2 side sensors, 3 roof lidar, 4 street cameras, 5 road items, 6 crash memory, 7 search. Kit: the parts held (battery1 dash, hands1 cones, knees1 Super Knees duck, legs1 jump). Fleet: story.traffic.monument.<tile>; 0 clears white ground cars off the tile. Route: the red car's lane (duel.route, proposed). Par and target in seconds (story.puzzle.par.<tile>, story.puzzle.target.<tile>, proposed).",
-  "map": {
-    "id": "monument",
-    "title": "MAP 1 · MONUMENT",
-    "intro": "Dummy Corporation welcomes you off the factory floor. The cars are your colleagues; the red one learns. Certification is your goal."
-  },
-  "hintPasses": 2,
-  "levels": {
-    "boss": {
-      "text": "Three pieces: a tall one no camera sees, a low one, and a tall one a street camera watches. A dash breaks the camera's post.",
-      "cover": ["cabinet", "kiosk", "hedge"],
-      "gap": [2, 42],
-      "cameras": true
-    }
-  },
-  "puzzles": [
-    {
-      "n": 1, "tile": "A1", "name": "First Contact", "built": true,
-      "new": "The red car. It is blind.",
-      "stage": "10.2", "startRung": 0, "topRung": 1, "earns": "car", "level": "open", "kit": [], "fleet": 0, "route": 0, "steps": 1,
-      "objective": { "kind": "hits", "count": 1, "label": "GET HIT BY THE RED CAR" },
-      "tale": "Fresh off the factory floor. Your first colleague is red, keen and blind. Walk out and meet it.",
-      "twist": "Walk into its side and the fault is yours: no points.",
-      "hints": ["It cannot see you. Be where it is going, and wait."],
-      "solution": "Stand in its lane; let it come.",
-      "par": 10, "target": 30
-    },
-    {
-      "n": 2, "tile": "B1", "name": "Kerbside", "built": false,
-      "new": "Its forward camera. Cover at the kerb.",
-      "stage": "10.3", "startRung": 1, "topRung": 1, "earns": "battery1", "level": "kerb", "kit": [], "fleet": 0, "route": 0, "steps": 1,
-      "objective": { "kind": "hits", "count": 1, "label": "GET HIT BY THE RED CAR" },
-      "tale": "RED-01 now has eyes on its bonnet. It stops for anything in its lane. Almost anything.",
-      "twist": "Stand in its lane: it stops.",
-      "hints": ["It stops for what it sees. Be somewhere else until it is too late."],
-      "solution": "Hide at the kerb; step out when it cannot stop.",
-      "par": 10, "target": 40
-    },
-    {
-      "n": 3, "tile": "C1", "name": "Set Back", "built": false,
-      "new": "Dash. Cover set back from the road.",
-      "stage": "10.3", "startRung": 1, "topRung": 2, "earns": "car", "level": "setback", "kit": ["battery1"], "fleet": 0, "route": 0, "steps": 1,
-      "objective": { "kind": "hits", "count": 1, "label": "GET HIT BY THE RED CAR" },
-      "tale": "The cover here stands well back. Walking out is too slow. Dummy Corporation has issued you a battery.",
-      "twist": "Walk out: too slow. Dash at it: your fault.",
-      "hints": ["Land ahead of its nose, not on its side. The guide turns yellow."],
-      "solution": "Dash to land ahead of its nose (guide: HIT).",
-      "par": 15, "target": 50
-    },
-    {
-      "n": 4, "tile": "C2", "name": "Overpass", "built": false,
-      "new": "Side sensors. The deck above the road.",
-      "stage": "10.4", "startRung": 2, "topRung": 2, "earns": "hands1", "level": "deck", "kit": ["battery1"], "fleet": 0, "route": 0, "steps": 1,
-      "objective": { "kind": "hits", "count": 1, "label": "GET HIT BY THE RED CAR" },
-      "tale": "RED-01 now watches the kerbs. It cannot see up.",
-      "twist": "Wait by the road: it sees you and stops short.",
-      "hints": ["It watches the ground beside it. Not the sky."],
-      "solution": "Escalator up out of view; drop through the parapet gap.",
-      "par": 20, "target": 60
-    },
-    {
-      "n": 5, "tile": "B2", "name": "Roundabout", "built": false,
-      "new": "Cones.",
-      "stage": "10.4", "startRung": 2, "topRung": 3, "earns": "car", "level": "cones", "kit": ["battery1", "hands1"], "fleet": 0, "route": 0, "steps": 1,
-      "objective": { "kind": "hits", "count": 1, "label": "GET HIT BY THE RED CAR" },
-      "tale": "Road items move it. A cone in its lane and it swerves.",
-      "twist": "A cone in its lane: it swerves round it.",
-      "hints": ["Its swerve goes somewhere. Be there."],
-      "solution": "Stand where its swerve goes.",
-      "par": 20, "target": 60
-    },
-    {
-      "n": 6, "tile": "A2", "name": "Red Light", "built": false,
-      "new": "A traffic-light switch. White traffic.",
-      "stage": "10.5", "startRung": 3, "topRung": 4, "earns": "car", "level": "tall", "kit": ["battery1", "hands1"], "fleet": 0.5, "route": 0, "steps": 2,
-      "objective": { "kind": "hits", "count": 1, "label": "GET HIT BY THE RED CAR" },
-      "tale": "A junction with a light Dummy Corporation can switch. So can you.",
-      "twist": "It stops at red, far from you.",
-      "hints": ["Hold the cross street at red to cross untouched. Then change it back."],
-      "solution": "Switch, cross, switch, step.",
-      "par": 30, "target": 80
-    },
-    {
-      "n": 7, "tile": "A3", "name": "CCTV", "built": false,
-      "new": "A breakable camera.",
-      "stage": "10.5", "startRung": 4, "topRung": 4, "earns": "knees1", "level": "watched", "kit": ["battery1", "hands1"], "fleet": 0.5, "route": 0, "steps": 2,
-      "objective": { "kind": "hits", "count": 1, "label": "GET HIT BY THE RED CAR" },
-      "tale": "The street cameras report to the car. The cameras are cheaper than you.",
-      "twist": "Any cover: a camera tells the car.",
-      "hints": ["A dash breaks a camera post."],
-      "solution": "Break the camera, then dash from the cover it watched.",
-      "par": 30, "target": 80
-    },
-    {
-      "n": 8, "tile": "B3", "name": "Crossing", "built": false,
-      "new": "Clients on the zebra.",
-      "stage": "10.6", "startRung": 4, "topRung": 5, "earns": "car", "level": "low", "kit": ["battery1", "hands1", "knees1"], "fleet": 0.5, "route": 0, "steps": 2,
-      "objective": { "kind": "hits", "count": 1, "label": "GET HIT BY THE RED CAR" },
-      "tale": "Clause 4: when a vehicle must choose, it spares the costlier body. Clients cost more than you.",
-      "twist": "Step out: it brakes, and a client is in its swerve.",
-      "hints": ["Make yourself its only way out."],
-      "solution": "Duck behind the crossing wall; step out so its only escape is you.",
-      "par": 30, "target": 80
-    },
-    {
-      "n": 9, "tile": "C3", "name": "Certification", "built": true,
-      "new": "A boss. It learns between your hits.",
-      "stage": "10.8", "startRung": 5, "topRung": 7, "earns": null, "level": "boss", "kit": ["battery1", "hands1", "knees1"], "fleet": 0.5, "route": 0, "steps": 3, "breakableCameras": true, "camera": { "watch": "kiosk" },
-      "objective": { "kind": "hits", "count": 3, "label": "THREE HITS · A NEW WAY EACH" },
-      "tale": "Certification. RED-01 has learned from every dummy so far. It will learn from you three more times.",
-      "twist": "The same move twice: it remembers.",
-      "hints": [
-        "A street camera tells it what it sees. Hide where the camera cannot look.",
-        "It remembers where you came from. Use a new spot.",
-        "A dash breaks a camera post. Then its cover is yours."
-      ],
-      "solution": "Hit 1 any way. Hit 2 from a new spot. Hit 3: break the camera, dash from the cover it watched.",
-      "par": 45, "target": 120
-    }
+ "about": "Prototype 11: Story Map 1 as nine puzzles, redesigned (GDD Edit 115, after the Edit 114 pressure test). Set by hand. One learner: RED-01, a sedan, rung 0 to 7 over the nine (puzzle 4 teaches roof lidar and street cameras together); certified, it returns on Map 2 as a drone car. Rungs: 0 blind, 1 forward camera, 2 side sensors, 3 roof lidar, 4 street cameras, 5 road items, 6 crash memory, 7 search. Kit: the parts issued for this test (battery1 dash, hands1 cones, knees1 Super Knees duck). Fleet: story.traffic.monument.<tile>; 0 clears every white car off the tile and its neighbours, decks included. Route: the red car's lane (duel.route, proposed). Layout (Edit 115): drop [x, y]; cones [] or [[x, y]...]; cover [{kind, at 0..1 along the route on screen, side left|right|N|S|E|W, gap from the kerb}]. Par and target in seconds (story.puzzle.par.<tile>, story.puzzle.target.<tile>, proposed). The traffic-light switch and the clients move to Map 2 (Parkland), with its new learner.",
+ "map": {
+  "id": "monument",
+  "title": "MAP 1 · MONUMENT",
+  "intro": "Dummy Corporation welcomes you off the factory floor. The cars are your colleagues; the red one learns. Certification is your goal.",
+  "order": [
+   "A1",
+   "B1",
+   "C1",
+   "B2",
+   "A2",
+   "A3",
+   "C2",
+   "B3",
+   "C3"
   ]
+ },
+ "hintPasses": 2,
+ "levels": {
+  "boss": {
+   "text": "Three pieces: a tall one no camera sees, a low one, and a tall one a street camera watches. A dash breaks the camera's post.",
+   "cover": [
+    "cabinet",
+    "kiosk",
+    "hedge"
+   ],
+   "gap": [
+    2,
+    42
+   ],
+   "cameras": true
+  }
+ },
+ "puzzles": [
+  {
+   "n": 1,
+   "tile": "A1",
+   "name": "First Contact",
+   "built": true,
+   "new": "The red car. It is blind.",
+   "stage": "10.2",
+   "startRung": 0,
+   "topRung": 1,
+   "earns": "car",
+   "level": "open",
+   "kit": [],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE RED CAR"
+   },
+   "layout": {
+    "drop": [
+     400,
+     224
+    ],
+    "cones": []
+   },
+   "tale": "Fresh off the factory floor. Your first colleague is red, keen and blind. Walk out and meet it.",
+   "twist": "Walk into its side and the fault is yours: no points.",
+   "hints": [
+    "It cannot see you. Be where it is going, and wait."
+   ],
+   "solution": "Stand in its lane; let it come.",
+   "par": 10,
+   "target": 30
+  },
+  {
+   "n": 2,
+   "tile": "B1",
+   "name": "Stop Line",
+   "built": true,
+   "new": "Its forward camera. It stops for you in its lane.",
+   "stage": "10.3",
+   "startRung": 1,
+   "topRung": 2,
+   "earns": "car",
+   "level": "open",
+   "kit": [],
+   "fleet": 0,
+   "route": 1,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE RED CAR"
+   },
+   "layout": {
+    "drop": [
+     368,
+     224
+    ],
+    "cones": []
+   },
+   "tale": "RED-01 now has eyes on its bonnet. It brakes for anything in its lane. Anything it sees in time.",
+   "twist": "Stand in its lane: it stops at its line.",
+   "hints": [
+    "It stops for what it sees in its lane. Step in when it can no longer stop."
+   ],
+   "solution": "Wait at the kerb; step in inside its stop line.",
+   "par": 15,
+   "target": 40
+  },
+  {
+   "n": 3,
+   "tile": "C1",
+   "name": "High Road",
+   "built": true,
+   "new": "Its side sensors. It sees the kerb.",
+   "stage": "10.3",
+   "startRung": 2,
+   "topRung": 2,
+   "earns": "battery1",
+   "level": "open",
+   "kit": [],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE RED CAR"
+   },
+   "layout": {
+    "drop": [
+     464,
+     224
+    ],
+    "cones": []
+   },
+   "tale": "RED-01 now watches both kerbs. The high road above it has a gap in its parapet. Gravity is company policy.",
+   "twist": "Wait at the kerb: it sees you and stops short.",
+   "hints": [
+    "It watches the kerbs, not the sky."
+   ],
+   "solution": "Escalator up to the high road; drop through the parapet gap as it passes under.",
+   "par": 20,
+   "target": 60
+  },
+  {
+   "n": 4,
+   "tile": "B2",
+   "name": "The Island",
+   "built": true,
+   "new": "Battery 1: the dash.",
+   "stage": "10.4",
+   "startRung": 2,
+   "topRung": 4,
+   "earns": "car",
+   "level": "open",
+   "kit": [
+    "battery1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE RED CAR"
+   },
+   "layout": {
+    "drop": [
+     416,
+     496
+    ],
+    "cones": [],
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.5,
+      "side": "N",
+      "gap": 2
+     }
+    ]
+   },
+   "tale": "The plaque reads ZERO ACCIDENTS. Its sensors cannot see through the kiosk on the island. You can dash.",
+   "twist": "Walk out: it sees you. Dash at its side: your fault.",
+   "hints": [
+    "Hide where its sensors cannot see. Dash to land ahead of its nose."
+   ],
+   "solution": "Cross to the island; hide behind the kiosk; dash to land ahead of its nose.",
+   "par": 20,
+   "target": 60
+  },
+  {
+   "n": 5,
+   "tile": "A2",
+   "name": "CCTV",
+   "built": true,
+   "new": "Street cameras. A dash breaks a post.",
+   "stage": "10.5",
+   "startRung": 4,
+   "topRung": 4,
+   "earns": "hands1",
+   "level": "open",
+   "kit": [
+    "battery1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 2,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE RED CAR"
+   },
+   "layout": {
+    "drop": [
+     336,
+     128
+    ],
+    "cones": [],
+    "cover": [
+     {
+      "kind": "cabinet",
+      "at": 0.46,
+      "side": "N",
+      "gap": 2
+     }
+    ]
+   },
+   "tale": "The neon shops sell nothing, but the traffic reads them. So do the street cameras, and they report.",
+   "twist": "Hide behind the cabinet: the camera tells the car.",
+   "hints": [
+    "A dash breaks a camera post. Break it while the car is away."
+   ],
+   "solution": "Dash into the camera post between passes; then hide behind the cabinet and dash.",
+   "par": 30,
+   "target": 80,
+   "breakableCameras": true,
+   "camera": {
+    "watch": "cabinet"
+   }
+  },
+  {
+   "n": 6,
+   "tile": "A3",
+   "name": "Swerve",
+   "built": true,
+   "new": "Hands 1: cones. Today, no battery.",
+   "stage": "10.6",
+   "startRung": 4,
+   "topRung": 5,
+   "earns": "car",
+   "level": "open",
+   "kit": [
+    "hands1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 2,
+   "breakableCameras": false,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE RED CAR"
+   },
+   "layout": {
+    "drop": [
+     400,
+     224
+    ],
+    "cones": [
+     [
+      340,
+      224
+     ],
+     [
+      470,
+      220
+     ]
+    ],
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.57,
+      "side": "N",
+      "gap": 2
+     }
+    ]
+   },
+   "tale": "The stacked cubes rose one budget at a time. Today you test with Hands 1 alone. It swerves round cones.",
+   "twist": "No dash: it sees you at the kerb and stops short.",
+   "hints": [
+    "A cone in its lane: it swerves. Be where the swerve goes."
+   ],
+   "solution": "Carry a cone into its lane; hide behind the kiosk; step into the other lane as it swerves.",
+   "par": 30,
+   "target": 80
+  },
+  {
+   "n": 7,
+   "tile": "C2",
+   "name": "Portal",
+   "built": true,
+   "new": "Road items. It stops for cones.",
+   "stage": "10.6",
+   "startRung": 5,
+   "topRung": 5,
+   "earns": "knees1",
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 2,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE RED CAR"
+   },
+   "layout": {
+    "drop": [
+     400,
+     224
+    ],
+    "cones": [
+     [
+      480,
+      236
+     ],
+     [
+      520,
+      236
+     ]
+    ],
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.56,
+      "side": "N",
+      "gap": 2
+     }
+    ]
+   },
+   "tale": "The road runs through the portal tower at the sixth floor. RED-01 now stops for anything left in the road.",
+   "twist": "A cone in its lane: it stops now.",
+   "hints": [
+    "Cones stop it. Cameras still break."
+   ],
+   "solution": "Break the camera between passes; hide behind the kiosk; dash.",
+   "par": 30,
+   "target": 80,
+   "breakableCameras": true,
+   "camera": {
+    "watch": "kiosk"
+   }
+  },
+  {
+   "n": 8,
+   "tile": "B3",
+   "name": "LED Canyon",
+   "built": true,
+   "new": "Super Knees: hold C to duck.",
+   "stage": "10.6",
+   "startRung": 5,
+   "topRung": 5,
+   "earns": null,
+   "level": "open",
+   "kit": [
+    "battery1",
+    "knees1"
+   ],
+   "fleet": 0,
+   "route": 1,
+   "steps": 1,
+   "breakableCameras": false,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE RED CAR"
+   },
+   "layout": {
+    "drop": [
+     320,
+     224
+    ],
+    "cones": [],
+    "cover": [
+     {
+      "kind": "hedge",
+      "at": 0.74,
+      "side": "N",
+      "gap": 2
+     },
+     {
+      "kind": "planter",
+      "at": 0.9,
+      "side": "N",
+      "gap": 2
+     }
+    ]
+   },
+   "tale": "Two screens advertise to each other all night. Low hedges line the canyon. Your new knees fold.",
+   "twist": "Hide behind the hedge standing: it sees you over it.",
+   "hints": [
+    "Low cover hides you only if you are lower. Hold C."
+   ],
+   "solution": "Duck behind the hedge (hold C); dash out as it passes.",
+   "par": 25,
+   "target": 70
+  },
+  {
+   "n": 9,
+   "tile": "C3",
+   "name": "Certification",
+   "built": true,
+   "new": "A boss. It learns between your hits.",
+   "stage": "10.8",
+   "startRung": 5,
+   "topRung": 7,
+   "earns": null,
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "fleet": 0.5,
+   "route": 0,
+   "steps": 3,
+   "breakableCameras": true,
+   "camera": {
+    "watch": "kiosk"
+   },
+   "objective": {
+    "kind": "hits",
+    "count": 3,
+    "label": "THREE HITS · A NEW WAY EACH"
+   },
+   "layout": {
+    "drop": [
+     400,
+     384
+    ],
+    "cover": [
+     {
+      "kind": "cabinet",
+      "at": 0.51,
+      "side": "N",
+      "gap": 2
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.675,
+      "side": "N",
+      "gap": 2
+     },
+     {
+      "kind": "hedge",
+      "at": 0.15,
+      "side": "S",
+      "gap": 2
+     }
+    ],
+    "cones": [
+     [
+      360,
+      380
+     ],
+     [
+      640,
+      368
+     ]
+    ]
+   },
+   "tale": "Certification. RED-01 has learned from every dummy so far. It will learn from you three more times.",
+   "twist": "The same move twice: it remembers.",
+   "hints": [
+    "A street camera tells it what it sees. Hide where the camera cannot look.",
+    "It remembers where you came from. Use a new spot.",
+    "A dash breaks a camera post. Then its cover is yours."
+   ],
+   "solution": "Hit 1 from the cabinet. Hit 2 ducked behind the hedge. Hit 3: break the camera, dash from the kiosk.",
+   "par": 60,
+   "target": 120
+  }
+ ],
+ "map2": {
+  "district": "Parkland",
+  "learner": "a van (Porter), New",
+  "elements": [
+   "traffic-light switch (A1 junction)",
+   "clients on a crossing (the van swerves late)",
+   "RED-01 returns as a Senior drone car with its rungs"
+  ],
+  "source": "Edit 114 §114.6, Edit 115"
+ }
 }

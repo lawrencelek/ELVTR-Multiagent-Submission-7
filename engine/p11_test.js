@@ -97,14 +97,16 @@ const steps = [], fail = (m) => { steps.push('FAIL ' + m); };
   steps.push('Enter → ' + s.phase);
   await pg.waitForTimeout(1800); await shot('06_lesson_clip');
   s = await until((q) => q.phase !== 'lesson', 15000, async () => { await pg.keyboard.press('Enter'); await pg.waitForTimeout(700); });
-  s = await until((q) => q.phase === 'brief' && q.puzzle === 'C3', 15000);
-  await pg.waitForTimeout(500); await shot('07_card_C3');
+  const NEXT = await pg.evaluate(() => window.P11.ORDER[1]); // puzzle 2 (Edit 115: all nine built)
+  s = await until((q) => q.phase === 'brief' && q.puzzle === NEXT, 15000);
+  await pg.waitForTimeout(500); await shot('07_card_next');
   const save = await pg.evaluate(() => { try { return JSON.parse(localStorage.getItem('dummies.p11.save1')).progress.p11; } catch (e) { return null; } });
   steps.push('next → ' + s.puzzle + ' ' + s.phase + ' rung ' + s.rung + ' cams ' + s.cams + ' · save ' + JSON.stringify(save));
-  if (s.puzzle !== 'C3' || !save || !save.best.A1) fail('L9 card or save');
+  if (s.puzzle !== NEXT || !save || !save.best.A1) fail('next card or save');
 
   // 3. the boss (optional): the cut-in bot; a scripted dash into the camera post
   if (BOSS > 0) {
+    await require('./p11_goto.js')(pg, 'C3'); // the boss, from a save with puzzles 1-8 solved
     await key('Enter');
     s = await until((q) => q.phase === 'play' && !q.rescue, 10000);
     const cam = await pg.evaluate(() => { const s = window.__dummies.sim, c = (s.duelT.level.cameras || [])[0], b = s.body; if (!c) return null; const dx = c[0] - b.x, dy = c[1] - b.y, l = Math.hypot(dx, dy); Object.assign(b, { x: c[0] - dx / l * 40, y: c[1] - dy / l * 40, px: c[0] - dx / l * 40, py: c[1] - dy / l * 40 }); return { c, dir: [dx / l, dy / l] }; });

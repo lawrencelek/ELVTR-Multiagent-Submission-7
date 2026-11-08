@@ -192,6 +192,29 @@
       if (row.length >= 2) { out.push(...row); break; } }
     return out;
   }
+  // Prototype 11 (Edit 115): a puzzle's own pieces, by the route's coordinates. at: 0..1 along the route on screen; side: 'left' or
+  // 'right' of travel, or a compass side (N, S, E, W); gap from the kerb. A row repeats a kind along the kerb, 'space' apart
+  // (under body.radius × 2, so a walk cannot pass; a dash vaults planters and hedges).
+  function placeLayout(T, sc, P, DP, lay) {
+    const LW = P['world.laneWidth'], W = P['world.width'], H = P['world.height'], out = [], skipped = [];
+    const ln = T.redLanes.find((l) => l.i === DP['duel.route']) || T.redLanes[0]; if (!ln) return { out, skipped };
+    const solid = (sc.game.statics || []).filter((q) => q.kind !== 'mass' && q.kind !== 'bound' && !q.duel).concat(sc.stairs || []);
+    const sOf = (at) => ln.enterS + clamp(at, 0, 1) * (ln.exitS - ln.enterS);
+    const sideOf = (q, side) => { const c = { N: [0, -1], S: [0, 1], E: [1, 0], W: [-1, 0] }[side]; if (c) return q.nx * c[0] + q.ny * c[1] >= 0 ? 1 : -1; const l = q.nx * -q.ty + q.ny * q.tx; return (side === 'right') === (l > 0) ? 1 : -1; }; // right of travel: (-ty, tx) in screen axes (y down)
+    const piece = (kind, s, side, gap, id) => {
+      const k = COVER[kind], q = X.pathAt(ln.path, s), sg = sideOf(q, side), ax = Math.abs(q.tx) >= Math.abs(q.ty);
+      const off = (sg > 0 ? ln.path.edges[1] : ln.path.edges[0]) + sg * ((gap != null ? gap : 2) + k.d / 2), cx = q.x + q.nx * off, cy = q.y + q.ny * off;
+      const r = ax ? { x: cx - k.w / 2, y: cy - k.d / 2, w: k.w, h: k.d } : { x: cx - k.d / 2, y: cy - k.w / 2, w: k.d, h: k.w };
+      const pts = [[r.x, r.y], [r.x + r.w, r.y], [r.x, r.y + r.h], [r.x + r.w, r.y + r.h], [r.x + r.w / 2, r.y + r.h / 2]];
+      const why = r.x < 8 || r.y < 8 || r.x + r.w > W - 8 || r.y + r.h > H - 8 ? 'edge' : rectHits(r, solid, 2) ? 'solid' : rectHits(r, out, 1) ? 'overlap'
+        : (T.level.lanes || []).some((p) => pts.some(([x, y]) => Math.abs(X.pathProject(p, x, y).lat) < LW / 2 + 1)) ? 'lane' : null;
+      if (why) { skipped.push(kind + '@' + Math.round(cx) + ',' + Math.round(cy) + ' ' + why); return null; }
+      return Object.assign(r, { kind, low: !!k.low, height: k.low ? (kind === 'planter' ? DP['props.planter.height'] || k.h : k.h) : undefined, id: id || kind + out.length, duel: true });
+    };
+    for (const c of lay.cover || []) { const r = piece(c.kind, sOf(c.at), c.side, c.gap); if (r) out.push(r); }
+    for (const w of lay.rows || []) { const k = COVER[w.kind], step = k.w + (w.space != null ? w.space : 8); for (let s = sOf(w.from); s <= sOf(w.to) + 1e-6; s += step) { const r = piece(w.kind, s, w.side, w.gap, w.kind + 'row' + out.length); if (r) out.push(r); } }
+    return { out, skipped };
+  }
   const placePlanters = (T, sc, P, DP, lanes) => placeCover(T, sc, P, DP, lanes, ['planter', 'hedge']).filter((q) => q.low && q.kind !== 'bollard'); // the low cover alone (affordances)
   function placeCameras(sc, P, lanes, low) { // rung 4's street cameras: on the kerb, by the tall cover they watch, clear of the low cover (planters stay a hiding place)
     const LW = P['world.laneWidth'], W = P['world.width'], H = P['world.height'], out = [], tall = (sc.game.statics || []).filter((q) => q.kind === 'block' || q.kind === 'booth' || q.kind === 'sculpture' || q.kind === 'column' || q.kind === 'monument'), cands = [];
@@ -218,7 +241,8 @@
       lesson: null, lessons: [], delivery: null, firstBrakeT: null, firstSideT: null, firstCoverT: null, firstItemT: null, crashes: [], spring: null,
       whiteFleet: (DP['scoring.incidentPoints'] || 0) > 0, stealth: { points: 0, unseen: 0, lost: 0, seen: 0, last: null }, lift: null, blockT: 0, leftAt: -1e9, redSeq: 0, stageCaution: null, carKeepTG: null });
     T.run.incidents = 0; T.redLanes = laneInfo(T, P);
-    if (!sc.duelCover) { sc.duelCover = placeCover(T, sc, P, DP, T.redLanes, FAMILY[sc.D && sc.D.id] || FAMILY.monument, prof); for (const q of sc.duelCover) { sc.game.statics.push(q); if (W6.paintCover) W6.paintCover(sc, q); } } // part of the tile for good: walked round, painted as Prototype 9 paints its own
+    const lay = def && def.layout; // Prototype 11: a puzzle's own pieces (Edit 115)
+    if (!sc.duelCover) { if (lay) { const L = placeLayout(T, sc, P, DP, lay); sc.duelCover = L.out; sc.duelSkipped = L.skipped; } else sc.duelCover = placeCover(T, sc, P, DP, T.redLanes, FAMILY[sc.D && sc.D.id] || FAMILY.monument, prof); for (const q of sc.duelCover) { sc.game.statics.push(q); if (W6.paintCover) W6.paintCover(sc, q); } } // part of the tile for good: walked round, painted as Prototype 9 paints its own
     const planters = sc.duelCover;
     // Prototype 9's statics hide the dummy from the red car's own sensors; its planters are low cover (rows 696-697), as the duel's
     const ph = DP['props.planter.height'] || 14;
@@ -227,7 +251,7 @@
     T.level.statics = (sc.game.statics || []).filter((s) => !s.duel && s.kind !== 'bound').map((s) => (s.kind === 'planter' ? Object.assign({}, s, { low: true, height: ph }) : s.kind === 'mass' ? Object.assign({}, s, { low: true, height: massH(s) }) : s)).concat(planters);
     const roadside = T.level.statics.filter((q) => q.low && T.redLanes.some((ln) => Math.abs(X.pathProject(ln.path, q.x + q.w / 2, q.y + q.h / 2).lat) < 160)); // the planters an ambush uses
     const blind = (sc.duelCover || []).filter((q) => !q.low).slice(0, 1); // one tall piece no camera watches: rung 4's open way, cover the cameras miss
-    T.level.cameras = (prof ? prof.cameras || Math.round(DP['duel.startRung'] || 0) >= 4 : Math.round(DP['duel.topRung'] || 0) >= 4) ? placeCameras(sc, P, T.redLanes, roadside.concat(blind)) : [];
+    T.level.cameras = lay ? [] : (prof ? prof.cameras || Math.round(DP['duel.startRung'] || 0) >= 4 : Math.round(DP['duel.topRung'] || 0) >= 4) ? placeCameras(sc, P, T.redLanes, roadside.concat(blind)) : [];
     sc.duelPosts = sc.duelPosts || []; for (const c of T.level.cameras) if (!sc.duelPosts.some((q) => q[0] === c[0] && q[1] === c[1])) { sc.duelPosts.push(c); if (W6.paintPost) W6.paintPost(sc, c[0], c[1]); } // its post, in the tile's art
     return T;
   }
@@ -476,5 +500,5 @@
   STORY.StorySim = DuelStorySim;
   const taskText = STORY.taskText; // the tile card and HUD read the pipeline's objective
   STORY.taskText = (task, P) => (task && task.kind === 'red' ? { label: task.label, brief: task.brief } : taskText(task, P));
-  root.DUEL = { DuelTileSim, DuelStorySim, duelParams, laneInfo, placePlanters, placeCover, COVER, FAMILY, RULES, placeCameras, RUNGS, MAP, TUNE, faultOf, version: 1 };
+  root.DUEL = { DuelTileSim, DuelStorySim, duelParams, laneInfo, placePlanters, placeCover, placeLayout, COVER, FAMILY, RULES, placeCameras, RUNGS, MAP, TUNE, faultOf, version: 1 };
 })(typeof window !== 'undefined' ? window : globalThis);

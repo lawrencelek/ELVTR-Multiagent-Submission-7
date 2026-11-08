@@ -96,8 +96,10 @@
       this.p11 = null;
       if (!this.W6 || !this.storyMode || !this.story || !this.duelT) return;
       const act = STORY.activeTile(this.story, this.levelId), q = BY[act]; if (!q) return;
-      const T = this.duelT, b = this.body;
+      const T = this.duelT, b = this.body, lay = q.layout || {};
       if (q.camera && q.camera.watch) this.p11Camera(q.camera.watch);
+      if (lay.drop) Object.assign(b, { x: lay.drop[0], y: lay.drop[1], px: lay.drop[0], py: lay.drop[1], level: 0, floor: null }); // the puzzle's drop point (Edit 115)
+      if (lay.cones) this.p11Cones(lay.cones);
       this.p11 = { q, phase: 0, clock: 0, attempt: 0, restarts: 0, passes: 0, failed: 0, failedPhase: 0, untouched: true, seq: 0, inPass: false, passHits: 0,
         ev: this.events.length, drop: { x: b.x, y: b.y, level: b.level || 0, floor: b.floor != null ? b.floor : null }, cams: (T.level.cameras || []).map((c) => c.slice()), broken: [],
         resultSeen: false, result: null, after: null, went: false, healAt: null, voidAt: null };
@@ -118,6 +120,14 @@
         sc.duelPosts = sc.duelPosts || []; sc.duelPosts.push(T.level.cameras[0]); if (W6 && W6.paintPost) W6.paintPost(sc, x, y);
         return;
       }
+    }
+    // the puzzle's cones: [] takes the tile's away (no Hands 1 in the kit); [[x, y], ...] sets their homes
+    p11Cones(list) {
+      const sc = this.duelT.duelSc, cs = sc.cones; if (!cs) return;
+      const proto = cs[0] ? Object.assign({}, cs[0]) : null, n = proto ? list.length : 0;
+      cs.length = Math.min(cs.length, n);
+      for (let i = 0; i < n; i++) { const c = cs[i] || (cs[i] = Object.assign({}, proto, { id: (proto.id || 0) + 100 + i })); Object.assign(c, { x: list[i][0], y: list[i][1], hx: list[i][0], hy: list[i][1], vx: 0, vy: 0, state: 'free', flightT: 0 }); }
+      if (sc.game) sc.game.coneHomes = list.map((q) => q.slice());
     }
     canCross(to) { // one puzzle, one tile: fenced on all four sides
       if (!this.storyMode || !this.p11) return super.canCross(to);
@@ -160,7 +170,7 @@
       const T = this.duelT, sc = T.duelSc;
       for (const s of this.W6.sims) {
         const q = s.sc; if (!q || Math.abs(q.col - sc.col) + Math.abs(q.row - sc.row) > 1) continue;
-        if (s.cars.some((c) => !c.red && !(c.layer > 0))) s.cars = s.cars.filter((c) => c.red || (c.layer > 0));
+        if (s.cars.some((c) => !c.red)) s.cars = s.cars.filter((c) => c.red); // the decks too: a quiet test day (Edit 115)
       }
     }
     // Breakable CCTV (props.camera.breakable, proposed): a dash into the post breaks it; it reports to the car no more
@@ -201,7 +211,16 @@
         clip: { frames: (this.clipRing || []).slice(), hitT: this.t, zone: e.zone } };
       T.emit('lesson-due', { model: c.model, from: T.rung, to: T.rung + 1, zone: e.zone, car: c.id, mid: true });
     }
-    continueLesson() { const mid = this.duelT && this.duelT.lesson && this.duelT.lesson.mid; super.continueLesson(); if (mid && this.p11 && this.body && this.body.alive) this.patch(); }
+    continueLesson() {
+      const T = this.duelT, L = T && T.lesson, mid = L && L.mid, atClear = L && L.atClear && !L.part;
+      super.continueLesson();
+      if (mid && this.p11 && this.body && this.body.alive) this.patch();
+      // a clear that teaches two rungs (Edit 115: roof lidar, then street cameras): the second lesson follows, on the same clip
+      if (atClear && this.p11 && T.rung < Math.round(T.DP['duel.topRung'] || 0) && DUEL.RUNGS[T.rung + 1]) {
+        const nx = DUEL.RUNGS[T.rung + 1]; this.clearLesson = Object.assign({}, L, { state: 'due', from: T.rung, to: T.rung + 1, name: nx.name, sensor: nx.sensor, card: false, shownT: null, beat: null }); this.phase = 'report';
+        T.emit('lesson-due', { from: T.rung, to: T.rung + 1, atClear: true, second: true });
+      }
+    }
     writeOff() {
       const clearing = !!(this.p11 && this.duelPending && this.duelT);
       super.writeOff();

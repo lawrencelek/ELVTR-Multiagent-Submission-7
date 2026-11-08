@@ -108,7 +108,7 @@ def p11_plan(pz):
             params['duel.route'] = q['route']
         params.update(q.get('params', {}))
         tiles.append({'n': q['n'], 'tile': q['tile'], 'title': q['name'], 'stage': q['stage'], 'earns': q.get('earns'), 'level': q['level'], 'newIdea': q['new'],
-                      'objective': q['objective'], 'params': params, 'tale': q['tale'], 'hint': q['hints'][0]})
+                      'objective': q['objective'], 'params': params, 'tale': q['tale'], 'hint': q['hints'][0], 'layout': q.get('layout')})
     return {'map': pz['map'], 'tiles': tiles, 'provenance': {'run': 'content/puzzles_map1.json (set by hand, Edit 113)'}}
 
 
@@ -145,6 +145,8 @@ RULES = json.loads((ROOT / 'engine' / 'progression.json').read_text(encoding='ut
 def story_json(plan, gifts=True):
     d = json.loads((E / 'story_v2.json').read_text(encoding='utf-8'))
     mon = next(x for x in d['districts'] if x['id'] == 'monument')
+    if not gifts:  # Prototype 11: the puzzles' own order (Edit 115)
+        mon['order'] = [t['tile'] for t in plan['tiles']]
     assert mon['order'] == [t['tile'] for t in plan['tiles']], 'Map 1 tile order differs from the plan'
     for t in plan['tiles']:
         tile, o = mon['tiles'][t['tile']], t['objective']

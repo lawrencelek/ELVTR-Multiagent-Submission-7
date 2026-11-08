@@ -5,7 +5,7 @@
 ## 113.1 Shape
 
 - **P11 is Story Map 1 as nine puzzles.** Prototype 9's world, art, HUD and sound. Prototype 10's red car. UI layout unchanged.
-- **Build order:** the frame, then L1, then L9. L2–L8 follow (Edit 112 §112.6, Day 2).
+- **Build order:** the frame, then L1, then L9. L2–L8 follow (Edit 112 §112.6, Day 2). Edit 115 builds all nine.
 - **Files:**
 
   | File | Holds |

@@ -51,7 +51,8 @@
 ## Prototype 11: the puzzle game (8 Nov, GDD Edits 112–113)
 
 - Story Map 1 as nine puzzles, A1 to C3, after Joshua Burdick's 1-on-1: one new thing a puzzle, three stars, instant retry, a level grid (Hitman GO's structure).
-- **Built:** the frame, puzzle 1 (First Contact) and puzzle 9 (Certification, the boss). Puzzles 2–8 show IN BUILD; puzzle 1 opens puzzle 9.
+- **Built:** all nine (GDD [Edit 115](docs/DUMMIES_GDD_Edit115_Map1_Redesign.md)): First Contact, Stop Line, High Road, The Island, CCTV, Swerve, Portal, LED Canyon, Certification. One car, RED-01, learns rungs 0 to 7 across them; certified, it returns on Map 2 as a drone car.
+- **Inventory:** every tile of the three districts and the level design assets: [docs/DUMMIES_Level_Inventory.md](docs/DUMMIES_Level_Inventory.md) (`node engine/inventory.js`; pictures: `node engine/inventory_shots.js`).
 - **Keys:** as above, plus **R** to restart the puzzle in place. Pause has Restart puzzle and the puzzle grid.
 - **Stars:** ★ Clear (the red car hits you, its fault) · ★ Untouched (no white car, no fault of yours) · ★ Par (the attempt's time).
 - **The boss:** three hits; it learns crash memory after the first and the search after the second. A dash into a street camera's post breaks it.
@@ -131,7 +132,7 @@ python3 pipeline/run.py            # one command: ingest → designer → valida
 ```
 pipeline/   run.py ingest.py validate.py llm.py make_video.py · agents/*.md · inputs/ · runs/<run>/
 engine/     build_p9.py duel.js duel_ui.js affordances.js p9_tiles_test.js p9_play_test.js p9_probe.js · p9/ (Prototype 9) · vendor/ (Prototype 10)
-            p11.js p11_ui.js p11_test.js p11_goto.js (Prototype 11: build_p9.py --p11)
+            p11.js p11_ui.js p11_test.js p11_goto.js p11_probe.js p11_shots.js inventory.js inventory_shots.js (Prototype 11: build_p9.py --p11)
             build.py tiles_test.js play_test.js story.js (junction.html)
 content/    story_map1.json   (pipeline output) · puzzles_map1.json (Prototype 11, by hand)
 audio/      Prototype 9's music and effects

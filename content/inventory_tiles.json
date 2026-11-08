@@ -1,0 +1,1729 @@
+{
+ "about": "Prototype 9 tiles (engine/p9/world6.js), measured by engine/inventory.js. World units: a tile is 800 × 640. Tall masses block sight and walking; low masses (top ≤ proto.art.jumpableTop 5) can be jumped.",
+ "districts": [
+  {
+   "id": "parkland",
+   "name": "Parkland",
+   "mood": "Calm, water, concrete and planting. Two Z1 highways meet at a four-arm ring over the pools; a 45° boulevard passes beneath.",
+   "start": [
+    "B2",
+    "center"
+   ],
+   "order": [
+    "C1",
+    "C2",
+    "C3",
+    "B3",
+    "A3",
+    "A2",
+    "A1",
+    "B1",
+    "B2"
+   ],
+   "act": "ACT II · OPENING DAY",
+   "tiles": [
+    {
+     "tile": "A1",
+     "note": "Start, top edge. The 45° boulevard; the avenue curves to join it at 90° and gives way. The Z1 walkway from B1 lands by escalator",
+     "landmark": "Reservoir terraces: three stepped pools",
+     "mode": "both",
+     "roads": [],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "walkway",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "walk@Z1": 1
+     },
+     "stairs": [
+      "Z0→Z1 y @640,272"
+     ],
+     "solids": {
+      "wall": 3,
+      "low mass": 18,
+      "tall mass": 17,
+      "booth": 1,
+      "sculpture": 2,
+      "column": 1
+     },
+     "tallFootprint": "11%",
+     "coneHomes": [
+      "384,288",
+      "512,496"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 1,
+     "story": {
+      "task": "push",
+      "gift": {
+       "node": "arms2"
+      },
+      "title": "The reservoir terraces",
+      "tale": "The gardener's pools need cars that stop. Teach them with Arms 2: push off one car into the next."
+     }
+    },
+    {
+     "tile": "B1",
+     "note": "The Z1 highway runs north–south; escalators west (north end) and east (south end). A Z1 walkway crosses the garden and joins the highway at both parapets. The boulevard cuts the corner",
+     "landmark": "Cascade: water steps beside the highway",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "W 1,600",
+       "to": "S 40,640",
+       "len": 56,
+       "turn": 0
+      },
+      {
+       "from": "S 119,639",
+       "to": "W 0,520",
+       "len": 168,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 1,
+       "vertical": true,
+       "dropGaps": 0,
+       "escalatorHeads": 4,
+       "inBand": true
+      },
+      {
+       "kind": "walkway",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z1": 1,
+      "walk@Z1": 1
+     },
+     "stairs": [
+      "Z0→Z1 x @288,128",
+      "Z0→Z1 x @512,512"
+     ],
+     "solids": {
+      "wall": 1,
+      "low mass": 33,
+      "tall mass": 58,
+      "sculpture": 2,
+      "column": 13
+     },
+     "tallFootprint": "7%",
+     "coneHomes": [
+      "160,560"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 1,
+     "story": {
+      "task": "level",
+      "gift": null,
+      "title": "The cascade",
+      "tale": "The cascade was built to drown out the traffic. The traffic got louder; take your hit up on the highway."
+     }
+    },
+    {
+     "tile": "C1",
+     "note": "The avenue under a Z1 footbridge that runs west to the B1 highway; escalator at its east end; drop onto cars",
+     "landmark": "Lantern pavilion",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "S 188,637",
+       "to": "N 188,5",
+       "len": 632,
+       "turn": 0
+      },
+      {
+       "from": "N 132,0",
+       "to": "S 132,640",
+       "len": 640,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "walkway",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "walk@Z1": 1
+     },
+     "stairs": [
+      "Z0→Z1 y @480,368"
+     ],
+     "solids": {
+      "wall": 3,
+      "booth": 1,
+      "low mass": 54,
+      "tall mass": 30,
+      "sculpture": 3,
+      "column": 2
+     },
+     "tallFootprint": "4%",
+     "coneHomes": [
+      "272,336",
+      "272,96"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 1,
+     "story": {
+      "task": "push",
+      "gift": {
+       "node": "arms1"
+      },
+      "title": "The lantern pavilion",
+      "tale": "The lantern, the Expo's first exhibit, is lit for clients. With Arms 1, push off one car into the next."
+     }
+    },
+    {
+     "tile": "A2",
+     "note": "The avenue passes under the Z1 highway at 90°; escalators north (west end) and south (east end)",
+     "landmark": "Canal along the highway",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "N 372,0",
+       "to": "S 372,640",
+       "len": 640,
+       "turn": 0
+      },
+      {
+       "from": "S 428,640",
+       "to": "N 428,0",
+       "len": 640,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 1,
+       "escalatorHeads": 2,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z1": 1
+     },
+     "stairs": [
+      "Z0→Z1 y @160,244",
+      "Z0→Z1 y @640,468"
+     ],
+     "solids": {
+      "wall": 1,
+      "low mass": 16,
+      "tall mass": 37,
+      "sculpture": 3,
+      "column": 4
+     },
+     "tallFootprint": "7%",
+     "coneHomes": [
+      "496,224",
+      "496,464"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 1,
+     "story": {
+      "task": "cone",
+      "gift": {
+       "node": "hands2"
+      },
+      "title": "The dome by the canal",
+      "tale": "The dome is the Expo's showroom; you are the exhibit. Hands 2 is fitted: bait a car with a cone."
+     }
+    },
+    {
+     "tile": "B2",
+     "note": "Four-arm Z1 roundabout (W, N, E, S). Give way to the ring; the inner lane is the orbit lane. The boulevard passes beneath, through the hole",
+     "landmark": "Reflecting pools under the ring",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "N 41,1",
+       "to": "S 680,640",
+       "len": 904,
+       "turn": 0
+      },
+      {
+       "from": "S 759,639",
+       "to": "N 120,0",
+       "len": 904,
+       "turn": 0
+      }
+     ],
+     "ring": true,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "ring",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 2,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "ring@Z1": 1
+     },
+     "stairs": [
+      "Z0→Z1 y @80,244",
+      "Z0→Z1 y @720,468"
+     ],
+     "solids": {
+      "tall mass": 30,
+      "column": 5
+     },
+     "tallFootprint": "20%",
+     "coneHomes": [
+      "160,224",
+      "512,592"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 0,
+     "story": {
+      "task": "combo",
+      "gift": {
+       "node": "battery2"
+      },
+      "title": "The ring over the pools",
+      "tale": "The board watches the ring over the pools. Battery 2 is fitted: chain your hits."
+     }
+    },
+    {
+     "tile": "C2",
+     "note": "The avenue comes up from the C3 roundabout at 45°, turns 90° and passes under the Z1 highway at 45°",
+     "landmark": "Amphitheatre terraces",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "S 531,638",
+       "to": "N 188,5",
+       "len": 784,
+       "turn": -39
+      },
+      {
+       "from": "N 132,0",
+       "to": "S 454,638",
+       "len": 800,
+       "turn": 45
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 1,
+       "escalatorHeads": 2,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z1": 1
+     },
+     "stairs": [
+      "Z0→Z1 y @80,244",
+      "Z0→Z1 y @720,468"
+     ],
+     "solids": {
+      "sculpture": 2,
+      "tall mass": 28,
+      "low mass": 9,
+      "wall": 1,
+      "column": 2
+     },
+     "tallFootprint": "9%",
+     "coneHomes": [
+      "448,224",
+      "400,464"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 1,
+     "story": {
+      "task": "cls",
+      "gift": null,
+      "title": "The amphitheatre",
+      "tale": "Our board watches opening day from these terraces. A van delivers the catering; arrange for it to deliver you."
+     }
+    },
+    {
+     "tile": "A3",
+     "note": "A wide R160 bend (buses may use it)",
+     "landmark": "Belvedere: four tiers and a stair up to a lawn, the monolith orchard on top",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "N 372,0",
+       "to": "E 801,484",
+       "len": 832,
+       "turn": -90
+      },
+      {
+       "from": "E 800,428",
+       "to": "N 428,-1",
+       "len": 744,
+       "turn": 90
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [],
+     "floors": {
+      "roof@Z1": 1
+     },
+     "stairs": [
+      "Z0→Z1 y @640,232"
+     ],
+     "solids": {
+      "wall": 2,
+      "low mass": 86,
+      "tall mass": 51,
+      "sculpture": 1
+     },
+     "tallFootprint": "17%",
+     "coneHomes": [
+      "496,320",
+      "496,560"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 0,
+     "story": {
+      "task": "jump",
+      "gift": {
+       "node": "legs2"
+      },
+      "title": "The belvedere",
+      "tale": "A wedding faces the traffic from the belvedere. Legs 2 is fitted: jump into a car, so no guest does."
+     }
+    },
+    {
+     "tile": "B3",
+     "note": "The garden street passes under the Z1 highway at 90°; escalators",
+     "landmark": "Sculpture court: a large obelisk, two rings, a row of lit bollards",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "N 681,1",
+       "to": "E 800,120",
+       "len": 168,
+       "turn": 0
+      },
+      {
+       "from": "E 799,40",
+       "to": "N 760,0",
+       "len": 56,
+       "turn": 0
+      },
+      {
+       "from": "W 0,484",
+       "to": "E 800,484",
+       "len": 800,
+       "turn": -4
+      },
+      {
+       "from": "E 794,428",
+       "to": "W 2,428",
+       "len": 792,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 1,
+       "vertical": true,
+       "dropGaps": 1,
+       "escalatorHeads": 2,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z1": 1
+     },
+     "stairs": [
+      "Z0→Z1 x @288,128",
+      "Z0→Z1 x @512,560"
+     ],
+     "solids": {
+      "wall": 1,
+      "low mass": 8,
+      "tall mass": 13,
+      "sculpture": 4,
+      "column": 7
+     },
+     "tallFootprint": "1%",
+     "coneHomes": [
+      "496,336",
+      "304,560"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 1,
+     "story": {
+      "task": "cls",
+      "gift": null,
+      "title": "The obelisk court",
+      "tale": "The obelisk marks the surveyors' first stake. Police escort a school party here on opening day; test them first."
+     }
+    },
+    {
+     "tile": "C3",
+     "note": "Street roundabout where the street meets the boulevard: four arms at 90°, the street turning west outside it",
+     "landmark": "Sculpture court at grade: a large arch, two medium pieces, a row of lit bollards",
+     "mode": "scenery",
+     "roads": [],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [],
+     "floors": {},
+     "stairs": [],
+     "solids": {
+      "wall": 3,
+      "tall mass": 7,
+      "sculpture": 3,
+      "booth": 1,
+      "low mass": 16
+     },
+     "tallFootprint": "0%",
+     "coneHomes": [
+      "432,320",
+      "288,512"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 1,
+     "story": {
+      "task": "combo",
+      "gift": null,
+      "title": "The arch and the roundabout",
+      "tale": "The arch is the Expo's gate; visitors circle the roundabout once. You go faster: chain hits before each is forgotten."
+     }
+    }
+   ]
+  },
+  {
+   "id": "waterfront",
+   "name": "Waterfront",
+   "mood": "A hill walled by towers; a river below. The valley avenue meets the tunnel and the beach road at the circus; the hill's bridges cross the drive and the river.",
+   "start": [
+    "B2",
+    "center"
+   ],
+   "order": [
+    "A1",
+    "B1",
+    "C1",
+    "C2",
+    "C3",
+    "B3",
+    "A3",
+    "A2",
+    "B2"
+   ],
+   "act": "ACT III · CUSTOMS",
+   "tiles": [
+    {
+     "tile": "A1",
+     "note": "Upper town. The ridge road runs between the edge wall and hill blocks. The west bridge leaves at a T, under a portal block",
+     "landmark": "Portal block over the bridge",
+     "mode": "both",
+     "roads": [],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "layer",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "hill@Z1+drop": 1
+     },
+     "stairs": [],
+     "solids": {},
+     "tallFootprint": "0%",
+     "coneHomes": [],
+     "spawns": 3,
+     "water": 1,
+     "checkpoints": 1,
+     "story": {
+      "task": "cls",
+      "gift": null,
+      "title": "The west portal",
+      "tale": "The bus carries engineers through the west portal to the bridge. It never misses; take its hit."
+     }
+    },
+    {
+     "tile": "B1",
+     "note": "The valley road enters the tunnel at the cove head. The ridge road runs over it on the hilltop. Stairs climb both cove walls",
+     "landmark": "Tunnel portal in the cove head",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "S 428,640",
+       "to": "N 428,0",
+       "len": 640,
+       "turn": 0
+      },
+      {
+       "from": "N 372,0",
+       "to": "S 372,640",
+       "len": 640,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "layer",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "hill@Z1+drop": 1
+     },
+     "stairs": [
+      "Z0→Z1 x @272,480",
+      "Z0→Z1 x @528,480"
+     ],
+     "solids": {
+      "portal": 2
+     },
+     "tallFootprint": "0%",
+     "coneHomes": [
+      "304,400",
+      "512,528"
+     ],
+     "spawns": 3,
+     "water": 1,
+     "checkpoints": 0,
+     "story": {
+      "task": "jump",
+      "gift": {
+       "node": "legs3"
+      },
+      "title": "The tunnel portal",
+      "tale": "Cars go into the tunnel under the hill, and data comes back. Legs 3 is fitted: leap into one."
+     }
+    },
+    {
+     "tile": "C1",
+     "note": "Upper town. The east bridge leaves at a T, under a portal block",
+     "landmark": "Portal block over the bridge",
+     "mode": "both",
+     "roads": [],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "layer",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "hill@Z1+drop": 1
+     },
+     "stairs": [],
+     "solids": {},
+     "tallFootprint": "0%",
+     "coneHomes": [],
+     "spawns": 3,
+     "water": 1,
+     "checkpoints": 1,
+     "story": {
+      "task": "cls",
+      "gift": null,
+      "title": "The east portal",
+      "tale": "The east portal faces away from its twin. Police here check papers; your Certification needs their fleet on record."
+     }
+    },
+    {
+     "tile": "A2",
+     "note": "Start, west edge. Cliff, avenue, beach. A walkway leaves the cliff top over the avenue to a beach terrace",
+     "landmark": "Beach terrace: deck, canopy, stair to the sand",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "W 0,348",
+       "to": "E 800,348",
+       "len": 800,
+       "turn": 0
+      },
+      {
+       "from": "E 800,292",
+       "to": "W 0,292",
+       "len": 800,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 1,
+       "vertical": true,
+       "dropGaps": 2,
+       "escalatorHeads": 4,
+       "inBand": true
+      },
+      {
+       "kind": "layer",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      },
+      {
+       "kind": "walkway",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z1": 1,
+      "walk@Z1": 1,
+      "hill@Z1+drop": 1,
+      "terrace@Z1+drop": 1
+     },
+     "stairs": [
+      "Z0→Z1 x @288,568",
+      "Z0→Z1 y @240,152",
+      "Z0→Z1 y @560,152",
+      "Z0→Z1 x @568,582"
+     ],
+     "solids": {
+      "wall": 2,
+      "booth": 1,
+      "tall mass": 1,
+      "low mass": 5,
+      "planter": 1,
+      "column": 4
+     },
+     "tallFootprint": "2%",
+     "coneHomes": [
+      "304,224",
+      "496,416"
+     ],
+     "spawns": 3,
+     "water": 1,
+     "checkpoints": 1,
+     "story": {
+      "task": "cone",
+      "gift": null,
+      "title": "The west beach terrace",
+      "tale": "Sand from three provinces lies under the west beach terrace. Place a cone; one more clean reading before the ceremony."
+     }
+    },
+    {
+     "tile": "B2",
+     "note": "The circus between the cove and the beach. Tunnel road north; beach road south. A beach park either side",
+     "landmark": "Plinth and lit slab; obelisk and arch on the sand",
+     "mode": "both",
+     "roads": [],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "layer",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "hill@Z1+drop": 1
+     },
+     "stairs": [
+      "Z0→Z1 y @40,152",
+      "Z0→Z1 y @760,152"
+     ],
+     "solids": {
+      "low mass": 30,
+      "planter": 4,
+      "tall mass": 12,
+      "sculpture": 3
+     },
+     "tallFootprint": "0%",
+     "coneHomes": [
+      "272,496",
+      "528,496"
+     ],
+     "spawns": 3,
+     "water": 1,
+     "checkpoints": 0,
+     "story": {
+      "task": "combo",
+      "gift": {
+       "node": "battery3"
+      },
+      "title": "The circus",
+      "tale": "The circus monument, cast from your written-off chassis, reads ZERO ACCIDENTS (EXCLUDING TESTS). Battery 3 is fitted; chain your hits."
+     }
+    },
+    {
+     "tile": "C2",
+     "note": "Cliff, avenue, beach. The cliff-top walkway and the bridge cross the avenue. Exit east",
+     "landmark": "Beach terrace",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "W 0,348",
+       "to": "E 800,348",
+       "len": 800,
+       "turn": 0
+      },
+      {
+       "from": "E 800,292",
+       "to": "W 0,292",
+       "len": 800,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 1,
+       "vertical": true,
+       "dropGaps": 2,
+       "escalatorHeads": 4,
+       "inBand": true
+      },
+      {
+       "kind": "layer",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      },
+      {
+       "kind": "walkway",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z1": 1,
+      "walk@Z1": 1,
+      "hill@Z1+drop": 1,
+      "terrace@Z1+drop": 1
+     },
+     "stairs": [
+      "Z0→Z1 x @512,568",
+      "Z0→Z1 y @232,152",
+      "Z0→Z1 y @552,152",
+      "Z0→Z1 x @232,582"
+     ],
+     "solids": {
+      "planter": 1,
+      "low mass": 5,
+      "tall mass": 1,
+      "booth": 1,
+      "wall": 2,
+      "column": 4
+     },
+     "tallFootprint": "2%",
+     "coneHomes": [
+      "304,224",
+      "496,416"
+     ],
+     "spawns": 3,
+     "water": 1,
+     "checkpoints": 1,
+     "story": {
+      "task": "drop",
+      "gift": null,
+      "title": "The east beach terrace",
+      "tale": "The east beach terrace served tourists, then sensors. Drop from its rail onto a car; ships wait for the Certified."
+     }
+    },
+    {
+     "tile": "A3",
+     "note": "The drive on the seawall. The west bridge crosses it and the river. A walkway joins a pier tower",
+     "landmark": "Pier tower",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "W 0,188",
+       "to": "E 798,277",
+       "len": 832,
+       "turn": 45
+      },
+      {
+       "from": "E 796,197",
+       "to": "W 2,132",
+       "len": 816,
+       "turn": -45
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 1,
+       "vertical": true,
+       "dropGaps": 4,
+       "escalatorHeads": 3,
+       "inBand": true
+      },
+      {
+       "kind": "layer",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      },
+      {
+       "kind": "walkway",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z1": 1,
+      "walk@Z1": 1,
+      "hill@Z1+drop": 1,
+      "roof@Z1+drop": 1
+     },
+     "stairs": [
+      "Z0→Z1 x @288,68",
+      "Z0→Z1 x @512,68"
+     ],
+     "solids": {
+      "wall": 2,
+      "booth": 1,
+      "column": 5
+     },
+     "tallFootprint": "0%",
+     "coneHomes": [
+      "224,64",
+      "576,64"
+     ],
+     "spawns": 3,
+     "water": 1,
+     "checkpoints": 2,
+     "story": {
+      "task": "level",
+      "gift": null,
+      "title": "The west customs post",
+      "tale": "The west tower keeps the customs log. Your entry reads PURPOSE DESTRUCTION: honour it on the raised road."
+     }
+    },
+    {
+     "tile": "B3",
+     "note": "The beach road meets the drive at a T. Stairs climb to two landings; walkways cross the drive to stilt houses",
+     "landmark": "River stilt houses",
+     "mode": "both",
+     "roads": [],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "layer",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      },
+      {
+       "kind": "walkway",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "walk@Z1": 1,
+      "hill@Z1+drop": 1,
+      "terrace@Z1+drop": 2,
+      "roof@Z1+drop": 2
+     },
+     "stairs": [
+      "Z0→Z1 x @108,160",
+      "Z0→Z1 x @692,160"
+     ],
+     "solids": {
+      "tall mass": 14,
+      "low mass": 10
+     },
+     "tallFootprint": "3%",
+     "coneHomes": [
+      "304,224",
+      "544,224"
+     ],
+     "spawns": 3,
+     "water": 1,
+     "checkpoints": 0,
+     "story": {
+      "task": "push",
+      "gift": {
+       "node": "arms3"
+      },
+      "title": "The stilt houses",
+      "tale": "The stilt houses keep Chassis 0 behind glass. Arms 3 is fitted; push off a car and show it progress."
+     }
+    },
+    {
+     "tile": "C3",
+     "note": "The drive swings inland under the east bridge and leaves east. A walkway joins a pier tower",
+     "landmark": "Pier tower",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "W 1,279",
+       "to": "E 798,188",
+       "len": 832,
+       "turn": 45
+      },
+      {
+       "from": "E 800,132",
+       "to": "W -1,201",
+       "len": 824,
+       "turn": -45
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 1,
+       "vertical": true,
+       "dropGaps": 4,
+       "escalatorHeads": 3,
+       "inBand": true
+      },
+      {
+       "kind": "layer",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      },
+      {
+       "kind": "walkway",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z1": 1,
+      "walk@Z1": 1,
+      "hill@Z1+drop": 1,
+      "roof@Z1+drop": 1
+     },
+     "stairs": [
+      "Z0→Z1 x @288,68",
+      "Z0→Z1 x @512,68"
+     ],
+     "solids": {
+      "booth": 1,
+      "wall": 2,
+      "column": 5
+     },
+     "tallFootprint": "0%",
+     "coneHomes": [
+      "224,64",
+      "576,64"
+     ],
+     "spawns": 3,
+     "water": 1,
+     "checkpoints": 2,
+     "story": {
+      "task": "bounce",
+      "gift": null,
+      "title": "The east customs post",
+      "tale": "The pier tower logs all that floats: containers, ducks, one dummy. Be thrown into a car to earn your entry."
+     }
+    }
+   ]
+  },
+  {
+   "id": "monument",
+   "name": "Monument",
+   "mood": "Neon commerce, LED walls. One road snakes under two north–south highways and splits round the monument.",
+   "start": [
+    "B2",
+    "center"
+   ],
+   "order": [
+    "A1",
+    "B1",
+    "C1",
+    "C2",
+    "B2",
+    "A2",
+    "A3",
+    "B3",
+    "C3"
+   ],
+   "act": "ACT I · INDUCTION",
+   "tiles": [
+    {
+     "tile": "A1",
+     "note": "Start, west edge. The road passes under the Z1 highway (north–south) at 90°; escalators",
+     "landmark": "LED-wall tower facing the entry",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "W 0,348",
+       "to": "E 800,348",
+       "len": 800,
+       "turn": 0
+      },
+      {
+       "from": "E 800,292",
+       "to": "W 0,292",
+       "len": 800,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 1,
+       "vertical": true,
+       "dropGaps": 1,
+       "escalatorHeads": 2,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z1": 1
+     },
+     "stairs": [
+      "Z0→Z1 x @448,80",
+      "Z0→Z1 x @672,560"
+     ],
+     "solids": {
+      "wall": 5,
+      "booth": 1,
+      "tall mass": 5,
+      "low mass": 25,
+      "planter": 1,
+      "column": 4
+     },
+     "tallFootprint": "20%",
+     "coneHomes": [
+      "400,224",
+      "160,224"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 2,
+     "story": {
+      "task": "any",
+      "gift": null,
+      "title": "The welcome wall",
+      "tale": "Fresh off the factory floor, you're ready to do some damage to yourself. Make your engineers proud."
+     }
+    },
+    {
+     "tile": "B1",
+     "note": "A Z1 skybridge crosses the road at 90°, from a podium roof to the walkway ring",
+     "landmark": "Podium and tower at the bridge head",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "W 0,348",
+       "to": "E 800,348",
+       "len": 800,
+       "turn": 0
+      },
+      {
+       "from": "E 800,292",
+       "to": "W 0,292",
+       "len": 800,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "walkway",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "walk@Z1": 1,
+      "roof@Z1+drop": 1
+     },
+     "stairs": [
+      "Z0→Z1 y @472,188"
+     ],
+     "solids": {
+      "planter": 5,
+      "wall": 4,
+      "tall mass": 8,
+      "low mass": 10,
+      "column": 4
+     },
+     "tallFootprint": "25%",
+     "coneHomes": [
+      "368,224",
+      "608,224"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 0,
+     "story": {
+      "task": "dash",
+      "gift": {
+       "node": "battery1"
+      },
+      "title": "The podium bridge",
+      "tale": "Battery 1 is fitted. The skybridge was built for shoppers who never came; staff watch you dash into a colleague."
+     }
+    },
+    {
+     "tile": "C1",
+     "note": "Under the Z2 highway at 90°, then an R96 bend south; Z2 escalators (run 112)",
+     "landmark": "LED drum tower in the bend",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "W 0,348",
+       "to": "S 612,637",
+       "len": 872,
+       "turn": 90
+      },
+      {
+       "from": "S 668,638",
+       "to": "W 0,292",
+       "len": 960,
+       "turn": -90
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 2,
+       "vertical": true,
+       "dropGaps": 1,
+       "escalatorHeads": 2,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z2": 1
+     },
+     "stairs": [
+      "Z0→Z2 x @376,96",
+      "Z0→Z2 x @376,200"
+     ],
+     "solids": {
+      "wall": 4,
+      "tall mass": 17,
+      "planter": 1,
+      "low mass": 8,
+      "column": 4
+     },
+     "tallFootprint": "11%",
+     "coneHomes": [
+      "384,416",
+      "512,208"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 1,
+     "story": {
+      "task": "drop",
+      "gift": null,
+      "title": "The LED drum",
+      "tale": "The LED drum lights each bend. Step off the high road onto a car: gravity is company policy."
+     }
+    },
+    {
+     "tile": "A2",
+     "note": "Under the Z1 highway at 90°, then an R96 bend south",
+     "landmark": "Neon arcade along the road",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "E 800,292",
+       "to": "S 212,637",
+       "len": 880,
+       "turn": -90
+      },
+      {
+       "from": "S 268,635",
+       "to": "E 795,348",
+       "len": 784,
+       "turn": 90
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 1,
+       "vertical": true,
+       "dropGaps": 1,
+       "escalatorHeads": 2,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z1": 1
+     },
+     "stairs": [
+      "Z0→Z1 x @448,80",
+      "Z0→Z1 x @672,560"
+     ],
+     "solids": {
+      "wall": 3,
+      "tall mass": 8,
+      "low mass": 16,
+      "planter": 3,
+      "column": 4
+     },
+     "tallFootprint": "19%",
+     "coneHomes": [
+      "416,224",
+      "176,304"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 0,
+     "story": {
+      "task": "cone",
+      "gift": {
+       "node": "hands1"
+      },
+      "title": "The neon shops",
+      "tale": "The neon shops sell nothing, but the traffic reads them. Hands 1 is fitted: bait a colleague with a cone."
+     }
+    },
+    {
+     "tile": "B2",
+     "note": "The road splits round the monument's island; the walkway ring bridges both lanes at Z1; skybridge north",
+     "landmark": "The monument",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "W 0,348",
+       "to": "E 794,348",
+       "len": 840,
+       "turn": 0
+      },
+      {
+       "from": "E 800,292",
+       "to": "W 6,292",
+       "len": 840,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": true,
+     "monument": true,
+     "layers": [
+      {
+       "kind": "walkway",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "walk@Z1": 1,
+      "roof@Z1+drop": 4
+     },
+     "stairs": [
+      "Z0→Z1 y @316,120",
+      "Z0→Z1 y @484,520",
+      "Z0→Z1 x @292,272",
+      "Z0→Z1 x @508,368"
+     ],
+     "solids": {
+      "planter": 2,
+      "tall mass": 9,
+      "low mass": 27,
+      "sculpture": 4,
+      "column": 10,
+      "monument": 1
+     },
+     "tallFootprint": "18%",
+     "coneHomes": [
+      "336,320",
+      "576,336"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 0,
+     "story": {
+      "task": "struck",
+      "gift": null,
+      "title": "The monument",
+      "tale": "The plaque reads ZERO ACCIDENTS: a target, not a record. Stand near it until a colleague finds you."
+     }
+    },
+    {
+     "tile": "C2",
+     "note": "A 45° corner cut, then under the Z2 highway at 90°. The highway runs through a tower; a roof plaza at Z2 opens off its parapet, and an escalator drops from the plaza to the street",
+     "landmark": "Portal tower and roof plaza (Chongqing)",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "N 612,0",
+       "to": "W 3,292",
+       "len": 848,
+       "turn": 90
+      },
+      {
+       "from": "W 0,348",
+       "to": "N 668,3",
+       "len": 936,
+       "turn": -90
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 2,
+       "vertical": true,
+       "dropGaps": 1,
+       "escalatorHeads": 2,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z2": 1,
+      "roof@Z2+drop": 1
+     },
+     "stairs": [
+      "Z0→Z2 x @376,560",
+      "Z0→Z2 y @56,474"
+     ],
+     "solids": {
+      "planter": 3,
+      "tall mass": 7,
+      "low mass": 12,
+      "wall": 1,
+      "column": 4
+     },
+     "tallFootprint": "16%",
+     "coneHomes": [
+      "400,224",
+      "544,416"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 0,
+     "story": {
+      "task": "level",
+      "gift": null,
+      "title": "The portal tower",
+      "tale": "The road runs through the portal tower at the sixth floor. Take your write-off up there; ignore the view."
+     }
+    },
+    {
+     "tile": "A3",
+     "note": "A 45° corner cut, then under the Z1 highway at 90°",
+     "landmark": "Stacked LED cubes, each cantilevered off the one below",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "N 212,0",
+       "to": "E 797,348",
+       "len": 856,
+       "turn": -90
+      },
+      {
+       "from": "E 800,292",
+       "to": "N 268,3",
+       "len": 768,
+       "turn": 90
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 1,
+       "vertical": true,
+       "dropGaps": 1,
+       "escalatorHeads": 2,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z1": 1
+     },
+     "stairs": [
+      "Z0→Z1 x @448,80",
+      "Z0→Z1 x @672,560"
+     ],
+     "solids": {
+      "wall": 4,
+      "tall mass": 8,
+      "low mass": 36,
+      "planter": 1,
+      "column": 4
+     },
+     "tallFootprint": "15%",
+     "coneHomes": [
+      "400,224",
+      "160,256"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 1,
+     "story": {
+      "task": "combo",
+      "gift": null,
+      "title": "The stacked cubes",
+      "tale": "The stacked cubes rose one budget at a time. Build the same way: one hit, then another, quickly."
+     }
+    },
+    {
+     "tile": "B3",
+     "note": "A 45° jog between two LED walls; a Z1 skybridge crosses the jog at 90°",
+     "landmark": "LED canyon and its skybridge",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "W 0,348",
+       "to": "E 798,508",
+       "len": 856,
+       "turn": 0
+      },
+      {
+       "from": "E 800,452",
+       "to": "W 2,292",
+       "len": 856,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "walkway",
+       "z": 1,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "walk@Z1": 1,
+      "roof@Z1+drop": 2
+     },
+     "stairs": [
+      "Z0→Z1 x @488,184"
+     ],
+     "solids": {
+      "wall": 1,
+      "tall mass": 9,
+      "low mass": 31,
+      "planter": 4,
+      "column": 2
+     },
+     "tallFootprint": "29%",
+     "coneHomes": [
+      "432,288",
+      "384,528"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 0,
+     "story": {
+      "task": "jump",
+      "gift": {
+       "node": "legs1"
+      },
+      "title": "The LED canyon",
+      "tale": "Two screens advertise to each other all night. Legs 1 is fitted: jump into a car between them."
+     }
+    },
+    {
+     "tile": "C3",
+     "note": "Under the Z2 highway at 90°; the exit through an LED gateway",
+     "landmark": "LED gateway arch over the road",
+     "mode": "both",
+     "roads": [
+      {
+       "from": "W 0,508",
+       "to": "E 800,508",
+       "len": 800,
+       "turn": 0
+      },
+      {
+       "from": "E 800,452",
+       "to": "W 0,452",
+       "len": 800,
+       "turn": 0
+      }
+     ],
+     "ring": false,
+     "split": false,
+     "monument": false,
+     "layers": [
+      {
+       "kind": "deck",
+       "z": 2,
+       "vertical": true,
+       "dropGaps": 1,
+       "escalatorHeads": 2,
+       "inBand": true
+      },
+      {
+       "kind": "layer",
+       "z": 0,
+       "vertical": null,
+       "dropGaps": 0,
+       "escalatorHeads": 0,
+       "inBand": true
+      }
+     ],
+     "floors": {
+      "deck@Z2": 1
+     },
+     "stairs": [
+      "Z0→Z2 x @376,96",
+      "Z0→Z2 x @376,560"
+     ],
+     "solids": {
+      "planter": 3,
+      "wall": 3,
+      "tall mass": 6,
+      "low mass": 21,
+      "booth": 1,
+      "column": 4
+     },
+     "tallFootprint": "21%",
+     "coneHomes": [
+      "400,384",
+      "640,368"
+     ],
+     "spawns": 3,
+     "water": 0,
+     "checkpoints": 2,
+     "story": {
+      "task": "bounce",
+      "gift": null,
+      "title": "The LED gateway",
+      "tale": "The gateway thanked the car that wrote you off for driving safely. Let one colleague throw you into the next."
+     }
+    }
+   ]
+  }
+ ]
+}
