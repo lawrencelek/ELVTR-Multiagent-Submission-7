@@ -1,0 +1,23 @@
+{
+ "run": "20261108-203456-pressure",
+ "model": "opus",
+ "cost_usd": 0.9375,
+ "calls": [
+  {
+   "label": "a_puzzle_designer",
+   "role": "puzzle_designer",
+   "model": "opus",
+   "seconds": 325.6,
+   "cost_usd": 0.9374560000000001,
+   "input_tokens": 2,
+   "cache_write_tokens": 40866,
+   "cache_read_tokens": 0,
+   "output_tokens": 30526,
+   "prompt_chars": 52850,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  }
+ ],
+ "probeSeconds": 120
+}

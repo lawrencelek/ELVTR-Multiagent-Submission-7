@@ -1,0 +1,624 @@
+{
+ "levels": [
+  {
+   "n": 1,
+   "tile": "A1",
+   "name": "First Contact",
+   "verdict": "keep",
+   "newElement": {
+    "ok": true,
+    "note": "One element: the blind red car. The level needs it."
+   },
+   "obviousMove": {
+    "fails": true,
+    "evidence": "Probe A1 side: 1 fault, then a counted hit at 11.2 s. The fault shows once. At rung 0 the twist cannot hold longer."
+   },
+   "intended": {
+    "solvable": true,
+    "evidence": "Probe A1 stand cleared at 1.7 s in 1 pass. Edit 113 §113.9 bot cleared at 2.7 s (★★★)."
+   },
+   "cheese": [
+    "cutin cleared at 4.2 s and cover at 2.9 s. This is a teach level, so that is fine."
+   ],
+   "readability": "Good. The car drives one lane, and the hint names the rule. The twist is only a side note.",
+   "risks": [
+    "Geometry lists cone homes (400,224; 160,224) but the kit is empty. Drawn cones would mislead.",
+    "Par 10 against 1.7 s gives ★ Par to everyone. That is fine for a teach level."
+   ],
+   "fixes": [
+    {
+     "change": "Hide cone homes when the kit has no hands1. Check by hand.",
+     "kind": "code",
+     "params": [
+      "kit"
+     ],
+     "priority": "low"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "tile": "B1",
+   "name": "Kerbside",
+   "verdict": "fix",
+   "newElement": {
+    "ok": true,
+    "note": "Forward camera plus kerb cover. They are the sensor and its counter: one rule."
+   },
+   "obviousMove": {
+    "fails": true,
+    "evidence": "Probe B1 stand: 0 hits in 17 passes over 120 s."
+   },
+   "intended": {
+    "solvable": true,
+    "evidence": "Probe B1 cover cleared at 29 s, but the hit was graded SEEN. The walking cutin got 0 hits, 7 faults and 5 standstills. The walk-out window is narrow."
+   },
+   "cheese": [
+    "side cleared at 38.4 s after 1 fault, graded SEEN. It is slower than intended but generic."
+   ],
+   "readability": "The stop line shows the camera. The hint names the twist. Cover sits about 97 units off the lane, which does not read as kerbside.",
+   "risks": [
+    "7 faults on the walking cut-in. First-timers will read the fault rule as unfair.",
+    "Par 10 needs a first-pass clear. The best bot took 29 s, about 4 passes."
+   ],
+   "fixes": [
+    {
+     "change": "Move the cabinet and kiosk to the kerb. Halve the walk to the lane.",
+     "kind": "data",
+     "params": [
+      "levels.kerb.coverOffset (proposed)",
+      "level"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Hold par at 10 until Day 3. Raise it if the median player needs over 2 passes.",
+     "kind": "data",
+     "params": [
+      "story.puzzle.par.B1"
+     ],
+     "priority": "low"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "tile": "C1",
+   "name": "Set Back",
+   "verdict": "fix",
+   "newElement": {
+    "ok": false,
+    "note": "Dash is the element. Rung 1 does not watch the kerb, so set-back cover forces nothing. The player can wait at the kerb."
+   },
+   "obviousMove": {
+    "fails": "untested",
+    "evidence": "Stand failed (0 hits, 6 passes). No probe tries a walk-out with the dash removed. The 'walk out: too slow' twist is unmeasured."
+   },
+   "intended": {
+    "solvable": true,
+    "evidence": "Probe C1 cutin with dash: cleared at 37.3 s, 2 faults in 3 dashes. cover from set-back cover: 0 hits in 11 dashes."
+   },
+   "cheese": [
+    "side cleared at 50.2 s after 2 faults. On the bend (route 0,348 → 612,637) a flank dash can land on the nose."
+   ],
+   "readability": "The route bends, which makes 'ahead of its nose' harder to judge. The HIT guide carries the readability. The card says cover stands back; that is decoration.",
+   "risks": [
+    "2 of 3 dashes faulted. The window is tight.",
+    "Par 15 against 37.3 s measured.",
+    "If walking works from the kerb, the level does not need the dash."
+   ],
+   "fixes": [
+    {
+     "change": "Probe C1 cutin with kit [] by hand. If it clears, the twist is broken.",
+     "kind": "data",
+     "params": [
+      "kit"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Change NEW to 'Dash.' Drop 'cover set back' from the card.",
+     "kind": "data",
+     "params": [
+      "new",
+      "tale"
+     ],
+     "priority": "medium"
+    },
+    {
+     "change": "Show the HIT guide from the first dash, not only in the hint.",
+     "kind": "code",
+     "params": [
+      "hints"
+     ],
+     "priority": "medium"
+    },
+    {
+     "change": "Use a straight lane if the tile has one.",
+     "kind": "data",
+     "params": [
+      "duel.route (proposed)",
+      "route"
+     ],
+     "priority": "low"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "tile": "C2",
+   "name": "Overpass",
+   "verdict": "fix",
+   "newElement": {
+    "ok": true,
+    "note": "Side sensors plus the deck: a sensor and its counter. Escalator and drop are new verbs, so it is dense."
+   },
+   "obviousMove": {
+    "fails": true,
+    "evidence": "Probe C2: cutin 0 hits, cover 0, side 0 hits and 2 faults, stand 0, all over 120 s."
+   },
+   "intended": {
+    "solvable": "untested",
+    "evidence": "No bot drops. The test road measured gap at 2.07–2.21 per minute (ladder 10.3, 10.4). C2's own gap is unverified."
+   },
+   "cheese": [
+    "None found. Every ground bot fails."
+   ],
+   "readability": "The hint names the twist without the solution. The escalator and gap must be in view from the drop (400,224).",
+   "risks": [
+    "Deck traffic stays at fleet 0 (ENGINE). A white car on the deck costs ★ Untouched, with no warning.",
+    "A landing on the roof may be scored YOUR FAULT. UNTESTED.",
+    "The gap may not sit over the route (612,8 → 3,292). Check by hand."
+   ],
+   "fixes": [
+    {
+     "change": "Port P10's gap bot into p11_probe. Run it on C2.",
+     "kind": "code",
+     "params": [],
+     "priority": "high"
+    },
+    {
+     "change": "Clear deck traffic on this tile.",
+     "kind": "code",
+     "params": [
+      "story.traffic.deck.C2 (proposed)"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Check by hand: the gap is above the route and a drop counts as the car's fault.",
+     "kind": "data",
+     "params": [
+      "scoring.faultShare (proposed)",
+      "scoring.faultMinSpeed (proposed)"
+     ],
+     "priority": "medium"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "tile": "B2",
+   "name": "Roundabout",
+   "verdict": "fix",
+   "newElement": {
+    "ok": true,
+    "note": "Cones. There is no cover, so the cone is necessary if the deck has no gap."
+   },
+   "obviousMove": {
+    "fails": "untested",
+    "evidence": "No bot places a cone. The ground bots fail: cutin 0 hits, cover 0, side 1 fault, stand 0."
+   },
+   "intended": {
+    "solvable": "untested",
+    "evidence": "Conebait measured 2.0 per minute on the test road with side sensors on (ladder 10.5). B2 itself is unmeasured."
+   },
+   "cheese": [
+    "The B2 deck at rung 2 could let C2's drop clear it. UNTESTED."
+   ],
+   "readability": "The probe route is straight (0,348 → 794,348), so the name 'Roundabout' misleads. The hint names the twist.",
+   "risks": [
+    "Cone homes (336,320; 576,336) sit near the lane. They may already trigger a swerve each pass.",
+    "Side sensors may stop the car short of a dummy in the swerve lane. UNTESTED on this tile."
+   ],
+   "fixes": [
+    {
+     "change": "Port P10's conebait bot. Run it on B2.",
+     "kind": "code",
+     "params": [],
+     "priority": "high"
+    },
+    {
+     "change": "Move the cone homes off the kerb, next to the drop.",
+     "kind": "data",
+     "params": [
+      "level"
+     ],
+     "priority": "medium"
+    },
+    {
+     "change": "Confirm no drop gap over the route here.",
+     "kind": "data",
+     "params": [
+      "level"
+     ],
+     "priority": "medium"
+    },
+    {
+     "change": "Do not swap B2 (§112.7). Its clear teaches the lidar that closes C2's drop.",
+     "kind": "data",
+     "params": [
+      "duel.startRung"
+     ],
+     "priority": "low"
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "tile": "A2",
+   "name": "Red Light",
+   "verdict": "rework",
+   "newElement": {
+    "ok": false,
+    "note": "Three new things: the light, white traffic, two steps. Tall cover at rung 3 makes the light unneeded."
+   },
+   "obviousMove": {
+    "fails": "untested",
+    "evidence": "The light is not built. A2 plays as tall cover."
+   },
+   "intended": {
+    "solvable": "untested",
+    "evidence": "No light exists. No bot uses a switch."
+   },
+   "cheese": [
+    "cover cleared at 45.7 s from tall cover. Ladder 10.4 says tall cover is open at rung 3.",
+    "Cone bait is open below rung 5 and hands1 is in the kit. UNTESTED."
+   ],
+   "readability": "'Switch, cross, switch, step' is four real-time actions in one pass. It is too dense to infer.",
+   "risks": [
+    "Every moving bot took a white hit: stand, side, cutin and cover 1 each. Under TEST VOID they loop restarts.",
+    "With one box on one kerb, you need a walk back after crossing. That is a soft dead end.",
+    "A car pulling away from the line may be under faultMinSpeed 20. That scores YOUR FAULT."
+   ],
+   "fixes": [
+    {
+     "change": "Strip the tall cover. Leave the bollards and the switch box.",
+     "kind": "data",
+     "params": [
+      "level"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Use one press. The cross street goes red; its light goes green after a delay. You cross, then step out.",
+     "kind": "code",
+     "params": [
+      "props.signal.switchSeconds (proposed)",
+      "props.signal.stopLine (proposed)",
+      "props.signal.startRed (proposed)"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Run white traffic on the cross street only. The light controls it, so it is one element.",
+     "kind": "code",
+     "params": [
+      "story.traffic.monument.A2"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Remove hands1 from the kit.",
+     "kind": "data",
+     "params": [
+      "kit"
+     ],
+     "priority": "medium"
+    },
+    {
+     "change": "Put the stop line at least the dash reach (164) from where the player steps out.",
+     "kind": "data",
+     "params": [
+      "props.signal.stopLine (proposed)"
+     ],
+     "priority": "medium"
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "tile": "A3",
+   "name": "CCTV",
+   "verdict": "fix",
+   "newElement": {
+    "ok": false,
+    "note": "The probe shows 0 cameras. The breakable camera does not exist on the tile."
+   },
+   "obviousMove": {
+    "fails": false,
+    "evidence": "Probe A3 cover cleared at 4.6 s in 1 pass from cover. cutin cleared at 56.8 s."
+   },
+   "intended": {
+    "solvable": "untested",
+    "evidence": "No camera to break. No bot breaks cameras."
+   },
+   "cheese": [
+    "cover clears in 4.6 s from the cabinet (412,251) beside the drop (400,224). That is a first-pass ambush.",
+    "The kiosk (308,118) would stay unwatched with one camera.",
+    "Cone bait is open at rung 4 (ladder 10.5 conebait 2.0). UNTESTED here."
+   ],
+   "readability": "The street-camera lesson came at A2's clear, but nothing on the tile shows a camera.",
+   "risks": [
+    "White traffic adds noise and teaches no rule. side took 1 white hit."
+   ],
+   "fixes": [
+    {
+     "change": "Place the camera by data: camera.watch cabinet, as on L9. Set breakableCameras true.",
+     "kind": "data",
+     "params": [
+      "camera.watch",
+      "props.camera.breakable (proposed)",
+      "perception.streetCameraRange"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Use one tall piece only. Drop the kiosk or bring it inside range 180.",
+     "kind": "data",
+     "params": [
+      "level"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Move the drop beyond dash reach 164 of the route.",
+     "kind": "data",
+     "params": [
+      "story.puzzle.drop.A3 (proposed)"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Set fleet 0 and kit [battery1].",
+     "kind": "data",
+     "params": [
+      "story.traffic.monument.A3",
+      "kit"
+     ],
+     "priority": "medium"
+    }
+   ]
+  },
+  {
+   "n": 8,
+   "tile": "B3",
+   "name": "Crossing",
+   "verdict": "rework",
+   "newElement": {
+    "ok": false,
+    "note": "Two new things: clients, and the first use of duck (earned at A3). The trolley repeats B2's swerve rule."
+   },
+   "obviousMove": {
+    "fails": false,
+    "evidence": "Probe B3 cutin cleared at 4.9 s, 1 pass, seenHits 0. Side sensors missed the dummy."
+   },
+   "intended": {
+    "solvable": "untested",
+    "evidence": "Clients are not built. B3 plays as low cover."
+   },
+   "cheese": [
+    "cutin clears on the first pass from beside the drop (432,288), 60 units off the lane.",
+    "Cone bait is open at rung 4 with hands1 in the kit. UNTESTED."
+   ],
+   "readability": "Clause 4 asks the player to model the car's cost choice. The hint 'its only way out' is close to the solution.",
+   "risks": [
+    "A client hit voids the test, a second restart rule after A2's.",
+    "White hits: stand 2, cover 1."
+   ],
+   "fixes": [
+    {
+     "change": "Cut clients to Map 2 now (§112.6 cut order item 3).",
+     "kind": "data",
+     "params": [
+      "props.client.count (proposed)",
+      "driver.valueRank (proposed)"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Rebuild as 'Duck': low wall and hedges, one watched tall piece. Ladder 10.6 measured planter 3.03.",
+     "kind": "data",
+     "params": [
+      "level",
+      "camera.watch",
+      "duel.startRung"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Move the drop beyond cautionZone 180 of the route.",
+     "kind": "data",
+     "params": [
+      "story.puzzle.drop.B3 (proposed)",
+      "proto.driver.cautionZone"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Set fleet 0 and kit [battery1, knees1]. Steps 1.",
+     "kind": "data",
+     "params": [
+      "story.traffic.monument.B3",
+      "kit"
+     ],
+     "priority": "medium"
+    }
+   ]
+  },
+  {
+   "n": 9,
+   "tile": "C3",
+   "name": "Certification",
+   "verdict": "fix",
+   "newElement": {
+    "ok": true,
+    "note": "Boss phases. Everything else is an exam of earlier rules."
+   },
+   "obviousMove": {
+    "fails": true,
+    "evidence": "Headless: stand 0 hits in 240 s, side 0, cover 0 with 11 faults. cutin got 1 hit at 235.1 s."
+   },
+   "intended": {
+    "solvable": true,
+    "evidence": "Browser bot cleared 4 of 5 within 200 s, attempts 49, 64, 85 and 123 s (§113.9)."
+   },
+   "cheese": [
+    "The browser bot's move set has no camera break. If it cleared hit 3 unbroken, the kiosk is not required. Check its trace."
+   ],
+   "readability": "Three hints cover the three phases. Crash-memory spots must be drawn, or the twist hides. UNTESTED.",
+   "risks": [
+    "The hedge (510,546) sits 179.9 from the camera (630,412). Range is 180. Its cover state flickers.",
+    "Par 45 is under every bot attempt.",
+    "11 headless cover faults: the dash window from cover is tight."
+   ],
+   "fixes": [
+    {
+     "change": "Move the hedge so it is at least 200 from the camera.",
+     "kind": "data",
+     "params": [
+      "levels.boss.coverAt (proposed)",
+      "perception.streetCameraRange"
+     ],
+     "priority": "high"
+    },
+    {
+     "change": "Set par to 60 for now. Reset it from Day 3 medians.",
+     "kind": "data",
+     "params": [
+      "story.puzzle.par.C3"
+     ],
+     "priority": "medium"
+    },
+    {
+     "change": "Read the browser bot's hit-3 trace. If the camera stayed whole, close that way in.",
+     "kind": "data",
+     "params": [
+      "camera.watch",
+      "duel.memoryRadius"
+     ],
+     "priority": "medium"
+    },
+    {
+     "change": "Trim the lessons: clip 3 → 2, fit 2 → 1.5.",
+     "kind": "data",
+     "params": [
+      "duel.lessonClipSeconds",
+      "duel.lessonFitSeconds"
+     ],
+     "priority": "low"
+    }
+   ]
+  }
+ ],
+ "map": {
+  "curve": "The rung chain is sound: 0→1, part, 1→2, part, 2→3, 3→4, part, 4→5, 5→7. The difficulty is not. Today A3 and B3 are trivial, and A2 stacks three new things. After the fixes: teach A1–B1, spike at C1, two new verbs in C2–B2, a peak at A2–A3, a breather at B3 (one-step duck), then the boss.",
+  "order": [
+   "A1",
+   "B1",
+   "C1",
+   "C2",
+   "B2",
+   "A2",
+   "A3",
+   "B3",
+   "C3"
+  ],
+  "orderWhy": "Keep the order. Each clear teaches the next rung. B2's lidar closes C2's drop. A2's cameras arm A3. Swapping breaks the chain. A one-step B3 gives the breather.",
+  "pacing": "A pass is 7.2 s, not 9.2 s (§113.9). Pass budgets have about 22% slack. Measured clears overshoot par: B1 29/10, C1 37.3/15, A2 45.7/30, C3 49–123/45. Upper-bound passes ×7.2 plus overhead come to about 470 s. Real first-timers on untested C2, B2 and A2 decide the band.",
+  "build": [
+   "A3: camera.watch, one tall piece, drop moved, re-probe (data, an hour).",
+   "B3: cut clients; rebuild as duck; fleet 0; move drop (data).",
+   "Port P10's gap and conebait bots into p11_probe. Run C2, B2, and cone cheese on A2/A3/B3.",
+   "A2: one-press light, tall cover out, cross-street traffic only (code).",
+   "C3: move the hedge; par 60; read the hit-3 trace.",
+   "Hide deck traffic on C2 (code).",
+   "B1: cover to the kerb. C1: walk-only probe; NEW card says Dash.",
+   "Kit trims: hands1 off A2, A3, B3 (data)."
+  ],
+  "cut": [
+   "Clients and Clause 4 on B3: move to Map 2.",
+   "A2's second switch press.",
+   "White traffic on A3 and B3.",
+   "Walking clients, fleet update, ragdoll: already cut."
+  ]
+ },
+ "vehicles": {
+  "recommendation": "One learner per map. Map 1 stays RED-01, a sedan, for all nine. After Certification, a new class learns on Map 2.",
+  "why": [
+   "Clarity: the boss is the same car using its rungs. A swap per puzzle breaks 'it remembers'.",
+   "One new thing per puzzle: a class behaviour is a second rule. It would double every puzzle's load.",
+   "Cost: only the sedan's ladder is measured (P10 test road). Nine classes mean nine re-measures.",
+   "Lore: Certification certifies one car. Seniority (New → Senior) needs one car to rise.",
+   "Puzzle space: a class reshapes a whole ladder. That suits a map, not a level."
+  ],
+  "maps": [
+   {
+    "map": 1,
+    "district": "Monument",
+    "learner": "RED-01, Meridian",
+    "class": "sedan",
+    "ladderNotes": "Ladder as measured: rungs 0–7. 'Swerves with moderate clearance' supports the cone lessons.",
+    "newPuzzleSpace": [
+     "Forward camera, side sensors, lidar, cameras, road items, memory, search."
+    ]
+   },
+   {
+    "map": 2,
+    "district": "CBD (Edit 96 tales; confirm)",
+    "learner": "Porter learner",
+    "class": "van",
+    "ladderNotes": "Starts at rung 1 (fleet update ships the camera). Height 34 makes lidar native, so decks become decoys. 'Brakes, then swerves late' makes the swerve come inside stopping distance. Rung 5 becomes client value (driver.valueRank, proposed). It adds the two-way road (10.9) and the Incident (10.10).",
+    "newPuzzleSpace": [
+     "Clients on the zebra: the late swerve is the choice.",
+     "Cruise 120: wider walk windows. Length 68: more flank faults.",
+     "White tailgaters behind a slow van: Incidents.",
+     "Buses as moving tall cover. legs1 jump arrives."
+    ]
+   },
+   {
+    "map": 3,
+    "district": "Campus (Edit 96 tales; confirm)",
+    "learner": "Warden learner",
+    "class": "police",
+    "ladderNotes": "'Tracks your approach, then commits' makes search native. Crash memory arrives early. It adds a commit rung: once committed, it holds its line.",
+    "newPuzzleSpace": [
+     "Feints: bait the commit, then step into the committed line.",
+     "Cruise 150: tighter dash windows.",
+     "Cameras and lights as the boss's toolset."
+    ]
+   }
+  ],
+  "carryOver": [
+   "The dummy's kit and verbs; legs1 added on Map 2.",
+   "The fault rule, stars, grid, R restart, two clocks, hints.",
+   "Props: cones, breakable cameras, light, decks.",
+   "Rung ids stay global. Each class sets duel.startRung and reorders.",
+   "RED-01 returns as a Senior white car with its rungs, showing the fleet update.",
+   "Lesson clip, fitting and card pipeline."
+  ],
+  "risks": [
+   "The fleet update is cut from P11, and Map 2 depends on it.",
+   "Each class needs its open ways measured on the test road first.",
+   "Class speeds change pass length from 7.2 s. Measure it; do not assume.",
+   "Players may expect RED-01's learning to carry over. The card must say 'new learner, New'."
+  ]
+ },
+ "top": [
+  "A3: place the camera by data (camera.watch), keep one tall piece, move the drop. Today cover clears in 4.6 s.",
+  "B3: cut clients to Map 2; rebuild as the one-step duck breather. Today cutin clears in 4.9 s.",
+  "Port P10's gap and conebait bots. C2 and B2 solutions are UNTESTED.",
+  "A2: one-press light, no tall cover, cross-street traffic only. Today cover clears at 45.7 s; every bot took a white hit.",
+  "C3: move the hedge off the 180 range edge (179.9); par 45 → 60; verify hit 3 needs the camera."
+ ]
+}

@@ -168,4 +168,5 @@
 - **Boss:** three hits; lessons mid-puzzle (crash memory, then search); a breakable street camera (§113.6).
 - **Upgrade every third level:** parked; parts already arrive at L2, L4, L7 (§113.5).
 - **Full rules:** `docs/DUMMIES_GDD_Edit113_Prototype_11_Architecture.md`. Build: `p11/index.html`.
-
+- **Pressure test (Edit 114):** keep A1; fix B1, C1, C2, B2, A3, C3; rework A2, B3. A3 has no camera today.
+- **Vehicles (Edit 114 §114.6):** one learner per map. Monument: RED-01, a sedan. Proposed: Parkland a van, Waterfront a police car.

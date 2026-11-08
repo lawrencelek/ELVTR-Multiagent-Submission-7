@@ -1,0 +1,1050 @@
+{
+ "A1": {
+  "geometry": {
+   "tile": "A1",
+   "n": 1,
+   "name": "First Contact",
+   "built": true,
+   "level": "open",
+   "stage": "10.2",
+   "rung": 0,
+   "top": 1,
+   "kit": [],
+   "dash": false,
+   "reach": 164,
+   "duck": false,
+   "fleet": 0,
+   "drop": [
+    400,
+    224
+   ],
+   "route": {
+    "from": [
+     0,
+     348
+    ],
+    "to": [
+     800,
+     348
+    ]
+   },
+   "lanes": 2,
+   "cover": [],
+   "cameras": [],
+   "cones": [
+    "400,224",
+    "160,224"
+   ],
+   "decks": 1
+  },
+  "bots": {
+   "idle": {
+    "secs": 60,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 9,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 0
+   },
+   "stand": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 1,
+    "firstHit": 1.7,
+    "cleared": 1.7,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 0
+   },
+   "side": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 1,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 2,
+    "firstHit": 11.2,
+    "cleared": 11.2,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 0
+   },
+   "cutin": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 1,
+    "firstHit": 4.2,
+    "cleared": 4.2,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 0
+   },
+   "cover": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 1,
+    "firstHit": 2.9,
+    "cleared": 2.9,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 0
+   }
+  }
+ },
+ "B1": {
+  "geometry": {
+   "tile": "B1",
+   "n": 2,
+   "name": "Kerbside",
+   "built": false,
+   "level": "kerb",
+   "stage": "10.3",
+   "rung": 1,
+   "top": 1,
+   "kit": [],
+   "dash": false,
+   "reach": 164,
+   "duck": false,
+   "fleet": 0,
+   "drop": [
+    368,
+    224
+   ],
+   "route": {
+    "from": [
+     0,
+     348
+    ],
+    "to": [
+     792,
+     348
+    ]
+   },
+   "lanes": 2,
+   "cover": [
+    "cabinet@360,251",
+    "kiosk@540,252",
+    "billboard@210,256"
+   ],
+   "cameras": [],
+   "cones": [
+    "368,224",
+    "608,224"
+   ],
+   "decks": 1
+  },
+  "bots": {
+   "idle": {
+    "secs": 60,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 9,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 1
+   },
+   "stand": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 17,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 1
+   },
+   "side": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 1,
+    "whiteHits": 0,
+    "standstill": 1,
+    "dashes": 0,
+    "passes": 4,
+    "firstHit": 38.4,
+    "cleared": 38.4,
+    "lessons": [],
+    "seenHits": 1,
+    "endRung": 1
+   },
+   "cutin": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 7,
+    "whiteHits": 0,
+    "standstill": 5,
+    "dashes": 0,
+    "passes": 9,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 1
+   },
+   "cover": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 2,
+    "firstHit": 29,
+    "cleared": 29,
+    "lessons": [],
+    "seenHits": 1,
+    "endRung": 1
+   }
+  }
+ },
+ "C1": {
+  "geometry": {
+   "tile": "C1",
+   "n": 3,
+   "name": "Set Back",
+   "built": false,
+   "level": "setback",
+   "stage": "10.3",
+   "rung": 1,
+   "top": 2,
+   "kit": [
+    "battery1"
+   ],
+   "dash": true,
+   "reach": 164,
+   "duck": false,
+   "fleet": 0,
+   "drop": [
+    400,
+    416
+   ],
+   "route": {
+    "from": [
+     0,
+     348
+    ],
+    "to": [
+     612,
+     637
+    ]
+   },
+   "lanes": 2,
+   "cover": [
+    "cabinet@489,419",
+    "kiosk@490,558"
+   ],
+   "cameras": [],
+   "cones": [
+    "384,416",
+    "512,208"
+   ],
+   "decks": 1
+  },
+  "bots": {
+   "idle": {
+    "secs": 60,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 6,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 1
+   },
+   "stand": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 6,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 1
+   },
+   "side": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 2,
+    "whiteHits": 0,
+    "standstill": 1,
+    "dashes": 3,
+    "passes": 4,
+    "firstHit": 50.2,
+    "cleared": 50.2,
+    "lessons": [],
+    "seenHits": 1,
+    "endRung": 1
+   },
+   "cutin": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 2,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 3,
+    "passes": 3,
+    "firstHit": 37.3,
+    "cleared": 37.3,
+    "lessons": [],
+    "seenHits": 1,
+    "endRung": 1
+   },
+   "cover": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 11,
+    "passes": 12,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 1
+   }
+  }
+ },
+ "C2": {
+  "geometry": {
+   "tile": "C2",
+   "n": 4,
+   "name": "Overpass",
+   "built": false,
+   "level": "deck",
+   "stage": "10.4",
+   "rung": 2,
+   "top": 2,
+   "kit": [
+    "battery1"
+   ],
+   "dash": true,
+   "reach": 164,
+   "duck": false,
+   "fleet": 0,
+   "drop": [
+    400,
+    224
+   ],
+   "route": {
+    "from": [
+     612,
+     8
+    ],
+    "to": [
+     3,
+     292
+    ]
+   },
+   "lanes": 2,
+   "cover": [],
+   "cameras": [],
+   "cones": [
+    "400,224",
+    "544,416"
+   ],
+   "decks": 1
+  },
+  "bots": {
+   "idle": {
+    "secs": 60,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 3,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 2
+   },
+   "stand": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 6,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 2
+   },
+   "side": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 2,
+    "whiteHits": 0,
+    "standstill": 1,
+    "dashes": 19,
+    "passes": 8,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 2
+   },
+   "cutin": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 5,
+    "passes": 6,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 2
+   },
+   "cover": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 5,
+    "passes": 6,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 2
+   }
+  }
+ },
+ "B2": {
+  "geometry": {
+   "tile": "B2",
+   "n": 5,
+   "name": "Roundabout",
+   "built": false,
+   "level": "cones",
+   "stage": "10.4",
+   "rung": 2,
+   "top": 3,
+   "kit": [
+    "battery1",
+    "hands1"
+   ],
+   "dash": true,
+   "reach": 164,
+   "duck": false,
+   "fleet": 0,
+   "drop": [
+    416,
+    496
+   ],
+   "route": {
+    "from": [
+     0,
+     348
+    ],
+    "to": [
+     794,
+     348
+    ]
+   },
+   "lanes": 2,
+   "cover": [],
+   "cameras": [],
+   "cones": [
+    "336,320",
+    "576,336"
+   ],
+   "decks": 1
+  },
+  "bots": {
+   "idle": {
+    "secs": 60,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 5,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 2
+   },
+   "stand": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 5,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 2
+   },
+   "side": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 1,
+    "whiteHits": 0,
+    "standstill": 2,
+    "dashes": 5,
+    "passes": 8,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 2
+   },
+   "cutin": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 7,
+    "passes": 8,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 2
+   },
+   "cover": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 10,
+    "passes": 11,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 2
+   }
+  }
+ },
+ "A2": {
+  "geometry": {
+   "tile": "A2",
+   "n": 6,
+   "name": "Red Light",
+   "built": false,
+   "level": "tall",
+   "stage": "10.5",
+   "rung": 3,
+   "top": 4,
+   "kit": [
+    "battery1",
+    "hands1"
+   ],
+   "dash": true,
+   "reach": 164,
+   "duck": false,
+   "fleet": 0.5,
+   "drop": [
+    416,
+    224
+   ],
+   "route": {
+    "from": [
+     800,
+     292
+    ],
+    "to": [
+     212,
+     637
+    ]
+   },
+   "lanes": 2,
+   "cover": [
+    "cabinet@690,251",
+    "kiosk@450,252",
+    "bollard(low)@628,251",
+    "bollard(low)@580,251",
+    "bollard(low)@532,251"
+   ],
+   "cameras": [],
+   "cones": [
+    "416,224",
+    "176,304"
+   ],
+   "decks": 1
+  },
+  "bots": {
+   "idle": {
+    "secs": 60,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 5,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 3
+   },
+   "stand": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 2,
+    "whiteHits": 1,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 3,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 3
+   },
+   "side": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 6,
+    "whiteHits": 1,
+    "standstill": 3,
+    "dashes": 6,
+    "passes": 6,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 3
+   },
+   "cutin": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 1,
+    "whiteHits": 1,
+    "standstill": 0,
+    "dashes": 5,
+    "passes": 6,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 3
+   },
+   "cover": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 0,
+    "whiteHits": 1,
+    "standstill": 0,
+    "dashes": 3,
+    "passes": 3,
+    "firstHit": 45.7,
+    "cleared": 45.7,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 3
+   }
+  }
+ },
+ "A3": {
+  "geometry": {
+   "tile": "A3",
+   "n": 7,
+   "name": "CCTV",
+   "built": false,
+   "level": "watched",
+   "stage": "10.5",
+   "rung": 4,
+   "top": 4,
+   "kit": [
+    "battery1",
+    "hands1"
+   ],
+   "dash": true,
+   "reach": 164,
+   "duck": false,
+   "fleet": 0.5,
+   "drop": [
+    400,
+    224
+   ],
+   "route": {
+    "from": [
+     212,
+     8
+    ],
+    "to": [
+     797,
+     348
+    ]
+   },
+   "lanes": 2,
+   "cover": [
+    "cabinet@412,251",
+    "planter(low)@389,386",
+    "kiosk@308,118",
+    "hedge(low)@174,178"
+   ],
+   "cameras": [],
+   "cones": [
+    "400,224",
+    "160,256"
+   ],
+   "decks": 1
+  },
+  "bots": {
+   "idle": {
+    "secs": 60,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 4,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 4
+   },
+   "stand": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 7,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 4
+   },
+   "side": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 5,
+    "whiteHits": 1,
+    "standstill": 1,
+    "dashes": 10,
+    "passes": 6,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 4
+   },
+   "cutin": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 3,
+    "passes": 4,
+    "firstHit": 56.8,
+    "cleared": 56.8,
+    "lessons": [],
+    "seenHits": 1,
+    "endRung": 4
+   },
+   "cover": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 1,
+    "passes": 1,
+    "firstHit": 4.6,
+    "cleared": 4.6,
+    "lessons": [],
+    "seenHits": 1,
+    "endRung": 4
+   }
+  }
+ },
+ "B3": {
+  "geometry": {
+   "tile": "B3",
+   "n": 8,
+   "name": "Crossing",
+   "built": false,
+   "level": "low",
+   "stage": "10.6",
+   "rung": 4,
+   "top": 5,
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "dash": true,
+   "reach": 164,
+   "duck": true,
+   "fleet": 0.5,
+   "drop": [
+    432,
+    288
+   ],
+   "route": {
+    "from": [
+     8,
+     348
+    ],
+    "to": [
+     798,
+     508
+    ]
+   },
+   "lanes": 2,
+   "cover": [
+    "planter(low)@292,255",
+    "hedge(low)@238,386",
+    "planter(low)@592,414"
+   ],
+   "cameras": [],
+   "cones": [
+    "432,288",
+    "384,528"
+   ],
+   "decks": 1
+  },
+  "bots": {
+   "idle": {
+    "secs": 60,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 4,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 4
+   },
+   "stand": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 2,
+    "whiteHits": 2,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 5,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 4
+   },
+   "side": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 3,
+    "whiteHits": 0,
+    "standstill": 1,
+    "dashes": 3,
+    "passes": 6,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 4
+   },
+   "cutin": {
+    "secs": 120,
+    "hits": 1,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 1,
+    "passes": 1,
+    "firstHit": 4.9,
+    "cleared": 4.9,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 4
+   },
+   "cover": {
+    "secs": 120,
+    "hits": 0,
+    "faults": 5,
+    "whiteHits": 1,
+    "standstill": 0,
+    "dashes": 4,
+    "passes": 6,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 4
+   }
+  }
+ },
+ "C3": {
+  "geometry": {
+   "tile": "C3",
+   "n": 9,
+   "name": "Certification",
+   "built": true,
+   "level": "boss",
+   "stage": "10.8",
+   "rung": 5,
+   "top": 7,
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "dash": true,
+   "reach": 164,
+   "duck": true,
+   "fleet": 0.5,
+   "drop": [
+    400,
+    384
+   ],
+   "route": {
+    "from": [
+     0,
+     508
+    ],
+    "to": [
+     800,
+     508
+    ]
+   },
+   "lanes": 2,
+   "cover": [
+    "cabinet@410,411",
+    "kiosk@540,412",
+    "hedge(low)@510,546"
+   ],
+   "cameras": [
+    "630,412"
+   ],
+   "cones": [
+    "400,384",
+    "640,368"
+   ],
+   "decks": 2
+  },
+  "bots": {
+   "idle": {
+    "secs": 60,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 6,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 5
+   },
+   "stand": {
+    "secs": 240,
+    "hits": 0,
+    "faults": 0,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 0,
+    "passes": 21,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 5
+   },
+   "side": {
+    "secs": 240,
+    "hits": 0,
+    "faults": 2,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 3,
+    "passes": 18,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 5
+   },
+   "cutin": {
+    "secs": 240,
+    "hits": 1,
+    "faults": 3,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 9,
+    "passes": 10,
+    "firstHit": 235.1,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 5
+   },
+   "cover": {
+    "secs": 240,
+    "hits": 0,
+    "faults": 11,
+    "whiteHits": 0,
+    "standstill": 0,
+    "dashes": 13,
+    "passes": 14,
+    "firstHit": null,
+    "cleared": null,
+    "lessons": [],
+    "seenHits": 0,
+    "endRung": 5
+   }
+  }
+ }
+}

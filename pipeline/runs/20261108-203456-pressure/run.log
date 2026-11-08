@@ -1,0 +1,14 @@
+[20:34:56] 1 build: engine: wrote p11/index.html 1,688,725 bytes; P11 puzzles; Map 1 from content/puzzles_map1.json (set by hand, Edit 113); md5 1df335c0
+[20:34:56] 2 probes: 45 runs (9 puzzles × 5 bots, 120 s each; the boss twice as long)
+[20:38:17]   A1 idle 0h/0f · stand 1h/0f @1.7s · side 1h/1f @11.2s · cutin 1h/0f @4.2s · cover 1h/0f @2.9s
+[20:38:17]   B1 idle 0h/0f · stand 0h/0f · side 1h/1f @38.4s · cutin 0h/7f · cover 1h/0f @29s
+[20:38:17]   C1 idle 0h/0f · stand 0h/0f · side 1h/2f @50.2s · cutin 1h/2f @37.3s · cover 0h/0f
+[20:38:17]   C2 idle 0h/0f · stand 0h/0f · side 0h/2f · cutin 0h/0f · cover 0h/0f
+[20:38:17]   B2 idle 0h/0f · stand 0h/0f · side 0h/1f · cutin 0h/0f · cover 0h/0f
+[20:38:17]   A2 idle 0h/0f · stand 0h/2f · side 0h/6f · cutin 0h/1f · cover 1h/0f @45.7s
+[20:38:17]   A3 idle 0h/0f · stand 0h/0f · side 0h/5f · cutin 1h/0f @56.8s · cover 1h/0f @4.6s
+[20:38:17]   B3 idle 0h/0f · stand 0h/2f · side 0h/3f · cutin 1h/0f @4.9s · cover 0h/5f
+[20:38:17]   C3 idle 0h/0f · stand 0h/0f · side 0h/2f · cutin 1h/3f @235.1s · cover 0h/11f
+[20:38:17] 3 agent puzzle_designer (opus): 48,602 characters in
+[20:43:43]   cost a_puzzle_designer opus $0.9375 · 325.6 s · out 30526 tokens
+[20:43:43] 4 report: /home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261108-203456-pressure/report.md · $0.9375

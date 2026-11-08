@@ -56,6 +56,7 @@
 - **Stars:** ★ Clear (the red car hits you, its fault) · ★ Untouched (no white car, no fault of yours) · ★ Par (the attempt's time).
 - **The boss:** three hits; it learns crash memory after the first and the search after the second. A dash into a street camera's post breaks it.
 - **Arcade:** locked until Certification is passed. Saves are Prototype 11's own (three slots).
+- **Pressure test** (GDD [Edit 114](docs/DUMMIES_GDD_Edit114_Pressure_Test_Vehicles.md)): a puzzle level design specialist agent (`pipeline/agents/puzzle_designer.md`) reads the design and headless probes of all nine puzzles (`engine/p11_probe.js`), and returns a verdict per puzzle. `python3 pipeline/pressure_test.py` ($0.94 a run).
 - Content: `content/puzzles_map1.json` (set by hand). Engine: `engine/p11.js`, `engine/p11_ui.js`. Build: `python3 engine/build_p9.py --p11`. Test: `node engine/p11_test.js --boss 200`.
 
 ## Pipeline
