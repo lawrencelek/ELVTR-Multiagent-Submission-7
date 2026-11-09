@@ -1,0 +1,269 @@
+{
+ "shots": [
+  {
+   "shot": "ref_gift_0_15",
+   "kind": "reference",
+   "t": 0.15,
+   "note": "Prototype 9 gift screen; ui.gift.fallSeconds 0.7, ui.gift.holdSeconds 1.2"
+  },
+  {
+   "shot": "ref_gift_0_50",
+   "kind": "reference",
+   "t": 0.5,
+   "note": "Prototype 9 gift screen; ui.gift.fallSeconds 0.7, ui.gift.holdSeconds 1.2"
+  },
+  {
+   "shot": "ref_gift_0_90",
+   "kind": "reference",
+   "t": 0.9,
+   "note": "Prototype 9 gift screen; ui.gift.fallSeconds 0.7, ui.gift.holdSeconds 1.2"
+  },
+  {
+   "shot": "ref_gift_1_20",
+   "kind": "reference",
+   "t": 1.2,
+   "note": "Prototype 9 gift screen; ui.gift.fallSeconds 0.7, ui.gift.holdSeconds 1.2"
+  },
+  {
+   "shot": "ref_gift_1_45",
+   "kind": "reference",
+   "t": 1.45,
+   "note": "Prototype 9 gift screen; ui.gift.fallSeconds 0.7, ui.gift.holdSeconds 1.2"
+  },
+  {
+   "shot": "ref_gift_1_80",
+   "kind": "reference",
+   "t": 1.8,
+   "note": "Prototype 9 gift screen; ui.gift.fallSeconds 0.7, ui.gift.holdSeconds 1.2"
+  },
+  {
+   "shot": "ref_gift_2_60",
+   "kind": "reference",
+   "t": 2.6,
+   "note": "Prototype 9 gift screen; ui.gift.fallSeconds 0.7, ui.gift.holdSeconds 1.2"
+  },
+  {
+   "shot": "ref_gift_4_00",
+   "kind": "reference",
+   "t": 4,
+   "note": "Prototype 9 gift screen; ui.gift.fallSeconds 0.7, ui.gift.holdSeconds 1.2"
+  },
+  {
+   "shot": "car_A1_r1_0_2",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 0.2,
+   "pinned": false
+  },
+  {
+   "shot": "car_A1_r1_0_8",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 0.8,
+   "pinned": false
+  },
+  {
+   "shot": "car_A1_r1_1_6",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 1.6,
+   "pinned": false
+  },
+  {
+   "shot": "car_A1_r1_2_4",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 2.4,
+   "pinned": false
+  },
+  {
+   "shot": "car_A1_r1_3_0",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 3,
+   "pinned": false
+  },
+  {
+   "shot": "car_A1_r1_3_4",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 3.4,
+   "pinned": false
+  },
+  {
+   "shot": "car_A1_r1_3_8",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 3.8,
+   "pinned": false
+  },
+  {
+   "shot": "car_A1_r1_4_2",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 4.2,
+   "pinned": false
+  },
+  {
+   "shot": "car_A1_r1_4_6",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 4.6,
+   "pinned": false
+  },
+  {
+   "shot": "car_A1_r1_5_2",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 5.2,
+   "pinned": false
+  },
+  {
+   "shot": "car_A1_r1_6_0",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 6,
+   "pinned": false
+  },
+  {
+   "shot": "car_A1_r1_7_5",
+   "kind": "car upgrade",
+   "tile": "A1",
+   "from": 0,
+   "to": 1,
+   "t": 7.5,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_0_2",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 0.2,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_0_8",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 0.8,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_1_6",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 1.6,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_2_4",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 2.4,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_3_0",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 3,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_3_4",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 3.4,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_3_8",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 3.8,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_4_2",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 4.2,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_4_6",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 4.6,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_5_2",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 5.2,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_6_0",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 6,
+   "pinned": false
+  },
+  {
+   "shot": "car_C2_r3_7_5",
+   "kind": "car upgrade",
+   "tile": "C2",
+   "from": 2,
+   "to": 3,
+   "t": 7.5,
+   "pinned": false
+  }
+ ],
+ "errors": []
+}

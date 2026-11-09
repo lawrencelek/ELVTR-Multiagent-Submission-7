@@ -1,6 +1,6 @@
 # Prototype 11 QA: an analog pad, an adversarial agent, a full runthrough
 
-The tools behind GDD Edit 118. Everything drives the game as a player does: taps on the game's own tap targets, keys, and a virtual gamepad whose left stick takes any angle and strength (360°). Keyboard players get eight directions; phone thumbsticks and console pads do not.
+The tools behind GDD Edits 118 and 119. Everything drives the game as a player does: taps on the game's own tap targets, keys, and a virtual gamepad whose left stick takes any angle and strength (360°). Keyboard players get eight directions; phone thumbsticks and console pads do not.
 
 | File | Does |
 |---|---|
@@ -9,7 +9,7 @@ The tools behind GDD Edit 118. Everything drives the game as a player does: taps
 | `attack.js` | Runs attack plans, each in its own page from a save at that puzzle, two or more browsers in parallel. `--geo` exports the nine tiles as an attacker needs them: solids, decks, gaps, stairs, route, cover, cameras and cones |
 | `clicks.js` | Click everywhere. Taps a grid over every screen it reaches, then the game's tap targets, keys and pad buttons. Flicks the stick, resizes, blurs, unplugs the pad. Reports screens, transitions, errors, stuck screens and blank canvases |
 | `runthrough.js` | The full game, recorded: every menu, a new save, nine puzzles, quit and reload, continue, Certification, Arcade |
-| `solutions/<tile>.json` | One pad script per puzzle that clears it, tuned headless and run in the browser |
+| `solutions/<tile>.json` | One pad script per puzzle that clears it, tuned headless and run in the browser. Pad layout (P11.3, Edit 119): A dash, B crouch (hold), X jump, Y interact (cones) |
 
 The agent: `python3 pipeline/qa_attack.py` (prompt `pipeline/agents/qa_adversary.md`).
 1. Round 1: it writes attack plans and one intended-solution plan per puzzle.
@@ -20,7 +20,7 @@ The agent: `python3 pipeline/qa_attack.py` (prompt `pipeline/agents/qa_adversary
 Runs go to `pipeline/runs/<stamp>-qa/`.
 
 **Last results (9 Nov):**
-- Runthrough: pass, nine puzzles on the first try, 4 min 36 s ([video](../docs/p11_runthrough.mp4)).
+- Runthrough (P11.3, snake order, new pad layout, the car's upgrade screen): pass, nine puzzles on the first try, 4 min 48 s ([video](../docs/p11_runthrough.mp4)).
 - Click everywhere: 1,653 actions, clean.
 - The agent: 87 plans and 15 reported bugs, checked in GDD Edit 118 §118.3.
 

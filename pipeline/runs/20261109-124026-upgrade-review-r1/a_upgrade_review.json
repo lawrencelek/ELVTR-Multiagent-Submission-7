@@ -1,0 +1,224 @@
+{
+ "verdict": "The build follows the layout and timing of the spec, and the replay, the sentence, the pips and the two-rung stack all hold. The arrival breaks: the drone comes down onto the car body instead of staying above it, the name pop runs off the panel, and the rays end in a hard grey box.",
+ "meets": [
+  {
+   "check": "0.6 s: the panel is at [276,66,728,588] with a cyan frame; the HUD is unchanged and does not shake",
+   "pass": true,
+   "shots": [
+    "car_A1_r1_0_60",
+    "car_C2_r3_0_60",
+    "car_A1_r1_1_15",
+    "car_B1_r2_1_15"
+   ],
+   "note": "The panel frame is at x 276–1004, y 66–654. At 1.15 s the panel moves about 4 px and the HUD stays still. But at 1.15 s the name pop goes past the panel edge (see U2)."
+  },
+  {
+   "check": "0.6 s: the replay shows the dummy and RED-01, the car is at least 40 px, and there is no rung text or clock",
+   "pass": true,
+   "shots": [
+    "car_A1_r1_0_60",
+    "car_B1_r2_0_60",
+    "car_C2_r3_0_60",
+    "car_A2_r5_0_60"
+   ],
+   "note": "The R01 sprite is 44–48 px long. The dummy and the car are both in frame. No clock and no REC dot. In A2 the car is drawn as a checkerboard (U6)."
+  },
+  {
+   "check": "0.6 s: the hero car is nose up inside its box, dimmed, with the slot empty, kit-colour brackets on it, and the drone above with the piece on a tether",
+   "pass": false,
+   "shots": [
+    "car_A1_r1_0_60",
+    "car_B1_r2_0_60",
+    "car_C2_r3_0_60",
+    "car_A2_r5_0_60"
+   ],
+   "note": "The car is nose up and dimmed, and the brackets are in the kit colour. Only A2 has the drone above the car. In A1 the piece is already on the bonnet at y 215–238. In C2 the drone and the puck sit on the windscreen at y 245–340. In B1 the pods hang beside the car with no visible tether."
+  },
+  {
+   "check": "1.15 s: the replay is on the impact frame with a yellow box; the piece is in its slot; red and kit-colour rings show inside x<590",
+   "pass": false,
+   "shots": [
+    "car_A1_r1_1_15",
+    "car_B1_r2_1_15",
+    "car_C2_r3_1_15",
+    "car_A2_r5_1_15"
+   ],
+   "note": "The impact frame, the yellow box and the piece in its slot are all there. Only the red ring shows. The kit-colour ring first appears at 1.30 s (car_A1_r1_1_30, car_C2_r3_1_30). The panel flash greys out the impact frame (U4)."
+  },
+  {
+   "check": "1.45 s: the cyan 'RED-01 LEARNED' label, the red name at 48 px or less in [600,124,380,48], and the sentence visible in [600,222,380,102]",
+   "pass": true,
+   "shots": [
+    "car_A1_r1_1_45",
+    "car_B1_r2_1_45",
+    "car_A2_r5_1_45"
+   ],
+   "note": "The names end at x 845, 938 and 957, all inside x 980. The sentence is still at about 75% alpha as it fades in, and it is readable."
+  },
+  {
+   "check": "Every visible sentence has at most 12 words, no digits, and matches the table",
+   "pass": true,
+   "shots": [
+    "car_A1_r1_1_70",
+    "car_B1_r2_1_70",
+    "car_C2_r3_2_30",
+    "car_A2_r5_1_70"
+   ],
+   "note": "The sentences for rungs 1, 2, 3, 4 and 5 match the table word for word."
+  },
+  {
+   "check": "1.7 s: the cyan prompt is right-aligned to x 980 at y 606–630; no yellow text outside the replay label and the impact box",
+   "pass": true,
+   "shots": [
+    "car_A1_r1_1_70",
+    "car_B1_r2_1_70",
+    "car_A2_r5_1_70"
+   ],
+   "note": "'SPACE · CONTINUE' ends at x 980, y 606–626. The only yellow in the panel is 'YOUR HIT' and the impact box. The yellow puzzle badge is HUD, outside the panel. In C2 the prompt correctly waits until 2.1 s."
+  },
+  {
+   "check": "3.0 s vs 1.7 s: the replay frames differ, the replay stays in its box, and no ray pixels at x≥590",
+   "pass": true,
+   "shots": [
+    "car_A1_r1_1_70",
+    "car_A1_r1_3_00",
+    "car_A2_r5_1_70",
+    "car_A2_r5_3_00"
+   ],
+   "note": "The loop runs. The clip stops at x 590, but as a hard visible seam (U3)."
+  },
+  {
+   "check": "No shot contains RUNG, →, CLOSED, NEXT, TRAINING LOG, LESSON: or ENTER",
+   "pass": true,
+   "shots": [
+    "car_A1_r1_3_00",
+    "car_C2_r3_3_00",
+    "car_A2_r5_3_00"
+   ],
+   "note": "None of these appear in any of the 42 shots."
+  },
+  {
+   "check": "Pips: the old count at about 1.0 s, the new count at 1.3 s with the newest in the kit colour",
+   "pass": true,
+   "shots": [
+    "car_B1_r2_0_95",
+    "car_B1_r2_1_30",
+    "car_C2_r3_0_95",
+    "car_C2_r3_1_30",
+    "car_A2_r5_0_95",
+    "car_A2_r5_1_30"
+   ],
+   "note": "Counts go 0→1, 1→2, 2→3 and 4→5. The new pips are steel blue, violet and orange. Checked at 0.95 s, the nearest pin to 1.0 s."
+  },
+  {
+   "check": "Two-rung C2 at 1.3, 1.9 and 2.3 s: one panel; both pieces on the car at 1.9 s; two names, two sentences, one replay and one prompt at 2.3 s",
+   "pass": true,
+   "shots": [
+    "car_C2_r3_1_30",
+    "car_C2_r3_1_90",
+    "car_C2_r3_2_30"
+   ],
+   "note": "The structure is right, and there is no second scale-in. Between 0.95 and 1.70 s the drone covers the windscreen and the new puck (U1)."
+  },
+  {
+   "check": "Reduced motion, 0.5 and 1.2 s: no drone, no offset, no turning rays; at 1.2 s the piece, name, sentence and a steady prompt show",
+   "pass": true,
+   "shots": [
+    "car_A1_r1_rm_0_50",
+    "car_A1_r1_rm_1_20"
+   ],
+   "note": "There is no drone, and the piece fades in at its slot. Each time has only one pin, so these shots cannot show that the rays stay still or that the prompt does not blink. Add an RM pin at 1.45 s."
+  }
+ ],
+ "findings": [
+  {
+   "id": "U1",
+   "severity": "major",
+   "shots": [
+    "car_C2_r3_0_95",
+    "car_C2_r3_1_30",
+    "car_C2_r3_1_70",
+    "car_B1_r2_0_95",
+    "car_A1_r1_0_60"
+   ],
+   "what": "Hero column, x 375–525. The drone comes all the way down onto the car body. It covers the lens bar in C2 at 0.95 and 1.70 s. At 1.30 s it sits on the new roof puck, the moment the puck should be the hero. In B1 at 0.95 s it sits on the bonnet. The part never reads as dropped from above. My spec caused this: the drone lane [375,90,150,140] overlaps the car's top at y 200, and 'lower to 40 px above the slot' puts the drone on the roof for any slot in the middle of the car.",
+   "fix": "Keep the drone's lowest point at y 150 or higher, above the car's top edge. For lower slots, lengthen the tether instead of lowering the drone. The drone lets go at 0.85 s and is out of the panel top (y<66) by 1.1 s. In the two-rung case, the drone moves to above the rear-roof slot at y 150, not over the windscreen. Draw the drone above the car, never on it."
+  },
+  {
+   "id": "U2",
+   "severity": "major",
+   "shots": [
+    "car_B1_r2_1_15",
+    "car_A2_r5_1_15"
+   ],
+   "what": "Name region [600,124,380,48]. The 1.4x pop grows from the left edge, so 'MIRROR PODS' reaches x 1030 and 'BUMPER STRIP' reaches x 1052. Both pass the panel's edge at x 1004 and cover the play field's frame.",
+   "fix": "Cap the peak scale at min(1.4, 392 / measured width). Or scale around the text's centre and clip to [596,118,404,60]. Re-pin the longest names, BUMPER STRIP and SEARCHLIGHT, at 1.15 s."
+  },
+  {
+   "id": "U3",
+   "severity": "major",
+   "shots": [
+    "car_A1_r1_1_70",
+    "car_A2_r5_1_45",
+    "car_A2_r5_3_00",
+    "car_C2_r3_2_30"
+   ],
+   "what": "Hero column [300,90,290,540]. The rays fill the column to its edges and end in hard straight lines at x 300, x 590, y 90 and y 630. This draws a grey box (orange in A2) that splits the panel into two cards. Its right edge is 10 px from the text at x 600.",
+   "fix": "Fade the rays radially: full alpha (0.30) out to 100 px from the car's centre, zero alpha at 145 px. The rays then never reach the clip. Keep the clip as a backstop. Ring radius stops at 145 px."
+  },
+  {
+   "id": "U4",
+   "severity": "minor",
+   "shots": [
+    "car_A1_r1_1_15",
+    "car_B1_r2_1_15",
+    "car_C2_r3_1_15",
+    "car_A2_r5_1_15"
+   ],
+   "what": "At the landing, the panel flash greys the whole panel, including the replay. The yellow impact box and the name pop are washed out on the one frame where the hit and the landing should land together. Only the red ring has fired. The kit-colour ring comes later.",
+   "fix": "Flash only the hero column [300,90,290,540], at 0.30 alpha. Leave the replay and the name unflashed. Fire both rings at 1.1 s, with the kit ring 0.05 s behind the red, not 0.2 s."
+  },
+  {
+   "id": "U5",
+   "severity": "minor",
+   "shots": [
+    "car_A1_r1_1_70",
+    "car_B1_r2_1_70",
+    "car_A2_r5_1_70"
+   ],
+   "what": "The replay loop restarts at −2.0 s, where RED-01 is half outside the crop: at the left edge (x 600–632) in A1, at the right edge (x 945–980) in B1 and A2. The first loop cuts from the frozen impact straight to a clipped car.",
+   "fix": "Start the loop at the first recorded frame where the car's full bounding box is inside the crop (−1.6 s at most). Or grow the source crop to include the car at −2.0 s, keeping the car at 40 px or more. Add a 0.1 s fade to black between loops."
+  },
+  {
+   "id": "U6",
+   "severity": "minor",
+   "shots": [
+    "car_A2_r5_0_15",
+    "car_A2_r5_0_60",
+    "car_A2_r5_2_30",
+    "car_A2_r5_3_00"
+   ],
+   "what": "Replay. In A2, RED-01 shows as a red checkerboard ghost with no solid body for most of the loop. The player cannot read the car that hit them.",
+   "fix": "Draw the copied frame with imageSmoothingEnabled=false. If the checkerboard is a game state, such as a stealth or seen effect, draw the car solid in the replay copy."
+  },
+  {
+   "id": "U7",
+   "severity": "minor",
+   "shots": [
+    "car_B1_r2_0_60",
+    "car_A2_r5_1_30"
+   ],
+   "what": "Piece placement. In B1 at 0.60 s the two pods float beside the car with no tether. In A2 the bumper strip lands at y 190–213 and sticks out past the nose at y 200, so it reads as sitting on the car rather than fitted.",
+   "fix": "Hang both pods from the drone on a split tether. Seat the bumper strip at nose y + 4, inside the car's outline."
+  }
+ ],
+ "priority": [
+  "U1",
+  "U2",
+  "U3",
+  "U4",
+  "U5",
+  "U6",
+  "U7"
+ ]
+}

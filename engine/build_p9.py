@@ -69,6 +69,28 @@ def p11_game_js(g):
          "  function drawViewEdges(s) {\n    if (window.P11) return; // Prototype 11.2 (Edit 117): the board is whole; the dummy's view edges read as sensor edges\n"),
         ("xHeld: held.has('x') || pad.xHeld || !!TOUCH.down.x, duck: held.has('duck') }; // Submission 7: hold C to duck",
          "xHeld: held.has('x') || pad.xHeld || !!TOUCH.down.x, duck: held.has('duck') || held.has('b') || pad.bHeld || !!TOUCH.down.b || padShoulder() }; // Submission 7: hold C to duck. Prototype 11.2 (QA): pad and touch duck too: hold B (no jump in Map 1), or a shoulder button\n  function padShoulder() { try { for (const g of (navigator.getGamepads && navigator.getGamepads()) || []) if (g && [4, 5, 6].some((i) => g.buttons[i] && (g.buttons[i].pressed || g.buttons[i].value > 0.5))) return true; } catch (e) { /* the page forbids pads */ } return false; }"),
+        # Prototype 11.3 (Edit 119): the pad layout. A dash, B crouch, X jump, Y interact (cones). Keys: Space/K dash; C, Ctrl, L, Shift crouch; J jump; E, I, Q interact
+        ("pad.bHeld = !!o.held.b; pad.xHeld = !!o.held.x;", "pad.bHeld = !!o.held.b; pad.xHeld = !!o.held.x; pad.yHeld = !!o.held.y; // Prototype 11.3: Y is held to interact"),
+        ("pad.mx = pad.my = 0; pad.bHeld = false; pad.xHeld = false;", "pad.mx = pad.my = 0; pad.bHeld = false; pad.xHeld = false; pad.yHeld = false;"),
+        ("KeyJ: 'x', KeyE: 'x', KeyI: 'y', KeyQ: 'y',", "KeyJ: 'x', KeyE: window.P11 ? 'y' : 'x', KeyI: 'y', KeyQ: 'y', // Prototype 11.3: E interacts"),
+        ("    q.a = q.b = q.bUp = q.x = q.y = 0;\n    return cmd;",
+         "    if (window.P11) Object.assign(cmd, { bPress: q.x > 0, bRelease: false, bHeld: held.has('x') || pad.xHeld || !!TOUCH.down.x, xPress: q.y > 0, xHeld: held.has('y') || pad.yHeld || !!TOUCH.down.y, yPress: false, duck: held.has('duck') || held.has('b') || pad.bHeld || !!TOUCH.down.b || padShoulder() }); // Prototype 11.3: A dash, B crouch, X jump, Y interact\n    q.a = q.b = q.bUp = q.x = q.y = 0;\n    return cmd;"),
+        ("  const FACE = [['y', 0, -1, 'Y', ABIL4 ? 'PUSH' : 'THROW'], ['x', -1, 0, 'X', ABIL3 ? 'GRAB' : 'GRAB'], ['b', 1, 0, 'B', 'JUMP'], ['a', 0, 1, 'A', 'DASH']]",
+         "  const FACE = window.P11 ? [['y', 0, -1, 'Y', 'USE'], ['x', -1, 0, 'X', 'JUMP'], ['b', 1, 0, 'B', 'CROUCH'], ['a', 0, 1, 'A', 'DASH']] : [['y', 0, -1, 'Y', ABIL4 ? 'PUSH' : 'THROW'], ['x', -1, 0, 'X', ABIL3 ? 'GRAB' : 'GRAB'], ['b', 1, 0, 'B', 'JUMP'], ['a', 0, 1, 'A', 'DASH']]"),
+        ("  const FACE_NODE = { a: null, b: 'jump', x: 'carry', y: ABIL4 ? 'push' : 'throw' };",
+         "  const FACE_NODE = window.P11 ? { a: null, b: null, x: 'jump', y: 'carry' } : { a: null, b: 'jump', x: 'carry', y: ABIL4 ? 'push' : 'throw' }; // Prototype 11.3: B crouch unlocks with Super Knees (faceWord)"),
+        ("    const node = FACE_NODE[f.id], unlocked = f.id === 'a' && STORY ? !(s && s.dashFitted) || s.dashFitted() : !node || !!(s && s.has(node));",
+         "    const node = FACE_NODE[f.id], unlocked = window.P11 && f.id === 'b' ? !!(s && s.duelDuck) : f.id === 'a' && STORY ? !(s && s.dashFitted) || s.dashFitted() : !node || !!(s && s.has(node)); // Prototype 11.3: B is fitted with Super Knees"),
+        ("    if (f.id === 'x') { const b = s.body, room = s.carriedCones().length < s.coneCapacity(),",
+         "    if (f.id === (window.P11 ? 'y' : 'x')) { const b = s.body, room = s.carriedCones().length < s.coneCapacity(),"),
+        ("    if (ABIL4) { // Edit 80: X grabs, a hold puts down; Y pushes off a car\n",
+         "    if (window.P11) { const b = s.body; if (s.duelDuck) keys.push([pd ? 'B' : 'C', 'CROUCH']); if (s.has('jump')) keys.push([pd ? 'X' : 'J', 'JUMP']); if (s.has('carry')) keys.push([pd ? 'Y' : 'E', b.held ? 'DROP' : 'GRAB']); return keys; } // Prototype 11.3\n    if (ABIL4) { // Edit 80: X grabs, a hold puts down; Y pushes off a car\n"),
+        ("      ['PAUSE', ['Esc / P', 'Start', '❚❚'][K3], ''],\n    ];\n",
+         "      ['PAUSE', ['Esc / P', 'Start', '❚❚'][K3], ''],\n    ];\n    if (window.P11) rows.splice(2, 3, [s.duelDuck ? 'CROUCH' : '???', ['C / Shift', 'B', 'B'][K3], s.duelDuck ? '' : 'Super Knees fits it', 'Hold: lower and slower; low cover hides you'], [nm('jump', 'JUMP'), ['J', 'X', 'X'][K3], lock('jump', 'Legs 1')], [nm('carry', 'INTERACT'), ['E / I', 'Y', 'Y'][K3], lock('carry', 'Hands 1'), 'Tap: pick up a cone. Tap with none in reach: put one down']); // Prototype 11.3: A dash, B crouch, X jump, Y interact\n"),
+        ("    if (s.has('jump')) keys.push([pd ? 'B' : 'L', 'JUMP']);\n", "    if (s.has('jump') && !window.P11) keys.push([pd ? 'B' : 'L', 'JUMP']);\n"),
+        ("  const PAD_NAME = { a: 'DASH (A)', b: 'JUMP (B)',", "  const PAD_NAME = window.P11 ? { a: 'DASH (A)', b: 'CROUCH (B)', x: 'JUMP (X)', y: 'USE (Y)' } : { a: 'DASH (A)', b: 'JUMP (B)',"),
+        ("    txt((ABIL3 ? 'DASH, JUMP, GRAB in turn'", "    txt((window.P11 ? 'DASH, CROUCH, JUMP, USE in turn' : ABIL3 ? 'DASH, JUMP, GRAB in turn'"),
+        ("{ FX, FY, FW, FH, VW, VH, RA, U, t: app.realT }); // Submission 7: the lesson (clip, fit, card)", "{ FX, FY, FW, FH, VW, VH, RA, U, t: app.realT, dev: TOUCH.on ? 'touch' : app.device, rm: RM, snd: app.sound ? Snd : null }); if (s.phase === 'lesson') hitbox(FX, FY, FW, FH, 'lesson', () => menuQ.push('ok')); // Submission 7: the lesson. Prototype 11.3: the upgrade screen's device, motion, sound; a tap continues"),
         ("  window.__dummies = app;\n",
          "  window.__dummies = app;\n  window.__dummiesHits = () => HITS.map((h) => ({ x: h.x, y: h.y, w: h.w, h: h.h, tag: h.tag })); // Prototype 11.2: this frame's tap targets, for QA (qa/clicks.js)\n"),
         ("KeyC: 'duck', ControlLeft: 'duck', ControlRight: 'duck', // Submission 7: DUCK\n",
@@ -187,6 +209,12 @@ def main(p11=False):
     pz = json.loads((ROOT / 'content' / 'puzzles_map1.json').read_text(encoding='utf-8')) if p11 else None
     plan = p11_plan(pz) if p11 else json.loads((ROOT / 'content' / 'story_map1.json').read_text(encoding='utf-8'))
     rules = dict(RULES, levels=dict(RULES['levels'], **pz.get('levels', {}))) if p11 else RULES  # Prototype 11's own level profiles (the boss)
+    if p11:  # Prototype 11.3 (Edit 119): the parts in the P11 pad layout (A dash, B crouch, X jump, Y interact); Submission 7 keeps its own
+        P11_PARTS = {'battery1': dict(key='A (keys: Space)', text="Dash: A (keys: Space). Reach a car's path from cover set back from the road."),
+                     'legs1': dict(key='X (keys: J)', text='Jump: X (keys: J). A running jump clears a K-rail.'),
+                     'knees1': dict(verb='CROUCH', key='hold B (keys: C)', text='Crouch: hold B (keys: C). Low cover hides you from its sensors.'),
+                     'hands1': dict(key='Y (keys: E)', text='Cones: Y picks one up. Y with none in reach puts one down.')}
+        rules = dict(rules, parts={k: dict(v, **P11_PARTS.get(k, {})) for k, v in RULES['parts'].items()})
     stages = json.loads((V / 'sim_flags.json').read_text(encoding='utf-8'))['stages']
     reg = json.loads((ROOT / 'pipeline' / 'inputs' / 'tuning.parameters.json').read_text(encoding='utf-8'))
     byid = {e['id']: e for e in reg['entries']}
@@ -202,7 +230,7 @@ def main(p11=False):
     scripts += js(E / 'lore.js')
     cr = cues['credits']
     credit = ['Music by ' + cr['music'].replace(' on itch.io', ''), 'Sound effects by ' + cr['sfx'].replace(' on itch.io', '')]
-    scripts += (f"<script>\nwindow.DUMMIES_LORE.build = '{'P11.2 · PUZZLES' if p11 else 'P9 × P10'}';\n"
+    scripts += (f"<script>\nwindow.DUMMIES_LORE.build = '{'P11.3 · PUZZLES' if p11 else 'P9 × P10'}';\n"
                 f"window.DUMMIES_CREDITS.lines = window.DUMMIES_CREDITS.lines.concat({json.dumps(credit, ensure_ascii=False)});\n</script>\n")
     # Prototype 9's values (prototypes/p9/build.py, Edits 97-100), then the integration's
     sim = dict({'arcade.grades': 1, 'ui.introScreen': 1, 'ui.levelCard': 1, 'world.droneDropIn': 1, 'ui.storySplash': 1},
@@ -235,7 +263,7 @@ def main(p11=False):
         scripts += js(ROOT / 'engine' / 'p11.js') + js(ROOT / 'engine' / 'p11_ui.js')
     scripts += f'<script>\n{p11_game_js(game_js()) if p11 else game_js()}\n</script>\n'
     shell = (E / 'shell.html').read_text(encoding='utf-8')
-    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · Puzzles (Prototype 11.2)</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
+    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · Puzzles (Prototype 11.3)</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
     cache = ROOT / 'engine' / '.cache'; cache.mkdir(exist_ok=True)  # for headless checks (node): the same values the page gets
     (cache / ('runtime_p11.json' if p11 else 'runtime.json')).write_text(json.dumps({'sim': sim, 'story': story_json(plan, not p11), 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': rules, 'puzzles': pz}), encoding='utf-8')
     out = ROOT / 'p11' / 'index.html' if p11 else ROOT / 'index.html'

@@ -1,5 +1,5 @@
 {
- "about": "Prototype 11: Story Map 1 as nine puzzles, redesigned (GDD Edit 115, after the Edit 114 pressure test). Set by hand. One learner: RED-01, a sedan, rung 0 to 7 over the nine (puzzle 4 teaches roof lidar and street cameras together); certified, it returns on Map 2 as a drone car. Rungs: 0 blind, 1 forward camera, 2 side sensors, 3 roof lidar, 4 street cameras, 5 road items, 6 crash memory, 7 search. Kit: the parts issued for this test (battery1 dash, hands1 cones, knees1 Super Knees duck). Fleet: story.traffic.monument.<tile>; 0 clears every white car off the tile and its neighbours, decks included. Route: the red car's lane (duel.route, proposed). Layout (Edit 115): drop [x, y]; cones [] or [[x, y]...]; cover [{kind, at 0..1 along the route on screen, side left|right|N|S|E|W, gap from the kerb}]. Par and target in seconds (story.puzzle.par.<tile>, story.puzzle.target.<tile>, proposed). The traffic-light switch and the clients move to Map 2 (Parkland), with its new learner.",
+ "about": "Prototype 11: Story Map 1 as nine puzzles, redesigned (GDD Edit 115, after the Edit 114 pressure test); snake order A1 B1 C1 C2 B2 A2 A3 B3 C3 (Edit 119). Set by hand. One learner: RED-01, a sedan, rung 0 to 7 over the nine (puzzle 4 teaches roof lidar and street cameras together); certified, it returns on Map 2 as a drone car. Rungs: 0 blind, 1 forward camera, 2 side sensors, 3 roof lidar, 4 street cameras, 5 road items, 6 crash memory, 7 search. Kit: the parts issued for this test (battery1 dash, hands1 cones, knees1 Super Knees duck). Fleet: story.traffic.monument.<tile>; 0 clears every white car off the tile and its neighbours, decks included. Route: the red car's lane (duel.route, proposed). Layout (Edit 115): drop [x, y]; cones [] or [[x, y]...]; cover [{kind, at 0..1 along the route on screen, side left|right|N|S|E|W, gap from the kerb}]. Par and target in seconds (story.puzzle.par.<tile>, story.puzzle.target.<tile>, proposed). The traffic-light switch and the clients move to Map 2 (Parkland), with its new learner.",
  "map": {
   "id": "monument",
   "title": "MAP 1 · MONUMENT",
@@ -8,10 +8,10 @@
    "A1",
    "B1",
    "C1",
+   "C2",
    "B2",
    "A2",
    "A3",
-   "C2",
    "B3",
    "C3"
   ]
@@ -143,8 +143,8 @@
   },
   {
    "n": 4,
-   "tile": "B2",
-   "name": "The Island",
+   "tile": "C2",
+   "name": "Portal",
    "built": true,
    "new": "Battery 1: the dash.",
    "stage": "10.4",
@@ -165,8 +165,8 @@
    },
    "layout": {
     "drop": [
-     416,
-     496
+     400,
+     224
     ],
     "cones": [],
     "cover": [
@@ -178,18 +178,18 @@
      }
     ]
    },
-   "tale": "The plaque reads ZERO ACCIDENTS. Its sensors cannot see through the kiosk on the island. You can dash.",
-   "twist": "Walk out: it sees you. Dash at its side: your fault.",
+   "tale": "The road runs through the portal tower at the sixth floor. Its sensors cannot see through the kiosk. You can dash.",
+   "twist": "From the open kerb: it sees you and stops short.",
    "hints": [
-    "Hide where its sensors cannot see. Dash to land ahead of its nose."
+    "Hide where its sensors cannot see. Step out just ahead of its nose."
    ],
-   "solution": "Cross to the island; hide behind the kiosk; dash to land ahead of its nose.",
+   "solution": "Hide behind the kiosk; step out just ahead of its nose.",
    "par": 20,
    "target": 60
   },
   {
    "n": 5,
-   "tile": "A2",
+   "tile": "B2",
    "name": "CCTV",
    "built": true,
    "new": "Street cameras. A dash breaks a post.",
@@ -211,25 +211,25 @@
    },
    "layout": {
     "drop": [
-     336,
-     128
+     416,
+     496
     ],
     "cones": [],
     "cover": [
      {
       "kind": "cabinet",
-      "at": 0.46,
+      "at": 0.5,
       "side": "N",
       "gap": 2
      }
     ]
    },
-   "tale": "The neon shops sell nothing, but the traffic reads them. So do the street cameras, and they report.",
+   "tale": "The plaque reads ZERO ACCIDENTS. The street cameras read the island, and they report.",
    "twist": "Hide behind the cabinet: the camera tells the car.",
    "hints": [
     "A dash breaks a camera post. Break it while the car is away."
    ],
-   "solution": "Dash into the camera post between passes; then hide behind the cabinet and dash.",
+   "solution": "Dash into the camera post between passes; then hide behind the cabinet; step out ahead of its nose.",
    "par": 30,
    "target": 80,
    "breakableCameras": true,
@@ -239,7 +239,7 @@
   },
   {
    "n": 6,
-   "tile": "A3",
+   "tile": "A2",
    "name": "Swerve",
    "built": true,
    "new": "Hands 1: cones. Today, no battery.",
@@ -254,7 +254,63 @@
    "fleet": 0,
    "route": 0,
    "steps": 2,
-   "breakableCameras": false,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE RED CAR"
+   },
+   "layout": {
+    "drop": [
+     336,
+     128
+    ],
+    "cones": [
+     [
+      420,
+      150
+     ],
+     [
+      460,
+      150
+     ]
+    ],
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.42,
+      "side": "N",
+      "gap": 2
+     }
+    ]
+   },
+   "tale": "The neon shops sell nothing, but the traffic reads them. Today you test with Hands 1 alone. It swerves round cones.",
+   "twist": "No dash: it sees you at the kerb and stops short.",
+   "hints": [
+    "A cone in its lane: it swerves. Be where the swerve goes."
+   ],
+   "solution": "Carry a cone into its lane; hide behind the kiosk; step into the other lane as it swerves.",
+   "par": 30,
+   "target": 80,
+   "breakableCameras": false
+  },
+  {
+   "n": 7,
+   "tile": "A3",
+   "name": "The Stacks",
+   "built": true,
+   "new": "Road items. It stops for cones.",
+   "stage": "10.6",
+   "startRung": 5,
+   "topRung": 5,
+   "earns": "knees1",
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 2,
    "objective": {
     "kind": "hits",
     "count": 1,
@@ -284,68 +340,12 @@
      }
     ]
    },
-   "tale": "The stacked cubes rose one budget at a time. Today you test with Hands 1 alone. It swerves round cones.",
-   "twist": "No dash: it sees you at the kerb and stops short.",
-   "hints": [
-    "A cone in its lane: it swerves. Be where the swerve goes."
-   ],
-   "solution": "Carry a cone into its lane; hide behind the kiosk; step into the other lane as it swerves.",
-   "par": 30,
-   "target": 80
-  },
-  {
-   "n": 7,
-   "tile": "C2",
-   "name": "Portal",
-   "built": true,
-   "new": "Road items. It stops for cones.",
-   "stage": "10.6",
-   "startRung": 5,
-   "topRung": 5,
-   "earns": "knees1",
-   "level": "open",
-   "kit": [
-    "battery1",
-    "hands1"
-   ],
-   "fleet": 0,
-   "route": 0,
-   "steps": 2,
-   "objective": {
-    "kind": "hits",
-    "count": 1,
-    "label": "GET HIT BY THE RED CAR"
-   },
-   "layout": {
-    "drop": [
-     400,
-     224
-    ],
-    "cones": [
-     [
-      480,
-      236
-     ],
-     [
-      520,
-      236
-     ]
-    ],
-    "cover": [
-     {
-      "kind": "kiosk",
-      "at": 0.56,
-      "side": "N",
-      "gap": 2
-     }
-    ]
-   },
-   "tale": "The road runs through the portal tower at the sixth floor. RED-01 now stops for anything left in the road.",
+   "tale": "The stacked cubes rose one budget at a time. RED-01 now stops for anything left in the road.",
    "twist": "A cone in its lane: it stops now.",
    "hints": [
     "Cones stop it. Cameras still break."
    ],
-   "solution": "Break the camera between passes; hide behind the kiosk; dash.",
+   "solution": "Break the camera between passes; hide behind the kiosk, one dash from its lane; dash as it nears.",
    "par": 30,
    "target": 80,
    "breakableCameras": true,
@@ -358,7 +358,7 @@
    "tile": "B3",
    "name": "LED Canyon",
    "built": true,
-   "new": "Super Knees: hold C to duck.",
+   "new": "Super Knees: hold B to crouch (keys: C).",
    "stage": "10.6",
    "startRung": 5,
    "topRung": 5,
@@ -371,7 +371,6 @@
    "fleet": 0,
    "route": 1,
    "steps": 1,
-   "breakableCameras": false,
    "objective": {
     "kind": "hits",
     "count": 1,
@@ -398,14 +397,15 @@
      }
     ]
    },
-   "tale": "Two screens advertise to each other all night. Low hedges line the canyon. Your new knees fold.",
+   "tale": "Two screens advertise to each other all night. Low hedges line the canyon. Your new knees fold. B crouches.",
    "twist": "Hide behind the hedge standing: it sees you over it.",
    "hints": [
-    "Low cover hides you only if you are lower. Hold C."
+    "Low cover hides you only if you are lower. Hold B."
    ],
-   "solution": "Duck behind the hedge (hold C); dash out as it passes.",
+   "solution": "Crouch behind the hedge (hold B); dash out as it passes.",
    "par": 25,
-   "target": 70
+   "target": 70,
+   "breakableCameras": false
   },
   {
    "n": 9,
@@ -426,10 +426,6 @@
    "fleet": 0.5,
    "route": 0,
    "steps": 3,
-   "breakableCameras": true,
-   "camera": {
-    "watch": "kiosk"
-   },
    "objective": {
     "kind": "hits",
     "count": 3,
@@ -478,9 +474,13 @@
     "It remembers where you came from. Use a new spot.",
     "A dash breaks a camera post. Then its cover is yours."
    ],
-   "solution": "Hit 1 from the cabinet. Hit 2 ducked behind the hedge. Hit 3: break the camera, dash from the kiosk.",
+   "solution": "Hit 1 from the cabinet. Hit 2 crouched behind the hedge. Hit 3: break the camera, dash from the kiosk.",
    "par": 60,
-   "target": 120
+   "target": 120,
+   "breakableCameras": true,
+   "camera": {
+    "watch": "kiosk"
+   }
   }
  ],
  "map2": {

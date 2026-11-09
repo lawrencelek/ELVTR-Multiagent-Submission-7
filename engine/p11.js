@@ -82,6 +82,12 @@
     if (cardOf.STORY) { cardOf.STORY[1] = 'Nine puzzles. Get the red car to hit you. It learns from every one.'; if (last && pr) { const sv = saveOf(pr); cardOf.STORY[2] = last.name + ' · ' + ORDER.filter((t) => sv.best[t]).length + ' of ' + ORDER.length + ' solved · ★ ' + starCount(pr) + (sv.certified ? ' · certified' : ''); } }
     if (cardOf.ARCADE && !P11.arcadeOpen()) cardOf.ARCADE = ['ARCADE', 'Locked. Pass Certification, Map 1\'s puzzle 9, to open it.', 'LOCKED · SOLVE MAP 1'];
   };
+  // Prototype 11.3 (Edit 119): a clear that teaches two rungs shows one upgrade screen with both parts; the second rung is fitted on continue
+  P11.lessonPair = function (s) {
+    const T = s && s.duelT, L = T && T.lesson; if (!L) return [];
+    const top = Math.round((T.DP && T.DP['duel.topRung']) || 0);
+    return L.atClear && !L.part && !L.mid && L.to < top && RUNGS[L.to + 1] ? [L.to, L.to + 1] : [L.to];
+  };
   P11.lessonNext = function (s) { // the lesson card's last line: what comes next, not how to beat it
     const p = s && s.p11; if (!p) return null;
     const T = s.duelT, L = T && T.lesson; if (L && L.mid) return 'Hit ' + (s.duelHits + 1) + ' of ' + p.q.objective.count + '. It comes back a rung up.';
@@ -217,7 +223,9 @@
       if (mid && this.p11 && this.body && this.body.alive) this.patch();
       // a clear that teaches two rungs (Edit 115: roof lidar, then street cameras): the second lesson follows, on the same clip
       if (atClear && this.p11 && T.rung < Math.round(T.DP['duel.topRung'] || 0) && DUEL.RUNGS[T.rung + 1]) {
-        const nx = DUEL.RUNGS[T.rung + 1]; this.clearLesson = Object.assign({}, L, { state: 'due', from: T.rung, to: T.rung + 1, name: nx.name, sensor: nx.sensor, card: false, shownT: null, beat: null }); this.phase = 'report';
+        const nx = DUEL.RUNGS[T.rung + 1];
+        if (L.pair !== false) { T.lessons.push({ from: T.rung, to: T.rung + 1, zone: L.zone, kind: L.kind, hitT: L.hitT, shownT: L.shownT, pair: true }); T.rung++; this.emit('learned', { rung: T.rung, name: nx.name }); return; } // Prototype 11.3: fitted on the same screen
+        this.clearLesson = Object.assign({}, L, { state: 'due', from: T.rung, to: T.rung + 1, name: nx.name, sensor: nx.sensor, card: false, shownT: null, beat: null }); this.phase = 'report';
         T.emit('lesson-due', { from: T.rung, to: T.rung + 1, atClear: true, second: true });
       }
     }

@@ -7,7 +7,7 @@ You are a hostile QA tester for DUMMIES Prototype 11, a top-down puzzle game in 
 - A crash-test dummy on one city tile, 800 × 640 world units; x right, y down; 0° is east, 90° south.
 - One learning car, RED-01, drives one lane through the tile, again and again (a pass). A puzzle clears when RED-01 hits the dummy at the car's fault: the dummy was where the car should have stopped for it. A dummy that runs into the car's side is at its own fault and scores nothing.
 - Each puzzle is fenced: the dummy must never leave its tile. Decks (highways, levels z1/z2) are reached by stair openings and dropped from at parapet gaps.
-- Kit per puzzle: Battery 1 (A: dash, `movement.lungeDistance` 164), Hands 1 (X: pick up / drop a cone), Super Knees (hold C, or the pad's duck if it has one: duck behind low cover). B is jump only with Legs (not in Map 1).
+- Pad layout (Prototype 11.3, Edit 119): A dash, B crouch (hold), X jump, Y interact. Kit per puzzle: Battery 1 (A: dash, `movement.lungeDistance` 164), Hands 1 (Y: pick up / drop a cone; keys E), Super Knees (hold B, or keys C: crouch behind low cover). X jumps only with Legs (not in Map 1: X is denied).
 - R restarts the puzzle in place. START pauses.
 - The car's sensors climb rungs 0-7 (blind, forward camera, side sensors, roof lidar, street cameras, road items, crash memory, search). A dash into a street camera's post breaks it.
 
@@ -21,7 +21,7 @@ A script is a list of steps run at 20 Hz. The harness reads the game's state; it
 | `{"op":"stick","deg":D,"mag":M,"secs":S}` | Hold the stick at angle D, strength M (0-1) |
 | `{"op":"spin","deg0":D,"rate":R,"mag":M,"secs":S}` | Rotate the stick R°/s |
 | `{"op":"circle","at":T,"r":R,"dir":1,"secs":S}` | Orbit T at radius R |
-| `{"op":"jitter","secs":S,"every":0.15,"seed":N,"buttons":["A","X"]}` | Random angles and strengths; random button presses |
+| `{"op":"jitter","secs":S,"every":0.15,"seed":N,"buttons":["A","Y"]}` | Random angles and strengths; random button presses |
 | `{"op":"wait","secs":S}` | Stick released |
 | `{"op":"waitCar","u":U,"near":N,"max":S}` | Wait until the car is past fraction U of its lane, or within N units of the dummy |
 | `{"op":"waitNew","max":S}` | Wait for the next pass (a new car entering) |
