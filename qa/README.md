@@ -20,7 +20,7 @@ The agent: `python3 pipeline/qa_attack.py` (prompt `pipeline/agents/qa_adversary
 Runs go to `pipeline/runs/<stamp>-qa/`.
 
 **Last results (9 Nov):**
-- Runthrough (P11.3, snake order, new pad layout, the car's upgrade screen): pass, nine puzzles on the first try, 4 min 48 s ([video](../docs/p11_runthrough.mp4)).
+- Runthrough (P11.4: crouch toggle, the LUMINARY™ hero car): pass, nine puzzles on the first try, 5 min 59 s ([video](../docs/p11_runthrough.mp4)).
 - Click everywhere: 1,653 actions, clean.
 - The agent: 87 plans and 15 reported bugs, checked in GDD Edit 118 §118.3.
 

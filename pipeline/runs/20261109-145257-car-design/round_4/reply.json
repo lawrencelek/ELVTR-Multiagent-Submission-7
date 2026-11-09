@@ -1,0 +1,38 @@
+{
+ "verdict": "The round-3 fixes hold: the sunroof is separate from the windscreen, the pillar spot stays inside the flank, the lidar hands are radii and the host now prints the full model line. Two problems remain in the module: LUMINARY's shark fin sits on the rear glass, and ENIGMA's lidar tick still uses rounded trig. One host problem remains: at 0.6 s the drone covers the model line.",
+ "findings": [
+  {
+   "id": "F1",
+   "severity": "major",
+   "shots": [
+    "prev_upgrade_C2_3",
+    "prev_sheet_LUMINARY"
+   ],
+   "what": "The SHARK FIN body runs from ty 66 to 70, so its ink ring reaches ty 71. That #05070B ink lies directly on the rear glass, which starts at ty 72. There is no red row between them. At 3x the fin and the glass merge, so the fin reads as a black drop sitting on the window (C2_3 at 450,410; sheet rung 7 at 491,265).",
+   "fix": "Cut the fin to 4 rows. Tip pixel at ty 66, a 3-px row at 67, 5-px rows at 68–69, and a mint spine at ty 67–69. The ink then runs from ty 65 to 70. Row 71 stays red above the glass, and rows 64 and 65 stay red below the dome ink, which ends at 63."
+  },
+  {
+   "id": "F2",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_ENIGMA"
+   ],
+   "what": "The DOCK LIDAR tick is still placed with Math.round(3·cos), (3·sin). At diagonal angles it lands off the clean grid, and it turns at a different rate and step from the VANGUARD and LUMINARY hands (E1, E2).",
+   "fix": "Use the DIR8 table at 8 steps a second. The tick sits at radius 3 on the axes and at (±2, ±2) on the diagonals. Every one of those pixels lies in the ring band (r² between 7 and 20), never in the r²≤6 core."
+  },
+  {
+   "id": "F3",
+   "severity": "minor",
+   "shots": [
+    "prev_upgrade_A1_0_6",
+    "prev_upgrade_C2_0_6"
+   ],
+   "what": "At 0.6 s the drone (420–480, 108–170) covers the model line 'SED-01-001 · LUMINARY™ · AMBASSADOR' at y 105.",
+   "fix": "Host side: start the drone's path below y 130, or draw the model line after the drone. The module cannot fix this, so it is not listed as fixed."
+  }
+ ],
+ "fixed": [
+  "F1",
+  "F2"
+ ]
+}

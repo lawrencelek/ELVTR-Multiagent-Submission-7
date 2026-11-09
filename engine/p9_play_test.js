@@ -41,6 +41,7 @@ const ORDER = ['A1', 'B1', 'C1', 'C2', 'B2', 'A2', 'A3', 'B3', 'C3'];
     const steer = (dx, dy, dead) => { key('ArrowRight', dx > dead); key('ArrowLeft', dx < -dead); key('ArrowDown', dy > dead); key('ArrowUp', dy < -dead); };
     const DIRS = []; for (let i = 0; i < 8; i++) DIRS.push([Math.round(Math.cos(i * Math.PI / 4) * 1e6) / 1e6, Math.round(Math.sin(i * Math.PI / 4) * 1e6) / 1e6]);
     let plan = null, cool = 0;
+    if (window.__p11Crouch) window.__p11Crouch.mode = 'hold'; // Prototype 11.4: this bot holds C to crouch
     window.__auto = setInterval(() => {
       const s = window.__dummies.sim; if (!s) return;
       if (s.phase === 'lesson') { steer(0, 0, 1); key('KeyC', false); const L = s.duelT && s.duelT.lesson; if (!L || (L.card && (window.__cardAt = window.__cardAt || Date.now()) && Date.now() - window.__cardAt > 1500)) { window.__cardAt = 0; tap('Enter'); } return; } // watch the clip and the fitting, as a player would

@@ -47,7 +47,7 @@ function run(tile, script, secs, opts) {
         case 'aim': { const p = target(z, q.at); if (p) stick(Math.atan2(p.y - b.y, p.x - b.x), q.mag || 1); else if (q.deg != null) stick(q.deg * Math.PI / 180, q.mag || 1); next = stepT >= (q.secs || 0.1); break; }
         case 'dash': { const p = target(z, q.at); if (p) stick(Math.atan2(p.y - b.y, p.x - b.x), 1); else if (q.deg != null) stick(q.deg * Math.PI / 180, 1); if (stepT >= 0.1) { press.aPress = true; next = true; } break; }
         case 'press': if (q.btn === 'A' || q.btn === 'RT') press.aPress = true; else if (q.btn === 'Y') { press.xPress = true; xUntil = t + (q.secs || 0.12); } else if (q.btn === 'X') press.bPress = true; else if (q.btn === 'B') duckUntil = t + (q.secs || 0.12); next = true; break; // P11.3 pad: A dash, B crouch, X jump, Y interact (the sim's cone verb)
-        case 'key': if (q.code === 'KeyR') s.restart && s.restart('R'); next = true; break;
+        case 'key': if (q.code === 'KeyR') s.restart && s.restart('R'); else if (q.code === 'KeyC' || q.code === 'ControlLeft') duck = !duck; next = true; break; // Prototype 11.4: a press toggles the crouch
         case 'hold': if (q.code === 'KeyC' || q.code === 'ControlLeft') duck = q.on !== false; next = true; break;
         case 'restart': s.restart && s.restart('R'); next = true; break;
         default: next = true;

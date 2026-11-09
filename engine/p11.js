@@ -10,6 +10,7 @@
   if (!STORY || !DUEL || !PZ) { console.warn('p11: a module is missing; Submission 7 runs alone'); return; }
   const LIST = PZ.puzzles, BY = {}; for (const q of LIST) BY[q.tile] = q;
   const ORDER = LIST.map((q) => q.tile), PARTS = (root.DUEL_RULES || {}).parts || {}, RUNGS = DUEL.RUNGS;
+  const LEARNER = Object.assign({ cls: 'LUMINARY', name: 'LUMINARY™', model: 'SED-01-001', tag: 'S01' }, (PZ.map && PZ.map.learner) || {}); // Prototype 11.4 (Edit 120): the learner is a model
   const HINT_PASSES = PZ.hintPasses || 2; // story.puzzle.hintPasses (proposed)
   const ARC_KEY = 'dummies.p11.arcade', mem = {};
   const store = { get: (k) => { try { const v = localStorage.getItem(k); return v == null ? mem[k] || null : v; } catch (e) { return mem[k] || null; } }, set: (k, v) => { mem[k] = v; try { localStorage.setItem(k, v); } catch (e) { /* storage off: this visit */ } } };
@@ -38,7 +39,7 @@
   const starCount = (pr) => ORDER.reduce((a, t) => a + starsOf(pr, t).reduce((x, y) => x + y, 0), 0);
 
   // the sim's progress: the other eight tiles marked done, so this puzzle's tile is the one in test; the kit as the parts owned
-  const P11 = { real: null, LIST, BY, ORDER, HINT_PASSES };
+  const P11 = { real: null, LIST, BY, ORDER, HINT_PASSES, LEARNER };
   P11.progressFor = function (real) {
     const sv = saveOf(real); P11.real = real;
     const cur = sv.cur && playable(real, sv.cur) ? sv.cur : firstOpen(real); sv.cur = cur;
@@ -102,7 +103,7 @@
       this.p11 = null;
       if (!this.W6 || !this.storyMode || !this.story || !this.duelT) return;
       const act = STORY.activeTile(this.story, this.levelId), q = BY[act]; if (!q) return;
-      const T = this.duelT, b = this.body, lay = q.layout || {};
+      const T = this.duelT, b = this.body, lay = q.layout || {}; T.learner = LEARNER.model; // Prototype 11.4: the learner's model ID on its car
       if (q.camera && q.camera.watch) this.p11Camera(q.camera.watch);
       if (lay.drop) Object.assign(b, { x: lay.drop[0], y: lay.drop[1], px: lay.drop[0], py: lay.drop[1], level: 0, floor: null }); // the puzzle's drop point (Edit 115)
       if (lay.cones) this.p11Cones(lay.cones);

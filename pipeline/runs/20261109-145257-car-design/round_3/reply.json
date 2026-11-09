@@ -1,0 +1,100 @@
+{
+ "verdict": "The bodies still read as the level's learner sedan seen closer, and the round-2 collisions are gone, but five problems remain: VANGUARD's lidar looks like a 'no entry' sign, LUMINARY's dome sweep looks like a letter n, VANGUARD's pillar spot breaks the silhouette, the sunroof merges into the windscreen, and the host still prints the model line without the class name.",
+ "findings": [
+  {
+   "id": "E1",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_VANGUARD"
+   ],
+   "what": "On SPEED LIDAR, the violet bar crosses the octagon from edge to edge, so at 3x and 1x the turret reads as ⊘, a prohibition sign, not a scanner.",
+   "fix": "Draw a radius instead: a podHi centre pixel and a 3-px violet hand from the centre to the ring. The hand turns in eight 45° steps from a direction table (no rounded trig), so diagonals stay clean stair-steps."
+  },
+  {
+   "id": "E2",
+   "severity": "major",
+   "shots": [
+    "prev_upgrade_C2_3",
+    "prev_sheet_LUMINARY"
+   ],
+   "what": "In HALO DOME, the 2-px sweep starts at the centre of a 21-px glass core inside a 2-px ring. At 3x it joins the ring and reads as '∩' or 'n' (C2_3 at 450,377).",
+   "fix": "Thin the ring to 1 px (disc r4 lim 20 minus a glass core r3 lim 12). Light the centre pixel in glint and draw a 2-px violet hand at radius 1–2 in eight steps, so it no longer touches the ring."
+  },
+  {
+   "id": "E3",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_VANGUARD"
+   ],
+   "what": "PILLAR SPOT is centred at v 20, ty 38. Its ink reaches v 23, the body's outermost column, so the red lamp bulges past the left flank at rung 7 (sheet 445,188).",
+   "fix": "Centre it at v 19, ty 37. The ink then ends at v 22, leaving the v 23 red column and the rim whole. It clears the mirror (v ≥ 24) and the dash cam (v ≤ 5)."
+  },
+  {
+   "id": "E4",
+   "severity": "major",
+   "shots": [
+    "prev_upgrade_A1_0_6",
+    "prev_upgrade_A1_3",
+    "prev_upgrade_C2_3"
+   ],
+   "what": "The panel still prints 'SED-01-001 · AMBASSADOR'. The host builds the line from model and callsign and ignores classes[cls].label.",
+   "fix": "Host side: print classes[cls].label verbatim. The module keeps label. This cannot be fixed inside the module, so it is not listed as fixed."
+  },
+  {
+   "id": "E5",
+   "severity": "minor",
+   "shots": [
+    "prev_upgrade_A1_3",
+    "prev_upgrade_A1_0_6"
+   ],
+   "what": "Only one red row (ty 42) separates the sunroof (ty 43–50) from the windscreen (ty 30–41). At 3x the two glass areas read as one keyhole-shaped windscreen.",
+   "fix": "Move the sunroof to ty 45–51, leaving three red rows (42–44). Move the SUNROOF LAMP to ty 48 (ink 45–51), the dome to ty 58 (ink 53–63), and the fin to ty 66–70 (ink 65–71). That leaves red gap rows 52 and 64."
+  },
+  {
+   "id": "E6",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_LUMINARY"
+   ],
+   "what": "The 2-row PARK RADAR (ty 1–2) has ink at ty 3, touching the grille's chrome frame at ty 4. At rung 7 the radar and the grille merge into one dark block on the nose.",
+   "fix": "Make it a 1-row strip at ty 1 (ink ty 0 and 2) with 2×1 orange dots at v 2–3 and 6–7. Row ty 3 stays red."
+  },
+  {
+   "id": "E7",
+   "severity": "minor",
+   "shots": [
+    "prev_upgrade_A1_3"
+   ],
+   "what": "The 2-px mascot column under the grille (ty 10–11) reads at 3x as a drip below the grille (450,236). At 1x it is a stray dot.",
+   "fix": "Remove the mascot. The chrome grille and the chrome trim rows carry the executive look."
+  },
+  {
+   "id": "E8",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_VANGUARD"
+   ],
+   "what": "The RADIO MAST mint light is 3 px. Its 5-px whip runs onto the rear glass (ty 68–69), and with its 3-wide ink it reads as a pin pushed into the window.",
+   "fix": "Widen the base to 7×3 with a 5×1 mint strip. Cut the whip to 2 px (ty 65–66), so its ink ends at ty 67 on the roof."
+  },
+  {
+   "id": "E9",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_ENIGMA"
+   ],
+   "what": "The rear-door handles (v 2, r 3) and hinges (v 21, r 1 and r 6) are single chromeD pixels. At 1x they are noise.",
+   "fix": "Make the handles 1×2 (r 3–4) and the hinges 2×1 (v 20–21)."
+  }
+ ],
+ "fixed": [
+  "E1",
+  "E2",
+  "E3",
+  "E5",
+  "E6",
+  "E7",
+  "E8",
+  "E9"
+ ]
+}

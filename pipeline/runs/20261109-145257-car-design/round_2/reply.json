@@ -1,0 +1,102 @@
+{
+ "verdict": "The three bodies match the level's family: red top face, grey rear face, 1-px rim, stair-stepped glass and the corner lights. The parts break in four places: on LUMINARY the dome and the fin merge into one shape, ENIGMA's camera and lamp stack into one black block, VANGUARD's lidar barely shows its violet, and ENIGMA's ribs turn the box into a black-striped grille.",
+ "findings": [
+  {
+   "id": "D1",
+   "severity": "major",
+   "shots": [
+    "prev_upgrade_C2_3",
+    "prev_sheet_LUMINARY"
+   ],
+   "what": "LUMINARY rung 3 HALO DOME (centre ty 58, ink rows 53–63) and rung 4 SHARK FIN (ink rows 64–73) have touching ink rings. At 3x they read as one black keyhole hanging from the dome. The fin's base also covers the first row of rear glass (ty 72).",
+   "fix": "Move the dome to ty 57 (ink 52–62). Shorten the fin to ty 65–70 (ink 64–71) so it ends on the roof's last row. Shrink rung 7 SUNROOF LAMP to r2 (ink 44–50). That leaves red gap rows 42–43, 51 and 63 between rungs 1, 7, 3 and 4."
+  },
+  {
+   "id": "D2",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_ENIGMA"
+   ],
+   "what": "ENIGMA rung 1 CAB CAM ink (rows 23–27) and rung 7 DOOR LAMP ink (rows 28–32) sit on the centre column and touch. At rung 7 they form one 7×10 black block, so neither part reads.",
+   "fix": "Move DOOR LAMP to the left (kerb-side) corner of the cab roof: 6×3 gunmetal at v 11–16, ty 30–32, with a 4-px red lens on its front row. Its slot moves; the reason is that a door lamp lights the kerb side."
+  },
+  {
+   "id": "D3",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_ENIGMA",
+    "prev_sheet_ENIGMA 1x"
+   ],
+   "what": "ENIGMA box ribs in pod2 every 6 rows (ty 40…94, 10 lines) turn the cargo roof into a black-and-red shutter. The level's van shows 3–4 sparse roof lines. The DOCK LIDAR cross-bar and the TRACKER get lost among the stripes.",
+   "fix": "Draw three ribs only, at ty 44, 66 and 88, v ≤ 19. They clear the lidar (53–63), the tracker (81–86) and the tail lamps (v ≥ 21)."
+  },
+  {
+   "id": "D4",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_VANGUARD"
+   ],
+   "what": "VANGUARD rung 3 SPEED LIDAR is a 9×9 pod3 block with a single 1-px violet diagonal. At 3x it reads as a black 'no entry' disc, and the rung's violet is 7 px in total. Its corners are chamfered by a single pixel only.",
+   "fix": "Make it an octagon (|dx|+|dy| ≤ 6, a 2-step chamfer) with a 1-px #c3a6ff ring and a pod3 core. Keep a 5-px violet bar rotating inside the core in four 45° steps."
+  },
+  {
+   "id": "D5",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_VANGUARD"
+   ],
+   "what": "VANGUARD rung 6 CASE FILE has three 3×6 red bars in a 13×8 black box. They repeat the light bar's red lamps and the grille strobes, so at 3x and at 1x the bonnet reads as a second light bar. It does not read as a clipboard.",
+   "fix": "Make it a clipboard: an 11×8 podBody board at ty 12–19, a chrome clip 5×2 at ty 11–12 with a chromeL top, and three 7×1 horizontal tally lines at ty 14, 16 and 18 (red when lit, tail when not)."
+  },
+  {
+   "id": "D6",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_LUMINARY",
+    "prev_upgrade_A1_3"
+   ],
+   "what": "LUMINARY rung 5 PARK RADAR is 27 px wide (v ≤ 13 plus ink to v 14). Its ink ring covers the inner corners of both headlights (ty 2–5, v 11–14).",
+   "fix": "Narrow the strip to v ≤ 9 (19 px, ink to v 10) with four 2×2 orange dots at v 2–3 and 6–7. The headlights stay whole."
+  },
+  {
+   "id": "D7",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_LUMINARY"
+   ],
+   "what": "The mascot has chromeD side pixels at ty 12 (v 1) under its column. At 3x it reads as a stray '+' under the grille, and at 1x as noise.",
+   "fix": "Draw the mascot as one column at ty 10–11 (chromeL, chrome), with no side pixels."
+  },
+  {
+   "id": "D8",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_LUMINARY",
+    "prev_upgrade_A1_0_6"
+   ],
+   "what": "The 15×8 sunroof is flat glass with no glint, so at rung 0 it reads as a hole in the roof rather than glass.",
+   "fix": "Move the sunroof to ty 43–50 and give it the same 2-px 45° glint at its top right (s 4–7, rows 43–45) as the other glass bands."
+  },
+  {
+   "id": "D9",
+   "severity": "minor",
+   "shots": [
+    "prev_upgrade_A1_3",
+    "prev_upgrade_C2_3"
+   ],
+   "what": "The panel prints 'SED-01-001 · AMBASSADOR'. The class name is missing from the model line.",
+   "fix": "Add classes[cls].label = 'SED-01-001 · LUMINARY™ · AMBASSADOR' (and the same for POL and VAN) for the host to print verbatim."
+  }
+ ],
+ "fixed": [
+  "D1",
+  "D2",
+  "D3",
+  "D4",
+  "D5",
+  "D6",
+  "D7",
+  "D8",
+  "D9"
+ ]
+}

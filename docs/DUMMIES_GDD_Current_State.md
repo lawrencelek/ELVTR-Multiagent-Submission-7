@@ -169,12 +169,13 @@
 - **Upgrade every third level:** parked; parts already arrive at L2, L4, L7 (§113.5).
 - **Full rules:** `docs/DUMMIES_GDD_Edit113_Prototype_11_Architecture.md`. Build: `p11/index.html`.
 - **Pressure test (Edit 114):** keep A1; fix B1, C1, C2, B2, A3, C3; rework A2, B3. A3 has no camera today.
-- **Vehicles (Edit 114 §114.6):** one learner per map. Monument: RED-01, a sedan. Proposed: Parkland a van, Waterfront a police car.
+- **Vehicles (Edit 114 §114.6; Edit 120):** one learner per map. Monument: LUMINARY™ SED-01-001. Parkland: VANGUARD™ POL-01-001. Waterfront: ENIGMA™ VAN-01-001.
 - **Map 1 redesigned (Edit 115):** nine puzzles train RED-01, rungs 0 to 7. All nine built. Order (Edit 119): A1 B1 C1 C2 B2 A2 A3 B3 C3.
 - **The escalation:** certified, RED-01 returns on Map 2 as a drone car; a van learns there. The light and the clients move to Map 2.
 - **Inventory:** `docs/DUMMIES_Level_Inventory.md`; 27 tiles and the level design assets.
+- **P11.4 (Edit 120):** crouch is a toggle by default (Controls: hold). The learner is the LUMINARY™ SED-01-001 (NOX's CEO car; fleet.json); Map 2 VANGUARD™ POL-01-001, Map 3 ENIGMA™ VAN-01-001. A car design agent drew the hero cars in the level's pixel style, with each class's parts. P11.3 frozen at `p11_3/`.
 - **P11.3 (Edit 119):** the snake order A1 B1 C1 C2 B2 A2 A3 B3 C3 (roles 4–7 re-homed onto C2, B2, A2, A3). Pad: A dash, B crouch, X jump, Y interact. The car's upgrade screen after an adversarial redesign agent: the replay, the part landing with juice, one sentence. P11.2 frozen at `p11_2/`.
-- **QA (Edit 118, P11.2):** an adversarial QA agent with a 360° analog pad; click everywhere, clean; a full runthrough with real inputs: nine puzzles first try, every menu, save and reload, Certification, Arcade (P11.3: 4 min 48 s, `docs/p11_runthrough.mp4`). Pad and touch duck (B, LB, RB, LT). Four puzzles fall to moves other than Edit 115's; design calls in §118.7.
+- **QA (Edit 118, P11.2):** an adversarial QA agent with a 360° analog pad; click everywhere, clean; a full runthrough with real inputs: nine puzzles first try, every menu, save and reload, Certification, Arcade (P11.4: 5 min 59 s, `docs/p11_runthrough.mp4`). Pad and touch duck (B, LB, RB, LT). Four puzzles fall to moves other than Edit 115's; design calls in §118.7.
 - **Sensor feedback (Edit 117, P11.2):** one sensor language: each sensor draws its reach, sweep and returns; Prototype 9's marks are off in the puzzles; ground fields obey cover and decks. P11.1 frozen at `p11_1/`.
 - **RED-01's kit (Edit 116, P11.1):** one icon; each rung bolts one piece into a fixed slot, in its field's colour. The tag counts rungs in squares. P11.0 frozen at `p11_0/`.
 

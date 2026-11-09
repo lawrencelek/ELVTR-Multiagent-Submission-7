@@ -17,7 +17,7 @@
     2: ['Side cones: it notices a dummy beside the road. It slows, then stops short. ? means it suspects you; ! means it has you.', 'Cutting in from beside the road, unseen.', 'Height: it watches the ground. Drop or jump onto it from a deck.'],
     3: ['Roof lidar: it sees a dummy in the air, jumping or falling off a deck onto its road. Up on a deck you are still out of its world.', 'The drop and the jump onto it.', 'Cover: wait behind a building; spring into its path just ahead of it.'],
     4: ['Street cameras share what they see. Behind cover, a camera can still give you away.', 'Springs from cover a camera watches.', 'Cover the cameras miss; a cone in its lane makes it swerve into you.'],
-    5: ['Road items: it stops for a cone and never swerves round it.', 'The cone bait.', 'CROUCH (hold B) behind a low planter; spring into its path just ahead of it.'],
+    5: ['Road items: it stops for a cone and never swerves round it.', 'The cone bait.', 'CROUCH (B) behind a low planter; spring into its path just ahead of it.'],
     6: ['Crash memory: it remembers every spot you struck from, and watches them.', 'The same spot twice.', 'A new spot every time.'],
     7: ['The search: seen, then hidden, it searches where it last saw you (the ghost).', 'Hiding after it has seen you.', 'Hide before it sees you, or crawl away from its ghost.'],
   };
@@ -388,7 +388,7 @@
     ctx = cx; s = sim; T = sim && sim.duelT; const d = sim && sim.duelDef;
     if (!T || !d || sim.phase === 'brief' || sim.phase === 'lesson' || sim.duelDone) return;
     const RU = root.DUEL_RULES || { parts: {} }, earnPt = d.earns && d.earns !== 'car' ? RU.parts[d.earns] : null, ri = T.rungInfo(), top = Math.round(T.DP['duel.topRung'] || 0), nxt = T.rung < top ? DUELR()[T.rung + 1] : null, o = d.objective, n = Math.min(sim.duelProgress(), o.count);
-    const lines = [['RED-01 · RUNG ' + T.rung + ' · ' + (ri ? ri.name.toUpperCase() : '') + '   ◎ ' + n + ' / ' + o.count, C.red, 15], [earnPt ? 'CLEAR THE TILE: YOU EARN ' + earnPt.name.toUpperCase() + ' (' + earnPt.verb + ')' : nxt && sim.p11 ? (o.count > 1 ? 'YOUR NEXT HIT TEACHES IT ' : 'YOUR HIT TEACHES IT ') + nxt.name.toUpperCase() : nxt ? 'CLEAR THE TILE: IT LEARNS ' + nxt.name.toUpperCase() + ' FROM THE LAST HIT' : T.rung >= 1 ? 'ALL IT CAN LEARN: OUTWIT IT' : 'IT SENSES NOTHING YET', earnPt ? C.dummy : C.dim, 12]].concat(sim.duelDuck ? [[(sim.p11 ? 'HOLD B (KEYS: C) · CROUCH BEHIND LOW COVER' : 'HOLD C · DUCK BEHIND LOW COVER'), C.dim, 11]] : []);
+    const lines = [[(s && s.p11 ? learner().name : 'RED-01') + ' · RUNG ' + T.rung + ' · ' + (ri ? ri.name.toUpperCase() : '') + '   ◎ ' + n + ' / ' + o.count, C.red, 15], [earnPt ? 'CLEAR THE TILE: YOU EARN ' + earnPt.name.toUpperCase() + ' (' + earnPt.verb + ')' : nxt && sim.p11 ? (o.count > 1 ? 'YOUR NEXT HIT TEACHES IT ' : 'YOUR HIT TEACHES IT ') + nxt.name.toUpperCase() : nxt ? 'CLEAR THE TILE: IT LEARNS ' + nxt.name.toUpperCase() + ' FROM THE LAST HIT' : T.rung >= 1 ? 'ALL IT CAN LEARN: OUTWIT IT' : 'IT SENSES NOTHING YET', earnPt ? C.dummy : C.dim, 12]].concat(sim.duelDuck ? [[(sim.p11 ? (root.__p11Crouch && root.__p11Crouch.mode === 'hold' ? 'HOLD B' : 'PRESS B') + ' (KEYS: C) · CROUCH BEHIND LOW COVER' : 'HOLD C · DUCK BEHIND LOW COVER'), C.dim, 11]] : []);
     ctx.save(); ctx.font = '700 19px B612, system-ui, sans-serif';
     const w = Math.max(...lines.map(([t, , z]) => { ctx.font = `700 ${z}px B612, system-ui, sans-serif`; return ctx.measureText(t).width; })) + 24, h = 16 + lines.length * 19, x = G.FX + 10, y = G.FY + 10;
     if (sim.p11 && underHud(sim, G, x, y, w, h)) ctx.globalAlpha = 0.3; // Prototype 11.2: the car or you under it: the panel steps back
@@ -491,6 +491,9 @@
   const clamp01 = (v) => Math.max(0, Math.min(1, v)), easeBack = (u) => 1 + 2.70158 * Math.pow(u - 1, 3) + 1.70158 * Math.pow(u - 1, 2);
   let rpCv = null, heroCv = null, pcCv = null, wCv = null, droneCv = null;
   const canvas = (cv, w, h) => { if (!cv) cv = document.createElement('canvas'); if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; } return cv; };
+  const learner = () => (root.P11 && root.P11.LEARNER) || { cls: 'LUMINARY', name: 'RED-01', model: 'RED-01' };
+  const heroCache = new Map();
+  function heroCached(cls, has, only, t) { const key = cls + '|' + has + '|' + only + '|' + Math.floor(t * 12); let cv = heroCache.get(key); if (!cv) { if (heroCache.size > 48) heroCache.clear(); cv = heroCanvas(cls, { has, t, braking: false }, only || 0); heroCache.set(key, cv); } return cv; } // a frame per 1/12 s
   function upU(L, now) { if (L.pin != null) { L.pinOk = true; return L.pin; } if (L.ui0 == null) L.ui0 = now; return now - L.ui0; }
   function upClipT(L, u) { // the clip's clock: the last 0.9 s to the hit, held 0.5 s; then a loop from where the car is wholly in view, and a 0.5 s hold
     const h = L.clip.hitT, hold = h - 0.05, P0 = L.Pt || UP.prompt; if (u < 0.2) return h - 0.9; if (u < UP.land) return Math.min(hold, h - 0.9 + (u - 0.2)); if (u < P0) return hold; // the hold: three ticks before the game's struck look
@@ -516,7 +519,7 @@
   function upgrade(L, G) {
     const pair = root.P11 && root.P11.lessonPair ? root.P11.lessonPair(s) : [L.to], two = pair.length > 1, Pt = G.rm ? 1.0 : two ? UP.prompt2 : UP.prompt, RM = !!G.rm;
     if (L.settle) { L.settle = false; L.pin = null; L.ui0 = G.t - Pt; L.sfx = { all: true }; }
-    const u = upU(L, G.t); L.up = { u, Pt }; L.Pt = two ? UP.prompt2 : UP.prompt; // the replay's clock is the same in reduced motion; only the prompt comes early L.pair = two; L.card = u >= Pt; // card: settled, the prompt up (the bots and tests wait for it)
+    const u = upU(L, G.t); L.up = { u, Pt }; L.Pt = two ? UP.prompt2 : UP.prompt; L.pair = two; L.card = u >= Pt; // L.Pt: the replay's clock, the same in reduced motion (only the prompt comes early). card: settled, the prompt up (the bots and tests wait for it)
     const k = G.FW / 800, X = (x) => G.FX + (x - 240) * k, Y = (y) => G.FY + (y - 40) * k, Z = (v) => v * k;
     const lands = RM ? [0.7, 0.7] : [UP.land, UP.land2], landed = (i) => u >= lands[i], col = (i) => KITC[pair[i]] || C.text;
     // the replay: game.js drew the recorded frame into the field; keep that crop before the panel covers it
@@ -536,7 +539,13 @@
     rr(px, py, pw, ph, Z(12)); ctx.fillStyle = '#0b0f1a'; ctx.fill(); ctx.strokeStyle = '#3fd0ff'; ctx.lineWidth = 2; ctx.stroke();
     // the hero column: glow, rays, the car nose up, the drone, the landing
     const hx = X(300), hy = Y(90), hw = Z(290), hh = Z(454), cx = X(450), cy = Y(360), P = UP.px * k, white1 = !RM && pair[two && u >= lands[1] ? 1 : 0] === 1; // the hero layer stops at y 544, above the pips
-    const toS = (ux, uy) => ({ x: cx + uy * P, y: cy - ux * P }), slotC = (n) => { const a = KIT.at[n] || [0, 0]; return toS(a[0], n === 2 ? 0 : a[1]); };
+    const toS = (ux, uy) => ({ x: cx + uy * P, y: cy - ux * P });
+    // Prototype 11.4: the hero is the car design agent's (engine/hero_cars.js) when it draws this class; else Edit 119's kit sedan
+    const HC = root.HERO_CARS, LN = learner(), HCo = HC && HC.classes && HC.classes[LN.cls], A3 = 3 * k, hox = HCo ? Math.round(cx - HCo.W * A3 / 2) : 0, hoy = HCo ? Math.round(cy - HCo.H * A3 / 2) : 0;
+    const rectsOf = (n) => HCo ? (((HC.slots || {})[LN.cls] || {})[n] || []).map(([x, y, w, h]) => [hox + x * A3, hoy + y * A3, w * A3, h * A3])
+      : (SLOT[n] || []).map(([x0, y0, w, h]) => { const p0 = toS(x0 + w, y0), p1 = toS(x0, y0 + h); return [Math.min(p0.x, p1.x), Math.min(p0.y, p1.y), Math.abs(p1.x - p0.x), Math.abs(p1.y - p0.y)]; });
+    const subC = (n) => rectsOf(n).map(([x, y, w, h]) => ({ x: x + w / 2, y: y + h / 2 }));
+    const slotC = (n) => { const r = rectsOf(n); if (!r.length) return { x: cx, y: cy }; let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; for (const [x, y, w, h] of r) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x + w); y1 = Math.max(y1, y + h); } return { x: (x0 + x1) / 2, y: (y0 + y1) / 2 }; };
     ctx.save(); ctx.beginPath(); ctx.rect(hx, hy, hw, hh); ctx.clip();
     const edge = (m0) => Math.max(Z(40), Math.min(Z(145), m0.x - hx - Z(8), hx + hw - m0.x - Z(8), m0.y - hy - Z(8), hy + hh - m0.y - Z(8))); // rays and rings fade out before any edge of the column
     { const gl = ctx.createRadialGradient(cx, cy, Z(20), cx, cy, Z(145)); gl.addColorStop(0, white1 ? 'rgba(255,61,61,0.30)' : 'rgba(255,61,61,0.22)'); gl.addColorStop(1, 'rgba(255,61,61,0)'); ctx.fillStyle = gl; ctx.fillRect(hx, hy, hw, hh); }
@@ -547,15 +556,15 @@
       for (let i = 0; i < N; i++) { const a0 = rot + i * TAU / N; ctx.moveTo(m0.x, m0.y); ctx.arc(m0.x, m0.y, R, a0, a0 + TAU / N * 0.42); ctx.closePath(); } ctx.fill();
     }
     const base = (pair[0] || 1) - 1, has = base + (landed(0) ? 1 : 0) + (two && landed(1) ? 1 : 0), mem = kitMem();
-    heroCv = offDraw(canvas(heroCv, 160, 96), () => { kitBody(); kitPieces(has, { t: G.t, mem, seat: true }); });
-    ctx.save(); ctx.translate(cx, cy); ctx.rotate(-Math.PI / 2); ctx.imageSmoothingEnabled = false; ctx.globalAlpha = RM || landed(0) ? 1 : 0.6; ctx.drawImage(heroCv, -40 * P, -24 * P, 80 * P, 48 * P); ctx.globalAlpha = 1; ctx.restore();
+    if (HCo) { const hv = heroCached(LN.cls, has, 0, G.t); ctx.save(); ctx.imageSmoothingEnabled = false; ctx.globalAlpha = RM || landed(0) ? 1 : 0.6; if (hv) ctx.drawImage(hv, hox, hoy, HCo.W * A3, HCo.H * A3); ctx.restore(); }
+    else { heroCv = offDraw(canvas(heroCv, 160, 96), () => { kitBody(); kitPieces(has, { t: G.t, mem, seat: true }); }); ctx.save(); ctx.translate(cx, cy); ctx.rotate(-Math.PI / 2); ctx.imageSmoothingEnabled = false; ctx.globalAlpha = RM || landed(0) ? 1 : 0.6; ctx.drawImage(heroCv, -40 * P, -24 * P, 80 * P, 48 * P); ctx.globalAlpha = 1; ctx.restore(); }
     const piece = (n, dx, dy, alpha, white, air) => { // air: in flight, 1.15x over a 6 px shadow, so it reads above the car
-      pcCv = offDraw(canvas(pcCv, 160, 96), () => kitPieces(n, { t: G.t, mem, only: n, seat: true })); const sl = slotC(n), px2 = sl.x + dx, py2 = sl.y + dy;
-      const put = (src, ox, oy, a, sc2) => { ctx.save(); ctx.globalAlpha = a; ctx.translate(px2 + ox, py2 + oy); ctx.scale(sc2, sc2); ctx.translate(-px2, -py2); ctx.translate(cx + dx, cy + dy); ctx.rotate(-Math.PI / 2); ctx.imageSmoothingEnabled = false; ctx.drawImage(src, -40 * P, -24 * P, 80 * P, 48 * P); ctx.restore(); };
-      if (air) { const sh2 = whiteOf(pcCv), g2 = sh2.getContext('2d'); g2.globalCompositeOperation = 'source-in'; g2.fillStyle = '#000000'; g2.fillRect(0, 0, sh2.width, sh2.height); g2.globalCompositeOperation = 'source-over'; put(sh2, Z(6), Z(6), 0.35 * alpha, 1.15); }
-      put(white ? whiteOf(pcCv) : pcCv, 0, 0, alpha, air ? 1.15 : 1);
+      const pc = HCo ? heroCached(LN.cls, 0, n, G.t) : (pcCv = offDraw(canvas(pcCv, 160, 96), () => kitPieces(n, { t: G.t, mem, only: n, seat: true }))); if (!pc) return; const sl = slotC(n), px2 = sl.x + dx, py2 = sl.y + dy;
+      const put = (src, ox, oy, a, sc2) => { ctx.save(); ctx.globalAlpha = a; ctx.translate(px2 + ox, py2 + oy); ctx.scale(sc2, sc2); ctx.translate(-px2, -py2); ctx.imageSmoothingEnabled = false; if (HCo) ctx.drawImage(src, hox + dx, hoy + dy, HCo.W * A3, HCo.H * A3); else { ctx.translate(cx + dx, cy + dy); ctx.rotate(-Math.PI / 2); ctx.drawImage(src, -40 * P, -24 * P, 80 * P, 48 * P); } ctx.restore(); };
+      if (air) { const sh2 = whiteOf(pc), g2 = sh2.getContext('2d'); g2.globalCompositeOperation = 'source-in'; g2.fillStyle = '#000000'; g2.fillRect(0, 0, sh2.width, sh2.height); g2.globalCompositeOperation = 'source-over'; put(sh2, Z(6), Z(6), 0.35 * alpha, 1.15); }
+      put(white ? whiteOf(pc) : pc, 0, 0, alpha, air ? 1.15 : 1);
     };
-    const brackets = (n, a) => { for (const [x0, y0, w, h] of SLOT[n] || []) { const p0 = toS(x0 + w, y0), p1 = toS(x0, y0 + h), X0 = Math.min(p0.x, p1.x) - Z(8), Y0 = Math.min(p0.y, p1.y) - Z(8), X1 = Math.max(p0.x, p1.x) + Z(8), Y1 = Math.max(p0.y, p1.y) + Z(8), l = Z(10); ctx.save(); ctx.globalAlpha = a; ctx.strokeStyle = KITC[n]; ctx.lineWidth = 3; ctx.beginPath(); for (const [qx, qy, sx2, sy2] of [[X0, Y0, 1, 1], [X1, Y0, -1, 1], [X0, Y1, 1, -1], [X1, Y1, -1, -1]]) { ctx.moveTo(qx + sx2 * l, qy); ctx.lineTo(qx, qy); ctx.lineTo(qx, qy + sy2 * l); } ctx.stroke(); ctx.restore(); } };
+    const brackets = (n, a) => { for (const [bx0, by0, bw0, bh0] of rectsOf(n)) { const X0 = bx0 - Z(8), Y0 = by0 - Z(8), X1 = bx0 + bw0 + Z(8), Y1 = by0 + bh0 + Z(8), l = Z(10); ctx.save(); ctx.globalAlpha = a; ctx.strokeStyle = KITC[n]; ctx.lineWidth = 3; ctx.beginPath(); for (const [qx, qy, sx2, sy2] of [[X0, Y0, 1, 1], [X1, Y0, -1, 1], [X0, Y1, 1, -1], [X1, Y1, -1, -1]]) { ctx.moveTo(qx + sx2 * l, qy); ctx.lineTo(qx, qy); ctx.lineTo(qx, qy + sy2 * l); } ctx.stroke(); ctx.restore(); } };
     if (RM) { pair.forEach((n, i) => { const a = clamp01((u - 0.4) / 0.3); if (!landed(i) && a > 0) piece(n, 0, 0, a); if (landed(i)) { const m0 = slotC(n); ctx.strokeStyle = hexA(KITC[n], 0.5); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(m0.x, m0.y, Z(60), 0, TAU); ctx.stroke(); } }); }
     else {
       pair.forEach((n, i) => { if (!landed(i) && u >= 0.3) brackets(n, 0.7 + 0.3 * Math.sin(u * TAU * 3)); });
@@ -571,7 +580,7 @@
       else if (two && u < UP.slide) hang.push([1, u < UP.land ? Math.min(low, dY + Z(30)) : dY + Z(30)]);
       for (const [i, py2] of hang) { // the tether: one line a sub-slot (the pods hang on a split tether)
         const n = pair[i], sl = i === 0 ? s0 : s1, dy2 = py2 - sl.y; ctx.strokeStyle = C.dim; ctx.lineWidth = 1; ctx.beginPath();
-        for (const [x0, y0, w, h] of SLOT[n] || [[0, 0, 0, 0]]) { const p = toS(x0 + w / 2, y0 + h / 2); ctx.moveTo(dX, dY + Z(8)); ctx.lineTo(p.x, p.y + dy2); } ctx.stroke();
+        for (const p of subC(n).length ? subC(n) : [sl]) { ctx.moveTo(dX, dY + Z(8)); ctx.lineTo(p.x, p.y + dy2); } ctx.stroke();
         piece(n, 0, dy2, 1, false, true);
       }
       for (let i = 0; i < pair.length; i++) { // a falling piece, with three ghost trails
@@ -587,9 +596,9 @@
       for (let i = 0; i < pair.length; i++) { // the landing: the piece flashes; rings in red and its colour; sparks and the panel flash on the first only
         const lt = u - lands[i], n = pair[i]; if (lt < 0 || lt > 0.7) continue;
         if (lt < 0.4 && Math.floor(lt * 14) % 2 === 0) piece(n, 0, 0, 1, true);
-        for (const m0 of n === 2 ? [toS(6.5, 18.5), toS(6.5, -18.5)] : [slotC(n)]) { // the pods: a ring pair and a burst on each
+        const subs = subC(n); for (const m0 of subs.length > 1 ? subs : [slotC(n)]) { // a part in two places (the pods): a ring pair and a burst on each
         for (const [d0, c0, wd] of [[0, C.red, 5], [0.05, KITC[n], 3]]) { const q = clamp01((lt - d0 + 0.02) / 0.5); if (q <= 0 || q >= 1) continue; const e = 1 - Math.pow(1 - q, 3); ctx.globalAlpha = 1 - q; ctx.strokeStyle = c0; ctx.lineWidth = wd; ctx.beginPath(); ctx.arc(m0.x, m0.y, Z(20) + (edge(m0) - Z(20)) * e, 0, TAU); ctx.stroke(); }
-        if (i === 0) { const q = clamp01(lt / 0.45), NS = n === 2 ? 6 : 12; if (q < 1) { const e = 1 - Math.pow(1 - q, 2); ctx.globalAlpha = 1 - q; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 3; ctx.beginPath(); for (let j = 0; j < NS; j++) { const a = j * TAU / NS + 0.2, r0 = Z(40 + 50 * e), r1 = r0 + Z(18 * (1 - e) + 4); ctx.moveTo(m0.x + Math.cos(a) * r0, m0.y + Math.sin(a) * r0); ctx.lineTo(m0.x + Math.cos(a) * r1, m0.y + Math.sin(a) * r1); } ctx.stroke(); } }
+        if (i === 0) { const q = clamp01(lt / 0.45), NS = subs.length > 1 ? 6 : 12; if (q < 1) { const e = 1 - Math.pow(1 - q, 2); ctx.globalAlpha = 1 - q; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 3; ctx.beginPath(); for (let j = 0; j < NS; j++) { const a = j * TAU / NS + 0.2, r0 = Z(40 + 50 * e), r1 = r0 + Z(18 * (1 - e) + 4); ctx.moveTo(m0.x + Math.cos(a) * r0, m0.y + Math.sin(a) * r0); ctx.lineTo(m0.x + Math.cos(a) * r1, m0.y + Math.sin(a) * r1); } ctx.stroke(); } }
         const gq = clamp01((lt - 0.1) / 0.6); if (gq > 0 && gq < 1) { ctx.globalAlpha = 1 - gq; ctx.strokeStyle = C.text; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(m0.x, m0.y, Z(10 + 40 * gq), 0, TAU); ctx.stroke(); } // the glint: the piece switching on
         }
         ctx.globalAlpha = 1;
@@ -607,10 +616,11 @@
     const tx = X(600), tw = Z(380), ri = (n) => DUELR()[n] || {};
     const txt = (t, x, y, size, c, al, font) => { ctx.fillStyle = c; ctx.font = font || `700 ${size}px B612, system-ui, sans-serif`; ctx.textAlign = al || 'left'; ctx.fillText(t, x, y); };
     const wrapAt = (t, x, y, mw, lh, font, c) => { ctx.font = font; const ws = String(t).split(' '); let line = '', yy = y; for (const wd of ws) { const tt = line ? line + ' ' + wd : wd; if (ctx.measureText(tt).width > mw && line) { txt(line, x, yy, 0, c, 'left', font); line = wd; yy += lh; } else line = tt; } if (line) txt(line, x, yy, 0, c, 'left', font); return yy; };
-    const nameAt = (n, y, size, t0) => { if (u < t0) return; const nm = String(KIT.name[n] || ri(n).sensor || '').toUpperCase(); let sz = Z(size); ctx.font = `900 ${sz}px Nunito, system-ui, sans-serif`; while (ctx.measureText(nm).width > tw && sz > Z(size === 48 ? 40 : 30)) { sz -= 1; ctx.font = `900 ${sz}px Nunito, system-ui, sans-serif`; } const cap = Math.max(1, Math.min(1.4, Z(392) / Math.max(1, ctx.measureText(nm).width))), pop = RM ? 1 : 1 + (cap - 1) * Math.pow(clamp01(1 - (u - t0) / 0.28), 2); ctx.save(); ctx.beginPath(); ctx.rect(X(596), Y(96), Z(404), Z(200)); ctx.clip(); ctx.globalAlpha = clamp01((u - t0) / 0.12); ctx.translate(tx, y); ctx.scale(pop, pop); txt(nm, 0, 0, 0, C.red, 'left', ctx.font); ctx.restore(); };
-    const sayAt = (n, y, size, lh, t0) => { if (u < t0) return; const q = RM ? 1 : clamp01((u - t0) / 0.2); ctx.save(); ctx.globalAlpha = RM ? clamp01((u - t0) / 0.2) : q; wrapAt(SAY[n] || '', tx, y + Z(8 * (1 - q)), tw, Z(lh), `400 ${Z(size)}px B612, system-ui, sans-serif`, C.text); ctx.restore(); };
-    if (u < lands[0]) { if (u >= (RM ? 0 : 0.3) && (RM || Math.floor(u * 8) % 4 !== 3)) txt('RED-01 · NEW PART INCOMING', tx, Y(112), Z(20), '#3fd0ff'); }
-    else txt(two ? 'RED-01 LEARNED 2 THINGS' : 'RED-01 LEARNED', tx, Y(112), Z(20), '#3fd0ff');
+    const nameAt = (n, y, size, t0) => { if (u < t0) return; const nm = String((HCo && ((HC.kit || {})[LN.cls] || {})[n] && HC.kit[LN.cls][n].name) || KIT.name[n] || ri(n).sensor || '').toUpperCase(); let sz = Z(size); ctx.font = `900 ${sz}px Nunito, system-ui, sans-serif`; while (ctx.measureText(nm).width > tw && sz > Z(size === 48 ? 40 : 30)) { sz -= 1; ctx.font = `900 ${sz}px Nunito, system-ui, sans-serif`; } const cap = Math.max(1, Math.min(1.4, Z(392) / Math.max(1, ctx.measureText(nm).width))), pop = RM ? 1 : 1 + (cap - 1) * Math.pow(clamp01(1 - (u - t0) / 0.28), 2); ctx.save(); ctx.beginPath(); ctx.rect(X(596), Y(96), Z(404), Z(200)); ctx.clip(); ctx.globalAlpha = clamp01((u - t0) / 0.12); ctx.translate(tx, y); ctx.scale(pop, pop); txt(nm, 0, 0, 0, C.red, 'left', ctx.font); ctx.restore(); };
+    const sayAt = (n, y, size, lh, t0) => { if (u < t0) return; const q = RM ? 1 : clamp01((u - t0) / 0.2); ctx.save(); ctx.globalAlpha = RM ? clamp01((u - t0) / 0.2) : q; wrapAt((HCo && ((HC.sentences || {})[LN.cls] || {})[n]) || SAY[n] || '', tx, y + Z(8 * (1 - q)), tw, Z(lh), `400 ${Z(size)}px B612, system-ui, sans-serif`, C.text); ctx.restore(); };
+    { const LN2 = learner(), ml = (HCo && HCo.label) || [LN2.model, LN2.name, LN2.callsign && String(LN2.callsign).toUpperCase()].filter(Boolean).join(' · '); const mlA = RM ? 1 : clamp01((u - (two ? 1.95 : 1.15)) / 0.25); if (LN2.model && mlA > 0) { ctx.save(); ctx.globalAlpha = mlA; let fz = 13; ctx.font = `700 ${Z(fz)}px B612, system-ui, sans-serif`; while (fz > 10 && ctx.measureText(ml).width > Z(272)) { fz -= 0.5; ctx.font = `700 ${Z(fz)}px B612, system-ui, sans-serif`; } txt(ml, X(310), Y(110), Z(fz), '#7fa8bc'); ctx.restore(); } } // after the drone has gone (round 4, F3) // the model line (Edit 120): ID · class · callsign
+    if (u < lands[0]) { if (u >= (RM ? 0 : 0.3) && (RM || Math.floor(u * 8) % 4 !== 3)) txt(LN.name + ' · NEW PART INCOMING', tx, Y(112), Z(20), '#3fd0ff'); }
+    else txt(LN.name + (two ? ' LEARNED 2 THINGS' : ' LEARNED'), tx, Y(112), Z(20), '#3fd0ff');
     const tN = RM ? 0.6 : lands[0], tS = RM ? 0.75 : UP.land + 0.2;
     if (!two) {
       nameAt(pair[0], Y(166), 48, tN);
@@ -677,5 +687,37 @@
     if (Math.floor((G.t || 0) * 2) % 2 === 0) text('ENTER · CONTINUE', x + w - 34, y + h - 30, 20, C.dummy, 'right', 900);
     ctx.restore();
   }
-  root.DUEL_UI = { field, hud, lesson, lessonKey, replayBegin, replayEnd, redSprite, underHud };
+  // ---------- Prototype 11.4 (GDD Edit 120): the hero car for the upgrade screen, drawn by engine/hero_cars.js (written by the car design
+  // agent, pipeline/car_design.py) through this pixel API. Colours are '#rrggbb'; a null colour clears. One art pixel = 3 screen px at 1280 x 720.
+  function heroG(W, H) {
+    const d = new Uint32Array(W * H), cache = {}, c32 = (h) => { if (cache[h] != null) return cache[h]; const n = parseInt(String(h).slice(1, 7), 16); return (cache[h] = (0xFF000000 | ((n & 255) << 16) | (n & 0xFF00) | ((n >> 16) & 255)) >>> 0); };
+    const hex = (v) => '#' + [v & 255, (v >>> 8) & 255, (v >>> 16) & 255].map((q) => q.toString(16).padStart(2, '0')).join('');
+    const ok = (x, y) => x >= 0 && y >= 0 && x < W && y < H;
+    const g = {
+      W, H, d,
+      px(x, y, c) { x = Math.floor(x); y = Math.floor(y); if (ok(x, y)) d[y * W + x] = c == null ? 0 : c32(c); },
+      get(x, y) { x = Math.floor(x); y = Math.floor(y); return ok(x, y) && d[y * W + x] ? hex(d[y * W + x]) : null; },
+      rect(x, y, w, h, c) { for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) g.px(x + i, y + j, c); },
+      line(x0, y0, x1, y1, c) { x0 = Math.round(x0); y0 = Math.round(y0); x1 = Math.round(x1); y1 = Math.round(y1); const dx = Math.abs(x1 - x0), dy = -Math.abs(y1 - y0), sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1; let e = dx + dy; for (;;) { g.px(x0, y0, c); if (x0 === x1 && y0 === y1) break; const e2 = 2 * e; if (e2 >= dy) { e += dy; x0 += sx; } if (e2 <= dx) { e += dx; y0 += sy; } } },
+      disc(cx, cy, r, c) { for (let y = Math.floor(cy - r); y <= Math.ceil(cy + r); y++) for (let x = Math.floor(cx - r); x <= Math.ceil(cx + r); x++) if ((x + 0.5 - cx) ** 2 + (y + 0.5 - cy) ** 2 <= r * r) g.px(x, y, c); },
+      ellipse(cx, cy, rx, ry, c) { for (let y = Math.floor(cy - ry); y <= Math.ceil(cy + ry); y++) for (let x = Math.floor(cx - rx); x <= Math.ceil(cx + rx); x++) if (((x + 0.5 - cx) / rx) ** 2 + ((y + 0.5 - cy) / ry) ** 2 <= 1) g.px(x, y, c); },
+      poly(pts, c) { // scanline at pixel centres
+        let y0 = Infinity, y1 = -Infinity; for (const p of pts) { y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
+        for (let y = Math.floor(y0); y <= Math.ceil(y1); y++) { const yc = y + 0.5, xs = []; for (let i = 0; i < pts.length; i++) { const [ax, ay] = pts[i], [bx, by] = pts[(i + 1) % pts.length]; if ((ay <= yc && by > yc) || (by <= yc && ay > yc)) xs.push(ax + (yc - ay) * (bx - ax) / (by - ay)); } xs.sort((a, b) => a - b); for (let k = 0; k + 1 < xs.length; k += 2) for (let x = Math.ceil(xs[k] - 0.5); x < xs[k + 1] - 0.5; x++) g.px(x, y, c); }
+      },
+      outline(c) { const add = []; for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (!d[y * W + x] && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([a, b]) => ok(x + a, y + b) && d[(y + b) * W + x + a])) add.push(y * W + x); const v = c32(c); for (const i of add) d[i] = v; },
+      rim(hi, lo) { const add = []; for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { if (d[y * W + x]) continue; const at = (a, b) => ok(x + a, y + b) && d[(y + b) * W + x + a]; if (at(1, 0) || at(-1, 0) || at(0, 1) || at(0, -1)) add.push([y * W + x, at(0, 1) || at(-1, 0)]); } const H1 = c32(hi), L1 = c32(lo); for (const [i, up] of add) d[i] = up ? H1 : L1; }, // the in-level cars' rim: edges facing up or right take hi
+      mirror() { for (let y = 0; y < H; y++) for (let x = 0; x < (W >> 1); x++) d[y * W + W - 1 - x] = d[y * W + x]; }, // the left half onto the right
+      P: (root.PIX && root.PIX.PAL) || {}, kit: KITC.slice(),
+      red(h) { const v = c32(h), r = v & 255, gg = (v >>> 8) & 255, b = (v >>> 16) & 255, l = 0.3 * r + 0.59 * gg + 0.11 * b; if (l < 70 || (b > r + 25 && b > gg)) return h; const k = l / 255; return hex(((Math.round(28 + 60 * k * k) << 16) | (Math.round(28 + 70 * k * k) << 8) | Math.min(255, Math.round(120 + 135 * k))) >>> 0); }, // the in-level learner's recolour (redSprite)
+    };
+    return g;
+  }
+  function heroCanvas(cls, o, only) { // cls's body with pieces 1..o.has, or one piece alone (only); a canvas of W x H art px
+    const HC = root.HERO_CARS, C0 = HC && HC.classes && HC.classes[cls]; if (!C0) return null;
+    const g = heroG(C0.W, C0.H);
+    try { if (only) HC.piece(g, cls, only, o || {}); else { HC.body(g, cls, o || {}); for (let n = 1; n <= ((o && o.has) || 0); n++) HC.piece(g, cls, n, o || {}); } } catch (e) { if (!heroCanvas.err) { heroCanvas.err = String(e && e.message || e); console.error('hero_cars', e); } }
+    const cv = document.createElement('canvas'); cv.width = C0.W; cv.height = C0.H; const cx2 = cv.getContext('2d'), id = cx2.createImageData(C0.W, C0.H); new Uint32Array(id.data.buffer).set(g.d); cx2.putImageData(id, 0, 0); return cv;
+  }
+  root.DUEL_UI = { field, hud, lesson, lessonKey, replayBegin, replayEnd, redSprite, underHud, heroG, heroCanvas };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -1,5 +1,5 @@
 {
- "about": "Prototype 11: Story Map 1 as nine puzzles, redesigned (GDD Edit 115, after the Edit 114 pressure test); snake order A1 B1 C1 C2 B2 A2 A3 B3 C3 (Edit 119). Set by hand. One learner: RED-01, a sedan, rung 0 to 7 over the nine (puzzle 4 teaches roof lidar and street cameras together); certified, it returns on Map 2 as a drone car. Rungs: 0 blind, 1 forward camera, 2 side sensors, 3 roof lidar, 4 street cameras, 5 road items, 6 crash memory, 7 search. Kit: the parts issued for this test (battery1 dash, hands1 cones, knees1 Super Knees duck). Fleet: story.traffic.monument.<tile>; 0 clears every white car off the tile and its neighbours, decks included. Route: the red car's lane (duel.route, proposed). Layout (Edit 115): drop [x, y]; cones [] or [[x, y]...]; cover [{kind, at 0..1 along the route on screen, side left|right|N|S|E|W, gap from the kerb}]. Par and target in seconds (story.puzzle.par.<tile>, story.puzzle.target.<tile>, proposed). The traffic-light switch and the clients move to Map 2 (Parkland), with its new learner.",
+ "about": "Prototype 11: Story Map 1 as nine puzzles, redesigned (GDD Edit 115, after the Edit 114 pressure test); snake order A1 B1 C1 C2 B2 A2 A3 B3 C3 (Edit 119). Set by hand. One learner: the LUMINARY™ SED-01-001, a sedan (the CEO car; Edit 120), rung 0 to 7 over the nine (puzzle 4 teaches roof lidar and street cameras together); certified, it returns on Map 2 as a drone car. Rungs: 0 blind, 1 forward camera, 2 side sensors, 3 roof lidar, 4 street cameras, 5 road items, 6 crash memory, 7 search. Kit: the parts issued for this test (battery1 dash, hands1 cones, knees1 Super Knees duck). Fleet: story.traffic.monument.<tile>; 0 clears every white car off the tile and its neighbours, decks included. Route: the red car's lane (duel.route, proposed). Layout (Edit 115): drop [x, y]; cones [] or [[x, y]...]; cover [{kind, at 0..1 along the route on screen, side left|right|N|S|E|W, gap from the kerb}]. Par and target in seconds (story.puzzle.par.<tile>, story.puzzle.target.<tile>, proposed). The traffic-light switch and the clients move to Map 2 (Parkland), with its new learner.",
  "map": {
   "id": "monument",
   "title": "MAP 1 · MONUMENT",
@@ -14,7 +14,16 @@
    "A3",
    "B3",
    "C3"
-  ]
+  ],
+  "learner": {
+   "cls": "LUMINARY",
+   "name": "LUMINARY™",
+   "model": "SED-01-001",
+   "tag": "S01",
+   "callsign": "Ambassador",
+   "role": "The CEO car",
+   "source": "NOX car classes (Lawrence, 9 Nov); model ID, line, callsign and job from engine/p9/fleet.json (Style Guide V2 rule V7). Map 2: VANGUARD™ POL-01-001; Map 3: ENIGMA™ VAN-01-001 (Edit 120)"
+  }
  },
  "hintPasses": 2,
  "levels": {
@@ -96,7 +105,7 @@
     ],
     "cones": []
    },
-   "tale": "RED-01 now has eyes on its bonnet. It brakes for anything in its lane. Anything it sees in time.",
+   "tale": "The Luminary™ now has eyes on its bonnet. It brakes for anything in its lane. Anything it sees in time.",
    "twist": "Stand in its lane: it stops at its line.",
    "hints": [
     "It stops for what it sees in its lane. Step in when it can no longer stop."
@@ -132,7 +141,7 @@
     ],
     "cones": []
    },
-   "tale": "RED-01 now watches both kerbs. The high road above it has a gap in its parapet. Gravity is company policy.",
+   "tale": "The Luminary™ now watches both kerbs. The high road above it has a gap in its parapet. Gravity is company policy.",
    "twist": "Wait at the kerb: it sees you and stops short.",
    "hints": [
     "It watches the kerbs, not the sky."
@@ -340,7 +349,7 @@
      }
     ]
    },
-   "tale": "The stacked cubes rose one budget at a time. RED-01 now stops for anything left in the road.",
+   "tale": "The stacked cubes rose one budget at a time. The Luminary™ now stops for anything left in the road.",
    "twist": "A cone in its lane: it stops now.",
    "hints": [
     "Cones stop it. Cameras still break."
@@ -358,7 +367,7 @@
    "tile": "B3",
    "name": "LED Canyon",
    "built": true,
-   "new": "Super Knees: hold B to crouch (keys: C).",
+   "new": "Super Knees: B crouches (keys: C). Press again to stand.",
    "stage": "10.6",
    "startRung": 5,
    "topRung": 5,
@@ -400,9 +409,9 @@
    "tale": "Two screens advertise to each other all night. Low hedges line the canyon. Your new knees fold. B crouches.",
    "twist": "Hide behind the hedge standing: it sees you over it.",
    "hints": [
-    "Low cover hides you only if you are lower. Hold B."
+    "Low cover hides you only if you are lower. Press B."
    ],
-   "solution": "Crouch behind the hedge (hold B); dash out as it passes.",
+   "solution": "Crouch behind the hedge (B); dash out as it passes.",
    "par": 25,
    "target": 70,
    "breakableCameras": false
@@ -467,7 +476,7 @@
      ]
     ]
    },
-   "tale": "Certification. RED-01 has learned from every dummy so far. It will learn from you three more times.",
+   "tale": "Certification. The Luminary™ has learned from every dummy so far. It will learn from you three more times.",
    "twist": "The same move twice: it remembers.",
    "hints": [
     "A street camera tells it what it sees. Hide where the camera cannot look.",
@@ -485,12 +494,17 @@
  ],
  "map2": {
   "district": "Parkland",
-  "learner": "a van (Porter), New",
+  "learner": "VANGUARD™ POL-01-001 (police and security; callsign Marshal), New",
   "elements": [
    "traffic-light switch (A1 junction)",
-   "clients on a crossing (the van swerves late)",
-   "RED-01 returns as a Senior drone car with its rungs"
+   "clients on a crossing",
+   "the Luminary™ SED-01-001 returns as a Senior drone car with its rungs"
   ],
-  "source": "Edit 114 §114.6, Edit 115"
+  "source": "Edit 114 §114.6, Edit 115; learner by Edit 120 (was: a van)"
+ },
+ "map3": {
+  "district": "Waterfront",
+  "learner": "ENIGMA™ VAN-01-001 (delivery; callsign Concierge), New",
+  "source": "Edit 120"
  }
 }
