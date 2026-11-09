@@ -9,7 +9,7 @@
 | **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) (2 min 48 s) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
 | **One-page audit** | [`docs/02_Pipeline_Audit.md`](docs/02_Pipeline_Audit.md) |
 | **P9 × P10 integration** | [`docs/01_P9_P10_Integration_Analysis.md`](docs/01_P9_P10_Integration_Analysis.md) · GDD [Edit 111](docs/DUMMIES_GDD_Edit111_Submission7_Integration.md) |
-| **Prototype 11.1 (puzzles)** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11/** · GDD [Edit 113](docs/DUMMIES_GDD_Edit113_Prototype_11_Architecture.md), [Edit 116](docs/DUMMIES_GDD_Edit116_Prototype_11_1_Kit.md) · P11.0, frozen: [p11_0/](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_0/) |
+| **Prototype 11.2 (puzzles)** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11/** · GDD [Edit 113](docs/DUMMIES_GDD_Edit113_Prototype_11_Architecture.md), [Edit 116](docs/DUMMIES_GDD_Edit116_Prototype_11_1_Kit.md), [Edit 117](docs/DUMMIES_GDD_Edit117_Prototype_11_2_Sensor_Feedback.md) · frozen: [P11.0](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_0/), [P11.1](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_1/) |
 | **Target engine** | Phaser 3 (next). Today: Prototype 9's HTML5 Canvas engine, with Prototype 10's driver |
 
 ## Concept
@@ -53,6 +53,7 @@
 - Story Map 1 as nine puzzles, A1 to C3, after Joshua Burdick's 1-on-1: one new thing a puzzle, three stars, instant retry, a level grid (Hitman GO's structure).
 - **Built:** all nine (GDD [Edit 115](docs/DUMMIES_GDD_Edit115_Map1_Redesign.md)): First Contact, Stop Line, High Road, The Island, CCTV, Swerve, Portal, LED Canyon, Certification. One car, RED-01, learns rungs 0 to 7 across them; certified, it returns on Map 2 as a drone car.
 - **Inventory:** every tile of the three districts and the level design assets: [docs/DUMMIES_Level_Inventory.md](docs/DUMMIES_Level_Inventory.md) (`node engine/inventory.js`; pictures: `node engine/inventory_shots.js`).
+- **Sensor feedback (P11.2, GDD [Edit 117](docs/DUMMIES_GDD_Edit117_Prototype_11_2_Sensor_Feedback.md)):** one sensor language. Prototype 9's hatch, side outlines, headlight wedge, bubbles and brake fans are off in the puzzles. Each sensor draws what it does: the forward camera a ribbon along its lane with a too-late zone and stop bar; the side sensors steel-blue fans with pings; the roof lidar a lilac sweep with returns; cameras an always-on pan cone. Ground fields are cut by cover and decks, as the sim sees. Two adversarial UI reviews: `python3 pipeline/ui_review.py --label <name> --brief "..."`.
 - **RED-01's kit (P11.1, GDD [Edit 116](docs/DUMMIES_GDD_Edit116_Prototype_11_1_Kit.md)):** one sedan, one livery; each rung bolts one piece into a fixed slot, in its field's colour. Lens bar, mirror pods, roof puck, link fin, bumper strip, tally marks, searchlight. The tag counts rungs in squares; the lesson's fitting shows the new piece close up.
 - **Keys:** as above, plus **R** to restart the puzzle in place. Pause has Restart puzzle and the puzzle grid.
 - **Stars:** ★ Clear (the red car hits you, its fault) · ★ Untouched (no white car, no fault of yours) · ★ Par (the attempt's time).
@@ -138,5 +139,5 @@ engine/     build_p9.py duel.js duel_ui.js affordances.js p9_tiles_test.js p9_pl
 content/    story_map1.json   (pipeline output) · puzzles_map1.json (Prototype 11, by hand)
 audio/      Prototype 9's music and effects
 docs/       01 analysis · 02 audit · GDD Edit 111 · pipeline_run.mp4
-index.html  the playable build · junction.html  the test-road build · p11/index.html  Prototype 11.1, the puzzles · p11_0/index.html  Prototype 11.0, frozen
+index.html  the playable build · junction.html  the test-road build · p11/index.html  Prototype 11.2, the puzzles · p11_0/, p11_1/  Prototypes 11.0 and 11.1, frozen
 ```

@@ -1,0 +1,1145 @@
+{
+ "verdict": "The red car carries two sensor languages at once: Prototype 9's hatch, headlight wedge and side outlines, and Prototype 10's cones. They disagree on reach, on side, and on whether a blind car can see. The cones also ignore height and cover. As a result the screen telegraphs none of the nine twists before the player fails, and in puzzle 1 it points the player away from the solution.",
+ "signals": [
+  {
+   "mark": "Headlight beam (white wedge)",
+   "layer": "P9 pixel",
+   "means_in_code": "Lights. Flashes at proto.art.noticeFlashHz 4 under Prototype 9's white-car notice rule",
+   "player_reads": "What the car sees. It lies on top of the hatch and the rung-1 band (2_B1_a, 1600x1280 render, x 510-900 y 530-680; 7_C2_b; 9_C3_a)",
+   "colour": "White, translucent",
+   "conflicts": [
+    "Hatch",
+    "Rung 1 band",
+    "Forward cone",
+    "White = forward camera",
+    "The flash uses the white cars' rule, not RED-01's"
+   ],
+   "decision": "cut",
+   "why": "On RED-01 the wedge is either a lie (rung 0) or a second copy of the camera (rung 1 and up). Keep it for the white cars only."
+  },
+  {
+   "mark": "Lamps (2 px on the sprite)",
+   "layer": "P9 pixel",
+   "means_in_code": "Where the lights come from (ui.lampsOnCar 1)",
+   "player_reads": "Headlights",
+   "colour": "White",
+   "conflicts": [
+    "Lens bar sits 4 px away (2_B1_a_car)"
+   ],
+   "decision": "keep",
+   "why": "Hardware, and true at every rung."
+  },
+  {
+   "mark": "Brake glow (red fan behind the car)",
+   "layer": "P9 pixel",
+   "means_in_code": "Braking, or held at a standstill",
+   "player_reads": "More 'caught' red. It merges with the livery and with the red has-you fill (4_B2_b_car x 0-120; 5_A2_b_car x 520-600)",
+   "colour": "Red",
+   "conflicts": [
+    "Livery",
+    "Has-you fill",
+    "Memory red"
+   ],
+   "decision": "move to car",
+   "why": "Braking is already shown by the stop line and the car's motion. On RED-01, show it as the two rear lamps brightening, with no fan."
+  },
+  {
+   "mark": "Forward corridor (diagonal hatch)",
+   "layer": "P9 pixel",
+   "means_in_code": "The WHITE cars' forward sensor, as long as the stopping distance (fwdLen). It is drawn on RED-01 at every rung, rung 0 included",
+   "player_reads": "A no-go or danger zone straight ahead. It runs off curved lanes into buildings (6_A3_b x 375-480 y 400-1220) and across other roads (7_C2_a x 640-940). It also matches the diagonal stripes of the tile's LED screens",
+   "colour": "Bluish label grey; ink outline when hot",
+   "conflicts": [
+    "Headlight",
+    "Rung 1 band",
+    "Forward cone",
+    "Steel-blue cone fill",
+    "LED stripe art",
+    "Deck dither"
+   ],
+   "decision": "merge",
+   "why": "This is the user's complaint, and it holds. The fill goes. The one true fact it carries, the stopping distance, survives as the 'too late' zone of the forward-camera ribbon."
+  },
+  {
+   "mark": "Side sensor outlines and their dotted fill",
+   "layer": "P9 pixel",
+   "means_in_code": "The white cars' side sensors (perception.sideRadius 100, perception.sideHalfAngle 80). Drawn on RED-01 at every rung",
+   "player_reads": "A second, shorter side sensor. The dotted fill fires on the side away from the dummy (8_B3_b x 1060-1400 y 960-1100, dummy at y 790; 3_C1_b x 230-320 y 750-900)",
+   "colour": "Label grey",
+   "conflicts": [
+    "P10 side cones (reach 227)",
+    "View edges",
+    "Deck dither"
+   ],
+   "decision": "cut",
+   "why": "It contradicts Prototype 10's cones on reach and on side, and it shows on a blind car."
+  },
+  {
+   "mark": "Clip to the dummy's view cone",
+   "layer": "P9 pixel",
+   "means_in_code": "Layer-1 sensor marks draw only inside the dummy's view (sensing.coneReach 900)",
+   "player_reads": "The car's sensor switches on and off as the dummy turns. The hatch is gone in 2_B1_b (dummy facing down) and present in 2_B1_a",
+   "colour": "—",
+   "conflicts": [
+    "True to the sim"
+   ],
+   "decision": "cut",
+   "why": "What the car senses must not depend on which way the player faces."
+  },
+  {
+   "mark": "View edges (two faint lines from the dummy)",
+   "layer": "P9 pixel",
+   "means_in_code": "The dummy's sight",
+   "player_reads": "More dashed sensor arcs (1_A1_a x 740-870 y 500-640)",
+   "colour": "Grey",
+   "conflicts": [
+    "P9 side outlines",
+    "P10 cone edges"
+   ],
+   "decision": "cut",
+   "why": "The puzzles show the whole board, and the lines read as sensor edges."
+  },
+  {
+   "mark": "Sprite (sedan recoloured red)",
+   "layer": "P9 pixel",
+   "means_in_code": "RED-01",
+   "player_reads": "The learner",
+   "colour": "Red",
+   "conflicts": [
+    "Has-you red fill",
+    "Brake glow"
+   ],
+   "decision": "keep",
+   "why": "It is the icon. Give red no other meaning in the field."
+  },
+  {
+   "mark": "Rung 1 beam (straight band)",
+   "layer": "P10 overlay",
+   "means_in_code": "Forward camera: car width + 2 × body.radius wide, fwdLen long",
+   "player_reads": "One of three overlapping white shapes (2_B1_a)",
+   "colour": "White α 0.07; red α 0.15 when the dummy is in its path",
+   "conflicts": [
+    "Hatch",
+    "Headlight",
+    "Red = car"
+   ],
+   "decision": "move to feedback",
+   "why": "This becomes the single forward-camera ribbon. It follows the lane path, shows a too-late zone, and never turns red."
+  },
+  {
+   "mark": "Forward proportional cone (rung 2 up, 3 grade rings)",
+   "layer": "P10 overlay",
+   "means_in_code": "Forward sight to perception.coneRadius 340, ±perception.forwardConeAngle 10°, perception.forwardGrades 3",
+   "player_reads": "A steel-blue wedge stacked on the hatch and the headlight (3_C1_a x 740-1320)",
+   "colour": "Steel blue + white dashed rings",
+   "conflicts": [
+    "Hatch",
+    "Headlight",
+    "Side-cone colour",
+    "Rung-1 reach 720 vs 340"
+   ],
+   "decision": "merge",
+   "why": "Forward sight is one fact. Draw it as the white ribbon at every rung from 1, and show the grades as ticks on the ribbon."
+  },
+  {
+   "mark": "Side cones (10°-95°, 2 grade rings)",
+   "layer": "P10 overlay",
+   "means_in_code": "Side sight, half as sensitive (perception.sideConeSensitivity 0.5), reach 227 (derived)",
+   "player_reads": "The car sees everything inside the fan, decks and cover included (3_C1_a deck y 240-480; 6_A3_a buildings; 8_B3_a hedge)",
+   "colour": "Steel blue α 0.05 + 0.2 × sensitivity; yellow when noticed; red sector when it has you",
+   "conflicts": [
+    "Yellow = dummy",
+    "Red = car",
+    "Hatch fill",
+    "Cyan tile trims"
+   ],
+   "decision": "move to feedback",
+   "why": "Keep the fan. Clip it to the ground, cast shadows behind cover, and show state by brightness in steel blue. Drop the yellow and red fills."
+  },
+  {
+   "mark": "Grade rings (dashed)",
+   "layer": "P10 overlay",
+   "means_in_code": "Graded sensitivity steps out to 340 and 227",
+   "player_reads": "Range bands that should match SLOWING and STOPPING. They do not: the stages use perception.sideCloseRange 180 and perception.sideWaryRange 360",
+   "colour": "Dashed white",
+   "conflicts": [
+    "Stage thresholds",
+    "P9 dashed outlines"
+   ],
+   "decision": "merge",
+   "why": "Draw one ring per threshold the sim acts on."
+  },
+  {
+   "mark": "Stop line (STOPS HERE)",
+   "layer": "P10 overlay",
+   "means_in_code": "Where it will stop. White; red when it expects you; amber when searching",
+   "player_reads": "It shows only once the car brakes, so puzzle 2's new idea never appears before you fail (2_B1_a/b). At the nose it overlaps the bumper strip (5_A2_b_car x 415-425)",
+   "colour": "White / red / amber",
+   "conflicts": [
+    "Bumper orange",
+    "Ghost amber (9_C3_r7 label at x 560-660 y 1070-1090)",
+    "Memory red"
+   ],
+   "decision": "keep",
+   "why": "This is the core feedback for the forward camera. Show it dashed at the stopping distance from rung 1, solid when braking, and white only."
+  },
+  {
+   "mark": "? / ! over the car",
+   "layer": "P10 overlay",
+   "means_in_code": "Suspects / has you",
+   "player_reads": "Correct, but half hidden behind the R01 plate and the tag (3_C1_a_car, 4_B2_b_car)",
+   "colour": "Grey, amber or red",
+   "conflicts": [
+    "Amber search",
+    "Red car"
+   ],
+   "decision": "keep",
+   "why": "A universal stealth glyph. Put it on the plate, in white."
+  },
+  {
+   "mark": "3-pip awareness meter",
+   "layer": "P10 overlay",
+   "means_in_code": "AWARE, SLOWING, CRAWLING, STOPPING",
+   "player_reads": "Hidden behind the plate and tag. It also shows on blind rung 0 (1_A1_a_car, the blue bar at x 265-335 y 90-100)",
+   "colour": "Grey, amber, orange, red",
+   "conflicts": [
+    "Tag state word",
+    "?/!",
+    "Orange cones",
+    "Amber search"
+   ],
+   "decision": "cut",
+   "why": "It is the third copy of one fact. The car's speed and the stop line already show the stage."
+  },
+  {
+   "mark": "Track bar",
+   "layer": "P10 overlay",
+   "means_in_code": "Track memory, perception.trackSeconds 3",
+   "player_reads": "Nothing; it is unreadable under the tag",
+   "colour": "Grey to red",
+   "conflicts": [
+    "Pips",
+    "Tag squares"
+   ],
+   "decision": "cut",
+   "why": "Show tracking as the ! fading over perception.trackSeconds."
+  },
+  {
+   "mark": "Notice ring",
+   "layer": "P10 overlay",
+   "means_in_code": "Time to notice in a side cone, perception.sideNoticeSeconds 0.6",
+   "player_reads": "A dot at the end of the tag. It covers the pips (6_A3_a x 760-790 y 540-565) and sits about 300 px from the dummy",
+   "colour": "White, yellow when full",
+   "conflicts": [
+    "Tag squares",
+    "Yellow = dummy"
+   ],
+   "decision": "move to feedback",
+   "why": "This is the one timer the player must watch. Draw it as an arc round the dummy, in the colour of the sensor that is filling it."
+  },
+  {
+   "mark": "Tag text (RED-01 · Rn NAME · STATE)",
+   "layer": "P10 overlay",
+   "means_in_code": "Rung and state",
+   "player_reads": "A grey bar about 350 px wide at 2x. It covers the cones, the dummy (3_C1_b x 0-490 y 615-640) and the facing arrow (2_B1_a)",
+   "colour": "White on dark",
+   "conflicts": [
+    "P9 R01 plate",
+    "P11 panel line 1",
+    "Pips"
+   ],
+   "decision": "cut",
+   "why": "The panel already says the rung name, and the plate says the ID. The state word repeats ?/!."
+  },
+  {
+   "mark": "Tag squares (7)",
+   "layer": "P10 overlay",
+   "means_in_code": "Rung count",
+   "player_reads": "Progress",
+   "colour": "Red",
+   "conflicts": [
+    "Panel RUNG n"
+   ],
+   "decision": "move to car",
+   "why": "Draw them as 7 px under the plate. It is the only on-car count that survives play size."
+  },
+  {
+   "mark": "Kit R1 lens bar",
+   "layer": "P11 kit",
+   "means_in_code": "Forward camera fitted",
+   "player_reads": "A window glint (2_B1_a_car x 276-280)",
+   "colour": "White",
+   "conflicts": [
+    "Lamps"
+   ],
+   "decision": "keep",
+   "why": "A label. The ribbon carries the meaning."
+  },
+  {
+   "mark": "Kit R2 mirror pods",
+   "layer": "P11 kit",
+   "means_in_code": "Side sensors fitted",
+   "player_reads": "Two dots; readable at 2x",
+   "colour": "Steel blue",
+   "conflicts": [],
+   "decision": "keep",
+   "why": "It points where its fans look."
+  },
+  {
+   "mark": "Kit R3 roof puck (spins)",
+   "layer": "P11 kit",
+   "means_in_code": "Roof lidar",
+   "player_reads": "A white blob; the spin and the mint do not read (5_A2_b_car x 455-485)",
+   "colour": "Mint (spec); renders white",
+   "conflicts": [
+    "Mint = street cameras",
+    "Lamps"
+   ],
+   "decision": "keep",
+   "why": "Recolour to steel blue (onboard ranging). Make the spin read through the field sweep, not the 4 px puck."
+  },
+  {
+   "mark": "Kit R4 link fin (pulses)",
+   "layer": "P11 kit",
+   "means_in_code": "Street-camera link",
+   "player_reads": "A mint eye: 'this car has a camera', which is rung 1's job (5_A2_a_car x 300-320)",
+   "colour": "Mint",
+   "conflicts": [
+    "Puck mint",
+    "Lens bar meaning"
+   ],
+   "decision": "keep",
+   "why": "It is only right while it pulses with LINKED. Draw it as an antenna stub, not a ring."
+  },
+  {
+   "mark": "Kit R5 bumper strip",
+   "layer": "P11 kit",
+   "means_in_code": "Road items",
+   "player_reads": "An orange nose line. It merges with the stop line when braking",
+   "colour": "Cone orange",
+   "conflicts": [
+    "Stop line at the nose",
+    "Old CRAWLING pip"
+   ],
+   "decision": "keep",
+   "why": "A label. The cone brackets carry the meaning."
+  },
+  {
+   "mark": "Kit R6 tally marks",
+   "layer": "P11 kit",
+   "means_in_code": "Remembered spots, up to duel.memorySites 3",
+   "player_reads": "Three lamp-like bars; the count cannot be read (9_C3_r6_car x 320-345)",
+   "colour": "Dummy yellow",
+   "conflicts": [
+    "Yellow = you",
+    "Lamps"
+   ],
+   "decision": "keep",
+   "why": "Recolour to red (its memory) and fill per site."
+  },
+  {
+   "mark": "Kit R7 searchlight (sweeps)",
+   "layer": "P11 kit",
+   "means_in_code": "Search",
+   "player_reads": "An orange dot (9_C3_r7_car x 290-310)",
+   "colour": "Amber",
+   "conflicts": [
+    "Orange cones",
+    "Yellow dummy"
+   ],
+   "decision": "keep",
+   "why": "Recolour to red. The field beam carries the sweep."
+  },
+  {
+   "mark": "Kit glint (duel.kitGlintSeconds 3, proposed)",
+   "layer": "P11 kit",
+   "means_in_code": "Newest piece",
+   "player_reads": "'Something changed on the car'",
+   "colour": "White",
+   "conflicts": [],
+   "decision": "keep",
+   "why": "The cheapest telegraph of what is new. Fire the new sensor's field pulse at the same moment."
+  },
+  {
+   "mark": "Street camera post",
+   "layer": "P10 overlay",
+   "means_in_code": "A camera that reports you; a dash breaks it",
+   "player_reads": "A 4 px grey stub with a mint dot, about 8 px at 2x (5_A2_a x 730-740 y 465-500; 7_C2_a x 685-695; 9_C3_a x 1255-1265)",
+   "colour": "Mint lens",
+   "conflicts": [
+    "Cyan kiosk screens (7_C2_a x 720-770 y 455-505)"
+   ],
+   "decision": "keep",
+   "why": "Puzzles 5, 7 and 9 turn on it. Enlarge it: proposed lens of 8 px at 1x."
+  },
+  {
+   "mark": "Camera range and pan cone",
+   "layer": "P10 overlay",
+   "means_in_code": "perception.streetCameraRange 180, perception.streetCameraFov 60, pan perception.streetCameraPanArc 60 / perception.streetCameraPanSeconds 3, hold perception.streetCameraPanHold 1",
+   "player_reads": "Nothing in 5_A2. In 9_C3_a it is a grey-green wedge (x 900-1260 y 560-930) that cannot be told from the steel-blue fans",
+   "colour": "Mint",
+   "conflicts": [
+    "Steel-blue side fans"
+   ],
+   "decision": "move to feedback",
+   "why": "It must be visible while idle, or the twist is invisible."
+  },
+  {
+   "mark": "LINKED (dashed dummy → camera → car, box)",
+   "layer": "P10 overlay",
+   "means_in_code": "A camera is giving you away",
+   "player_reads": "Correct",
+   "colour": "Mint",
+   "conflicts": [
+    "Escalator corner brackets"
+   ],
+   "decision": "keep",
+   "why": "It is the camera's caught state."
+  },
+  {
+   "mark": "Chalk outline + numbered marker",
+   "layer": "P10 overlay",
+   "means_in_code": "Where you struck from",
+   "player_reads": "A crime-scene glyph with a yellow warning triangle (9_C3_r6 x 635-700 y 550-640)",
+   "colour": "Chalk + yellow",
+   "conflicts": [
+    "Yellow = you",
+    "Memory ring"
+   ],
+   "decision": "merge",
+   "why": "One mark per site: a red numbered ring."
+  },
+  {
+   "mark": "Memory ring (duel.memoryRadius 50)",
+   "layer": "P10 overlay",
+   "means_in_code": "A spot it watches, from rung 6",
+   "player_reads": "Not visible in 9_C3_r6_field round the chalk site",
+   "colour": "Red",
+   "conflicts": [
+    "Brake glow",
+    "Has-you fill"
+   ],
+   "decision": "keep",
+   "why": "This is rung 6's only feedback. It must draw."
+  },
+  {
+   "mark": "CHECKING #n over the tag",
+   "layer": "P10 overlay",
+   "means_in_code": "It is passing a remembered spot",
+   "player_reads": "More tag text",
+   "colour": "Red",
+   "conflicts": [
+    "Tag"
+   ],
+   "decision": "cut",
+   "why": "Show it as the ring brightening as the car nears."
+  },
+  {
+   "mark": "EXPECTED",
+   "layer": "P10 overlay",
+   "means_in_code": "It expects you at a site",
+   "player_reads": "Text on the dummy",
+   "colour": "Red",
+   "conflicts": [
+    "Memory ring"
+   ],
+   "decision": "cut",
+   "why": "The ring brightening says it."
+  },
+  {
+   "mark": "Ghost body ring",
+   "layer": "P10 overlay",
+   "means_in_code": "Where it last saw you",
+   "player_reads": "A dashed amber blob on the escalator deck, under the STOPS HERE label (9_C3_r7 x 720-780 y 1050-1120)",
+   "colour": "Amber",
+   "conflicts": [
+    "Stop-line amber",
+    "Orange cones",
+    "Yellow dummy"
+   ],
+   "decision": "keep",
+   "why": "Recolour to red: it is the car's belief about you. Draw it as a dashed dummy silhouette."
+  },
+  {
+   "mark": "Search ring (duel.searchRadius 60) and countdown arc (duel.searchSeconds 4)",
+   "layer": "P10 overlay",
+   "means_in_code": "Search area and time",
+   "player_reads": "Two amber arcs, one about 230 px across, over the escalator",
+   "colour": "Amber",
+   "conflicts": [
+    "Ghost ring"
+   ],
+   "decision": "merge",
+   "why": "One ring that empties as its countdown."
+  },
+  {
+   "mark": "Lunge guide",
+   "layer": "P10 overlay",
+   "means_in_code": "Where a dash lands now",
+   "player_reads": "A white target, as if 'go here' (4_B2_b x 390-440 y 1040-1090; 7_C2_b x 1100-1150 y 685-735)",
+   "colour": "White; yellow when it will connect",
+   "conflicts": [
+    "White = forward camera"
+   ],
+   "decision": "keep",
+   "why": "Make it yellow always (yours), brighter when it connects, and hide it with no dash in the kit."
+  },
+  {
+   "mark": "DUCKED · HIDDEN / SEEN ring",
+   "layer": "P10 overlay",
+   "means_in_code": "Its read of the ducked dummy",
+   "player_reads": "Text that competes with the flashes",
+   "colour": "Grey, yellow, red",
+   "conflicts": [
+    "Sensor box",
+    "Yellow"
+   ],
+   "decision": "cut",
+   "why": "Hidden shows as a cover shadow on the dummy; seen shows as the sensor box."
+  },
+  {
+   "mark": "MOVE ALONG countdown (FARSIGHT: MOVE ALONG)",
+   "layer": "P10 overlay",
+   "means_in_code": "Loiter timer",
+   "player_reads": "'Leave your cover.' It fires at the hiding spot in the cover puzzles (5_A2_a x 525-820 y 155-180; 7_C2_a x 650-950 y 345-375)",
+   "colour": "Yellow",
+   "conflicts": [
+    "The cover solutions of 4, 5, 7 and 8"
+   ],
+   "decision": "cut",
+   "why": "It pushes the player away from the intended move. Cut it in P11 puzzles."
+  },
+  {
+   "mark": "Flashes (IT BRAKES FOR YOU, ITS SIDE CONES HAVE YOU …)",
+   "layer": "P10 overlay",
+   "means_in_code": "Events",
+   "player_reads": "Right text in the wrong place: over the cones and under the car (4_B2_b x 0-340 y 765-795; 6_A3_a x 410-740 y 690-720)",
+   "colour": "White, red, grey, yellow",
+   "conflicts": [
+    "Field marks"
+   ],
+   "decision": "move to feedback",
+   "why": "Put them in a fixed caption band at the field bottom, one at a time, in the colour of the sensor named."
+  },
+  {
+   "mark": "Panel, top left",
+   "layer": "HUD",
+   "means_in_code": "Rung, hits, next lesson",
+   "player_reads": "Good line 2. But 8_B3 says ALL IT CAN LEARN: OUTWIT IT at rung 5, two rungs early",
+   "colour": "Red border",
+   "conflicts": [
+    "Covers the plate (6_A3_b x 390-460 y 120-150)"
+   ],
+   "decision": "keep",
+   "why": "Fix the rung-5 text. Fade it when the car passes under."
+  },
+  {
+   "mark": "Strip, top right",
+   "layer": "HUD",
+   "means_in_code": "Clock, stars, passes",
+   "player_reads": "It covers the car and its tag (7_C2_b x 1190-1260 y 160-280)",
+   "colour": "Yellow border",
+   "conflicts": [
+    "Car occluded"
+   ],
+   "decision": "keep",
+   "why": "Fade it to α 0.3 when the car or dummy is under it."
+  },
+  {
+   "mark": "Hint banner",
+   "layer": "HUD",
+   "means_in_code": "After two failed passes",
+   "player_reads": "Help",
+   "colour": "Yellow",
+   "conflicts": [],
+   "decision": "keep",
+   "why": "Fine."
+  },
+  {
+   "mark": "Broken camera post",
+   "layer": "P10 overlay",
+   "means_in_code": "The camera is off",
+   "player_reads": "Debris",
+   "colour": "Grey",
+   "conflicts": [],
+   "decision": "keep",
+   "why": "Its cone must vanish with it."
+  },
+  {
+   "mark": "MISSED: P9 roof plate R01 / S01",
+   "layer": "P9 pixel",
+   "means_in_code": "The car's ID sign",
+   "player_reads": "A blue box behind the tag that repeats RED-01 (1_A1_lesson_clip x 490-560 y 605-640; under the tag in every play shot)",
+   "colour": "Blue",
+   "conflicts": [
+    "Tag text",
+    "Blue tile trims"
+   ],
+   "decision": "keep",
+   "why": "It survives as the car's only label, carrying ?/! and the squares."
+  },
+  {
+   "mark": "MISSED: P9 speech bubbles (Route locked. / Stopping for the dummy.)",
+   "layer": "P9 pixel",
+   "means_in_code": "White-car chatter",
+   "player_reads": "A large bubble over RED-01's tag and its field (6_A3_a x 450-700 y 420-490; 9_C3_r7 x 435-685 y 835-905)",
+   "colour": "White on dark, cyan dash",
+   "conflicts": [
+    "Tag",
+    "Ghost"
+   ],
+   "decision": "cut",
+   "why": "Remove it from RED-01 in play. Lines belong in the lesson clip."
+  },
+  {
+   "mark": "MISSED: deck occlusion dither (red or yellow checker)",
+   "layer": "P9 pixel",
+   "means_in_code": "The car or dummy is under a deck",
+   "player_reads": "The same dot texture as the hatch and the P9 dotted fill. The dummy in yellow checker inside the yellow cone fill vanishes (5_A2_b x 1170-1225 y 620-700)",
+   "colour": "Sprite colour",
+   "conflicts": [
+    "Hatch",
+    "Dotted fill",
+    "Yellow cone fill"
+   ],
+   "decision": "keep",
+   "why": "Once the hatch and dots are cut, dither means one thing: under a deck."
+  },
+  {
+   "mark": "MISSED: dummy facing arrow and body ring",
+   "layer": "P9 pixel",
+   "means_in_code": "Facing; the body",
+   "player_reads": "A large white arrow that reads like a forward-camera mark",
+   "colour": "White",
+   "conflicts": [
+    "White = forward camera"
+   ],
+   "decision": "keep",
+   "why": "Recolour to dummy yellow."
+  },
+  {
+   "mark": "MISSED: escalator corner brackets with chevrons",
+   "layer": "P9 pixel",
+   "means_in_code": "Escalator entry",
+   "player_reads": "UI target boxes, the same shape as the LINKED box",
+   "colour": "Cyan",
+   "conflicts": [
+    "Detection boxes",
+    "Mint",
+    "Steel blue"
+   ],
+   "decision": "keep",
+   "why": "Keep the chevrons and drop the corner brackets, so corner brackets mean 'detected'."
+  },
+  {
+   "mark": "MISSED: lesson clip replays the P9 marks",
+   "layer": "P10 overlay",
+   "means_in_code": "Replay of the hit",
+   "player_reads": "'As the car saw it': a forward hatch on a blind car (1_A1_lesson_clip x 640-960 y 645-750)",
+   "colour": "Grey",
+   "conflicts": [
+    "Rung 0 truth"
+   ],
+   "decision": "cut",
+   "why": "The clip must show the sensors the car had at the time of the hit."
+  }
+ ],
+ "findings": [
+  {
+   "id": "F1",
+   "severity": "blocker",
+   "shots": [
+    "2_B1_a_field",
+    "2_B1_a_car",
+    "3_C1_a_field",
+    "5_A2_a_field",
+    "7_C2_a_field",
+    "9_C3_a_field"
+   ],
+   "what": "Forward sight is drawn up to four times over: P9 hatch (fwdLen), P9 headlight wedge, rung-1 band (fwdLen), and P10 forward cone (340). The lengths differ and the shapes overlap. In 3_C1_a the hatch (x 740-1230) sits inside the cone (x 740-1320) under the headlight. The P9 side dotted fill fires on the side away from the dummy (8_B3_b).",
+   "player_reads": "Several zones of unclear meaning. Which edge is the danger?",
+   "truth": "RED-01 has one forward camera with one reach and one stopping distance. The P9 marks belong to the white cars' rule.",
+   "fix": "Gate all P9 sensor marks (hatch, side outlines, dotted fill, headlight wedge, notice flash) off for RED-01 when s.p11 is set. White cars keep them. RED-01 keeps its lamps. Draw one forward ribbon (see sensor_feedback rung 1)."
+  },
+  {
+   "id": "F2",
+   "severity": "blocker",
+   "shots": [
+    "1_A1_a_field",
+    "1_A1_a_car",
+    "1_A1_b_field",
+    "1_A1_lesson_clip_field"
+   ],
+   "what": "At rung 0 the blind car draws a forward hatch, side arcs, a headlight wedge and an awareness bar. The training clip says the car 'saw' the hatch.",
+   "player_reads": "It sees its lane, so stay out of it. That is the opposite of the solution, 'stand in its lane'. It also contradicts the hint 'It cannot see you'.",
+   "truth": "Rung 0 perceives nothing.",
+   "fix": "Rung 0 draws nothing but the lamps and the plate with 7 empty squares. The clip replays the overlay of the car's rung at the time of the hit."
+  },
+  {
+   "id": "F3",
+   "severity": "blocker",
+   "shots": [
+    "3_C1_a_field",
+    "4_B2_b_field",
+    "6_A3_a_field",
+    "8_B3_a_field"
+   ],
+   "what": "The side and forward fans paint over decks, escalators, buildings, kiosks and hedges. Nothing is clipped by height or cover. 3_C1_a: the fan covers the Z2 deck and both escalators (x 600-1080 y 240-480). 6_A3_a: the red has-you sector covers the kiosk (x 840-895 y 405-515). 8_B3_a: the fan covers the hedge (x 350-540 y 470-515).",
+   "player_reads": "Height and cover do not matter, which cancels the twists of puzzles 3, 4, 5, 7 and 8.",
+   "truth": "The side sensors see the ground at perception.sensorHeight 14. Tall cover hides you. Low cover hides you only when ducked.",
+   "fix": "Ray-cast each fan. Stop it at tall cover (shadow wedge behind it). Low cover casts a shadow only while the dummy is ducked, so the shadow appears when the player presses C. Leave deck tops unpainted below rung 3."
+  },
+  {
+   "id": "F4",
+   "severity": "blocker",
+   "shots": [
+    "5_A2_a_field",
+    "5_A2_b_field",
+    "7_C2_a_field",
+    "7_C2_b_field",
+    "9_C3_a_field"
+   ],
+   "what": "The street camera is about 8 px at 2x and its pan cone cannot be seen while idle. In 9_C3_a the cone (x 900-1260) is the same grey-green as the side fans.",
+   "player_reads": "The cabinet or kiosk is safe cover. The camera is decoration.",
+   "truth": "The camera watches 60° to 180 px and pans 60° every 3 s. It reports you to the car.",
+   "fix": "Draw the mint pan cone always (idle α 0.08). It brightens when you are inside, and LINKED fires on catch. Enlarge the post (proposed 8 px lens at 1x). Mark the dash-break point on the post."
+  },
+  {
+   "id": "F5",
+   "severity": "major",
+   "shots": [
+    "2_B1_a_field",
+    "2_B1_b_field",
+    "2_B1_b_car"
+   ],
+   "what": "Puzzle 2's new idea is the stop line, but it draws only once the car brakes. Before a failure the only cue is the unlabelled hatch length. Edit 115 §115.4: the cut-in bot logs 0 hits / 8 your-fault contacts.",
+   "player_reads": "No window is visible; stepping in feels random.",
+   "truth": "There is a band between the nose and the stopping distance where stepping in gets you hit.",
+   "fix": "From rung 1, draw a dashed stop line at fwdLen ahead at all times. Shade the nose-to-line band as 'too late to stop' in white α 0.12. The line goes solid when braking."
+  },
+  {
+   "id": "F6",
+   "severity": "major",
+   "shots": [
+    "4_B2_a_field",
+    "5_A2_a_field"
+   ],
+   "what": "Lesson 3 says roof lidar sees a dummy jumping or falling off a deck. Edit 115 §115.4 measured that it does not close a deck drop, and A2's drop still clears. No puzzle is played at rung 3: puzzle 4 teaches 2→4 at once.",
+   "player_reads": "Drops are closed, so stop trying them. Or: the card lied.",
+   "truth": "Rung 3 changes nothing a player can feel.",
+   "fix": "Either make lidar close drops within a proposed perception.lidarRange and show its sweep on deck edges, or fold rung 3 into rung 4's lesson and drop the drop claim from the card."
+  },
+  {
+   "id": "F7",
+   "severity": "major",
+   "shots": [
+    "4_B2_b_field",
+    "4_B2_b_car",
+    "6_A3_a_field",
+    "5_A2_b_car",
+    "3_C1_b_car"
+   ],
+   "what": "Caught states use yellow (the dummy's colour) and red (the car's colour). The dummy turns orange inside the red sector (4_B2_b x 395-445 y 675-750). Cones turn invisible on red (6_A3_a x 925-955 y 415-445). A dithered dummy disappears in the yellow fill (5_A2_b_car x 170-230 y 215-300).",
+   "player_reads": "The dummy and the cones vanish at the moment of truth.",
+   "truth": "A sensor caught you.",
+   "fix": "State is shown by brightness in the sensor's own colour, plus a corner-bracket box round the dummy in that colour. Remove the yellow and red fills."
+  },
+  {
+   "id": "F8",
+   "severity": "major",
+   "shots": [
+    "2_B1_a_field",
+    "3_C1_b_field",
+    "6_A3_a_car",
+    "9_C3_r7_car",
+    "9_C3_r7_field"
+   ],
+   "what": "Above the car sit a P9 plate, a tag about 350 px wide, ?/!, 3 pips, a track bar, a notice ring and P9 speech bubbles. They cover the dummy, its arrow and the fans. In 9_C3_r7 a label ending 'EN' collides with the tag end (x 770-800 y 945-960).",
+   "player_reads": "A pile of labels; the dummy is lost.",
+   "truth": "Rung and alert state are two facts.",
+   "fix": "Keep the plate, with ?/! on it and 7 squares under it. Cut the tag text, pips and track bar. Cut the bubbles on RED-01. Move the notice arc to the dummy."
+  },
+  {
+   "id": "F9",
+   "severity": "major",
+   "shots": [
+    "6_A3_b_field",
+    "7_C2_b_field",
+    "5_A2_a_field",
+    "8_B3_a_field"
+   ],
+   "what": "The forward hatch and headlight run straight ahead while the lane curves. They cross buildings (6_A3_b x 375-480 y 600-1220), a deck (8_B3_a) and other roads (7_C2_a).",
+   "player_reads": "It sees through buildings, and will drive there.",
+   "truth": "It drives and brakes along its lane path.",
+   "fix": "Draw the forward ribbon along the lane polyline. At rung 4, a cone in the lane bends the ribbon round the cone (swerve preview). At rung 5, the ribbon ends at the cone with the stop line."
+  },
+  {
+   "id": "F10",
+   "severity": "major",
+   "shots": [
+    "1_A1_lesson_fit_field"
+   ],
+   "what": "The lesson card shows CLOSED and NEXT but no OPEN line. NEXT repeats the new rule ('It stops for you in its lane') instead of the trick still open (LESSON[1][2]: cut in). The fitting close-up is not in the shot because the card covers the field.",
+   "player_reads": "What is closed, but not what to try.",
+   "truth": "The ladder works as 'closed X, open Y'.",
+   "fix": "Add an OPEN row from LESSON[n][2]. Make NEXT name the puzzle and its open trick. Show the fitting with the new sensor's field drawn on the road before the card."
+  },
+  {
+   "id": "F11",
+   "severity": "major",
+   "shots": [
+    "9_C3_r6_field",
+    "9_C3_r6_car",
+    "9_C3_r7_field",
+    "9_C3_r7_car"
+   ],
+   "what": "At rung 6 no memory ring is visible: only a chalk figure with a yellow triangle (x 635-700 y 550-640). The tallies cannot be counted. At rung 7 the amber ghost, search ring, STOPS HERE label and escalator overlap (x 560-870 y 980-1210).",
+   "player_reads": "The boss's two new rungs have no on-field shape. The player learns them by repeating a move and failing.",
+   "truth": "It watches up to 3 spots of radius 50, then searches 60 px for 4 s.",
+   "fix": "Rung 6: a red numbered ring per site that brightens as the car nears. Rung 7: a red dashed ghost silhouette whose single ring empties over duel.searchSeconds. Draw the STOPS HERE label on the side away from the ghost."
+  },
+  {
+   "id": "F12",
+   "severity": "major",
+   "shots": [
+    "7_C2_b_field",
+    "6_A3_b_field"
+   ],
+   "what": "The HUD covers the car: the strip hides RED-01 and its tag (7_C2_b x 1190-1260 y 160-280), and the panel covers the plate (6_A3_b).",
+   "player_reads": "The car disappears at the decision point.",
+   "truth": "The lane passes under the HUD.",
+   "fix": "Fade the HUD to α 0.3 while the car or dummy is under it, or keep lanes out of a 130 px top band in each puzzle's layout."
+  },
+  {
+   "id": "F13",
+   "severity": "minor",
+   "shots": [
+    "2_B1_a_field",
+    "3_C1_a_field",
+    "3_C1_b_field"
+   ],
+   "what": "One sensor has several reaches in the registry. Forward: perception.forwardLength 720, perception.coneRadius 340, fwdLen. Side: perception.sideRadius 100, perception.sideCloseRange 180, the derived 227, perception.sideConeRange 240, perception.sideWaryRange 360. The rings draw at the 2 grades of 227, but the stages act at 180 and 360 (360 lies beyond the fan).",
+   "player_reads": "The forward reach shrinks from rung 1 to rung 2. The rings do not line up with SLOWING or STOPPING.",
+   "truth": "Unknown until reconciled.",
+   "fix": "One id per reach. Rings at the thresholds the sim acts on. sideWaryRange must not exceed the fan reach. Retire perception.sideRadius and perception.sideHalfAngle for RED-01."
+  },
+  {
+   "id": "F14",
+   "severity": "minor",
+   "shots": [
+    "5_A2_a_car",
+    "5_A2_b_car",
+    "7_C2_b_car",
+    "9_C3_r6_car"
+   ],
+   "what": "Kit pieces are 2-4 px and misleading. The mint fin ring reads as 'camera'. The puck renders white and its spin cannot be seen. The bumper strip merges with the stop line at the nose. The yellow tallies look like lamps.",
+   "player_reads": "Which sensor this car has is unreadable at play size.",
+   "truth": "Edit 116 §116.3 admits 2-4 px.",
+   "fix": "Kit is a label only. Each piece pulses in step with its field the first time that field acts in a puzzle. Recolour the puck to steel blue, and the tallies and searchlight to red."
+  },
+  {
+   "id": "F15",
+   "severity": "minor",
+   "shots": [
+    "4_B2_a_field",
+    "6_A3_b_field",
+    "7_C2_a_field",
+    "8_B3_a_field",
+    "5_A2_a_field"
+   ],
+   "what": "Level art competes with the overlay. Cyan escalator corner brackets look like detection boxes. Kiosk cyan screens read as camera lenses (7_C2_a x 720-770). Hedge and planter (8_B3_a) look like the tall cover. The island kiosk reads as an LED sign (4_B2_a x 770-820 y 715-770). MOVE ALONG fires at the hiding spot (5_A2_a, 7_C2_a). LED diagonal stripes echo the hatch.",
+   "player_reads": "Cover and cameras do not read as puzzle pieces. The game pushes you out of the intended hiding spot.",
+   "truth": "Cover height and camera placement are the puzzle.",
+   "fix": "Cover gets one readable outline and a height cue: tall casts a ground shadow, low gets a short lip. Use one camera post design. Escalators lose their brackets. Cut MOVE ALONG in P11. Hatch is gone (F1)."
+  }
+ ],
+ "sensor_feedback": [
+  {
+   "rung": 1,
+   "sensor": "Forward camera",
+   "on_car": "Lens bar (windscreen top), white",
+   "feedback": "A white ribbon along the lane path, car width + 2 × body.radius wide, to forward reach. The nose-to-stopping-distance segment is shaded as 'too late'. A dashed stop line sits at its end. No hatch, no headlight wedge.",
+   "states": {
+    "idle": "Ribbon edges α 0.10; too-late band α 0.12; stop line dashed",
+    "sensing": "Dummy inside the ribbon beyond the line: white corner box on the dummy, stop line goes solid, STOPS HERE label",
+    "caught": "Car stops at the line, box flashes once, caption IT BRAKES FOR YOU in the bottom band"
+   },
+   "params": [
+    "perception.forwardLength 720",
+    "fwdLen (stopping distance; proposed id perception.stopDistance)",
+    "body.radius 13"
+   ],
+   "closes": "Standing in its lane",
+   "leaves_open": "Stepping into the too-late band from beside the road"
+  },
+  {
+   "rung": 2,
+   "sensor": "Side sensors",
+   "on_car": "Mirror pods, steel blue",
+   "feedback": "Two steel-blue ground fans at 10°-95° off the nose. They are ray-cast: they stop at tall cover and at deck edges, and low cover shades them only when the dummy is ducked. One dashed ring sits at the close threshold. Returns are short steel-blue ticks on the dummy's edge facing the car.",
+   "states": {
+    "idle": "Fan α 0.05 + 0.2 × sensitivity; ring dashed",
+    "sensing": "Returns on the dummy; a steel-blue arc round the dummy fills over the notice time (×1.5 ducked); ? on the plate",
+    "caught": "Steel-blue corner box on the dummy; the sector containing the dummy goes to α 0.35; ! on the plate; stop line drops"
+   },
+   "params": [
+    "perception.sideConeAxis 52.5",
+    "perception.sideConeAngle 42.5",
+    "perception.sideConeRange 240 vs (derived) side cone reach 227: pick one",
+    "perception.sideCloseRange 180",
+    "perception.sideWaryRange 360 (must be ≤ reach)",
+    "perception.sideConeSensitivity 0.5",
+    "perception.sideNoticeSeconds 0.6",
+    "perception.duckNoticeFactor 1.5",
+    "perception.sideAwareNoticeRate 0.5",
+    "perception.sideWaryNoticeRate 1",
+    "perception.sensorHeight 14"
+   ],
+   "closes": "Cutting in from the kerb",
+   "leaves_open": "Height: decks and parapet gaps above the fans"
+  },
+  {
+   "rung": 3,
+   "sensor": "Roof lidar",
+   "on_car": "Roof puck, steel blue, spins",
+   "feedback": "A thin steel-blue sweep line rotating 360° round the roof. Where it crosses deck edges and parapet gaps inside its reach, it leaves fading return dots, so it visibly covers the sky. An airborne dummy inside reach collects returns.",
+   "states": {
+    "idle": "Sweep line α 0.15, deck-edge returns α 0.2 fading over one rotation",
+    "sensing": "Airborne dummy within reach: returns on the dummy, arc filling",
+    "caught": "Steel-blue box on the airborne dummy, ! on the plate, stop line drops"
+   },
+   "params": [
+    "perception.lidarHeight 26",
+    "proposed perception.lidarRange",
+    "proposed perception.lidarSweepSeconds"
+   ],
+   "closes": "The drop and jump. Not true in the sim today (Edit 115 §115.4); fix the sim or cut the claim (F6)",
+   "leaves_open": "Springing from behind tall cover"
+  },
+  {
+   "rung": 4,
+   "sensor": "Street cameras",
+   "on_car": "Link fin, mint antenna stub; pulses only while linked",
+   "feedback": "Drawn on the world camera, not the car: an enlarged post with a mint lens, and a mint 60° cone panning across its arc, always visible. The cone casts the same cover shadows as the fans, from a height of 60.",
+   "states": {
+    "idle": "Mint cone α 0.08 panning; post lens steady",
+    "sensing": "Dummy inside the cone: cone α 0.2, mint arc filling on the dummy",
+    "caught": "LINKED: mint dashed dummy → post → car, mint box on the dummy, fin pulses, ! on the plate"
+   },
+   "params": [
+    "perception.streetCameraRange 180",
+    "perception.streetCameraFov 60",
+    "perception.streetCameraPanArc 60",
+    "perception.streetCameraPanSeconds 3",
+    "perception.streetCameraPanHold 1",
+    "perception.streetCameraHeight 60"
+   ],
+   "closes": "Springing from cover a camera watches",
+   "leaves_open": "Unwatched cover; breaking a post; the cone bait"
+  },
+  {
+   "rung": 5,
+   "sensor": "Road items",
+   "on_car": "Bumper strip, cone orange",
+   "feedback": "An orange corner bracket on every cone inside the forward ribbon. Before rung 5, the ribbon bends round a cone in the lane (swerve preview). From rung 5, it ends at the cone with the stop line.",
+   "states": {
+    "idle": "No mark",
+    "sensing": "Cone inside the ribbon: orange bracket",
+    "caught": "Stop line placed short of the cone; ribbon ends there; no swerve"
+   },
+   "params": [
+    "perception.forwardLength 720 (item reach = forward reach)",
+    "fwdLen"
+   ],
+   "closes": "The cone bait (swerve into you)",
+   "leaves_open": "Ducking behind low cover, then springing"
+  },
+  {
+   "rung": 6,
+   "sensor": "Crash memory",
+   "on_car": "Three tally marks on the bonnet, red, one filled per site",
+   "feedback": "A red numbered ring at each remembered spot. Fans grow per memory, and the growth is visible as the fan edge stepping out.",
+   "states": {
+    "idle": "Ring dashed α 0.3",
+    "sensing": "Car approaching the site: ring solid and brightening",
+    "caught": "Dummy inside a ring as the car passes: red box, ! on the plate, stop line drops"
+   },
+   "params": [
+    "duel.memoryRadius 50",
+    "duel.memorySites 3",
+    "perception.coneGrowthPerMemory 0.04",
+    "perception.coneGrowthMax 0.2",
+    "proposed duel.memoryCheckRange"
+   ],
+   "closes": "The same spot twice",
+   "leaves_open": "A new spot each time"
+  },
+  {
+   "rung": 7,
+   "sensor": "Search",
+   "on_car": "Searchlight on the roof front, red, sweeps while searching",
+   "feedback": "A red dashed dummy silhouette (the ghost) at the last-seen point. One ring round it empties as the countdown. A narrow searchlight wedge sweeps inside the ring.",
+   "states": {
+    "idle": "No mark",
+    "sensing": "Seen, then lost: ghost and full ring appear, ring empties, searchlight sweeps",
+    "caught": "Dummy inside the ring when the searchlight crosses: red box, !, stop line drops"
+   },
+   "params": [
+    "duel.searchRadius 60",
+    "duel.searchSeconds 4",
+    "perception.trackSeconds 3"
+   ],
+   "closes": "Hiding after being seen",
+   "leaves_open": "Hiding before it sees you; leaving the ring before it empties"
+  }
+ ],
+ "puzzles": [
+  {
+   "n": 1,
+   "tile": "A1",
+   "name": "First Contact",
+   "new": "The red car, blind",
+   "screen_tells_it": false,
+   "misread": "A hatch, side arcs and a headlight wedge suggest it sees its lane (1_A1_a, 1_A1_b), so the player avoids the lane.",
+   "fix": "Rung 0 draws nothing but lamps and the plate with 7 empty squares. The clip replays without the P9 marks."
+  },
+  {
+   "n": 2,
+   "tile": "B1",
+   "name": "Stop Line",
+   "new": "Forward camera: its stop line",
+   "screen_tells_it": false,
+   "misread": "No stop line is shown before braking (2_B1_a/b). Three overlapping forward shapes give no window.",
+   "fix": "A persistent dashed stop line and a 'too late' band from rung 1. The lens bar glints at the first pass."
+  },
+  {
+   "n": 3,
+   "tile": "C1",
+   "name": "High Road",
+   "new": "Side sensors: it sees the kerb",
+   "screen_tells_it": false,
+   "misread": "The fans cover the Z2 deck and both escalators (3_C1_a), so the deck looks watched and the drop looks closed.",
+   "fix": "Ground-clipped fans: deck tops and the parapet gap stay unpainted, which makes the gap read as the hole in its sight."
+  },
+  {
+   "n": 4,
+   "tile": "B2",
+   "name": "The Island",
+   "new": "Battery 1: the dash",
+   "screen_tells_it": false,
+   "misread": "The island kiosk reads as an LED sign (4_B2_a x 770-820 y 715-770). Fans paint over it with no shadow. The lunge guide is white and reads as a goal.",
+   "fix": "Kiosk with a cover outline that casts a fan shadow. Yellow lunge guide that brightens when the dash lands ahead of the nose. Card 4 must name the dash."
+  },
+  {
+   "n": 5,
+   "tile": "A2",
+   "name": "CCTV",
+   "new": "Street cameras; a dash breaks a post",
+   "screen_tells_it": false,
+   "misread": "The camera cannot be seen (5_A2_a/b), so the cabinet looks safe. MOVE ALONG pushes the player out of cover. The drop still clears because lidar is not closing it.",
+   "fix": "Visible mint pan cone and post (F4). Cut MOVE ALONG. Resolve F6 so the drop is closed or intended."
+  },
+  {
+   "n": 6,
+   "tile": "A3",
+   "name": "Swerve",
+   "new": "Hands 1: cones",
+   "screen_tells_it": false,
+   "misread": "The swerve is never previewed. Cones and kiosk sit under the red sector (6_A3_a). The straight hatch runs off the curve (6_A3_b).",
+   "fix": "The ribbon bends round a placed cone at rung 4, showing where the swerve goes. Orange brackets on the cones. Kiosk shadow."
+  },
+  {
+   "n": 7,
+   "tile": "C2",
+   "name": "Portal",
+   "new": "Road items: it stops for cones",
+   "screen_tells_it": false,
+   "misread": "Only a 2 px bumper strip says cones changed. The camera on the kiosk is invisible (7_C2_a x 685-695). The HUD hides the car (7_C2_b).",
+   "fix": "At the first pass, show the ribbon ending at a placed cone with the stop line. Visible camera cone. HUD fade."
+  },
+  {
+   "n": 8,
+   "tile": "B3",
+   "name": "LED Canyon",
+   "new": "Super Knees: duck",
+   "screen_tells_it": false,
+   "misread": "The hedge and planter look like any block. Fans paint over them whether standing or ducked (8_B3_a). The panel says ALL IT CAN LEARN at rung 5.",
+   "fix": "Low-cover shadow appears only when ducked, so pressing C visibly casts it. Low-cover lip art. Panel: 'NEXT: CERTIFICATION'."
+  },
+  {
+   "n": 9,
+   "tile": "C3",
+   "name": "Certification",
+   "new": "The boss: rungs 6 and 7 mid-puzzle, white traffic 0.5",
+   "screen_tells_it": false,
+   "misread": "No memory ring is drawn at rung 6 (9_C3_r6). The rung-7 ghost, STOPS HERE and the escalator overlap (9_C3_r7). The camera cone matches the fans. White cars' P9 marks add a second language.",
+   "fix": "Red site rings and the red ghost (F11). Mint camera cone. White cars' marks greyed so RED-01's feedback stands alone."
+  }
+ ],
+ "colour_map": [
+  {
+   "colour": "Red #ff5a5a",
+   "means": "RED-01 and what it knows about you: livery, plate squares, panel, tallies, memory rings, ghost, searchlight"
+  },
+  {
+   "colour": "White",
+   "means": "Forward camera: ribbon, too-late band, stop line, lens bar. Also neutral text, never a field fill"
+  },
+  {
+   "colour": "Steel blue #7fa8bc",
+   "means": "Onboard ranging: side fans, lidar sweep, pods, puck, their returns and catch box"
+  },
+  {
+   "colour": "Mint #9ff2c8",
+   "means": "Street cameras: post lens, pan cone, LINKED, link fin"
+  },
+  {
+   "colour": "Orange #ff8a1f",
+   "means": "Road items: traffic cones, their brackets, bumper strip"
+  },
+  {
+   "colour": "Yellow (C.dummy)",
+   "means": "You: the dummy, facing arrow, lunge guide, your score strip and hints"
+  },
+  {
+   "colour": "Grey",
+   "means": "Other traffic's own sensing (P9 white cars) and dead objects (broken post)"
+  }
+ ],
+ "cut": [
+  "P9 forward hatch on RED-01 (all rungs)",
+  "P9 side outlines and dotted fill on RED-01",
+  "P9 headlight wedge and notice flash on RED-01 (lamps stay)",
+  "Brake-glow fan on RED-01",
+  "Clip of RED-01 marks to the dummy's view cone",
+  "Dummy view edges in P11",
+  "Yellow 'noticed' cone fill",
+  "Red 'has you' cone fill",
+  "Amber as a hue (search moves to red)",
+  "3-pip awareness meter and track bar",
+  "Tag text line (RED-01 · Rn NAME · STATE)",
+  "CHECKING #n, EXPECTED, DUCKED · HIDDEN / SEEN text",
+  "Chalk figure and yellow warning triangle (merged into the red site ring)",
+  "MOVE ALONG / FARSIGHT loiter text in P11 puzzles",
+  "P9 speech bubbles on RED-01 in play",
+  "Escalator corner brackets (chevrons stay)",
+  "Lesson 3's claim that lidar closes the drop, unless the sim is fixed"
+ ],
+ "priority": [
+  "F2",
+  "F1",
+  "F3",
+  "F4",
+  "F5",
+  "F6",
+  "F7",
+  "F8",
+  "F9",
+  "F11",
+  "F12",
+  "F10",
+  "F13",
+  "F14",
+  "F15"
+ ]
+}

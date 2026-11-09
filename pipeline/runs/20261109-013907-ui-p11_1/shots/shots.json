@@ -1,0 +1,179 @@
+{
+ "shots": [
+  {
+   "shot": "1_A1_a",
+   "tile": "A1",
+   "n": 1,
+   "name": "First Contact",
+   "rung": 0,
+   "moment": "mid-tile, dummy at the drop"
+  },
+  {
+   "shot": "1_A1_b",
+   "tile": "A1",
+   "n": 1,
+   "name": "First Contact",
+   "rung": 0,
+   "moment": "dummy on the kerb ahead, car approaching"
+  },
+  {
+   "shot": "2_B1_a",
+   "tile": "B1",
+   "n": 2,
+   "name": "Stop Line",
+   "rung": 1,
+   "moment": "mid-tile, dummy at the drop"
+  },
+  {
+   "shot": "2_B1_b",
+   "tile": "B1",
+   "n": 2,
+   "name": "Stop Line",
+   "rung": 1,
+   "moment": "dummy on the kerb ahead, car approaching"
+  },
+  {
+   "shot": "3_C1_a",
+   "tile": "C1",
+   "n": 3,
+   "name": "High Road",
+   "rung": 2,
+   "moment": "mid-tile, dummy at the drop"
+  },
+  {
+   "shot": "3_C1_b",
+   "tile": "C1",
+   "n": 3,
+   "name": "High Road",
+   "rung": 2,
+   "moment": "dummy on the kerb ahead, car approaching"
+  },
+  {
+   "shot": "4_B2_a",
+   "tile": "B2",
+   "n": 4,
+   "name": "The Island",
+   "rung": 2,
+   "moment": "mid-tile, dummy at the drop"
+  },
+  {
+   "shot": "4_B2_b",
+   "tile": "B2",
+   "n": 4,
+   "name": "The Island",
+   "rung": 2,
+   "moment": "dummy on the kerb ahead, car approaching"
+  },
+  {
+   "shot": "5_A2_a",
+   "tile": "A2",
+   "n": 5,
+   "name": "CCTV",
+   "rung": 4,
+   "moment": "mid-tile, dummy at the drop"
+  },
+  {
+   "shot": "5_A2_b",
+   "tile": "A2",
+   "n": 5,
+   "name": "CCTV",
+   "rung": 4,
+   "moment": "dummy on the kerb ahead, car approaching"
+  },
+  {
+   "shot": "6_A3_a",
+   "tile": "A3",
+   "n": 6,
+   "name": "Swerve",
+   "rung": 4,
+   "moment": "mid-tile, dummy at the drop"
+  },
+  {
+   "shot": "6_A3_b",
+   "tile": "A3",
+   "n": 6,
+   "name": "Swerve",
+   "rung": 4,
+   "moment": "dummy on the kerb ahead, car approaching"
+  },
+  {
+   "shot": "7_C2_a",
+   "tile": "C2",
+   "n": 7,
+   "name": "Portal",
+   "rung": 5,
+   "moment": "mid-tile, dummy at the drop"
+  },
+  {
+   "shot": "7_C2_b",
+   "tile": "C2",
+   "n": 7,
+   "name": "Portal",
+   "rung": 5,
+   "moment": "dummy on the kerb ahead, car approaching"
+  },
+  {
+   "shot": "8_B3_a",
+   "tile": "B3",
+   "n": 8,
+   "name": "LED Canyon",
+   "rung": 5,
+   "moment": "mid-tile, dummy at the drop"
+  },
+  {
+   "shot": "8_B3_b",
+   "tile": "B3",
+   "n": 8,
+   "name": "LED Canyon",
+   "rung": 5,
+   "moment": "dummy on the kerb ahead, car approaching"
+  },
+  {
+   "shot": "9_C3_a",
+   "tile": "C3",
+   "n": 9,
+   "name": "Certification",
+   "rung": 5,
+   "moment": "mid-tile, dummy at the drop"
+  },
+  {
+   "shot": "9_C3_b",
+   "tile": "C3",
+   "n": 9,
+   "name": "Certification",
+   "rung": 5,
+   "moment": "dummy on the kerb ahead, car approaching"
+  },
+  {
+   "shot": "9_C3_r6",
+   "tile": "C3",
+   "n": 9,
+   "name": "Certification",
+   "rung": 6,
+   "moment": "rung 6 forced, one remembered spot"
+  },
+  {
+   "shot": "9_C3_r7",
+   "tile": "C3",
+   "n": 9,
+   "name": "Certification",
+   "rung": 7,
+   "moment": "rung 7 forced, searching"
+  },
+  {
+   "shot": "1_A1_lesson_clip",
+   "tile": "A1",
+   "n": 1,
+   "rung": 0,
+   "moment": "lesson beat 1: the training clip"
+  },
+  {
+   "shot": "1_A1_lesson_fit",
+   "tile": "A1",
+   "n": 1,
+   "rung": 1,
+   "moment": "lesson beat 2: the fitting and its close-up"
+  }
+ ],
+ "errors": []
+}

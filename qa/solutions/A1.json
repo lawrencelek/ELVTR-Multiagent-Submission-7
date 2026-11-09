@@ -1,0 +1,1 @@
+{"tile": "A1", "note": "Edit 115: stand in its lane; it is blind", "script": [{"op": "goto", "to": {"route": 0.65, "side": 0}, "tol": 5}, {"op": "wait", "secs": 30}]}

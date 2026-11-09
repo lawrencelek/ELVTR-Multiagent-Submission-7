@@ -3,3 +3,5 @@ docs/video/
 __pycache__/
 *.pyc
 engine/.cache/
+p11_qa/
+qa/runs/

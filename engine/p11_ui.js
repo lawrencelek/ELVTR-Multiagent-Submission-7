@@ -91,7 +91,8 @@
   function strip(cx, s, G) {
     ctx = cx; const p = s && s.p11; if (!p || s.phase === 'brief' || s.phase === 'lesson' || s.phase === 'report' || s.duelDone) return;
     const q = p.q, under = p.attempt <= q.par, w = 300, h = 84, x = G.FX + G.FW - w - 10, y = G.FY + 10;
-    ctx.save(); rect(x, y, w, h, 'rgba(10,12,18,0.86)'); ctx.strokeStyle = YEL; ctx.lineWidth = 1.5; ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
+    ctx.save(); if (root.DUEL_UI && root.DUEL_UI.underHud && root.DUEL_UI.underHud(s, G, x, y, w, h)) ctx.globalAlpha = 0.3; // Prototype 11.2: the car or you under it: the strip steps back
+    rect(x, y, w, h, 'rgba(10,12,18,0.86)'); ctx.strokeStyle = YEL; ctx.lineWidth = 1.5; ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
     text('⏱ ' + fmt(p.attempt), x + 12, y + 26, 18, under ? YEL : '#9fb8c8'); text('PAR ' + q.par + ' s', x + w - 12, y + 26, 14, '#9fb8c8', 'right');
     const at = [1, p.untouched ? 1 : 0, under ? 1 : 0], lab = ['CLEAR', 'UNTOUCHED', 'PAR'], cw = (w - 16) / 3;
     for (let i = 0; i < 3; i++) { const sx = x + 18 + i * cw; star(sx, y + 47, 7, true, at[i] ? YEL : 'rgba(110,120,130,0.8)'); text(lab[i], sx + 12, y + 52, 11, at[i] ? '#F4F8FA' : '#6e7882'); }

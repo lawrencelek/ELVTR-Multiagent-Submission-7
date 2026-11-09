@@ -1,0 +1,23 @@
+{
+ "label": "p11_1",
+ "images": 42,
+ "calls": [
+  {
+   "label": "a_ui_review",
+   "role": "ui_adversary",
+   "model": "opus",
+   "seconds": 493.9,
+   "cost_usd": 1.9269386000000002,
+   "input_tokens": 12,
+   "cache_write_tokens": 109777,
+   "cache_read_tokens": 306873,
+   "output_tokens": 49365,
+   "prompt_chars": 36369,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  }
+ ],
+ "cost_usd": 1.927,
+ "findings": 15
+}

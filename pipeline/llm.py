@@ -32,8 +32,9 @@ class Run:
             f.write(f'[{stamp}] {line}\n')
 
 
-def call(run, role, model, message, label):
-    """The agent's reply text. Saves <label>_input.md, <label>_output_raw.txt and the call's usage."""
+def call(run, role, model, message, label, tools=''):
+    """The agent's reply text. Saves <label>_input.md, <label>_output_raw.txt and the call's usage. tools: none by default;
+    'Read' lets a reviewer look at the screenshots in its run folder (the adversarial UI review)."""
     system = (ROOT / 'agents' / f'{role}.md').read_text(encoding='utf-8')
     if getattr(run, 'world', None) == 'p9':  # v3: the agents design for Prototype 9's tiles
         system += (ROOT / 'agents' / 'world_p9.md').read_text(encoding='utf-8')
@@ -45,7 +46,9 @@ def call(run, role, model, message, label):
         run.save(f'{label}_output_raw.txt', text)
         run.calls.append({'label': label, 'role': role, 'model': model, 'replayed': True, 'cost_usd': 0})
         return text
-    cmd = [CLAUDE, '-p', '--system-prompt', system, '--tools', '', '--output-format', 'json', '--no-session-persistence', '--model', model]
+    cmd = [CLAUDE, '-p', '--system-prompt', system, '--tools', tools, '--output-format', 'json', '--no-session-persistence', '--model', model]
+    if tools:
+        cmd += ['--allowedTools', tools]
     t0 = time.time()
     for attempt in (1, 2):
         proc = subprocess.run(cmd, input=message, capture_output=True, text=True, encoding='utf-8', timeout=1500, cwd=str(run.dir))

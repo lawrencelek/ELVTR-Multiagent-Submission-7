@@ -57,6 +57,18 @@ def game_js():
 def p11_game_js(g):
     """Prototype 11 (GDD Edit 113): the puzzle game's hooks, on top of Submission 7's."""
     return patch(g, [
+        ("  function drawZones(s, c, clip) {\n",
+         "  function drawZones(s, c, clip) {\n    if (window.P11) return; // Prototype 11.2 (Edit 117): one sensor language; Prototype 9's corridors and side outlines are off for every car (the second review: a white car's hatch over the red car's lane)\n"),
+        ("PIX.fillPoly(left.concat(right.reverse()), (x, y) => {",
+         "if (!(c.red && window.P11)) PIX.fillPoly(left.concat(right.reverse()), (x, y) => { // Prototype 11.2 (Edit 117): no headlight wedge on the red car; its forward camera's frustum shows what it sees"),
+        ("      const c = cars.find((q) => q.id === id), age = now - bk.t0; if (!c || age > dur) continue;",
+         "      const c = cars.find((q) => q.id === id), age = now - bk.t0; if (!c || age > dur || window.P11) continue; // Prototype 11.2 (Edit 117): no speech bubbles in the puzzles"),
+        ("      if (c._brk && (c.v > 1 || held)) {",
+         "      if (c._brk && (c.v > 1 || held) && !window.P11) { // Prototype 11.2 (Edit 117): no red brake fans in the puzzles (red is the car and its memory); the stop line says it"),
+        ("  function drawViewEdges(s) {\n",
+         "  function drawViewEdges(s) {\n    if (window.P11) return; // Prototype 11.2 (Edit 117): the board is whole; the dummy's view edges read as sensor edges\n"),
+        ("  window.__dummies = app;\n",
+         "  window.__dummies = app;\n  window.__dummiesHits = () => HITS.map((h) => ({ x: h.x, y: h.y, w: h.w, h: h.h, tag: h.tag })); // Prototype 11.2: this frame's tap targets, for QA (qa/clicks.js)\n"),
         ("KeyC: 'duck', ControlLeft: 'duck', ControlRight: 'duck', // Submission 7: DUCK\n",
          "KeyC: 'duck', ControlLeft: 'duck', ControlRight: 'duck', KeyR: 'restart', // Submission 7: DUCK. Prototype 11: R restarts the puzzle\n"),
         ("  const SAVE_KEY = 'dummies.p7.story', SLOT_KEY = 'dummies.p7.save', MOVED_KEY = 'dummies.p7.saveMoved', memSlots = {};",
@@ -188,7 +200,7 @@ def main(p11=False):
     scripts += js(E / 'lore.js')
     cr = cues['credits']
     credit = ['Music by ' + cr['music'].replace(' on itch.io', ''), 'Sound effects by ' + cr['sfx'].replace(' on itch.io', '')]
-    scripts += (f"<script>\nwindow.DUMMIES_LORE.build = '{'P11.1 · PUZZLES' if p11 else 'P9 × P10'}';\n"
+    scripts += (f"<script>\nwindow.DUMMIES_LORE.build = '{'P11.2 · PUZZLES' if p11 else 'P9 × P10'}';\n"
                 f"window.DUMMIES_CREDITS.lines = window.DUMMIES_CREDITS.lines.concat({json.dumps(credit, ensure_ascii=False)});\n</script>\n")
     # Prototype 9's values (prototypes/p9/build.py, Edits 97-100), then the integration's
     sim = dict({'arcade.grades': 1, 'ui.introScreen': 1, 'ui.levelCard': 1, 'world.droneDropIn': 1, 'ui.storySplash': 1},
@@ -221,10 +233,13 @@ def main(p11=False):
         scripts += js(ROOT / 'engine' / 'p11.js') + js(ROOT / 'engine' / 'p11_ui.js')
     scripts += f'<script>\n{p11_game_js(game_js()) if p11 else game_js()}\n</script>\n'
     shell = (E / 'shell.html').read_text(encoding='utf-8')
-    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · Puzzles (Prototype 11.1)</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
+    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · Puzzles (Prototype 11.2)</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
     cache = ROOT / 'engine' / '.cache'; cache.mkdir(exist_ok=True)  # for headless checks (node): the same values the page gets
     (cache / ('runtime_p11.json' if p11 else 'runtime.json')).write_text(json.dumps({'sim': sim, 'story': story_json(plan, not p11), 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': rules, 'puzzles': pz}), encoding='utf-8')
     out = ROOT / 'p11' / 'index.html' if p11 else ROOT / 'index.html'
+    if '--out' in sys.argv:  # a trial build elsewhere (the page's audio stays at ../audio/)
+        out = Path(sys.argv[sys.argv.index('--out') + 1]).resolve()
+        out.parent.mkdir(parents=True, exist_ok=True)
     out.parent.mkdir(exist_ok=True)
     out.write_text(shell.replace('<!--SCRIPTS-->', scripts), encoding='utf-8')
     missing = [f for c in cues['sfx'].values() for f in c.get('files', []) + c.get('alternates', []) + ([c['tone']] if c.get('tone') else []) if not (ROOT / 'audio' / cues['files'].get(f, {}).get('dir', 'sfx') / f).exists()]

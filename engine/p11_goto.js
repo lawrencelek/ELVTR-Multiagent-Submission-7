@@ -2,7 +2,7 @@
 // require('./p11_goto.js')(page, 'C3') → resolves at the card (phase 'brief'). Used by the P11 tests and probes.
 module.exports = async function gotoPuzzle(pg, tile, root) {
   const path = require('path');
-  await pg.goto('file://' + path.join(root || path.resolve(__dirname, '..'), 'p11', 'index.html'));
+  await pg.goto('file://' + path.join(root || path.resolve(__dirname, '..'), process.env.P11_DIR || 'p11', 'index.html'));
   await pg.evaluate((tile) => {
     try { localStorage.clear(); } catch (e) { /* none */ }
     const pr = window.STORY.newProgress(), order = window.P11.ORDER, best = {};
