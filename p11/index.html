@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="screen-orientation" content="landscape"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
-<title>DUMMIES · Puzzles (Prototype 11)</title>
+<title>DUMMIES · Puzzles (Prototype 11.1)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612:wght@400;700&family=B612+Mono:wght@400;700&family=Nunito:wght@700;800;900&display=swap">
@@ -11087,7 +11087,7 @@ window.DUMMIES_CREDITS = {
 
 </script>
 <script>
-window.DUMMIES_LORE.build = 'P11 · PUZZLES';
+window.DUMMIES_LORE.build = 'P11.1 · PUZZLES';
 window.DUMMIES_CREDITS.lines = window.DUMMIES_CREDITS.lines.concat(["Music by ansimuz", "Sound effects by Chequered Ink"]);
 </script>
 <script>
@@ -13515,11 +13515,67 @@ window.DUEL_RULES = {"about": "Lawrence (7 Nov, 18:06): each tile progresses one
     if (T.rung >= 7) { const on = c.lkp ? Math.floor(T.t * 6) % 2 === 0 : false; ctx.fillStyle = on ? C.search : C.searchDim; ctx.beginPath(); ctx.arc(9, 0, 2.6, 0, TAU); ctx.fill(); }
     ctx.restore();
   }
+  // ---------- Prototype 11.1: the kit (GDD Edit 116). One sedan, one livery; each rung bolts one piece into a fixed slot, in its field's
+  // colour. Drawn over the sprite in a unit car's frame: 64 long, 30 wide, nose +x. The newest piece glints on the first pass after its fitting.
+  const KIT = { side: '#7fa8bc', cone: '#ff8a1f', ink: 'rgba(8,10,14,0.9)',
+    name: ['', 'Lens bar', 'Mirror pods', 'Roof puck', 'Link fin', 'Bumper strip', 'Tally marks', 'Searchlight'],
+    slot: ['', 'Windscreen', 'Both mirrors', 'Roof', 'Rear roof', 'Front bumper', 'Bonnet', 'Roof, front'],
+    at: [null, [13.5, 0], [6.5, 18.5], [-7, 0], [-21, 0], [31.5, 0], [22, 0], [1, -7]] };
+  const kitSeen = new WeakMap(), kitTop = () => Math.max(1, DUELR().length - 1 || 7), kitGlintS = () => (T.DP || T.P)['duel.kitGlintSeconds'] || 3;
+  function kitPieces(rung, o) { // o: { t, link, mem, search, drop: [rung, dy] }; the slots in Edit 116 §116.2
+    const ink = KIT.ink, dy = (n) => (o.drop && o.drop[0] === n ? o.drop[1] : 0), on = (n) => rung >= n && (!o.only || o.only === n);
+    const box = (n, x, y, w, h, col) => { y += dy(n); rect(x - 0.9, y - 0.9, w + 1.8, h + 1.8, ink); rect(x, y, w, h, col); };
+    const dot = (n, x, y, r, col) => { y += dy(n); ctx.fillStyle = ink; ctx.beginPath(); ctx.arc(x, y, r + 0.9, 0, TAU); ctx.fill(); ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill(); };
+    if (on(1)) box(1, 12, -5, 3, 10, C.text); // R1 forward camera: a lens bar at the windscreen's top
+    if (on(2)) { dot(2, 6.5, -18.5, 2.6, KIT.side); dot(2, 6.5, 18.5, 2.6, KIT.side); } // R2 side sensors: a pod on each mirror
+    if (on(3)) { dot(3, -7, 0, 5, '#0d0f13'); const a = o.t * 6, y = dy(3); ctx.strokeStyle = C.cam; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(-7, y, 4, 0, TAU); ctx.moveTo(-7, y); ctx.lineTo(-7 + Math.cos(a) * 4, y + Math.sin(a) * 4); ctx.stroke(); } // R3 roof lidar: a spinning puck
+    if (on(4)) { box(4, -24, -1.6, 6, 3.2, C.cam); if (o.link) { ctx.save(); ctx.strokeStyle = C.cam; ctx.lineWidth = 1.4; ctx.globalAlpha = 0.55 + 0.45 * Math.sin(o.t * 12); for (const r of [5, 9]) { ctx.beginPath(); ctx.arc(-24, dy(4), r, Math.PI * 0.62, Math.PI * 1.38); ctx.stroke(); } ctx.restore(); } } // R4 street cameras: a link fin; it pulses while a camera reports you
+    if (on(5)) box(5, 30, -12, 3, 24, KIT.cone); // R5 road items: a bumper strip
+    if (on(6)) for (let i = 0; i < 3; i++) box(6, 17 + i * 4, -6, 2, 12, i < o.mem ? C.dummy : 'rgba(255,212,0,0.3)'); // R6 crash memory: a tally a remembered spot
+    if (on(7)) { if (o.search) { const a = -Math.PI / 2 + Math.sin(o.t * 3) * 0.9; ctx.save(); ctx.fillStyle = 'rgba(255,179,71,0.3)'; ctx.beginPath(); ctx.moveTo(1, -7); ctx.arc(1, -7, 46, a - 0.3, a + 0.3); ctx.closePath(); ctx.fill(); ctx.restore(); }
+      dot(7, 1, -7, 2.6, o.search && Math.floor(o.t * 6) % 2 === 0 ? C.search : C.searchDim); } // R7 search: a roof searchlight; it sweeps while it searches
+  }
+  function kitGlint(n, e) { // rings out of the newest piece's slot, one a second
+    const at = KIT.at[n]; if (!at) return; const ph = e % 1;
+    ctx.save(); ctx.strokeStyle = C.text; ctx.lineWidth = 1.4; ctx.globalAlpha = 1 - ph;
+    for (const sy of n === 2 ? [-1, 1] : [1]) { ctx.beginPath(); ctx.arc(at[0], at[1] * sy, 4 + 10 * ph, 0, TAU); ctx.stroke(); }
+    ctx.restore();
+  }
+  function kitCar(c, rung, o, e) { ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.h); ctx.scale(c.L / 64, c.W / 30); kitPieces(rung, o); if (e != null && rung >= 1) kitGlint(rung, e); ctx.restore(); }
+  function kitMem() { return Math.min(T.crashes ? T.crashes.length : 0, Math.round(T.P['duel.memorySites'] || 3)); }
+  function drawKit(c) { // the field: the kit on the red car, live
+    let k = kitSeen.get(T); if (!k || k.rung !== T.rung || T.t < k.t0) { k = { rung: T.rung, t0: T.t }; kitSeen.set(T, k); } // a new rung (a fitting, a new puzzle): glint again
+    const e = T.t - k.t0, cam = T.rung >= 4 && T.seeingCamera ? T.seeingCamera() : null;
+    kitCar(c, T.rung, { t: T.t, link: !!(cam && c.hidden && (c.noticed || (c.hz && c.hz.inPath))), mem: kitMem(), search: !!(c.lkp && !c.lkp.found) }, e < kitGlintS() ? e : null);
+  }
+  function kitTag(tag, x, y) { // the tag carries the rung: a square a rung, filled to the car's
+    const top = kitTop(), sq = 6; ctx.font = '700 10px B612, system-ui, sans-serif'; const tw = ctx.measureText(tag).width, w = tw + 14 + top * sq, x0 = x - w / 2;
+    rect(x0, y - 10, w, 14, 'rgba(12,14,20,0.8)'); text(tag, x0 + 4, y, 10, C.text, 'left');
+    for (let i = 0; i < top; i++) rect(x0 + tw + 10 + i * sq, y - 7, 4, 7, i < T.rung ? C.red : 'rgba(255,255,255,0.22)');
+  }
+  function kitBody() { // the close-up's sedan, in the unit frame
+    const rr = (x, y, w, h, r, col) => { ctx.fillStyle = col; ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h); ctx.fill(); };
+    rr(-24, -17, 10, 34, 2, '#0d0f13'); rr(14, -17, 10, 34, 2, '#0d0f13'); rr(4, -19, 5, 38, 1, '#b52a31'); rr(-32, -15, 64, 30, 7, '#d8323a');
+    rr(4, -11, 10, 22, 2, '#26323f'); rr(-18, -12, 22, 24, 3, '#b52a31'); rr(-25, -10, 7, 20, 2, '#26323f');
+  }
+  function kitInset(L, u, G, c, k) { // the fitting, close up: the piece lowered into its slot, then its glint
+    const to = L.to, top = kitTop(), w = 320, h = 178, sx = G.FX + c.x * k, x = sx > G.FX + G.FW / 2 ? G.FX + 24 : G.FX + G.FW - w - 24, y = G.FY + 62;
+    ctx.save(); rect(x, y, w, h, 'rgba(6,10,18,0.9)'); ctx.strokeStyle = CAM; ctx.lineWidth = 1.5; ctx.strokeRect(x + 0.75, y + 0.75, w - 1.5, h - 1.5);
+    text('KIT · RUNG ' + to + ' OF ' + top, x + 14, y + 24, 13, CAM);
+    for (let i = 0; i < top; i++) rect(x + w - 14 - (top - i) * 9, y + 13, 6, 10, i < to - (u < 0.45 ? 1 : 0) ? C.red : 'rgba(255,255,255,0.22)');
+    ctx.save(); ctx.translate(x + w / 2, y + 92); ctx.scale(2.9, 2.9); kitBody();
+    const land = Math.min(1, u / 0.45); ctx.globalAlpha = 1; kitPieces(to - 1, { t: G.t, mem: kitMem() });
+    ctx.globalAlpha = Math.min(1, land * 2); kitPieces(to, { t: G.t, mem: kitMem(), drop: [to, -28 * (1 - land)], only: to }); ctx.globalAlpha = 1;
+    if (u >= 0.45) kitGlint(to, (u - 0.45) / 0.55 * 2);
+    ctx.restore();
+    text(String(KIT.name[to] || '').toUpperCase(), x + 14, y + h - 14, 17, C.text); text(String(KIT.slot[to] || '').toUpperCase(), x + w - 14, y + h - 14, 12, C.dim, 'right');
+    ctx.restore();
+  }
   function drawTag(c) {
     const ri = T.rungInfo(), st = T.sideStage(c), FW = T.P['world.width'];
     const tag = 'RED-01 · R' + T.rung + ' ' + (ri ? ri.name.toUpperCase() : '') + (c.lkp ? ' · ' + (c.lkp.found ? 'FOUND' : 'SEARCHING') : st >= 1 && c.v >= 1 ? ' · ' + AWARE[st] : c.spent ? ' · DRIVING OFF' : '');
     const x = Math.max(90, Math.min(FW - 90, c.x)), y = c.y - 30;
-    label(tag, x, y, 10, C.text);
+    if (s && s.p11) kitTag(tag, x, y); else label(tag, x, y, 10, C.text); // Prototype 11.1: the rung as squares
     if (c.checks && c.checks.length) label('CHECKING ' + c.checks.map((m) => '#' + m.n).join(' '), x, y - 14, 10, C.mem);
     if (st) { const col = AWARE_C[st], yy = y - (c.checks && c.checks.length ? 30 : 16); for (let i = 0; i < 3; i++) rect(x - 13 + i * 9, yy, 7, 4, i < Math.min(st, 3) ? col : 'rgba(255,255,255,0.25)'); text(st === 4 ? '!' : '?', x, yy - 4, st >= 3 ? 18 : 14 + st, col, 'center');
       const Tk = T.P['perception.trackSeconds'] || 0, hz = c.hz; if (st === 4 && Tk > 0 && hz && hz.cone === 'track' && hz.trackLeft != null) { rect(x - 13, yy + 7, 25, 3, 'rgba(255,255,255,0.2)'); rect(x - 13, yy + 7, 25 * hz.trackLeft / Tk, 3, col); } }
@@ -13637,7 +13693,7 @@ window.DUEL_RULES = {"about": "Lawrence (7 Nov, 18:06): each tile progresses one
     readEvents();
     drawCrashes(); drawPlanters(); drawCameras();
     for (const c of reds()) drawField(c);
-    for (const c of reds()) { drawHalo(c); drawStopLine(c); drawGhost(c); }
+    for (const c of reds()) { if (s.p11) drawKit(c); else drawHalo(c); drawStopLine(c); drawGhost(c); } // Prototype 11.1: the kit replaces the halo
     drawLungeGuide(); drawBody();
     for (const c of reds()) drawTag(c);
     drawWhites();
@@ -13694,6 +13750,7 @@ window.DUEL_RULES = {"about": "Lawrence (7 Nov, 18:06): each tile progresses one
     ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip();
     rect(G.FX, G.FY, G.FW, G.FH, 'rgba(10,40,28,0.22)'); // the camera's tint
     ctx.translate(G.FX, G.FY); ctx.scale(k, k);
+    if (s && s.p11) { const rc = f && f.view.find((q) => q.red && !q.ghost); if (rc && rc.L) kitCar(rc, L.from, { t: tt, mem: kitMem() }); } // Prototype 11.1: its kit as it was
     if (o && t >= B.clip) {
       ctx.strokeStyle = CAM; ctx.lineWidth = 2.5; ctx.strokeRect(o.x - 26, o.y - 40, 52, 58);
       label('IMPACT · ' + (ZN[L.clip.zone] || String(L.clip.zone || '').toUpperCase()), Math.max(90, Math.min(710, o.x)), o.y - 48, 12, CAM);
@@ -13720,11 +13777,13 @@ window.DUEL_RULES = {"about": "Lawrence (7 Nov, 18:06): each tile progresses one
         if (to === 6) { ctx.strokeStyle = C.mem; ctx.lineWidth = 2; T.crashes.forEach((cr, i) => { if (reach > (i + 1) / (T.crashes.length + 1)) { ctx.beginPath(); ctx.arc(cr.ox, cr.oy, T.P['duel.memoryRadius'] || 30, 0, TAU); ctx.stroke(); } }); } // the spots it remembers
         if (to === 7 && f.b) { ctx.strokeStyle = C.search; ctx.setLineDash([6, 5]); ctx.lineWidth = 2; ctx.globalAlpha = reach; ctx.beginPath(); ctx.arc(f.b.x, f.b.y, 60, 0, TAU); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1; label('LAST SEEN', f.b.x, f.b.y - 66, 12, C.search); }
       }
+      if (s && s.p11) kitCar(c, u < 0.45 ? L.from : to, { t: G.t, mem: kitMem() }, u >= 0.45 ? (u - 0.45) * B.fit : null); // Prototype 11.1: the piece on the car as the drone lands
       const dy = u < 0.45 ? -150 * (1 - u / 0.45) : u < 0.7 ? -150 * ((u - 0.45) / 0.25) : null; // the drone: down to the car, the sensor fitted, away
       if (dy != null) drawDrone(c.x, c.y - 24 + dy, u < 0.45);
       ctx.strokeStyle = C.red; ctx.lineWidth = 2; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.arc(c.x, c.y, c.L * 0.75, 0, TAU); ctx.stroke(); ctx.setLineDash([]);
     }
     ctx.restore();
+    if (s && s.p11 && c && c.L) kitInset(L, u, G, c, k); // Prototype 11.1: the fitting, close up
     camMarks(G, String(ri.fit || 'SENSOR') + ' FITTED · ' + String(ri.sensor || ri.name || '').toUpperCase(), t, (L.model || 'RED-01') + ' · RUNG ' + L.from + ' → ' + to);
   }
   function drawPartCard(L, G) { // the player's upgrade: one thing a tile (Lawrence, 7 Nov)
