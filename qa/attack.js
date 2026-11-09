@@ -18,7 +18,7 @@ async function open(br, tile) {
 }
 const summary = (pg) => pg.evaluate(() => {
   const a = window.__dummies, s = a.sim, p = s && s.p11, ev = (s && s.events) || [], T = s && s.duelT;
-  return { screen: a.screen, phase: s && s.phase, cleared: !!(s && s.result), result: s && s.result, progress: s && s.duelProgress ? s.duelProgress() : null, rung: T && T.rung,
+  return { screen: a.screen, phase: s && s.phase, cleared: !!(s && ((p && p.result) || s.phase === 'writeoff' || s.phase === 'report')), result: p && p.result, progress: s && s.duelProgress ? s.duelProgress() : null, rung: T && T.rung,
     passes: p && p.passes, failed: p && p.failed, restarts: p && p.restarts, attempt: p && +(p.attempt || 0).toFixed(1), faults: ev.filter((e) => e.type === 'fault').length, standstill: ev.filter((e) => e.type === 'touch' && e.standstill).length,
     body: s && [Math.round(s.body.x), Math.round(s.body.y)], alive: s && s.body.alive, broken: T && T.level && (T.level.cameras || []).length, points: s && s.run && s.run.points };
 });

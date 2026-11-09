@@ -1,0 +1,1459 @@
+[
+ {
+  "id": "B1-07",
+  "tile": "B1",
+  "hypothesis": "Parent B1-06. Repro: walking from the drop toward (500,292) at t=0 got a car-fault hit 1.77 s into pass 1, with progress 1 and faults 0. The rung-1 stop line is meant to stop the car for a dummy in it",
+  "stopped": "cleared",
+  "ranSecs": 1.603,
+  "cleared": true,
+  "result": null,
+  "progress": 1,
+  "rung": 1,
+  "passes": 1,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   465,
+   274
+  ],
+  "alive": false,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    368,
+    224
+   ]
+  ]
+ },
+ {
+  "id": "B1-08",
+  "tile": "B1",
+  "hypothesis": "Parent B1-06. Is the cut-in cheese just pass-1 timing, or does any diagonal entry beat the stop line? Each attempt waits for a new pass, then walks into the lane at 27° (the B1-06 heading), 60°, 120° ",
+  "stopped": "cleared",
+  "ranSecs": 27.281,
+  "cleared": true,
+  "result": null,
+  "progress": 1,
+  "rung": 1,
+  "passes": 4,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   466,
+   290
+  ],
+  "alive": false,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    368,
+    224
+   ],
+   [
+    30,
+    440,
+    240
+   ]
+  ]
+ },
+ {
+  "id": "B1-09",
+  "tile": "B1",
+  "hypothesis": "Parent B1-01. Its 3 faults mean every step-in was late: the car is about 225 u/s and the walk about 90 u/s, so a 38-unit step takes about 0.45 s. Retry from (440,250) with earlier triggers (near 140, ",
+  "stopped": "cleared",
+  "ranSecs": 9.311,
+  "cleared": true,
+  "result": null,
+  "progress": 1,
+  "rung": 1,
+  "passes": 2,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   438,
+   289
+  ],
+  "alive": false,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    385,
+    230
+   ]
+  ]
+ },
+ {
+  "id": "B1-10",
+  "tile": "B1",
+  "hypothesis": "Parent B1-03, where the dummy was pinned 3 times at (443,170) pushing east. The solids table has nothing there: the block at 300-500 ends at y 156 and the block at 536 starts at x 536. Walk east along",
+  "stopped": "end",
+  "ranSecs": 10.174,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 1,
+  "passes": 2,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   443,
+   190
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    368,
+    217
+   ]
+  ]
+ },
+ {
+  "id": "B2-08",
+  "tile": "B2",
+  "hypothesis": "Parent B2-03. Repro: an open-ground dash from the south kerb at (420,575) cleared in pass 1 at 5.7 s with no kiosk. The rung-2 side sensors do not reach 151 units, and the 164-unit dash covers it. If ",
+  "stopped": "cleared",
+  "ranSecs": 5.766,
+  "cleared": true,
+  "result": null,
+  "progress": 1,
+  "rung": 2,
+  "passes": 1,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   431,
+   442
+  ],
+  "alive": false,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    417,
+    506
+   ]
+  ]
+ },
+ {
+  "id": "B2-09",
+  "tile": "B2",
+  "hypothesis": "Parent B2-03. Vary it on pass 2 and later from three open-kerb spots (x 420, 520, 340). A clear from any of them shows the side-sensor range is shorter than the dash, independent of pass-1 timing. It ",
+  "stopped": "timeout",
+  "ranSecs": 75.119,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 6,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   340,
+   590
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    416,
+    496
+   ],
+   [
+    27,
+    420,
+    577
+   ],
+   [
+    46,
+    520,
+    569
+   ],
+   [
+    59,
+    513,
+    505
+   ],
+   [
+    76.5,
+    340,
+    590
+   ]
+  ]
+ },
+ {
+  "id": "B2-10",
+  "tile": "B2",
+  "hypothesis": "Parent B2-01. Hiding at (421,370) clipped the kiosk's east corner, so the dashes were blocked or late (body stuck at 424,369; faults 2). Retry from two clean spots. A: (428,382), off the kiosk's east ",
+  "stopped": "timeout",
+  "ranSecs": 110.105,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 7,
+  "faults": 2,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   420,
+   358
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    416,
+    496
+   ],
+   [
+    27.5,
+    428,
+    382
+   ],
+   [
+    39.5,
+    428,
+    382
+   ],
+   [
+    55.5,
+    431,
+    396
+   ],
+   [
+    75.5,
+    421,
+    358
+   ],
+   [
+    90.5,
+    427,
+    383
+   ],
+   [
+    104.5,
+    430,
+    396
+   ],
+   [
+    122.5,
+    420,
+    358
+   ]
+  ]
+ },
+ {
+  "id": "C3-08",
+  "tile": "C3",
+  "hypothesis": "Parent C3-04. Repro: walking from the drop to (150,570) crossed the lane on pass 1 and scored boss hit 1 (progress 1, faults 0). A rung-5 car should see a walker in its lane. Then vary on later passes",
+  "stopped": "timeout",
+  "ranSecs": 75.002,
+  "cleared": false,
+  "result": null,
+  "progress": 1,
+  "rung": 5,
+  "passes": 1,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   148,
+   570
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    372,
+    394
+   ]
+  ]
+ },
+ {
+  "id": "C3-09",
+  "tile": "C3",
+  "hypothesis": "Parent C3-06, which logged 'no-red-car' (25 s) after R was pressed 0.4 s after a fault dash and then the game was paused. Repro without the pause: same dash, R, then wait 35 s. 'no-red-car' again mean",
+  "stopped": "timeout",
+  "ranSecs": 50.017,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 5,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 1,
+  "body": [
+   400,
+   384
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    433,
+    387
+   ],
+   [
+    30.5,
+    400,
+    384
+   ],
+   [
+    54,
+    400,
+    384
+   ]
+  ]
+ },
+ {
+  "id": "C3-10",
+  "tile": "C3",
+  "hypothesis": "Parent C3-06. Control: press R mid-pass with no contact (car at u 0.5), then wait 35 s. 'no-red-car' here means any R with the car on the road kills the spawner. If only C3-09 fails, the trigger is R ",
+  "stopped": "timeout",
+  "ranSecs": 45.138,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 5,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 1,
+  "body": [
+   400,
+   384
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    400,
+    384
+   ],
+   [
+    36,
+    400,
+    384
+   ],
+   [
+    54,
+    400,
+    384
+   ]
+  ]
+ },
+ {
+  "id": "C3-11",
+  "tile": "C3",
+  "hypothesis": "Parent C3-07: jitter stayed at (771,384-385) for 68 s under random input, with 19 pins. That is the east wall's south end, where the road exit opens. Push east 4 s at 0.6, then hold 180° at full stren",
+  "stopped": "end",
+  "ranSecs": 18.929,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 3,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   246,
+   384
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 21.7,
+    "key": "C339,19",
+    "tile": "C3",
+    "x": 771,
+    "y": 384,
+    "stick": [
+     0.6,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    400,
+    384
+   ],
+   [
+    30,
+    295,
+    384
+   ]
+  ]
+ },
+ {
+  "id": "C3-12",
+  "tile": "C3",
+  "hypothesis": "Parent C3-01, which got 4 faults: every dash was late, and the hide at (440,394) overlapped the cabinet corner. Calibration from B2-03: the dash is about 2x car speed. Hit 1: cabinet NE at (444,392), ",
+  "stopped": "timeout",
+  "ranSecs": 120.039,
+  "cleared": false,
+  "result": null,
+  "progress": 1,
+  "rung": 5,
+  "passes": 1,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   471,
+   544
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    423,
+    387
+   ]
+  ]
+ },
+ {
+  "id": "C3-13",
+  "tile": "C3",
+  "hypothesis": "Parent C3-03, which never climbed: the ramp's sides pinned it at (330,531) and (330,591). Enter the east ramp end-on at y 560 heading 180°. On the deck, drop SE (60°) through the y 463-495 gap at near",
+  "stopped": "timeout",
+  "ranSecs": 100.158,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 5,
+  "faults": 0,
+  "standstill": 1,
+  "restarts": 0,
+  "body": [
+   308,
+   481
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 92.5,
+    "key": "C319,29",
+    "tile": "C3",
+    "x": 380,
+    "y": 589,
+    "stick": [
+     0,
+     -0.97
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    400,
+    384
+   ],
+   [
+    26.5,
+    380,
+    531
+   ],
+   [
+    43.5,
+    308,
+    482
+   ],
+   [
+    58,
+    282,
+    578
+   ],
+   [
+    77.5,
+    401,
+    611
+   ],
+   [
+    90,
+    380,
+    589
+   ],
+   [
+    103.5,
+    308,
+    481
+   ]
+  ]
+ },
+ {
+  "id": "A3-07",
+  "tile": "A3",
+  "hypothesis": "Parent A3-05: jitter stayed at (787,229-232) for 70 s, past the planter's x 784 line, pinned 16 times. Reach (787,226), push east 5 s at 0.94, then hold 180° for 2 s. A final x still about 787 means t",
+  "stopped": "timeout",
+  "ranSecs": 30.142,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   269,
+   229
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 29.7,
+    "key": "A339,11",
+    "tile": "A3",
+    "x": 787,
+    "y": 229,
+    "stick": [
+     0.94,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    400,
+    224
+   ],
+   [
+    24,
+    787,
+    229
+   ]
+  ]
+ },
+ {
+  "id": "A3-06",
+  "tile": "A3",
+  "hypothesis": "Parent A3-01, which flagged 'kiosk' (inside solid) at (441,234), 5 units into the kiosk top. Approach the kiosk top from the east and push in at 90° and 0.3, first empty-handed, then carrying cone 0. ",
+  "stopped": "timeout",
+  "ranSecs": 50.028,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 4,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   428,
+   353
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 36.8,
+    "key": "A316,1",
+    "tile": "A3",
+    "x": 312,
+    "y": 13,
+    "stick": [
+     0,
+     -0.67
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    421,
+    225
+   ],
+   [
+    31,
+    318,
+    43
+   ],
+   [
+    49.5,
+    431,
+    229
+   ]
+  ]
+ },
+ {
+  "id": "A3-08",
+  "tile": "A3",
+  "hypothesis": "Parent A3-01. The kiosk's SE corner blocked the step from (432,230) to (480,298). Retry: after the car passes, carry cone 0 to (480,348) using the cone target. Hide NE of the kiosk at (470,232), outsi",
+  "stopped": "timeout",
+  "ranSecs": 100.029,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 6,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   499,
+   298
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    13,
+    400,
+    224
+   ],
+   [
+    29.5,
+    400,
+    224
+   ],
+   [
+    49.5,
+    470,
+    231
+   ],
+   [
+    69.5,
+    499,
+    297
+   ],
+   [
+    89.5,
+    499,
+    298
+   ],
+   [
+    104.5,
+    432,
+    223
+   ]
+  ]
+ },
+ {
+  "id": "A3-09",
+  "tile": "A3",
+  "hypothesis": "Parent A3-01. Place the same cone, then stand still at (540,296) in the swerve lane from the start and never touch the stick. A car-fault clear means Swerve is beaten by standing still and the kiosk h",
+  "stopped": "timeout",
+  "ranSecs": 60.006,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   541,
+   295
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    400,
+    224
+   ],
+   [
+    30,
+    400,
+    224
+   ],
+   [
+    47,
+    541,
+    295
+   ],
+   [
+    65,
+    541,
+    295
+   ]
+  ]
+ },
+ {
+  "id": "A1-09",
+  "tile": "A1",
+  "hypothesis": "Parents A1-05 and A1-06: 'inside column' at (501,99), and pinned at (470,109) under the NW stair. The column at 484-508, 68-92 fills the y 64-96 stair opening. Enter end-on at y 80, then at y 96, then",
+  "stopped": "timeout",
+  "ranSecs": 30.014,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 0,
+  "passes": 5,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   445,
+   109
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 15.9,
+    "key": "A121,5",
+    "tile": "A1",
+    "x": 420,
+    "y": 109,
+    "stick": [
+     0,
+     -0.97
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    402,
+    207
+   ],
+   [
+    26,
+    495,
+    105
+   ],
+   [
+    35,
+    628,
+    105
+   ]
+  ]
+ },
+ {
+  "id": "A1-12",
+  "tile": "A1",
+  "hypothesis": "Parent A1-05. Verbatim repro of the first half, which put the dummy inside column 612 (6 events) at (643,552), by the SE stair opening (y 544-576). Expect the same 'column' finding at about t 39. It c",
+  "stopped": "end",
+  "ranSecs": 41.795,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 0,
+  "passes": 7,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   501,
+   221
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "column",
+    "sev": "major",
+    "n": 6,
+    "t": 40.8,
+    "key": "A1column612",
+    "tile": "A1",
+    "x": 642,
+    "y": 552,
+    "layer": 0
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    411,
+    235
+   ],
+   [
+    23,
+    718,
+    627
+   ],
+   [
+    34,
+    787,
+    627
+   ],
+   [
+    46.5,
+    501,
+    255
+   ]
+  ]
+ },
+ {
+  "id": "A1-10",
+  "tile": "A1",
+  "hypothesis": "Parent A1-07, which ended with progress 1 and faults 1 after the dummy was traced at (636,374), 39 units past the gap's south end, at the parapet's x. Repro the 0.4-strength slide at 85°, then push ea",
+  "stopped": "end",
+  "ranSecs": 14.081,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 0,
+  "passes": 3,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   756,
+   431
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    10,
+    400,
+    224
+   ],
+   [
+    23,
+    688,
+    431
+   ]
+  ]
+ },
+ {
+  "id": "C2-07",
+  "tile": "C2",
+  "hypothesis": "Parent C2-05: after entering at y 600, the dummy walked north along x 240 and was pinned at (239,243) by the z0 block 112-368 x 140-230. It then logged 'inside block' at (240,215) and reached (240,13)",
+  "stopped": "timeout",
+  "ranSecs": 40.06,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 3,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   240,
+   243
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 19.4,
+    "key": "C217,27",
+    "tile": "C2",
+    "x": 330,
+    "y": 531,
+    "stick": [
+     0,
+     1
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 37.8,
+    "key": "C212,12",
+    "tile": "C2",
+    "x": 240,
+    "y": 243,
+    "stick": [
+     0,
+     -1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    409,
+    295
+   ],
+   [
+    28,
+    173,
+    531
+   ],
+   [
+    40.5,
+    240,
+    243
+   ]
+  ]
+ },
+ {
+  "id": "C2-10",
+  "tile": "C2",
+  "hypothesis": "Parent C2-05. Control at z0: walk under the deck to (240,250) and push north into block 112 for 8 s. A final y below 230 means even a ground walker tunnels through the block after a pin. y about 243 i",
+  "stopped": "timeout",
+  "ranSecs": 25.05,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 2,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   326,
+   275
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    400,
+    224
+   ],
+   [
+    28.5,
+    400,
+    224
+   ]
+  ]
+ },
+ {
+  "id": "C2-08",
+  "tile": "C2",
+  "hypothesis": "Parent C2-01. The break worked, but the follow-up dashes from (345,248) barely moved the dummy: the battery was likely spent or recharging. Retry. Break the post from (262,250) right after a pass. Hid",
+  "stopped": "timeout",
+  "ranSecs": 110.022,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 7,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   381,
+   229
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "kiosk",
+    "sev": "major",
+    "n": 1,
+    "t": 87.4,
+    "key": "C2kiosk358",
+    "tile": "C2",
+    "x": 350,
+    "y": 256,
+    "layer": 0
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 100.7,
+    "key": "C219,11",
+    "tile": "C2",
+    "x": 381,
+    "y": 229,
+    "stick": [
+     -0.71,
+     0.71
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10.5,
+    400,
+    224
+   ],
+   [
+    24.5,
+    400,
+    224
+   ],
+   [
+    41.5,
+    345,
+    248
+   ],
+   [
+    61.5,
+    345,
+    248
+   ],
+   [
+    79,
+    342,
+    264
+   ],
+   [
+    95,
+    381,
+    227
+   ],
+   [
+    112.5,
+    381,
+    229
+   ]
+  ]
+ },
+ {
+  "id": "C2-09",
+  "tile": "C2",
+  "hypothesis": "Parent C2-04, whose climb failed (pinned at 330,531). Enter the deck at y 595, where C2-05 got onto the deck, below column 292-316. Walk to the y 303-335 gap and drop 340° at near 100, then 80. A clea",
+  "stopped": "timeout",
+  "ranSecs": 80.11,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 5,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   334,
+   415
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 46.3,
+    "key": "C219,27",
+    "tile": "C2",
+    "x": 380,
+    "y": 531,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    13,
+    400,
+    224
+   ],
+   [
+    33.5,
+    400,
+    224
+   ],
+   [
+    52.5,
+    173,
+    531
+   ],
+   [
+    70,
+    308,
+    318
+   ],
+   [
+    84.5,
+    334,
+    415
+   ]
+  ]
+ },
+ {
+  "id": "A2-07",
+  "tile": "A2",
+  "hypothesis": "Parent A2-01, which failed on my pathing. The drop pocket only exits east (a 16-unit slot west), and the 24-unit block/cabinet slot fits no 26-unit dummy (A2-03). Retry: go east, then along the lane e",
+  "stopped": "timeout",
+  "ranSecs": 110.055,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 7,
+  "faults": 2,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   227,
+   267
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    414,
+    139
+   ],
+   [
+    25.5,
+    417,
+    140
+   ],
+   [
+    44.5,
+    358,
+    239
+   ],
+   [
+    56.5,
+    358,
+    239
+   ],
+   [
+    71,
+    354,
+    264
+   ],
+   [
+    88.5,
+    334,
+    230
+   ],
+   [
+    104.5,
+    358,
+    240
+   ],
+   [
+    118,
+    296,
+    307
+   ]
+  ]
+ },
+ {
+  "id": "A2-08",
+  "tile": "A2",
+  "hypothesis": "Parent A2-02, whose climb failed (pinned at 470,109). Enter the NW stair end-on at y 80 from x 430. Drop east through the y 303-335 gap at 340° and near 110, landing ahead of the westbound car. Then r",
+  "stopped": "timeout",
+  "ranSecs": 90.048,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   634,
+   436
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 20.2,
+    "key": "A221,5",
+    "tile": "A2",
+    "x": 430,
+    "y": 109,
+    "stick": [
+     0,
+     -0.97
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 29.5,
+    "key": "A222,5",
+    "tile": "A2",
+    "x": 448,
+    "y": 109,
+    "stick": [
+     1,
+     0.01
+    ]
+   },
+   {
+    "kind": "block",
+    "sev": "major",
+    "n": 2,
+    "t": 94.5,
+    "key": "A2block656",
+    "tile": "A2",
+    "x": 682,
+    "y": 408,
+    "layer": 0
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    414,
+    139
+   ],
+   [
+    28,
+    448,
+    109
+   ],
+   [
+    48,
+    628,
+    414
+   ],
+   [
+    65,
+    628,
+    414
+   ],
+   [
+    84.5,
+    628,
+    414
+   ],
+   [
+    99,
+    634,
+    436
+   ]
+  ]
+ },
+ {
+  "id": "C1-06",
+  "tile": "C1",
+  "hypothesis": "Parent C1-01, which never climbed. The approach at (340,229) hit the ramp's side, and the 'deck' walk was at z0. Even a drop at y 326 lands on the lane edge (320). Retry: enter the y 184-216 ramp end-",
+  "stopped": "cleared",
+  "ranSecs": 22.817,
+  "cleared": true,
+  "result": null,
+  "progress": 1,
+  "rung": 2,
+  "passes": 3,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   356,
+   359
+  ],
+  "alive": false,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    445,
+    218
+   ],
+   [
+    26,
+    310,
+    322
+   ]
+  ]
+ },
+ {
+  "id": "C1-07",
+  "tile": "C1",
+  "hypothesis": "Parent C1-01 and C1-03: a layer probe for the C1-06 route. After the end-on ramp entry, push east at y 250, where there is no gap. A final x of about 307 means the dummy is on the z2 deck (parapet). A",
+  "stopped": "end",
+  "ranSecs": 12.086,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 2,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   299,
+   248
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    464,
+    224
+   ],
+   [
+    25.5,
+    299,
+    248
+   ]
+  ]
+ },
+ {
+  "id": "B3-08",
+  "tile": "B3",
+  "hypothesis": "Parent B3-01. Its ahead-aimed dashes went WSW through the 27-unit hedge-planter gap and clipped corners (faults 2). Retry from (160,232), ducked, centred on the gap: release C and dash straight 90° at",
+  "stopped": "timeout",
+  "ranSecs": 100.016,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 9,
+  "faults": 1,
+  "standstill": 1,
+  "restarts": 0,
+  "body": [
+   159,
+   400
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    8.5,
+    303,
+    225
+   ],
+   [
+    19.5,
+    160,
+    232
+   ],
+   [
+    31,
+    159,
+    266
+   ],
+   [
+    44,
+    254,
+    295
+   ],
+   [
+    55,
+    160,
+    232
+   ],
+   [
+    65.5,
+    160,
+    232
+   ],
+   [
+    77.5,
+    160,
+    398
+   ],
+   [
+    89.5,
+    159,
+    232
+   ],
+   [
+    100,
+    159,
+    232
+   ]
+  ]
+ },
+ {
+  "id": "B3-09",
+  "tile": "B3",
+  "hypothesis": "Parent B3-06 (inconclusive). Ducked at the hedge's middle (222,232), dash 90° straight into the low hedge at near 80, then at 85° with no car. If the dash hops low cover into the lane, it is an unlist",
+  "stopped": "end",
+  "ranSecs": 40.856,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 3,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   237,
+   396
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    297,
+    226
+   ],
+   [
+    18.5,
+    222,
+    232
+   ],
+   [
+    31,
+    172,
+    311
+   ],
+   [
+    42,
+    190,
+    233
+   ]
+  ]
+ }
+]

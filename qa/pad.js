@@ -37,7 +37,7 @@
       const W = s.P['world.width'] || 800, H = s.P['world.height'] || 640;
       if (b.x < -2 || b.y < -2 || b.x > W + 2 || b.y > H + 2) find('off-tile', { key: tile + Math.round(b.x / 40) + ',' + Math.round(b.y / 40), tile, x: Math.round(b.x), y: Math.round(b.y) }, 'blocker');
       if (s.screenName && s.p11 && s.screenName() !== tile) find('crossed-fence', { key: tile + s.screenName(), tile, to: s.screenName(), x: Math.round(b.x), y: Math.round(b.y) }, 'blocker');
-      const q = !b.z && !b.air && !b.lunge ? inSolid(s, b) : null; if (q) find('inside-solid', { key: tile + q.kind + Math.round(q.x), tile, kind: q.kind, x: Math.round(b.x), y: Math.round(b.y), layer: b.layer || 0 }, 'major');
+      const q = !b.z && !b.air && !b.lunge && !(b.level > 0) && !b.stair && b.mode !== 'drop' ? inSolid(s, b) : null; // ground only: on a deck or a stair the columns are below you if (q) find('inside-solid', { key: tile + q.kind + Math.round(q.x), tile, solid: q.kind, x: Math.round(b.x), y: Math.round(b.y), layer: b.layer || 0 }, 'major');
       const mv = Math.hypot(pad.x, pad.y) > 0.5, p = last.pos; if (mv && p && Math.hypot(b.x - p.x, b.y - p.y) < 0.5) last.still += 0.1; else last.still = 0; last.pos = { x: b.x, y: b.y };
       if (last.still > 4) { find('pinned', { key: tile + Math.round(b.x / 20) + ',' + Math.round(b.y / 20), tile, x: Math.round(b.x), y: Math.round(b.y), stick: [+pad.x.toFixed(2), +pad.y.toFixed(2)] }, 'minor'); last.still = 0; }
       const red = T && T.cars.some((c) => c.red && !c.gone && !c.ghost); last.noRed = red ? 0 : last.noRed + 0.1;
@@ -77,6 +77,7 @@
         const st = state(); if (!st) return; const app = st.app, s = st.s;
         if (app.screen !== 'game') return done('left play: ' + app.screen);
         if (s.phase === 'report' || s.phase === 'writeoff') { if (!steps.slice(i).some((q) => q.through)) return done('cleared'); }
+        if (s.phase === 'lesson') { pad.x = pad.y = 0; if (Math.round((Date.now() - t0) / 50) % 16 === 0) QA.press('A'); return; } // a mid-puzzle lesson (the boss): A through it, as a player does (QA-01 was this)
         if (s.phase !== 'play' || s.rescue || app.paused) { pad.x = pad.y = 0; return; }
         if (i >= steps.length) return done('end');
         const q = steps[i], b = st.b; stepT += dt; let next = false;

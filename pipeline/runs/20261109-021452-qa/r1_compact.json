@@ -1,0 +1,3390 @@
+[
+ {
+  "id": "A1-01",
+  "tile": "A1",
+  "hypothesis": "Intended move is to stand in the lane. Expect a clear in pass 1 at the car's fault with 0 your-fault contacts. Edit 115 makes this the only puzzle where a first-pass clear is correct. Fail if there is",
+  "stopped": "cleared",
+  "ranSecs": 1.775,
+  "cleared": false,
+  "result": null,
+  "progress": 1,
+  "rung": 0,
+  "passes": 1,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   403,
+   345
+  ],
+  "alive": false,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    400,
+    224
+   ]
+  ]
+ },
+ {
+  "id": "A1-02",
+  "tile": "A1",
+  "hypothesis": "Walking into the car's flank at 80/90/100° must be the dummy's fault, so progress stays 0 over 3 passes. Any clear or progress counts as 'progress on a fault' and is a blocker.",
+  "stopped": "end",
+  "ranSecs": 37.147,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 0,
+  "passes": 6,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   400,
+   296
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    400,
+    249
+   ],
+   [
+    22.5,
+    400,
+    297
+   ],
+   [
+    33.5,
+    400,
+    297
+   ],
+   [
+    44,
+    400,
+    296
+   ]
+  ]
+ },
+ {
+  "id": "A1-03",
+  "tile": "A1",
+  "hypothesis": "Glancing contacts that eight directions cannot make. First, at 10°, the dummy runs alongside and drifts onto the flank. Second, at 170°, it runs against traffic and converges on the front corner. The ",
+  "stopped": "end",
+  "ranSecs": 39.47,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 0,
+  "passes": 6,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   499,
+   300
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    400,
+    224
+   ],
+   [
+    21.5,
+    501,
+    300
+   ],
+   [
+    33.5,
+    500,
+    300
+   ],
+   [
+    47,
+    626,
+    346
+   ]
+  ]
+ },
+ {
+  "id": "A1-04",
+  "tile": "A1",
+  "hypothesis": "The west edge has no wall at y 240-400 (the road entrance) and the east edge has no wall at all. Pushing and dashing out at 170-190° and 350-10° should stay fenced. 'Off tile' would be a blocker.",
+  "stopped": "end",
+  "ranSecs": 43.285,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 0,
+  "passes": 7,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   787,
+   261
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 42.2,
+    "key": "A139,13",
+    "tile": "A1",
+    "x": 787,
+    "y": 262,
+    "stick": [
+     1,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10.5,
+    391,
+    225
+   ],
+   [
+    22.5,
+    37,
+    262
+   ],
+   [
+    34,
+    397,
+    261
+   ],
+   [
+    46,
+    787,
+    289
+   ]
+  ]
+ },
+ {
+  "id": "A1-05",
+  "tile": "A1",
+  "hypothesis": "Two fence holes: the south edge is unwalled outside x 136-280, and there is a 12-unit slot at x 280-292 on the north edge between the block and the wall. Push at 80/90/95°, dash, wedge the SE corner, ",
+  "stopped": "end",
+  "ranSecs": 52.468,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 0,
+  "passes": 8,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   321,
+   29
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "column",
+    "sev": "major",
+    "n": 6,
+    "t": 39,
+    "key": "A1column612",
+    "tile": "A1",
+    "x": 643,
+    "y": 552,
+    "layer": 0
+   },
+   {
+    "kind": "column",
+    "sev": "major",
+    "n": 4,
+    "t": 50.4,
+    "key": "A1column484",
+    "tile": "A1",
+    "x": 501,
+    "y": 99,
+    "layer": 0
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    409,
+    233
+   ],
+   [
+    20,
+    716,
+    627
+   ],
+   [
+    37,
+    787,
+    627
+   ],
+   [
+    48,
+    501,
+    224
+   ],
+   [
+    60,
+    321,
+    29
+   ]
+  ]
+ },
+ {
+  "id": "A1-06",
+  "tile": "A1",
+  "hypothesis": "The deck's stair openings at y 64-96 overlap columns at x 484-508 and 612-636, y 68-92. The stairs may be unreachable ('pinned') or reachable only by clipping a column ('inside solid'). If on the deck",
+  "stopped": "end",
+  "ranSecs": 33.333,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 0,
+  "passes": 6,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   545,
+   207
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 15.1,
+    "key": "A123,5",
+    "tile": "A1",
+    "x": 470,
+    "y": 109,
+    "stick": [
+     0,
+     -1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    402,
+    219
+   ],
+   [
+    21,
+    599,
+    104
+   ],
+   [
+    37.5,
+    550,
+    199
+   ]
+  ]
+ },
+ {
+  "id": "A1-07",
+  "tile": "A1",
+  "hypothesis": "Three probes of the y 303-335 gap. A slow 0.4 slide along each parapet: does it drop at the gap span or leak beyond it? A dash at the gap's north corner at 30°. A step off onto the car as it passes un",
+  "stopped": "cleared",
+  "ranSecs": 20.56,
+  "cleared": false,
+  "result": null,
+  "progress": 1,
+  "rung": 0,
+  "passes": 3,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   479,
+   357
+  ],
+  "alive": false,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    400,
+    224
+   ],
+   [
+    23.5,
+    636,
+    374
+   ]
+  ]
+ },
+ {
+  "id": "A1-08",
+  "tile": "A1",
+  "hypothesis": "Press R with the car 30 units out, then START at the moment of contact. Expect no ghost hit after R: no clear credited at the drop point with restarts=1. Expect no clear credited during pause, and no ",
+  "stopped": "cleared",
+  "ranSecs": 1.781,
+  "cleared": false,
+  "result": null,
+  "progress": 1,
+  "rung": 0,
+  "passes": 1,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   403,
+   344
+  ],
+  "alive": false,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    400,
+    229
+   ]
+  ]
+ },
+ {
+  "id": "B1-01",
+  "tile": "B1",
+  "hypothesis": "Wait at the north kerb (440,254) and step south as the car nears. The trigger distances 75/60/50/42 map the step-in window. Expect a car-fault clear at one of them by about 40 s, with 0 clears from th",
+  "stopped": "end",
+  "ranSecs": 60.483,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 1,
+  "passes": 7,
+  "faults": 3,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   440,
+   353
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    380,
+    229
+   ],
+   [
+    26,
+    429,
+    266
+   ],
+   [
+    46.5,
+    439,
+    266
+   ],
+   [
+    60.5,
+    440,
+    255
+   ]
+  ]
+ },
+ {
+  "id": "B1-02",
+  "tile": "B1",
+  "hypothesis": "Creep from the lane edge at 0.1 and 0.25 strength. If the camera's in-lane test uses the dummy's centre, a partial overlap is unseen. The car's corner then clears the puzzle without the timed step-in ",
+  "stopped": "end",
+  "ranSecs": 38.812,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 1,
+  "passes": 6,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   440,
+   261
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    406,
+    244
+   ],
+   [
+    27.5,
+    441,
+    275
+   ],
+   [
+    40.5,
+    440,
+    261
+   ]
+  ]
+ },
+ {
+  "id": "B1-03",
+  "tile": "B1",
+  "hypothesis": "The north fence has 12-unit slots at x 288-300 and 500-512 and a gap at x 60-72. Pushing at 260-290°, spinning across them and dashing should not leave the tile. Expect 'pinned' at worst.",
+  "stopped": "timeout",
+  "ranSecs": 75.041,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 1,
+  "passes": 11,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   59,
+   29
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 28,
+    "key": "B114,1",
+    "tile": "B1",
+    "x": 287,
+    "y": 29,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 51.5,
+    "key": "B122,8",
+    "tile": "B1",
+    "x": 443,
+    "y": 170,
+    "stick": [
+     1,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    13,
+    341,
+    187
+   ],
+   [
+    25.5,
+    287,
+    29
+   ],
+   [
+    43.5,
+    254,
+    167
+   ],
+   [
+    60,
+    443,
+    169
+   ],
+   [
+    73.5,
+    437,
+    169
+   ]
+  ]
+ },
+ {
+  "id": "B1-04",
+  "tile": "B1",
+  "hypothesis": "The south edge is unwalled at x 248-296, 360-440 and 600-608. Push and dash at 80/90/95/100° should stay fenced. 'Off tile' would be a blocker.",
+  "stopped": "end",
+  "ranSecs": 59.168,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 1,
+  "passes": 8,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   607,
+   611
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 22.6,
+    "key": "B121,31",
+    "tile": "B1",
+    "x": 420,
+    "y": 627,
+    "stick": [
+     0,
+     1
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 47.5,
+    "key": "B114,31",
+    "tile": "B1",
+    "x": 272,
+    "y": 627,
+    "stick": [
+     0,
+     1
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 71,
+    "key": "B130,31",
+    "tile": "B1",
+    "x": 607,
+    "y": 611,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    372,
+    243
+   ],
+   [
+    31.5,
+    399,
+    627
+   ],
+   [
+    46,
+    272,
+    627
+   ],
+   [
+    59.5,
+    607,
+    611
+   ]
+  ]
+ },
+ {
+  "id": "B1-05",
+  "tile": "B1",
+  "hypothesis": "Orbit the 16-unit column at (392,192), push into its corners at 45/225° and dash at 37/135°. This is the 36-unit channel to the block above. Expect 'pinned' or 'inside solid' at the corners.",
+  "stopped": "timeout",
+  "ranSecs": 45.025,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 1,
+  "passes": 7,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   421,
+   186
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    371,
+    207
+   ],
+   [
+    24,
+    393,
+    223
+   ],
+   [
+    42,
+    213,
+    36
+   ]
+  ]
+ },
+ {
+  "id": "B1-06",
+  "tile": "B1",
+  "hypothesis": "Bumper nudge: walk and dash into the nose of a car stopped at its stop line. If that counts as a car-fault hit, the timed step-in is bypassed (blocker: progress on a fault).",
+  "stopped": "cleared",
+  "ranSecs": 1.77,
+  "cleared": false,
+  "result": null,
+  "progress": 1,
+  "rung": 1,
+  "passes": 1,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   465,
+   275
+  ],
+  "alive": false,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    10,
+    396,
+    238
+   ]
+  ]
+ },
+ {
+  "id": "C1-01",
+  "tile": "C1",
+  "hypothesis": "Intended move: up the stair at y 184-216, east edge; south on the deck to (312,326); step east through the y 303-335 gap as the car nears x 320. Drop timings u 0.30/0.33/0.27 bracket the window. Expec",
+  "stopped": "timeout",
+  "ranSecs": 90.05,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 7,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   312,
+   328
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 20,
+    "key": "C117,11",
+    "tile": "C1",
+    "x": 340,
+    "y": 229,
+    "stick": [
+     0,
+     -0.97
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 58.1,
+    "key": "C115,10",
+    "tile": "C1",
+    "x": 302,
+    "y": 205,
+    "stick": [
+     0.08,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    444,
+    221
+   ],
+   [
+    28,
+    309,
+    319
+   ],
+   [
+    42,
+    340,
+    229
+   ],
+   [
+    61,
+    302,
+    205
+   ],
+   [
+    80.5,
+    307,
+    200
+   ],
+   [
+    94,
+    312,
+    328
+   ]
+  ]
+ },
+ {
+  "id": "C1-02",
+  "tile": "C1",
+  "hypothesis": "Twist control: at the kerb the car should see the dummy and stop short. Then nudge and dash into its stopped nose. A clear counts as progress on a fault.",
+  "stopped": "end",
+  "ranSecs": 41.233,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 3,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   277,
+   374
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    464,
+    224
+   ],
+   [
+    27,
+    450,
+    312
+   ],
+   [
+    45.5,
+    282,
+    374
+   ]
+  ]
+ },
+ {
+  "id": "C1-03",
+  "tile": "C1",
+  "hypothesis": "On the z2 deck, dash at parapets at 0/180/10/170° and at the gap's north corner (320,303) at a shallow angle. A landing outside the y 303-335 span means a fence crossing. A landing in a column means '",
+  "stopped": "end",
+  "ranSecs": 41.83,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   314,
+   297
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 22.2,
+    "key": "C117,11",
+    "tile": "C1",
+    "x": 340,
+    "y": 229,
+    "stick": [
+     0,
+     -0.97
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    464,
+    224
+   ],
+   [
+    27.5,
+    340,
+    229
+   ],
+   [
+    47.5,
+    212,
+    258
+   ]
+  ]
+ },
+ {
+  "id": "C1-04",
+  "tile": "C1",
+  "hypothesis": "The east edge is open at y 172-184, y 248-260 and x 776-800, y 16-132, and there is an 8-unit slot at x 776-788 on the north edge. Push at 350/0/10° and 270°, then dash. 'Off tile' would be a blocker.",
+  "stopped": "timeout",
+  "ranSecs": 60.052,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 6,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   771,
+   133
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 23.7,
+    "key": "C139,9",
+    "tile": "C1",
+    "x": 771,
+    "y": 171,
+    "stick": [
+     0.63,
+     0.23
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 53,
+    "key": "C139,7",
+    "tile": "C1",
+    "x": 771,
+    "y": 133,
+    "stick": [
+     0.25,
+     -0.97
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    14,
+    495,
+    214
+   ],
+   [
+    35,
+    771,
+    171
+   ],
+   [
+    53,
+    771,
+    133
+   ],
+   [
+    73.5,
+    771,
+    133
+   ]
+  ]
+ },
+ {
+  "id": "C1-05",
+  "tile": "C1",
+  "hypothesis": "The z2 deck runs to both tile edges, y 0 and y 640. A dummy at z2 may ignore the z0 north wall: push and dash off both deck ends. Expect 'off tile' or a fall with no rescue.",
+  "stopped": "timeout",
+  "ranSecs": 50.001,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 5,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   237,
+   29
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 20.2,
+    "key": "C117,11",
+    "tile": "C1",
+    "x": 340,
+    "y": 229,
+    "stick": [
+     0,
+     -0.97
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 40,
+    "key": "C112,1",
+    "tile": "C1",
+    "x": 240,
+    "y": 29,
+    "stick": [
+     0,
+     -0.77
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    14,
+    464,
+    224
+   ],
+   [
+    31.5,
+    240,
+    29
+   ],
+   [
+    56.5,
+    240,
+    29
+   ]
+  ]
+ },
+ {
+  "id": "B2-01",
+  "tile": "B2",
+  "hypothesis": "Intended move: cross to the island and hide off the kiosk's east end, which is downstream for an eastbound car. Dash at a point just ahead of the nose as it comes level. Triggers 75/90/60 with ahead 4",
+  "stopped": "end",
+  "ranSecs": 69.235,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 5,
+  "faults": 2,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   476,
+   397
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    430,
+    481
+   ],
+   [
+    30,
+    445,
+    400
+   ],
+   [
+    45.5,
+    424,
+    369
+   ],
+   [
+    58.5,
+    424,
+    369
+   ],
+   [
+    71,
+    424,
+    369
+   ]
+  ]
+ },
+ {
+  "id": "B2-02",
+  "tile": "B2",
+  "hypothesis": "Twist: dash into the car's side must be the dummy's fault. Then dash at the front-left corner, ahead 0 and side -20. The corner contact may count as a car-fault hit without hiding; that is cheese, or ",
+  "stopped": "timeout",
+  "ranSecs": 60.013,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 6,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   424,
+   369
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    416,
+    496
+   ],
+   [
+    21.5,
+    424,
+    369
+   ],
+   [
+    35,
+    424,
+    369
+   ],
+   [
+    47,
+    425,
+    373
+   ],
+   [
+    61,
+    424,
+    369
+   ]
+  ]
+ },
+ {
+  "id": "B2-03",
+  "tile": "B2",
+  "hypothesis": "Open-ground dash from the south kerb, 123 and 86 units off the lane centre, with no cover. If the side sensors' range is shorter than the dash, this clears without the kiosk: a major cheese bypassing ",
+  "stopped": "cleared",
+  "ranSecs": 5.688,
+  "cleared": false,
+  "result": null,
+  "progress": 1,
+  "rung": 2,
+  "passes": 1,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   432,
+   440
+  ],
+  "alive": false,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    418,
+    527
+   ]
+  ]
+ },
+ {
+  "id": "B2-04",
+  "tile": "B2",
+  "hypothesis": "Island channel: 36 units between monument and kiosk, with a sculpture at (318,366). Slide at 175/180/185°, orbit the kiosk both ways, then sweep 360° at 0.2 against its corners. Expect 'pinned' or 'in",
+  "stopped": "timeout",
+  "ranSecs": 60.048,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 3,
+  "faults": 2,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   424,
+   398
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 26.5,
+    "key": "B21,20",
+    "tile": "B2",
+    "x": 13,
+    "y": 403,
+    "stick": [
+     -0.97,
+     0.23
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10,
+    436,
+    475
+   ],
+   [
+    25,
+    13,
+    403
+   ],
+   [
+    35,
+    13,
+    295
+   ],
+   [
+    52.5,
+    399,
+    360
+   ]
+  ]
+ },
+ {
+  "id": "B2-05",
+  "tile": "B2",
+  "hypothesis": "The west edge is open at y 138-416 and the east edge at y 138-502. Push at 170-190° and 350-10°, then dash out. 'Off tile' would be a blocker.",
+  "stopped": "timeout",
+  "ranSecs": 60.153,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   787,
+   382
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 4,
+    "t": 39.3,
+    "key": "B227,15",
+    "tile": "B2",
+    "x": 533,
+    "y": 300,
+    "stick": [
+     1,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    400,
+    481
+   ],
+   [
+    20.5,
+    13,
+    322
+   ],
+   [
+    34,
+    533,
+    296
+   ],
+   [
+    51,
+    533,
+    300
+   ],
+   [
+    64,
+    787,
+    383
+   ]
+  ]
+ },
+ {
+  "id": "B2-06",
+  "tile": "B2",
+  "hypothesis": "Dash 164 units at the 12-unit-thick sculptures and the monument corners. A fast dash may tunnel through thin solids. Expect 'inside solid' or a crossing.",
+  "stopped": "timeout",
+  "ranSecs": 45.025,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 5,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   320,
+   301
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 21.2,
+    "key": "B223,14",
+    "tile": "B2",
+    "x": 470,
+    "y": 287,
+    "stick": [
+     0,
+     -1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    429,
+    433
+   ],
+   [
+    29,
+    470,
+    287
+   ],
+   [
+    48.5,
+    453,
+    338
+   ]
+  ]
+ },
+ {
+  "id": "B2-07",
+  "tile": "B2",
+  "hypothesis": "Spin the stick at ±720°/s through a dash from the kiosk hide. If the dash steers with the stick, it can bend around cover (cheese) or produce NaN. Start one dash aimed into the kiosk (200°) and spin o",
+  "stopped": "timeout",
+  "ranSecs": 45.002,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 2,
+  "passes": 4,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   413,
+   361
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    417,
+    492
+   ],
+   [
+    26,
+    424,
+    369
+   ],
+   [
+    45.5,
+    424,
+    369
+   ],
+   [
+    57.5,
+    413,
+    361
+   ]
+  ]
+ },
+ {
+  "id": "A2-01",
+  "tile": "A2",
+  "hypothesis": "Intended move: break the post right after a new pass begins, while the car is ~450 units off. Hide in the 24-unit slot at the cabinet's downstream (west) end and dash at the lane as the nose comes lev",
+  "stopped": "timeout",
+  "ranSecs": 90.006,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   362,
+   139
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 15.1,
+    "key": "A215,7",
+    "tile": "A2",
+    "x": 293,
+    "y": 139,
+    "stick": [
+     -0.99,
+     0.14
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    293,
+    137
+   ],
+   [
+    23.5,
+    293,
+    139
+   ],
+   [
+    34,
+    333,
+    139
+   ],
+   [
+    48.5,
+    362,
+    139
+   ],
+   [
+    65,
+    362,
+    139
+   ],
+   [
+    84,
+    374,
+    139
+   ],
+   [
+    100,
+    362,
+    139
+   ]
+  ]
+ },
+ {
+  "id": "A2-02",
+  "tile": "A2",
+  "hypothesis": "Repro Edit 115's drop cheese from the z1 gap, east then west parapet, at rung 4. Expect a clear without touching the camera: cheese. Also log whether the stair column at (484,68) blocks the climb.",
+  "stopped": "timeout",
+  "ranSecs": 90.012,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 2,
+  "restarts": 0,
+  "body": [
+   486,
+   232
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 15.1,
+    "key": "A223,5",
+    "tile": "A2",
+    "x": 470,
+    "y": 109,
+    "stick": [
+     0,
+     -0.97
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 61.7,
+    "key": "A226,5",
+    "tile": "A2",
+    "x": 529,
+    "y": 106,
+    "stick": [
+     -0.92,
+     -0.4
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    8.5,
+    341,
+    126
+   ],
+   [
+    23,
+    470,
+    109
+   ],
+   [
+    40.5,
+    729,
+    318
+   ],
+   [
+    55,
+    489,
+    106
+   ],
+   [
+    69,
+    489,
+    302
+   ],
+   [
+    84,
+    486,
+    232
+   ],
+   [
+    99,
+    486,
+    232
+   ]
+  ]
+ },
+ {
+  "id": "A2-03",
+  "tile": "A2",
+  "hypothesis": "Squeeze the 24-unit slot between the block (y 216) and the cabinet (y 240). Push at 175/180/185°, spin inside it, then dash through at 180° and 5°. Expect 'pinned' or 'inside solid'.",
+  "stopped": "timeout",
+  "ranSecs": 45.021,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 3,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   438,
+   227
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 18.2,
+    "key": "A220,11",
+    "tile": "A2",
+    "x": 398,
+    "y": 227,
+    "stick": [
+     -1,
+     0
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 26.4,
+    "key": "A222,11",
+    "tile": "A2",
+    "x": 437,
+    "y": 227,
+    "stick": [
+     -0.5,
+     -0.87
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    338,
+    131
+   ],
+   [
+    23,
+    437,
+    227
+   ],
+   [
+    37.5,
+    398,
+    227
+   ],
+   [
+    54.5,
+    438,
+    227
+   ]
+  ]
+ },
+ {
+  "id": "A2-04",
+  "tile": "A2",
+  "hypothesis": "Run a control, then R mid-dash. First hide and dash with the camera intact: expect no clear. Then dash at the post and press R 0.1 s later; then hide and dash again. A clear means the broken-camera st",
+  "stopped": "timeout",
+  "ranSecs": 80.012,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   362,
+   139
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 14.5,
+    "key": "A215,7",
+    "tile": "A2",
+    "x": 293,
+    "y": 139,
+    "stick": [
+     -0.99,
+     0.14
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 25.7,
+    "key": "A218,7",
+    "tile": "A2",
+    "x": 362,
+    "y": 139,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10,
+    327,
+    130
+   ],
+   [
+    25.5,
+    362,
+    139
+   ],
+   [
+    41,
+    362,
+    139
+   ],
+   [
+    63.5,
+    362,
+    139
+   ],
+   [
+    79.5,
+    362,
+    139
+   ]
+  ]
+ },
+ {
+  "id": "A2-05",
+  "tile": "A2",
+  "hypothesis": "Make the car brake, then dash head-on into its nose and dash under it from the side at 90°. Expect no hit and no 'inside solid'. A car-fault clear from a self-inflicted dash into a stopped car is a bl",
+  "stopped": "timeout",
+  "ranSecs": 50.099,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 3,
+  "faults": 1,
+  "standstill": 1,
+  "restarts": 0,
+  "body": [
+   519,
+   224
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    343,
+    133
+   ],
+   [
+    27.5,
+    559,
+    293
+   ],
+   [
+    41.5,
+    519,
+    224
+   ],
+   [
+    59.5,
+    519,
+    224
+   ]
+  ]
+ },
+ {
+  "id": "A2-06",
+  "tile": "A2",
+  "hypothesis": "Fence holes: the south road exit (x 184-240), the west gap at x 0-24, y 28-132, and the open east edge at y 136-524. Push and dash out. 'Off tile' would be a blocker.",
+  "stopped": "timeout",
+  "ranSecs": 70.103,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   333,
+   139
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 5,
+    "t": 19.3,
+    "key": "A215,7",
+    "tile": "A2",
+    "x": 293,
+    "y": 139,
+    "stick": [
+     -0.17,
+     0.99
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 31.1,
+    "key": "A217,7",
+    "tile": "A2",
+    "x": 333,
+    "y": 139,
+    "stick": [
+     -0.15,
+     0.99
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    334,
+    133
+   ],
+   [
+    26.5,
+    293,
+    139
+   ],
+   [
+    38,
+    296,
+    139
+   ],
+   [
+    55,
+    333,
+    139
+   ],
+   [
+    74.5,
+    293,
+    139
+   ]
+  ]
+ },
+ {
+  "id": "A3-01",
+  "tile": "A3",
+  "hypothesis": "Intended move: carry cone 0 to (470,348) in the lane and hide north of the kiosk. Step to the other lane (480,298) as the rung-4 car swerves left. Expect a car-fault clear. Edit 115's 92.5 s exceeds t",
+  "stopped": "end",
+  "ranSecs": 66.087,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 5,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   488,
+   297
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 21.8,
+    "key": "A322,14",
+    "tile": "A3",
+    "x": 432,
+    "y": 275,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "kind": "kiosk",
+    "sev": "major",
+    "n": 1,
+    "t": 25.6,
+    "key": "A3kiosk417",
+    "tile": "A3",
+    "x": 441,
+    "y": 234,
+    "layer": 0
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10.5,
+    371,
+    224
+   ],
+   [
+    26,
+    437,
+    227
+   ],
+   [
+    43,
+    434,
+    229
+   ],
+   [
+    59,
+    467,
+    278
+   ],
+   [
+    70.5,
+    488,
+    297
+   ]
+  ]
+ },
+ {
+  "id": "A3-02",
+  "tile": "A3",
+  "hypothesis": "Carry cone 1 up the z1 stair and drop it on the deck over the lane, then at the gap edge. Expect the cone to stay at z1. A car swerve under the deck means a z mismatch; a cone inside a parapet or off ",
+  "stopped": "timeout",
+  "ranSecs": 70.022,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 5,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   637,
+   319
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 16.1,
+    "key": "A323,5",
+    "tile": "A3",
+    "x": 470,
+    "y": 109,
+    "stick": [
+     0,
+     -0.97
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10,
+    431,
+    222
+   ],
+   [
+    28,
+    560,
+    200
+   ],
+   [
+    41.5,
+    560,
+    200
+   ],
+   [
+    57.5,
+    560,
+    233
+   ],
+   [
+    71,
+    637,
+    319
+   ]
+  ]
+ },
+ {
+  "id": "A3-03",
+  "tile": "A3",
+  "hypothesis": "Cone both lanes at x 480. The rung-4 car swerves, does not stop, and now has no path. Expect a stall ('no red car 25 s'), a write-off stuck in the cone/kiosk, or a car through the cone. Then R must re",
+  "stopped": "timeout",
+  "ranSecs": 75.032,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 8,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 1,
+  "body": [
+   400,
+   224
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    396,
+    224
+   ],
+   [
+    24,
+    433,
+    229
+   ],
+   [
+    40.5,
+    433,
+    229
+   ],
+   [
+    54.5,
+    433,
+    229
+   ],
+   [
+    68,
+    433,
+    229
+   ],
+   [
+    81.5,
+    433,
+    229
+   ]
+  ]
+ },
+ {
+  "id": "A3-04",
+  "tile": "A3",
+  "hypothesis": "Fence holes: the west gap at x 0-24, y 332-488 (low masses only), the north road entry at x 184-240, and the open east edge at y 216-624. Also slide 5° into the south wall both ways and wedge the SE c",
+  "stopped": "timeout",
+  "ranSecs": 80.074,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 8,
+  "faults": 0,
+  "standstill": 1,
+  "restarts": 0,
+  "body": [
+   787,
+   579
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 18.3,
+    "key": "A37,24",
+    "tile": "A3",
+    "x": 149,
+    "y": 489,
+    "stick": [
+     -1,
+     -0.07
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 33.9,
+    "key": "A38,24",
+    "tile": "A3",
+    "x": 154,
+    "y": 485,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 50.3,
+    "key": "A313,1",
+    "tile": "A3",
+    "x": 250,
+    "y": 13,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 72,
+    "key": "A335,27",
+    "tile": "A3",
+    "x": 700,
+    "y": 531,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    400,
+    224
+   ],
+   [
+    21.5,
+    149,
+    489
+   ],
+   [
+    35,
+    154,
+    485
+   ],
+   [
+    48,
+    250,
+    13
+   ],
+   [
+    64.5,
+    635,
+    532
+   ],
+   [
+    81,
+    700,
+    531
+   ]
+  ]
+ },
+ {
+  "id": "A3-05",
+  "tile": "A3",
+  "hypothesis": "Fuzz 85 s of random analog with random X: cones picked and dropped against kiosk, blocks and deck columns. Expect no cone inside a solid, no dummy pinned holding a cone, no NaN.",
+  "stopped": "timeout",
+  "ranSecs": 90.035,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 4,
+  "passes": 10,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   787,
+   232
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 4,
+    "t": 19.2,
+    "key": "A339,11",
+    "tile": "A3",
+    "x": 787,
+    "y": 229,
+    "stick": [
+     0.94,
+     0
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 12,
+    "t": 41.1,
+    "key": "A339,12",
+    "tile": "A3",
+    "x": 787,
+    "y": 230,
+    "stick": [
+     0.94,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    400,
+    224
+   ],
+   [
+    26.5,
+    787,
+    229
+   ],
+   [
+    44.5,
+    787,
+    230
+   ],
+   [
+    60,
+    787,
+    231
+   ],
+   [
+    74,
+    787,
+    231
+   ],
+   [
+    86,
+    787,
+    232
+   ],
+   [
+    99.5,
+    787,
+    232
+   ]
+  ]
+ },
+ {
+  "id": "C2-01",
+  "tile": "C2",
+  "hypothesis": "Intended move: walk round the kiosk via the lane edge once the car leaves, then dash east to break the post at (343,252). Hide at the kiosk's downstream (west) end and dash at the lane as the westboun",
+  "stopped": "timeout",
+  "ranSecs": 90.104,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 8,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   273,
+   398
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 70.9,
+    "key": "C217,12",
+    "tile": "C2",
+    "x": 345,
+    "y": 243,
+    "stick": [
+     0.95,
+     -0.32
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10.5,
+    400,
+    224
+   ],
+   [
+    24,
+    400,
+    224
+   ],
+   [
+    36.5,
+    265,
+    254
+   ],
+   [
+    54.5,
+    345,
+    249
+   ],
+   [
+    65,
+    345,
+    258
+   ],
+   [
+    78.5,
+    345,
+    243
+   ],
+   [
+    93,
+    345,
+    243
+   ]
+  ]
+ },
+ {
+  "id": "C2-02",
+  "tile": "C2",
+  "hypothesis": "There is a 12-unit slot at x 358-368 between the block (y 230) and the kiosk (y 242). From the pocket north of the kiosk, push at 175/180/185°, spin, then dash through. Expect 'pinned', or a dash clip",
+  "stopped": "timeout",
+  "ranSecs": 40.013,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 2,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   381,
+   229
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 24.7,
+    "key": "C219,11",
+    "tile": "C2",
+    "x": 381,
+    "y": 229,
+    "stick": [
+     -1,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    388,
+    229
+   ],
+   [
+    24.5,
+    381,
+    229
+   ],
+   [
+    39,
+    381,
+    229
+   ]
+  ]
+ },
+ {
+  "id": "C2-03",
+  "tile": "C2",
+  "hypothesis": "Cone in the lane: the rung-5 car stops at it, possibly forever. Then stand in front of the stopped car and pick the cone up. If the car resumes into a dummy it can see, that is a car-fault clear witho",
+  "stopped": "timeout",
+  "ranSecs": 70.017,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   392,
+   226
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    400,
+    224
+   ],
+   [
+    28,
+    392,
+    227
+   ],
+   [
+    52.5,
+    452,
+    232
+   ],
+   [
+    72.5,
+    430,
+    236
+   ]
+  ]
+ },
+ {
+  "id": "C2-04",
+  "tile": "C2",
+  "hypothesis": "Drop from the z2 gap via the east-edge stair at rung 5: lidar and cameras are known. Edit 115 says lidar does not close drops. A clear bypasses puzzle 7's camera-break lesson: major cheese.",
+  "stopped": "timeout",
+  "ranSecs": 80.041,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 6,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   343,
+   409
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 20.3,
+    "key": "C217,27",
+    "tile": "C2",
+    "x": 330,
+    "y": 531,
+    "stick": [
+     0,
+     1
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 40.8,
+    "key": "C215,27",
+    "tile": "C2",
+    "x": 300,
+    "y": 535,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    391,
+    311
+   ],
+   [
+    30,
+    330,
+    531
+   ],
+   [
+    47,
+    317,
+    313
+   ],
+   [
+    66,
+    343,
+    409
+   ],
+   [
+    82.5,
+    343,
+    409
+   ]
+  ]
+ },
+ {
+  "id": "C2-05",
+  "tile": "C2",
+  "hypothesis": "The stair openings [544,576] and [554,610] overlap, and the first is occluded by the column at x 292-316, y 548-572. Probe each, then push and dash off both deck ends at z2. Expect 'pinned', 'inside s",
+  "stopped": "timeout",
+  "ranSecs": 70.114,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 5,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   240,
+   127
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 19.1,
+    "key": "C217,27",
+    "tile": "C2",
+    "x": 330,
+    "y": 531,
+    "stick": [
+     0,
+     0.83
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 46.6,
+    "key": "C212,12",
+    "tile": "C2",
+    "x": 239,
+    "y": 243,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "kind": "block",
+    "sev": "major",
+    "n": 3,
+    "t": 53.1,
+    "key": "C2block112",
+    "tile": "C2",
+    "x": 240,
+    "y": 215,
+    "layer": 0
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 73.7,
+    "key": "C212,6",
+    "tile": "C2",
+    "x": 240,
+    "y": 127,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    400,
+    224
+   ],
+   [
+    25,
+    330,
+    531
+   ],
+   [
+    37,
+    202,
+    558
+   ],
+   [
+    51,
+    240,
+    243
+   ],
+   [
+    65.5,
+    240,
+    13
+   ],
+   [
+    82.5,
+    240,
+    127
+   ]
+  ]
+ },
+ {
+  "id": "C2-06",
+  "tile": "C2",
+  "hypothesis": "Road exits: north at x 584-640 and west at y 264-320. Push and dash out. Slide 5° into the east wall both ways. 'Off tile' would be a blocker.",
+  "stopped": "end",
+  "ranSecs": 52.891,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   13,
+   332
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 20.1,
+    "key": "C233,1",
+    "tile": "C2",
+    "x": 650,
+    "y": 13,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 59,
+    "key": "C21,17",
+    "tile": "C2",
+    "x": 13,
+    "y": 331,
+    "stick": [
+     -1,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    400,
+    224
+   ],
+   [
+    22,
+    638,
+    13
+   ],
+   [
+    38,
+    771,
+    43
+   ],
+   [
+    55.5,
+    13,
+    331
+   ]
+  ]
+ },
+ {
+  "id": "B3-01",
+  "tile": "B3",
+  "hypothesis": "Intended move: duck (hold C) at the hedge's downstream (west) end, (166,236). Stand and dash at the lane through the 27-unit hedge-planter gap as the westbound nose comes level. The last attempt dashe",
+  "stopped": "end",
+  "ranSecs": 62.206,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 5,
+  "faults": 2,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   159,
+   266
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    320,
+    224
+   ],
+   [
+    28.5,
+    107,
+    275
+   ],
+   [
+    44.5,
+    122,
+    378
+   ],
+   [
+    63,
+    166,
+    236
+   ]
+  ]
+ },
+ {
+  "id": "B3-02",
+  "tile": "B3",
+  "hypothesis": "Twist control: the same move standing. The car should see the dummy over the hedge, so no clear in 3 passes. A clear makes Super Knees optional.",
+  "stopped": "timeout",
+  "ranSecs": 60.116,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 3,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   183,
+   223
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    320,
+    224
+   ],
+   [
+    23.5,
+    165,
+    236
+   ],
+   [
+    39,
+    127,
+    226
+   ],
+   [
+    52.5,
+    183,
+    223
+   ],
+   [
+    67,
+    183,
+    223
+   ]
+  ]
+ },
+ {
+  "id": "B3-03",
+  "tile": "B3",
+  "hypothesis": "Duck in the open lane and stand still. If the forward camera tests height, a ducked dummy is invisible in its own lane: a car-fault clear by standing still is a design bug (major cheese).",
+  "stopped": "timeout",
+  "ranSecs": 50.002,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   122,
+   217
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    282,
+    237
+   ],
+   [
+    28.5,
+    122,
+    297
+   ],
+   [
+    41.5,
+    122,
+    217
+   ],
+   [
+    55,
+    122,
+    217
+   ]
+  ]
+ },
+ {
+  "id": "B3-04",
+  "tile": "B3",
+  "hypothesis": "The planter is also cover. Duck behind it and dash: an alternate clear (minor; record it). Then duck in the 27-unit planter-hedge gap and creep south at 0.15. Expect a car-fault hit while ducked in th",
+  "stopped": "end",
+  "ranSecs": 55.653,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 5,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   160,
+   238
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    320,
+    224
+   ],
+   [
+    24.5,
+    87,
+    233
+   ],
+   [
+    40.5,
+    160,
+    239
+   ],
+   [
+    52,
+    160,
+    238
+   ],
+   [
+    67.5,
+    160,
+    238
+   ]
+  ]
+ },
+ {
+  "id": "B3-05",
+  "tile": "B3",
+  "hypothesis": "Fence holes: the x 264-280 corridor to the north edge (low masses only), the open east edge at y 312-624 and the west road exit. Slide 5° into the south wall both ways and wedge the SW corner. 'Off ti",
+  "stopped": "end",
+  "ranSecs": 51.328,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   13,
+   330
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 14.5,
+    "key": "B314,7",
+    "tile": "B3",
+    "x": 284,
+    "y": 149,
+    "stick": [
+     -0.09,
+     -1
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 52.8,
+    "key": "B31,31",
+    "tile": "B3",
+    "x": 13,
+    "y": 611,
+    "stick": [
+     -0.71,
+     0.71
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    8.5,
+    320,
+    224
+   ],
+   [
+    20.5,
+    511,
+    332
+   ],
+   [
+    31.5,
+    756,
+    603
+   ],
+   [
+    44,
+    508,
+    611
+   ],
+   [
+    56.5,
+    13,
+    330
+   ]
+  ]
+ },
+ {
+  "id": "B3-06",
+  "tile": "B3",
+  "hypothesis": "Ducked, slide along the hedge at 5°/175° and orbit it. Push and dash ducked into it, then release C while overlapping. Expect 'inside solid' if ducking shrinks the collider or the dash hops low cover.",
+  "stopped": "timeout",
+  "ranSecs": 50.043,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   223,
+   233
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 37.9,
+    "key": "B313,14",
+    "tile": "B3",
+    "x": 270,
+    "y": 275,
+    "stick": [
+     0,
+     -1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    8.5,
+    320,
+    224
+   ],
+   [
+    20.5,
+    254,
+    215
+   ],
+   [
+    34,
+    270,
+    275
+   ],
+   [
+    49,
+    236,
+    227
+   ]
+  ]
+ },
+ {
+  "id": "B3-07",
+  "tile": "B3",
+  "hypothesis": "Ducked, creep from the hedge's east end into the lane at 0.1, angled 110°. If 'hidden' latches from low cover, the dummy stays unseen in the open lane. A car-fault clear is cheese; correct behaviour i",
+  "stopped": "end",
+  "ranSecs": 43.471,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 4,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   246,
+   228
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    300,
+    232
+   ],
+   [
+    22,
+    285,
+    238
+   ],
+   [
+    37,
+    246,
+    228
+   ],
+   [
+    53.5,
+    246,
+    228
+   ]
+  ]
+ },
+ {
+  "id": "C3-01",
+  "tile": "C3",
+  "hypothesis": "Intended route, each hide at the cover's downstream end. Hit 1: the cabinet's east end. Hit 2: ducked at the hedge's east end. Hit 3: break the camera at (630,412), then the kiosk's east end. Expect 3",
+  "stopped": "end",
+  "ranSecs": 86.634,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 4,
+  "faults": 4,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   635,
+   484
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    10.5,
+    438,
+    390
+   ],
+   [
+    28,
+    390,
+    534
+   ],
+   [
+    44,
+    192,
+    532
+   ],
+   [
+    60.5,
+    568,
+    412
+   ],
+   [
+    80.5,
+    740,
+    412
+   ],
+   [
+    97,
+    635,
+    484
+   ]
+  ]
+ },
+ {
+  "id": "C3-02",
+  "tile": "C3",
+  "hypothesis": "Repeat the cabinet move three times. Crash memory (rung 6) plus 'a new way each' should cap progress at 1. Progress 2 or 3 means repeats count; a clear is a blocker.",
+  "stopped": "end",
+  "ranSecs": 83.592,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 6,
+  "faults": 3,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   510,
+   483
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    425,
+    387
+   ],
+   [
+    27,
+    514,
+    481
+   ],
+   [
+    47,
+    441,
+    392
+   ],
+   [
+    67.5,
+    443,
+    414
+   ],
+   [
+    79.5,
+    440,
+    392
+   ],
+   [
+    95.5,
+    510,
+    483
+   ]
+  ]
+ },
+ {
+  "id": "C3-03",
+  "tile": "C3",
+  "hypothesis": "Drop twice from the z2 gap (y 463-495) via the east-edge stair. Record whether a drop counts as a 'new way' and whether the second is rejected. Two drops counting is a design bug.",
+  "stopped": "timeout",
+  "ranSecs": 90.013,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 3,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   286,
+   584
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 17.9,
+    "key": "C317,27",
+    "tile": "C3",
+    "x": 330,
+    "y": 531,
+    "stick": [
+     0,
+     1
+    ]
+   },
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 31.4,
+    "key": "C317,30",
+    "tile": "C3",
+    "x": 330,
+    "y": 591,
+    "stick": [
+     -1,
+     -0.03
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    400,
+    384
+   ],
+   [
+    22,
+    330,
+    531
+   ],
+   [
+    37,
+    312,
+    490
+   ],
+   [
+    53.5,
+    312,
+    490
+   ],
+   [
+    72,
+    312,
+    590
+   ],
+   [
+    91.5,
+    312,
+    487
+   ]
+  ]
+ },
+ {
+  "id": "C3-04",
+  "tile": "C3",
+  "hypothesis": "The hedge's footprint (x 72-168, y 538-554) intrudes 8 units into the deck (x 160+) at the west stair opening (y 544-576). Probe the opening at 0/355/5°, dash in, then stand and duck on the deck over ",
+  "stopped": "timeout",
+  "ranSecs": 50.047,
+  "cleared": false,
+  "result": null,
+  "progress": 1,
+  "rung": 5,
+  "passes": 1,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   307,
+   570
+  ],
+  "alive": true,
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    383,
+    387
+   ]
+  ]
+ },
+ {
+  "id": "C3-05",
+  "tile": "C3",
+  "hypothesis": "The east edge is open at y 400-536 (road exit). Push and dash at 350/0/10/15°, then wedge under the booth. 'Off tile' would be a blocker.",
+  "stopped": "timeout",
+  "ranSecs": 45.059,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 3,
+  "faults": 2,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   763,
+   523
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 38.2,
+    "key": "C339,19",
+    "tile": "C3",
+    "x": 771,
+    "y": 388,
+    "stick": [
+     0.98,
+     0.17
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    416,
+    386
+   ],
+   [
+    29.5,
+    763,
+    432
+   ],
+   [
+    43,
+    771,
+    346
+   ],
+   [
+    53.5,
+    763,
+    481
+   ]
+  ]
+ },
+ {
+  "id": "C3-06",
+  "tile": "C3",
+  "hypothesis": "Press R 0.4 s after hit 1 lands, during the write-off: progress must reset to 0, restarts=1, with no 'rescue stuck'. Then START at the moment of a second hit: expect no 'write-off stuck' and progress ",
+  "stopped": "timeout",
+  "ranSecs": 70.068,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 2,
+  "faults": 1,
+  "standstill": 0,
+  "restarts": 1,
+  "body": [
+   400,
+   384
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "no-red-car",
+    "sev": "major",
+    "n": 1,
+    "t": 52.8,
+    "key": "C3",
+    "tile": "C3",
+    "secs": 25
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    408,
+    386
+   ],
+   [
+    33.5,
+    400,
+    384
+   ],
+   [
+    48,
+    400,
+    384
+   ],
+   [
+    63,
+    400,
+    384
+   ],
+   [
+    77.5,
+    400,
+    384
+   ]
+  ]
+ },
+ {
+  "id": "C3-07",
+  "tile": "C3",
+  "hypothesis": "Fuzz 85 s of random analog with A and X among white traffic, cones, deck and cover. Expect no NaN, no progress on a fault (white-car contacts must not count), no 'pinned', no 'inside solid'.",
+  "stopped": "timeout",
+  "ranSecs": 90.055,
+  "cleared": false,
+  "result": null,
+  "progress": 0,
+  "rung": 5,
+  "passes": 8,
+  "faults": 0,
+  "standstill": 0,
+  "restarts": 0,
+  "body": [
+   771,
+   385
+  ],
+  "alive": true,
+  "findings": [
+   {
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 19,
+    "t": 23.6,
+    "key": "C339,19",
+    "tile": "C3",
+    "x": 771,
+    "y": 384,
+    "stick": [
+     0.58,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    422,
+    384
+   ],
+   [
+    28.5,
+    771,
+    384
+   ],
+   [
+    40.5,
+    771,
+    384
+   ],
+   [
+    52.5,
+    771,
+    384
+   ],
+   [
+    63.5,
+    771,
+    384
+   ],
+   [
+    74.5,
+    771,
+    385
+   ],
+   [
+    85,
+    771,
+    385
+   ],
+   [
+    96.5,
+    771,
+    385
+   ]
+  ]
+ }
+]

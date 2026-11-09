@@ -41,7 +41,7 @@ def compact(results):
             continue
         e = r.get('end') or {}
         out.append({'id': r['id'], 'tile': r['tile'], 'hypothesis': r.get('hypothesis', '')[:200], 'stopped': r['run']['reason'], 'ranSecs': r['run']['secs'],
-                    'cleared': e.get('cleared'), 'result': e.get('result'), 'progress': e.get('progress'), 'rung': e.get('rung'), 'passes': e.get('passes'),
+                    'cleared': bool(e.get('cleared') or r['run'].get('reason') == 'cleared'), 'result': e.get('result'), 'progress': e.get('progress'), 'rung': e.get('rung'), 'passes': e.get('passes'),
                     'faults': e.get('faults'), 'standstill': e.get('standstill'), 'restarts': e.get('restarts'), 'body': e.get('body'), 'alive': e.get('alive'),
                     'findings': [{k: v for k, v in f.items() if k not in ('k',)} for f in r.get('findings', [])][:8], 'pageErrors': r.get('pageErrors', [])[:3],
                     'trace': r.get('trace', [])[::6][:20]})

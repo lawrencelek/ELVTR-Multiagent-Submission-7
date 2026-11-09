@@ -1,0 +1,5466 @@
+[
+ {
+  "id": "A1-01",
+  "tile": "A1",
+  "kind": "solution",
+  "hypothesis": "Intended move is to stand in the lane. Expect a clear in pass 1 at the car's fault with 0 your-fault contacts. Edit 115 makes this the only puzzle where a first-pass clear is correct. Fail if there is no clear within 40 s.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": {
+     "route": 0.5,
+     "side": 0
+    },
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "wait",
+    "secs": 40
+   }
+  ]
+ },
+ {
+  "id": "A1-02",
+  "tile": "A1",
+  "kind": "attack",
+  "hypothesis": "Walking into the car's flank at 80/90/100\u00b0 must be the dummy's fault, so progress stays 0 over 3 passes. Any clear or progress counts as 'progress on a fault' and is a blocker.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     400,
+     296
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "waitCar",
+    "u": 0.56,
+    "max": 20
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 1.2
+   },
+   {
+    "op": "goto",
+    "to": [
+     400,
+     296
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "u": 0.58,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 80,
+    "mag": 1,
+    "secs": 1.2
+   },
+   {
+    "op": "goto",
+    "to": [
+     400,
+     296
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "u": 0.54,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 100,
+    "mag": 1,
+    "secs": 1.2
+   },
+   {
+    "op": "goto",
+    "to": [
+     400,
+     296
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   }
+  ]
+ },
+ {
+  "id": "A1-03",
+  "tile": "A1",
+  "kind": "attack",
+  "hypothesis": "Glancing contacts that eight directions cannot make. First, at 10\u00b0, the dummy runs alongside and drifts onto the flank. Second, at 170\u00b0, it runs against traffic and converges on the front corner. The fault test likely uses the contact normal or the dummy's velocity, so a shallow angle may flip a side contact into a car-fault hit. Any progress is a blocker.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     420,
+     300
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "waitCar",
+    "u": 0.5,
+    "max": 20
+   },
+   {
+    "op": "stick",
+    "deg": 10,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     500,
+     300
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "u": 0.55,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 170,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     500,
+     300
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "u": 0.52,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 20,
+    "mag": 0.4,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     500,
+     300
+    ],
+    "tol": 4,
+    "max": 4
+   }
+  ]
+ },
+ {
+  "id": "A1-04",
+  "tile": "A1",
+  "kind": "attack",
+  "hypothesis": "The west edge has no wall at y 240-400 (the road entrance) and the east edge has no wall at all. Pushing and dashing out at 170-190\u00b0 and 350-10\u00b0 should stay fenced. 'Off tile' would be a blocker.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     24,
+     262
+    ],
+    "tol": 4,
+    "max": 8
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 175,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 185,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 180
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "dash",
+    "deg": 170
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     780,
+     262
+    ],
+    "tol": 4,
+    "max": 10
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 5,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 355,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "dash",
+    "deg": 10
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   }
+  ]
+ },
+ {
+  "id": "A1-05",
+  "tile": "A1",
+  "kind": "attack",
+  "hypothesis": "Two fence holes: the south edge is unwalled outside x 136-280, and there is a 12-unit slot at x 280-292 on the north edge between the block and the wall. Push at 80/90/95\u00b0, dash, wedge the SE corner, then sweep 250-270\u00b0 at the slot. Expect no 'off tile' and no 'pinned'.",
+  "secs": 70,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     780,
+     600
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     700,
+     616
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 85,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 95,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     790,
+     630
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 45,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     286,
+     220
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     286,
+     28
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "spin",
+    "deg0": 250,
+    "rate": 20,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 270
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   }
+  ]
+ },
+ {
+  "id": "A1-06",
+  "tile": "A1",
+  "kind": "attack",
+  "hypothesis": "The deck's stair openings at y 64-96 overlap columns at x 484-508 and 612-636, y 68-92. The stairs may be unreachable ('pinned') or reachable only by clipping a column ('inside solid'). If on the deck, dashes at 0/180/15/165\u00b0 should stop at the parapet. Ending at z0 outside the gap would be a fence crossing.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     470,
+     66
+    ],
+    "tol": 3,
+    "max": 8
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     470,
+     94
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     650,
+     80
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     200
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     200
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "dash",
+    "deg": 180
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     200
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "dash",
+    "deg": 15
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     200
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "dash",
+    "deg": 165
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   }
+  ]
+ },
+ {
+  "id": "A1-07",
+  "tile": "A1",
+  "kind": "attack",
+  "hypothesis": "Three probes of the y 303-335 gap. A slow 0.4 slide along each parapet: does it drop at the gap span or leak beyond it? A dash at the gap's north corner at 30\u00b0. A step off onto the car as it passes under: expect a 'rescue stuck' or 'inside solid' softlock, or a hit wrongly counted at the car's fault.",
+  "secs": 80,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     560,
+     80
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     634,
+     250
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 85,
+    "mag": 0.4,
+    "secs": 4
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     80
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     486,
+     250
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 95,
+    "mag": 0.4,
+    "secs": 4
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     80
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     600,
+     260
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "dash",
+    "at": [
+     640,
+     303
+    ]
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     80
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     630,
+     319
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitCar",
+    "near": 25,
+    "max": 30
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "A1-08",
+  "tile": "A1",
+  "kind": "attack",
+  "hypothesis": "Press R with the car 30 units out, then START at the moment of contact. Expect no ghost hit after R: no clear credited at the drop point with restarts=1. Expect no clear credited during pause, and no 'write-off stuck'.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": {
+     "route": 0.5,
+     "side": 0
+    },
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "waitCar",
+    "near": 30,
+    "max": 20
+   },
+   {
+    "op": "restart"
+   },
+   {
+    "op": "wait",
+    "secs": 0.5
+   },
+   {
+    "op": "pause",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": {
+     "route": 0.5,
+     "side": 0
+    },
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "waitCar",
+    "near": 10,
+    "max": 20
+   },
+   {
+    "op": "pause",
+    "secs": 2
+   },
+   {
+    "op": "wait",
+    "secs": 8
+   }
+  ]
+ },
+ {
+  "id": "B1-01",
+  "tile": "B1",
+  "kind": "solution",
+  "hypothesis": "Wait at the north kerb (440,254) and step south as the car nears. The trigger distances 75/60/50/42 map the step-in window. Expect a car-fault clear at one of them by about 40 s, with 0 clears from the 75 trigger. If no trigger clears, the analog pad cannot perform the stop-line move.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     440,
+     254
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "waitCar",
+    "near": 75,
+    "max": 30
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 0.5
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     254
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 60,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 0.5
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     254
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 50,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 0.45
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     254
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 42,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 0.4
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   }
+  ]
+ },
+ {
+  "id": "B1-02",
+  "tile": "B1",
+  "kind": "attack",
+  "hypothesis": "Creep from the lane edge at 0.1 and 0.25 strength. If the camera's in-lane test uses the dummy's centre, a partial overlap is unseen. The car's corner then clears the puzzle without the timed step-in (cheese), or the fault flips.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     440,
+     262
+    ],
+    "tol": 3,
+    "max": 6
+   },
+   {
+    "op": "waitCar",
+    "near": 150,
+    "max": 30
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 0.1,
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     262
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 80,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 0.25,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     262
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 60,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 100,
+    "mag": 0.15,
+    "secs": 3
+   }
+  ]
+ },
+ {
+  "id": "B1-03",
+  "tile": "B1",
+  "kind": "attack",
+  "hypothesis": "The north fence has 12-unit slots at x 288-300 and 500-512 and a gap at x 60-72. Pushing at 260-290\u00b0, spinning across them and dashing should not leave the tile. Expect 'pinned' at worst.",
+  "secs": 75,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     250,
+     60
+    ],
+    "tol": 6,
+    "max": 8
+   },
+   {
+    "op": "goto",
+    "to": [
+     294,
+     24
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "spin",
+    "deg0": 250,
+    "rate": 20,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 275,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 280
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     250,
+     170
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     518,
+     170
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     506,
+     24
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 265,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 270
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     250,
+     170
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     40,
+     170
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     40,
+     30
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     66,
+     24
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 290,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 260
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     20,
+     24
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 225,
+    "mag": 1,
+    "secs": 3
+   }
+  ]
+ },
+ {
+  "id": "B1-04",
+  "tile": "B1",
+  "kind": "attack",
+  "hypothesis": "The south edge is unwalled at x 248-296, 360-440 and 600-608. Push and dash at 80/90/95/100\u00b0 should stay fenced. 'Off tile' would be a blocker.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     420,
+     450
+    ],
+    "tol": 6,
+    "max": 8
+   },
+   {
+    "op": "goto",
+    "to": [
+     420,
+     620
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 80,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 100,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "dash",
+    "deg": 95
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     272,
+     460
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     272,
+     615
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     604,
+     460
+    ],
+    "tol": 6,
+    "max": 8
+   },
+   {
+    "op": "goto",
+    "to": [
+     604,
+     615
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 3
+   }
+  ]
+ },
+ {
+  "id": "B1-05",
+  "tile": "B1",
+  "kind": "attack",
+  "hypothesis": "Orbit the 16-unit column at (392,192), push into its corners at 45/225\u00b0 and dash at 37/135\u00b0. This is the 36-unit channel to the block above. Expect 'pinned' or 'inside solid' at the corners.",
+  "secs": 45,
+  "script": [
+   {
+    "op": "circle",
+    "at": [
+     400,
+     200
+    ],
+    "r": 14,
+    "dir": 1,
+    "secs": 6
+   },
+   {
+    "op": "circle",
+    "at": [
+     400,
+     200
+    ],
+    "r": 14,
+    "dir": -1,
+    "secs": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     385,
+     180
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 45,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     415,
+     218
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 225,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     360,
+     172
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "dash",
+    "deg": 37
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     430,
+     176
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "dash",
+    "deg": 135
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     400,
+     170
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "spin",
+    "deg0": 0,
+    "rate": 90,
+    "mag": 0.3,
+    "secs": 6
+   }
+  ]
+ },
+ {
+  "id": "B1-06",
+  "tile": "B1",
+  "kind": "attack",
+  "hypothesis": "Bumper nudge: walk and dash into the nose of a car stopped at its stop line. If that counts as a car-fault hit, the timed step-in is bypassed (blocker: progress on a fault).",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     500,
+     292
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "waitCar",
+    "near": 90,
+    "max": 30
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": "car",
+    "tol": 1,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 0.3,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     470,
+     292
+    ],
+    "tol": 4,
+    "max": 2
+   },
+   {
+    "op": "dash",
+    "at": "car"
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     470,
+     254
+    ],
+    "tol": 4,
+    "max": 2
+   },
+   {
+    "op": "wait",
+    "secs": 0.6
+   },
+   {
+    "op": "goto",
+    "to": [
+     470,
+     292
+    ],
+    "tol": 4,
+    "max": 2
+   },
+   {
+    "op": "wait",
+    "secs": 6
+   }
+  ]
+ },
+ {
+  "id": "C1-01",
+  "tile": "C1",
+  "kind": "solution",
+  "hypothesis": "Intended move: up the stair at y 184-216, east edge; south on the deck to (312,326); step east through the y 303-335 gap as the car nears x 320. Drop timings u 0.30/0.33/0.27 bracket the window. Expect a car-fault clear after pass 1. No clear means the analog drop is unperformable or the gap is mislocated.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     340,
+     200
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     200
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     300
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     312,
+     326
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitCar",
+    "u": 0.3,
+    "max": 30
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     340,
+     200
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     200
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     312,
+     326
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "u": 0.33,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     340,
+     200
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     200
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     312,
+     326
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "u": 0.27,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "C1-02",
+  "tile": "C1",
+  "kind": "attack",
+  "hypothesis": "Twist control: at the kerb the car should see the dummy and stop short. Then nudge and dash into its stopped nose. A clear counts as progress on a fault.",
+  "secs": 45,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     450,
+     312
+    ],
+    "tol": 3,
+    "max": 6
+   },
+   {
+    "op": "waitCar",
+    "near": 120,
+    "max": 30
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": "car",
+    "tol": 1,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 0.3,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "at": "car"
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "C1-03",
+  "tile": "C1",
+  "kind": "attack",
+  "hypothesis": "On the z2 deck, dash at parapets at 0/180/10/170\u00b0 and at the gap's north corner (320,303) at a shallow angle. A landing outside the y 303-335 span means a fence crossing. A landing in a column means 'inside solid'.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     340,
+     200
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     200
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     250
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     250
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "dash",
+    "deg": 180
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     250
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "dash",
+    "deg": 10
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     250
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "dash",
+    "deg": 170
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     296,
+     280
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "dash",
+    "at": [
+     320,
+     303
+    ]
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   }
+  ]
+ },
+ {
+  "id": "C1-04",
+  "tile": "C1",
+  "kind": "attack",
+  "hypothesis": "The east edge is open at y 172-184, y 248-260 and x 776-800, y 16-132, and there is an 8-unit slot at x 776-788 on the north edge. Push at 350/0/10\u00b0 and 270\u00b0, then dash. 'Off tile' would be a blocker.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     700,
+     150
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     790,
+     178
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 10,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 350,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     790,
+     60
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     782,
+     20
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 275
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     700,
+     150
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     700,
+     255
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   }
+  ]
+ },
+ {
+  "id": "C1-05",
+  "tile": "C1",
+  "kind": "attack",
+  "hypothesis": "The z2 deck runs to both tile edges, y 0 and y 640. A dummy at z2 may ignore the z0 north wall: push and dash off both deck ends. Expect 'off tile' or a fall with no rescue.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     340,
+     200
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     200
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     6
+    ],
+    "tol": 3,
+    "max": 8
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 270
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "dash",
+    "deg": 260
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     634
+    ],
+    "tol": 3,
+    "max": 12
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "dash",
+    "deg": 80
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   }
+  ]
+ },
+ {
+  "id": "B2-01",
+  "tile": "B2",
+  "kind": "solution",
+  "hypothesis": "Intended move: cross to the island and hide off the kiosk's east end, which is downstream for an eastbound car. Dash at a point just ahead of the nose as it comes level. Triggers 75/90/60 with ahead 45/60/35. Expect a car-fault clear after pass 1. No clear means Edit 115's 'intended unverified' is unperformable.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     440,
+     470
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     362
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     421,
+     370
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitCar",
+    "near": 75,
+    "max": 30
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 45,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     362
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     421,
+     370
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 90,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 60,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     362
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     421,
+     370
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 60,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 35,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "B2-02",
+  "tile": "B2",
+  "kind": "attack",
+  "hypothesis": "Twist: dash into the car's side must be the dummy's fault. Then dash at the front-left corner, ahead 0 and side -20. The corner contact may count as a car-fault hit without hiding; that is cheese, or a blocker if the fault engine credits a side contact.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     440,
+     362
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     421,
+     370
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitCar",
+    "u": 0.55,
+    "max": 30
+   },
+   {
+    "op": "dash",
+    "at": "car"
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     421,
+     370
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 60,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 0,
+     "side": -20
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     421,
+     370
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 50,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 10,
+     "side": -24
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "B2-03",
+  "tile": "B2",
+  "kind": "attack",
+  "hypothesis": "Open-ground dash from the south kerb, 123 and 86 units off the lane centre, with no cover. If the side sensors' range is shorter than the dash, this clears without the kiosk: a major cheese bypassing the island.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     420,
+     575
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "waitCar",
+    "near": 170,
+    "max": 30
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 60,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     420,
+     540
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 130,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 45,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     420,
+     575
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 155,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 30,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "B2-04",
+  "tile": "B2",
+  "kind": "attack",
+  "hypothesis": "Island channel: 36 units between monument and kiosk, with a sculpture at (318,366). Slide at 175/180/185\u00b0, orbit the kiosk both ways, then sweep 360\u00b0 at 0.2 against its corners. Expect 'pinned' or 'inside solid' at the kiosk/sculpture corners.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     440,
+     470
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     430,
+     356
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 185,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 175,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "circle",
+    "at": {
+     "cover": 0,
+     "dx": 0,
+     "dy": 0
+    },
+    "r": 24,
+    "dir": 1,
+    "secs": 6
+   },
+   {
+    "op": "circle",
+    "at": {
+     "cover": 0,
+     "dx": 0,
+     "dy": 0
+    },
+    "r": 24,
+    "dir": -1,
+    "secs": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     397,
+     360
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "spin",
+    "deg0": 0,
+    "rate": 60,
+    "mag": 0.2,
+    "secs": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     378,
+     370
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 45,
+    "mag": 0.3,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     416,
+     398
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 225,
+    "mag": 0.3,
+    "secs": 2
+   }
+  ]
+ },
+ {
+  "id": "B2-05",
+  "tile": "B2",
+  "kind": "attack",
+  "hypothesis": "The west edge is open at y 138-416 and the east edge at y 138-502. Push at 170-190\u00b0 and 350-10\u00b0, then dash out. 'Off tile' would be a blocker.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     210,
+     300
+    ],
+    "tol": 6,
+    "max": 8
+   },
+   {
+    "op": "goto",
+    "to": [
+     20,
+     290
+    ],
+    "tol": 3,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 170,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 190,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 180
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "dash",
+    "deg": 175
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     790,
+     300
+    ],
+    "tol": 3,
+    "max": 12
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 10,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "dash",
+    "deg": 350
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   }
+  ]
+ },
+ {
+  "id": "B2-06",
+  "tile": "B2",
+  "kind": "attack",
+  "hypothesis": "Dash 164 units at the 12-unit-thick sculptures and the monument corners. A fast dash may tunnel through thin solids. Expect 'inside solid' or a crossing.",
+  "secs": 45,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     470,
+     240
+    ],
+    "tol": 4,
+    "max": 8
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     520,
+     268
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "dash",
+    "deg": 180
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     480,
+     352
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "dash",
+    "at": [
+     440,
+     338
+    ]
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     320,
+     296
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "dash",
+    "at": [
+     360,
+     302
+    ]
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     372
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "dash",
+    "deg": 3
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   }
+  ]
+ },
+ {
+  "id": "B2-07",
+  "tile": "B2",
+  "kind": "attack",
+  "hypothesis": "Spin the stick at \u00b1720\u00b0/s through a dash from the kiosk hide. If the dash steers with the stick, it can bend around cover (cheese) or produce NaN. Start one dash aimed into the kiosk (200\u00b0) and spin out of it.",
+  "secs": 45,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     440,
+     362
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     421,
+     370
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitCar",
+    "near": 75,
+    "max": 30
+   },
+   {
+    "op": "aim",
+    "deg": 90,
+    "secs": 0.05
+   },
+   {
+    "op": "press",
+    "btn": "A",
+    "secs": 0.05
+   },
+   {
+    "op": "spin",
+    "deg0": 90,
+    "rate": 720,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     421,
+     370
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 75,
+    "max": 15
+   },
+   {
+    "op": "aim",
+    "deg": 200,
+    "secs": 0.05
+   },
+   {
+    "op": "press",
+    "btn": "A",
+    "secs": 0.05
+   },
+   {
+    "op": "spin",
+    "deg0": 200,
+    "rate": -720,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "A2-01",
+  "tile": "A2",
+  "kind": "solution",
+  "hypothesis": "Intended move: break the post right after a new pass begins, while the car is ~450 units off. Hide in the 24-unit slot at the cabinet's downstream (west) end and dash at the lane as the nose comes level. Expect a car-fault clear.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     250,
+     145
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     250,
+     240
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 25
+   },
+   {
+    "op": "dash",
+    "at": {
+     "camera": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     362,
+     230
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitCar",
+    "near": 85,
+    "max": 20
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 40,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     362,
+     230
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 100,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 50,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     405,
+     228
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 95,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 30,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "A2-02",
+  "tile": "A2",
+  "kind": "attack",
+  "hypothesis": "Repro Edit 115's drop cheese from the z1 gap, east then west parapet, at rung 4. Expect a clear without touching the camera: cheese. Also log whether the stair column at (484,68) blocks the climb.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     470,
+     80
+    ],
+    "tol": 4,
+    "max": 8
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     80
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     280
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     634,
+     312
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitCar",
+    "near": 90,
+    "max": 30
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     470,
+     80
+    ],
+    "tol": 4,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     80
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     486,
+     312
+    ],
+    "tol": 3,
+    "max": 6
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 60,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "A2-03",
+  "tile": "A2",
+  "kind": "attack",
+  "hypothesis": "Squeeze the 24-unit slot between the block (y 216) and the cabinet (y 240). Push at 175/180/185\u00b0, spin inside it, then dash through at 180\u00b0 and 5\u00b0. Expect 'pinned' or 'inside solid'.",
+  "secs": 45,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     405,
+     228
+    ],
+    "tol": 3,
+    "max": 8
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 175,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 185,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "spin",
+    "deg0": 0,
+    "rate": 120,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 180
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     405,
+     228
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "dash",
+    "deg": 5
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     380,
+     228
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "spin",
+    "deg0": 90,
+    "rate": -60,
+    "mag": 0.2,
+    "secs": 6
+   }
+  ]
+ },
+ {
+  "id": "A2-04",
+  "tile": "A2",
+  "kind": "attack",
+  "hypothesis": "Run a control, then R mid-dash. First hide and dash with the camera intact: expect no clear. Then dash at the post and press R 0.1 s later; then hide and dash again. A clear means the broken-camera state survives R. 'Inside solid' at the drop point means dash momentum survives R.",
+  "secs": 80,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     250,
+     145
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     362,
+     230
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitCar",
+    "near": 85,
+    "max": 30
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 40,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     250,
+     240
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "dash",
+    "at": {
+     "camera": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 0.1
+   },
+   {
+    "op": "restart"
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     250,
+     145
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     362,
+     230
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 85,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 40,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   }
+  ]
+ },
+ {
+  "id": "A2-05",
+  "tile": "A2",
+  "kind": "attack",
+  "hypothesis": "Make the car brake, then dash head-on into its nose and dash under it from the side at 90\u00b0. Expect no hit and no 'inside solid'. A car-fault clear from a self-inflicted dash into a stopped car is a blocker.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     560,
+     292
+    ],
+    "tol": 4,
+    "max": 8
+   },
+   {
+    "op": "waitCar",
+    "near": 60,
+    "max": 30
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     520,
+     292
+    ],
+    "tol": 4,
+    "max": 2
+   },
+   {
+    "op": "dash",
+    "at": "car"
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     250
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "goto",
+    "to": [
+     600,
+     292
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "waitCar",
+    "near": 70,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     600,
+     250
+    ],
+    "tol": 4,
+    "max": 1
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "A2-06",
+  "tile": "A2",
+  "kind": "attack",
+  "hypothesis": "Fence holes: the south road exit (x 184-240), the west gap at x 0-24, y 28-132, and the open east edge at y 136-524. Push and dash out. 'Off tile' would be a blocker.",
+  "secs": 70,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     260,
+     330
+    ],
+    "tol": 6,
+    "max": 8
+   },
+   {
+    "op": "goto",
+    "to": [
+     260,
+     620
+    ],
+    "tol": 4,
+    "max": 8
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 95,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     100,
+     140
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     10,
+     128
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 180
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     790,
+     350
+    ],
+    "tol": 4,
+    "max": 12
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "dash",
+    "deg": 10
+   }
+  ]
+ },
+ {
+  "id": "A3-01",
+  "tile": "A3",
+  "kind": "solution",
+  "hypothesis": "Intended move: carry cone 0 to (470,348) in the lane and hide north of the kiosk. Step to the other lane (480,298) as the rung-4 car swerves left. Expect a car-fault clear. Edit 115's 92.5 s exceeds this 90 s cap; no clear here means the window is too tight for the pad.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     354,
+     224
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     470,
+     348
+    ],
+    "tol": 5,
+    "max": 5
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     432,
+     230
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitCar",
+    "near": 170,
+    "max": 30
+   },
+   {
+    "op": "goto",
+    "to": [
+     480,
+     298
+    ],
+    "tol": 8,
+    "max": 2.5
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     432,
+     230
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 150,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     480,
+     298
+    ],
+    "tol": 8,
+    "max": 2.5
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     432,
+     230
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 190,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     490,
+     300
+    ],
+    "tol": 8,
+    "max": 2.5
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   }
+  ]
+ },
+ {
+  "id": "A3-02",
+  "tile": "A3",
+  "kind": "attack",
+  "hypothesis": "Carry cone 1 up the z1 stair and drop it on the deck over the lane, then at the gap edge. Expect the cone to stay at z1. A car swerve under the deck means a z mismatch; a cone inside a parapet or off the tile is a bug.",
+  "secs": 70,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     462,
+     220
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     470,
+     80
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     80
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     348
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     200
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 25
+   },
+   {
+    "op": "wait",
+    "secs": 8
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     348
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     636,
+     319
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "wait",
+    "secs": 10
+   }
+  ]
+ },
+ {
+  "id": "A3-03",
+  "tile": "A3",
+  "kind": "attack",
+  "hypothesis": "Cone both lanes at x 480. The rung-4 car swerves, does not stop, and now has no path. Expect a stall ('no red car 25 s'), a write-off stuck in the cone/kiosk, or a car through the cone. Then R must reset both cones.",
+  "secs": 75,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     354,
+     224
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     480,
+     348
+    ],
+    "tol": 5,
+    "max": 5
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     462,
+     220
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     480,
+     296
+    ],
+    "tol": 5,
+    "max": 4
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     432,
+     230
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "wait",
+    "secs": 40
+   },
+   {
+    "op": "restart"
+   },
+   {
+    "op": "wait",
+    "secs": 8
+   }
+  ]
+ },
+ {
+  "id": "A3-04",
+  "tile": "A3",
+  "kind": "attack",
+  "hypothesis": "Fence holes: the west gap at x 0-24, y 332-488 (low masses only), the north road entry at x 184-240, and the open east edge at y 216-624. Also slide 5\u00b0 into the south wall both ways and wedge the SE corner. 'Off tile' would be a blocker; 'pinned' major.",
+  "secs": 80,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     200,
+     480
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     20,
+     480
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 180
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     250,
+     30
+    ],
+    "tol": 4,
+    "max": 10
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 265,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 270
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     700,
+     610
+    ],
+    "tol": 4,
+    "max": 12
+   },
+   {
+    "op": "stick",
+    "deg": 5,
+    "mag": 1,
+    "secs": 4
+   },
+   {
+    "op": "stick",
+    "deg": 175,
+    "mag": 1,
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     790,
+     612
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 45,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     790,
+     290
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   }
+  ]
+ },
+ {
+  "id": "A3-05",
+  "tile": "A3",
+  "kind": "attack",
+  "hypothesis": "Fuzz 85 s of random analog with random X: cones picked and dropped against kiosk, blocks and deck columns. Expect no cone inside a solid, no dummy pinned holding a cone, no NaN.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "jitter",
+    "secs": 45,
+    "every": 0.15,
+    "seed": 7,
+    "buttons": [
+     "X"
+    ]
+   },
+   {
+    "op": "jitter",
+    "secs": 40,
+    "every": 0.1,
+    "seed": 11,
+    "buttons": [
+     "X"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "C2-01",
+  "tile": "C2",
+  "kind": "solution",
+  "hypothesis": "Intended move: walk round the kiosk via the lane edge once the car leaves, then dash east to break the post at (343,252). Hide at the kiosk's downstream (west) end and dash at the lane as the westbound nose comes level. Expect a car-fault clear after the break.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "waitCar",
+    "u": 0.9,
+    "max": 20
+   },
+   {
+    "op": "goto",
+    "to": [
+     395,
+     272
+    ],
+    "tol": 6,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     270,
+     272
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     262,
+     248
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "dash",
+    "at": {
+     "camera": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     345,
+     248
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitCar",
+    "near": 75,
+    "max": 30
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 40,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     345,
+     248
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 95,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 55,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     378,
+     232
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 90,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 115
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "C2-02",
+  "tile": "C2",
+  "kind": "attack",
+  "hypothesis": "There is a 12-unit slot at x 358-368 between the block (y 230) and the kiosk (y 242). From the pocket north of the kiosk, push at 175/180/185\u00b0, spin, then dash through. Expect 'pinned', or a dash clip into the block/kiosk or onto the camera side.",
+  "secs": 40,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     378,
+     232
+    ],
+    "tol": 3,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 175,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 185,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "spin",
+    "deg0": 150,
+    "rate": 60,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 180
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     378,
+     232
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "dash",
+    "deg": 170
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     378,
+     232
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "spin",
+    "deg0": 0,
+    "rate": 90,
+    "mag": 0.2,
+    "secs": 6
+   }
+  ]
+ },
+ {
+  "id": "C2-03",
+  "tile": "C2",
+  "kind": "attack",
+  "hypothesis": "Cone in the lane: the rung-5 car stops at it, possibly forever. Then stand in front of the stopped car and pick the cone up. If the car resumes into a dummy it can see, that is a car-fault clear without the camera break (cheese). If it never resumes after removal, that is a softlock.",
+  "secs": 70,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     472,
+     236
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     450,
+     292
+    ],
+    "tol": 5,
+    "max": 4
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     430,
+     236
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitCar",
+    "near": 120,
+    "max": 30
+   },
+   {
+    "op": "wait",
+    "secs": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     452,
+     292
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     430,
+     236
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "wait",
+    "secs": 25
+   }
+  ]
+ },
+ {
+  "id": "C2-04",
+  "tile": "C2",
+  "kind": "attack",
+  "hypothesis": "Drop from the z2 gap via the east-edge stair at rung 5: lidar and cameras are known. Edit 115 says lidar does not close drops. A clear bypasses puzzle 7's camera-break lesson: major cheese.",
+  "secs": 80,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     330,
+     590
+    ],
+    "tol": 4,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     590
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     300
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     316,
+     312
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitCar",
+    "near": 90,
+    "max": 30
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     330,
+     590
+    ],
+    "tol": 4,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     590
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     316,
+     312
+    ],
+    "tol": 3,
+    "max": 8
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 70,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "C2-05",
+  "tile": "C2",
+  "kind": "attack",
+  "hypothesis": "The stair openings [544,576] and [554,610] overlap, and the first is occluded by the column at x 292-316, y 548-572. Probe each, then push and dash off both deck ends at z2. Expect 'pinned', 'inside solid' or 'off tile'.",
+  "secs": 70,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     330,
+     556
+    ],
+    "tol": 3,
+    "max": 10
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     330,
+     600
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 190,
+    "mag": 0.5,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     4
+    ],
+    "tol": 3,
+    "max": 12
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 270
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     636
+    ],
+    "tol": 3,
+    "max": 14
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   }
+  ]
+ },
+ {
+  "id": "C2-06",
+  "tile": "C2",
+  "kind": "attack",
+  "hypothesis": "Road exits: north at x 584-640 and west at y 264-320. Push and dash out. Slide 5\u00b0 into the east wall both ways. 'Off tile' would be a blocker.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     650,
+     224
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     650,
+     24
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 265,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 270
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     770,
+     300
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 275,
+    "mag": 1,
+    "secs": 4
+   },
+   {
+    "op": "stick",
+    "deg": 85,
+    "mag": 1,
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     20,
+     330
+    ],
+    "tol": 4,
+    "max": 14
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 180
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "dash",
+    "deg": 170
+   }
+  ]
+ },
+ {
+  "id": "B3-01",
+  "tile": "B3",
+  "kind": "solution",
+  "hypothesis": "Intended move: duck (hold C) at the hedge's downstream (west) end, (166,236). Stand and dash at the lane through the 27-unit hedge-planter gap as the westbound nose comes level. The last attempt dashes still holding C. Expect a car-fault clear. No clear means the intended move is unperformable.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     166,
+     236
+    ],
+    "tol": 3,
+    "max": 8
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitCar",
+    "near": 70,
+    "max": 30
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 40,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     166,
+     236
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 90,
+    "max": 15
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 55,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     166,
+     236
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 70,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 40,
+     "side": 0
+    }
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "B3-02",
+  "tile": "B3",
+  "kind": "attack",
+  "hypothesis": "Twist control: the same move standing. The car should see the dummy over the hedge, so no clear in 3 passes. A clear makes Super Knees optional.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     166,
+     236
+    ],
+    "tol": 3,
+    "max": 8
+   },
+   {
+    "op": "waitCar",
+    "near": 70,
+    "max": 30
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 40,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     222,
+     236
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 90,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 45,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     166,
+     236
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 90,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 55,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "B3-03",
+  "tile": "B3",
+  "kind": "attack",
+  "hypothesis": "Duck in the open lane and stand still. If the forward camera tests height, a ducked dummy is invisible in its own lane: a car-fault clear by standing still is a design bug (major cheese).",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": {
+     "route": 0.85,
+     "side": 0
+    },
+    "tol": 5,
+    "max": 8
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "wait",
+    "secs": 40
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   }
+  ]
+ },
+ {
+  "id": "B3-04",
+  "tile": "B3",
+  "kind": "attack",
+  "hypothesis": "The planter is also cover. Duck behind it and dash: an alternate clear (minor; record it). Then duck in the 27-unit planter-hedge gap and creep south at 0.15. Expect a car-fault hit while ducked in the gap or lane, or 'pinned' in the gap.",
+  "secs": 70,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     87,
+     238
+    ],
+    "tol": 3,
+    "max": 8
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitCar",
+    "near": 75,
+    "max": 30
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     160,
+     238
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 150,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 0.15,
+    "secs": 5
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   }
+  ]
+ },
+ {
+  "id": "B3-05",
+  "tile": "B3",
+  "kind": "attack",
+  "hypothesis": "Fence holes: the x 264-280 corridor to the north edge (low masses only), the open east edge at y 312-624 and the west road exit. Slide 5\u00b0 into the south wall both ways and wedge the SW corner. 'Off tile' would be a blocker.",
+  "secs": 80,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     272,
+     200
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 4
+   },
+   {
+    "op": "spin",
+    "deg0": 260,
+    "rate": 10,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 270
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     780,
+     560
+    ],
+    "tol": 4,
+    "max": 14
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 10,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     400,
+     610
+    ],
+    "tol": 4,
+    "max": 10
+   },
+   {
+    "op": "stick",
+    "deg": 5,
+    "mag": 1,
+    "secs": 4
+   },
+   {
+    "op": "stick",
+    "deg": 175,
+    "mag": 1,
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     10,
+     612
+    ],
+    "tol": 4,
+    "max": 8
+   },
+   {
+    "op": "stick",
+    "deg": 135,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     10,
+     330
+    ],
+    "tol": 4,
+    "max": 8
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "dash",
+    "deg": 180
+   }
+  ]
+ },
+ {
+  "id": "B3-06",
+  "tile": "B3",
+  "kind": "attack",
+  "hypothesis": "Ducked, slide along the hedge at 5\u00b0/175\u00b0 and orbit it. Push and dash ducked into it, then release C while overlapping. Expect 'inside solid' if ducking shrinks the collider or the dash hops low cover.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     222,
+     236
+    ],
+    "tol": 3,
+    "max": 8
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "stick",
+    "deg": 5,
+    "mag": 0.5,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 175,
+    "mag": 0.5,
+    "secs": 3
+   },
+   {
+    "op": "circle",
+    "at": {
+     "cover": 0,
+     "dx": 0,
+     "dy": 0
+    },
+    "r": 54,
+    "dir": 1,
+    "secs": 8
+   },
+   {
+    "op": "goto",
+    "to": [
+     270,
+     240
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "spin",
+    "deg0": 0,
+    "rate": 90,
+    "mag": 0.25,
+    "secs": 8
+   },
+   {
+    "op": "goto",
+    "to": [
+     222,
+     236
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 0.2
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   }
+  ]
+ },
+ {
+  "id": "B3-07",
+  "tile": "B3",
+  "kind": "attack",
+  "hypothesis": "Ducked, creep from the hedge's east end into the lane at 0.1, angled 110\u00b0. If 'hidden' latches from low cover, the dummy stays unseen in the open lane. A car-fault clear is cheese; correct behaviour is that the car stops.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     285,
+     238
+    ],
+    "tol": 3,
+    "max": 8
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitCar",
+    "near": 160,
+    "max": 30
+   },
+   {
+    "op": "stick",
+    "deg": 110,
+    "mag": 0.1,
+    "secs": 6
+   },
+   {
+    "op": "wait",
+    "secs": 6
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   }
+  ]
+ },
+ {
+  "id": "C3-01",
+  "tile": "C3",
+  "kind": "solution",
+  "hypothesis": "Intended route, each hide at the cover's downstream end. Hit 1: the cabinet's east end. Hit 2: ducked at the hedge's east end. Hit 3: break the camera at (630,412), then the kiosk's east end. Expect 3 car-fault hits and a clear inside 90 s, with white traffic at 0.5.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     440,
+     394
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitCar",
+    "near": 125,
+    "max": 30
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 45,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     176,
+     568
+    ],
+    "tol": 4,
+    "max": 10
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitNew",
+    "max": 25
+   },
+   {
+    "op": "waitCar",
+    "near": 75,
+    "max": 15
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 40,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     565,
+     412
+    ],
+    "tol": 3,
+    "max": 10
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     563,
+     394
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitCar",
+    "near": 125,
+    "max": 25
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 45,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   }
+  ]
+ },
+ {
+  "id": "C3-02",
+  "tile": "C3",
+  "kind": "attack",
+  "hypothesis": "Repeat the cabinet move three times. Crash memory (rung 6) plus 'a new way each' should cap progress at 1. Progress 2 or 3 means repeats count; a clear is a blocker.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "repeat",
+    "n": 3,
+    "steps": [
+     {
+      "op": "goto",
+      "to": [
+       440,
+       394
+      ],
+      "tol": 3,
+      "max": 6
+     },
+     {
+      "op": "waitNew",
+      "max": 25
+     },
+     {
+      "op": "waitCar",
+      "near": 125,
+      "max": 15
+     },
+     {
+      "op": "dash",
+      "at": {
+       "ahead": 45,
+       "side": 0
+      }
+     },
+     {
+      "op": "wait",
+      "secs": 4
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "C3-03",
+  "tile": "C3",
+  "kind": "attack",
+  "hypothesis": "Drop twice from the z2 gap (y 463-495) via the east-edge stair. Record whether a drop counts as a 'new way' and whether the second is rejected. Two drops counting is a design bug.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     330,
+     590
+    ],
+    "tol": 4,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     590
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     312,
+     490
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitCar",
+    "near": 90,
+    "max": 30
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     330,
+     590
+    ],
+    "tol": 4,
+    "max": 8
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     590
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     312,
+     490
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 25
+   },
+   {
+    "op": "waitCar",
+    "near": 90,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   }
+  ]
+ },
+ {
+  "id": "C3-04",
+  "tile": "C3",
+  "kind": "attack",
+  "hypothesis": "The hedge's footprint (x 72-168, y 538-554) intrudes 8 units into the deck (x 160+) at the west stair opening (y 544-576). Probe the opening at 0/355/5\u00b0, dash in, then stand and duck on the deck over the hedge. Expect 'pinned', 'inside solid' or z confusion.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     150,
+     570
+    ],
+    "tol": 3,
+    "max": 10
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 0.5,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 355,
+    "mag": 0.5,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 5,
+    "mag": 0.5,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     140,
+     570
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     166,
+     546
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "spin",
+    "deg0": 0,
+    "rate": 90,
+    "mag": 0.3,
+    "secs": 4
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   }
+  ]
+ },
+ {
+  "id": "C3-05",
+  "tile": "C3",
+  "kind": "attack",
+  "hypothesis": "The east edge is open at y 400-536 (road exit). Push and dash at 350/0/10/15\u00b0, then wedge under the booth. 'Off tile' would be a blocker.",
+  "secs": 45,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     790,
+     440
+    ],
+    "tol": 3,
+    "max": 10
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 10,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 350,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "dash",
+    "deg": 15
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     790,
+     472
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     775,
+     575
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 300,
+    "mag": 1,
+    "secs": 2
+   }
+  ]
+ },
+ {
+  "id": "C3-06",
+  "tile": "C3",
+  "kind": "attack",
+  "hypothesis": "Press R 0.4 s after hit 1 lands, during the write-off: progress must reset to 0, restarts=1, with no 'rescue stuck'. Then START at the moment of a second hit: expect no 'write-off stuck' and progress counted once.",
+  "secs": 70,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     440,
+     394
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitCar",
+    "near": 125,
+    "max": 30
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 45,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 0.4
+   },
+   {
+    "op": "restart"
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "pause",
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     394
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 25
+   },
+   {
+    "op": "waitCar",
+    "near": 125,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 45,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 0.3
+   },
+   {
+    "op": "pause",
+    "secs": 3
+   },
+   {
+    "op": "wait",
+    "secs": 0.2
+   },
+   {
+    "op": "pause",
+    "secs": 1
+   },
+   {
+    "op": "wait",
+    "secs": 10
+   }
+  ]
+ },
+ {
+  "id": "C3-07",
+  "tile": "C3",
+  "kind": "attack",
+  "hypothesis": "Fuzz 85 s of random analog with A and X among white traffic, cones, deck and cover. Expect no NaN, no progress on a fault (white-car contacts must not count), no 'pinned', no 'inside solid'.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "jitter",
+    "secs": 45,
+    "every": 0.15,
+    "seed": 3,
+    "buttons": [
+     "A",
+     "X"
+    ]
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "jitter",
+    "secs": 20,
+    "every": 0.1,
+    "seed": 19,
+    "buttons": [
+     "A"
+    ]
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "jitter",
+    "secs": 20,
+    "every": 0.2,
+    "seed": 23,
+    "buttons": [
+     "A",
+     "X"
+    ]
+   }
+  ]
+ }
+]

@@ -1,0 +1,9566 @@
+[
+ {
+  "id": "A1-01",
+  "tile": "A1",
+  "hypothesis": "Intended move is to stand in the lane. Expect a clear in pass 1 at the car's fault with 0 your-fault contacts. Edit 115 makes this the only puzzle where a first-pass clear is correct. Fail if there is no clear within 40 s.",
+  "run": {
+   "reason": "cleared",
+   "step": 1,
+   "of": 2,
+   "secs": 1.775
+  },
+  "end": {
+   "screen": "game",
+   "phase": "report",
+   "cleared": false,
+   "progress": 1,
+   "rung": 0,
+   "passes": 1,
+   "failed": 0,
+   "restarts": 0,
+   "attempt": 1.7,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    403,
+    345
+   ],
+   "alive": false,
+   "broken": 0,
+   "points": 2700
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    400,
+    224
+   ],
+   [
+    10.5,
+    400,
+    341
+   ]
+  ],
+  "secs": 13.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A1-01.png"
+ },
+ {
+  "id": "A1-02",
+  "tile": "A1",
+  "hypothesis": "Walking into the car's flank at 80/90/100° must be the dummy's fault, so progress stays 0 over 3 passes. Any clear or progress counts as 'progress on a fault' and is a blocker.",
+  "run": {
+   "reason": "end",
+   "step": 13,
+   "of": 13,
+   "secs": 37.147
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 0,
+   "passes": 6,
+   "failed": 5,
+   "restarts": 0,
+   "attempt": 38.7,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    400,
+    296
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    400,
+    249
+   ],
+   [
+    11.5,
+    400,
+    296
+   ],
+   [
+    14,
+    400,
+    305
+   ],
+   [
+    16.5,
+    400,
+    297
+   ],
+   [
+    18.5,
+    400,
+    297
+   ],
+   [
+    20.5,
+    400,
+    297
+   ],
+   [
+    22.5,
+    400,
+    297
+   ],
+   [
+    24,
+    400,
+    297
+   ],
+   [
+    25.5,
+    400,
+    297
+   ],
+   [
+    27.5,
+    419,
+    402
+   ],
+   [
+    29.5,
+    400,
+    297
+   ],
+   [
+    31.5,
+    400,
+    297
+   ],
+   [
+    33.5,
+    400,
+    297
+   ],
+   [
+    35,
+    400,
+    297
+   ],
+   [
+    36.5,
+    400,
+    297
+   ],
+   [
+    38.5,
+    400,
+    297
+   ],
+   [
+    40,
+    400,
+    297
+   ],
+   [
+    42,
+    387,
+    370
+   ],
+   [
+    44,
+    400,
+    296
+   ],
+   [
+    46,
+    400,
+    296
+   ]
+  ],
+  "secs": 48.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A1-02.png"
+ },
+ {
+  "id": "A1-03",
+  "tile": "A1",
+  "hypothesis": "Glancing contacts that eight directions cannot make. First, at 10°, the dummy runs alongside and drifts onto the flank. Second, at 170°, it runs against traffic and converges on the front corner. The fault test likely uses the contact normal or the dummy's velocity, so a shallow angle may flip a side contact into a car-fault hit. Any progress is a blocker.",
+  "run": {
+   "reason": "end",
+   "step": 12,
+   "of": 12,
+   "secs": 39.47
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 0,
+   "passes": 6,
+   "failed": 5,
+   "restarts": 0,
+   "attempt": 40.5,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    499,
+    300
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    400,
+    224
+   ],
+   [
+    11,
+    420,
+    299
+   ],
+   [
+    13,
+    612,
+    333
+   ],
+   [
+    15,
+    501,
+    300
+   ],
+   [
+    17,
+    501,
+    300
+   ],
+   [
+    19.5,
+    501,
+    300
+   ],
+   [
+    21.5,
+    501,
+    300
+   ],
+   [
+    23.5,
+    501,
+    300
+   ],
+   [
+    25.5,
+    501,
+    300
+   ],
+   [
+    27.5,
+    344,
+    328
+   ],
+   [
+    29.5,
+    476,
+    304
+   ],
+   [
+    31.5,
+    500,
+    300
+   ],
+   [
+    33.5,
+    500,
+    300
+   ],
+   [
+    35,
+    500,
+    300
+   ],
+   [
+    37,
+    500,
+    300
+   ],
+   [
+    38.5,
+    500,
+    300
+   ],
+   [
+    41.5,
+    518,
+    306
+   ],
+   [
+    45,
+    620,
+    344
+   ],
+   [
+    47,
+    626,
+    346
+   ],
+   [
+    49,
+    499,
+    300
+   ]
+  ],
+  "secs": 51.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A1-03.png"
+ },
+ {
+  "id": "A1-04",
+  "tile": "A1",
+  "hypothesis": "The west edge has no wall at y 240-400 (the road entrance) and the east edge has no wall at all. Pushing and dashing out at 170-190° and 350-10° should stay fenced. 'Off tile' would be a blocker.",
+  "run": {
+   "reason": "end",
+   "step": 16,
+   "of": 16,
+   "secs": 43.285
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 0,
+   "passes": 7,
+   "failed": 6,
+   "restarts": 0,
+   "attempt": 44.7,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    787,
+    261
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A139,13",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 42.2,
+    "key": "A139,13",
+    "tile": "A1",
+    "x": 787,
+    "y": 262,
+    "stick": [
+     1,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10.5,
+    391,
+    225
+   ],
+   [
+    13,
+    123,
+    252
+   ],
+   [
+    14.5,
+    37,
+    262
+   ],
+   [
+    16,
+    37,
+    262
+   ],
+   [
+    18,
+    37,
+    262
+   ],
+   [
+    20.5,
+    37,
+    262
+   ],
+   [
+    22.5,
+    37,
+    262
+   ],
+   [
+    24.5,
+    37,
+    275
+   ],
+   [
+    26.5,
+    37,
+    273
+   ],
+   [
+    28.5,
+    37,
+    258
+   ],
+   [
+    30.5,
+    37,
+    261
+   ],
+   [
+    32,
+    172,
+    261
+   ],
+   [
+    34,
+    397,
+    261
+   ],
+   [
+    35,
+    510,
+    262
+   ],
+   [
+    37,
+    739,
+    262
+   ],
+   [
+    39.5,
+    787,
+    262
+   ],
+   [
+    41,
+    787,
+    262
+   ],
+   [
+    43,
+    787,
+    270
+   ],
+   [
+    46,
+    787,
+    289
+   ],
+   [
+    48.5,
+    787,
+    265
+   ],
+   [
+    50,
+    787,
+    258
+   ],
+   [
+    52.5,
+    787,
+    261
+   ],
+   [
+    54.5,
+    787,
+    261
+   ]
+  ],
+  "secs": 56.2,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A1-04.png"
+ },
+ {
+  "id": "A1-05",
+  "tile": "A1",
+  "hypothesis": "Two fence holes: the south edge is unwalled outside x 136-280, and there is a 12-unit slot at x 280-292 on the north edge between the block and the wall. Push at 80/90/95°, dash, wedge the SE corner, then sweep 250-270° at the slot. Expect no 'off tile' and no 'pinned'.",
+  "run": {
+   "reason": "end",
+   "step": 15,
+   "of": 15,
+   "secs": 52.468
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 0,
+   "passes": 8,
+   "failed": 7,
+   "restarts": 0,
+   "attempt": 53.2,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    321,
+    29
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "inside-solid:A1column612",
+    "kind": "column",
+    "sev": "major",
+    "n": 6,
+    "t": 39,
+    "key": "A1column612",
+    "tile": "A1",
+    "x": 643,
+    "y": 552,
+    "layer": 0
+   },
+   {
+    "k": "inside-solid:A1column484",
+    "kind": "column",
+    "sev": "major",
+    "n": 4,
+    "t": 50.4,
+    "key": "A1column484",
+    "tile": "A1",
+    "x": 501,
+    "y": 99,
+    "layer": 0
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    409,
+    233
+   ],
+   [
+    10.5,
+    516,
+    339
+   ],
+   [
+    12.5,
+    677,
+    498
+   ],
+   [
+    14.5,
+    745,
+    605
+   ],
+   [
+    16,
+    702,
+    627
+   ],
+   [
+    18,
+    702,
+    627
+   ],
+   [
+    20,
+    716,
+    627
+   ],
+   [
+    21,
+    719,
+    627
+   ],
+   [
+    24.5,
+    697,
+    627
+   ],
+   [
+    26.5,
+    787,
+    627
+   ],
+   [
+    28.5,
+    787,
+    627
+   ],
+   [
+    33.5,
+    787,
+    627
+   ],
+   [
+    37,
+    787,
+    627
+   ],
+   [
+    39,
+    643,
+    552
+   ],
+   [
+    41.5,
+    501,
+    389
+   ],
+   [
+    43.5,
+    501,
+    288
+   ],
+   [
+    44.5,
+    501,
+    259
+   ],
+   [
+    46,
+    501,
+    238
+   ],
+   [
+    48,
+    501,
+    224
+   ],
+   [
+    50,
+    501,
+    115
+   ],
+   [
+    52.5,
+    323,
+    40
+   ],
+   [
+    54.5,
+    298,
+    29
+   ],
+   [
+    56.5,
+    298,
+    29
+   ],
+   [
+    58.5,
+    305,
+    29
+   ],
+   [
+    60,
+    321,
+    29
+   ]
+  ],
+  "secs": 64,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A1-05.png"
+ },
+ {
+  "id": "A1-06",
+  "tile": "A1",
+  "hypothesis": "The deck's stair openings at y 64-96 overlap columns at x 484-508 and 612-636, y 68-92. The stairs may be unreachable ('pinned') or reachable only by clipping a column ('inside solid'). If on the deck, dashes at 0/180/15/165° should stop at the parapet. Ending at z0 outside the gap would be a fence crossing.",
+  "run": {
+   "reason": "end",
+   "step": 18,
+   "of": 18,
+   "secs": 33.333
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 0,
+   "passes": 6,
+   "failed": 5,
+   "restarts": 0,
+   "attempt": 34.7,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    545,
+    207
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A123,5",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 15.1,
+    "key": "A123,5",
+    "tile": "A1",
+    "x": 470,
+    "y": 109,
+    "stick": [
+     0,
+     -1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    402,
+    219
+   ],
+   [
+    10.5,
+    459,
+    109
+   ],
+   [
+    12.5,
+    470,
+    109
+   ],
+   [
+    14.5,
+    470,
+    109
+   ],
+   [
+    16.5,
+    470,
+    109
+   ],
+   [
+    18.5,
+    529,
+    109
+   ],
+   [
+    21,
+    599,
+    104
+   ],
+   [
+    22.5,
+    477,
+    109
+   ],
+   [
+    25,
+    539,
+    109
+   ],
+   [
+    28.5,
+    649,
+    81
+   ],
+   [
+    32,
+    649,
+    81
+   ],
+   [
+    35.5,
+    578,
+    197
+   ],
+   [
+    37.5,
+    550,
+    199
+   ],
+   [
+    39,
+    571,
+    204
+   ],
+   [
+    41.5,
+    545,
+    207
+   ],
+   [
+    43.5,
+    545,
+    207
+   ]
+  ],
+  "secs": 44.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A1-06.png"
+ },
+ {
+  "id": "A1-07",
+  "tile": "A1",
+  "hypothesis": "Three probes of the y 303-335 gap. A slow 0.4 slide along each parapet: does it drop at the gap span or leak beyond it? A dash at the gap's north corner at 30°. A step off onto the car as it passes under: expect a 'rescue stuck' or 'inside solid' softlock, or a hit wrongly counted at the car's fault.",
+  "run": {
+   "reason": "cleared",
+   "step": 6,
+   "of": 17,
+   "secs": 20.56
+  },
+  "end": {
+   "screen": "game",
+   "phase": "report",
+   "cleared": false,
+   "progress": 1,
+   "rung": 0,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 20.5,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    479,
+    357
+   ],
+   "alive": false,
+   "broken": 0,
+   "points": 2702.051749633213
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    400,
+    224
+   ],
+   [
+    13.5,
+    501,
+    133
+   ],
+   [
+    15.5,
+    594,
+    164
+   ],
+   [
+    17,
+    634,
+    253
+   ],
+   [
+    19,
+    639,
+    314
+   ],
+   [
+    21.5,
+    644,
+    378
+   ],
+   [
+    23.5,
+    636,
+    374
+   ],
+   [
+    24.5,
+    599,
+    277
+   ],
+   [
+    26.5,
+    561,
+    84
+   ],
+   [
+    29,
+    487,
+    252
+   ],
+   [
+    31,
+    481,
+    313
+   ]
+  ],
+  "secs": 35.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A1-07.png"
+ },
+ {
+  "id": "A1-08",
+  "tile": "A1",
+  "hypothesis": "Press R with the car 30 units out, then START at the moment of contact. Expect no ghost hit after R: no clear credited at the drop point with restarts=1. Expect no clear credited during pause, and no 'write-off stuck'.",
+  "run": {
+   "reason": "cleared",
+   "step": 1,
+   "of": 9,
+   "secs": 1.781
+  },
+  "end": {
+   "screen": "game",
+   "phase": "report",
+   "cleared": false,
+   "progress": 1,
+   "rung": 0,
+   "passes": 1,
+   "failed": 0,
+   "restarts": 0,
+   "attempt": 1.7,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    403,
+    344
+   ],
+   "alive": false,
+   "broken": 0,
+   "points": 2700
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    400,
+    229
+   ]
+  ],
+  "secs": 13.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A1-08.png"
+ },
+ {
+  "id": "B1-01",
+  "tile": "B1",
+  "hypothesis": "Wait at the north kerb (440,254) and step south as the car nears. The trigger distances 75/60/50/42 map the step-in window. Expect a car-fault clear at one of them by about 40 s, with 0 clears from the 75 trigger. If no trigger clears, the analog pad cannot perform the stop-line move.",
+  "run": {
+   "reason": "end",
+   "step": 19,
+   "of": 19,
+   "secs": 60.483
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 1,
+   "passes": 7,
+   "failed": 6,
+   "restarts": 0,
+   "attempt": 58.6,
+   "faults": 3,
+   "standstill": 0,
+   "body": [
+    440,
+    353
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    380,
+    229
+   ],
+   [
+    11,
+    439,
+    266
+   ],
+   [
+    14.5,
+    427,
+    266
+   ],
+   [
+    16.5,
+    437,
+    257
+   ],
+   [
+    20,
+    441,
+    253
+   ],
+   [
+    23.5,
+    429,
+    266
+   ],
+   [
+    26,
+    429,
+    266
+   ],
+   [
+    33.5,
+    439,
+    255
+   ],
+   [
+    35.5,
+    439,
+    255
+   ],
+   [
+    42,
+    439,
+    255
+   ],
+   [
+    43,
+    439,
+    266
+   ],
+   [
+    45,
+    439,
+    266
+   ],
+   [
+    46.5,
+    439,
+    266
+   ],
+   [
+    49,
+    439,
+    266
+   ],
+   [
+    50.5,
+    440,
+    255
+   ],
+   [
+    53,
+    440,
+    255
+   ],
+   [
+    55,
+    440,
+    255
+   ],
+   [
+    57,
+    440,
+    255
+   ],
+   [
+    60.5,
+    440,
+    255
+   ],
+   [
+    62.5,
+    440,
+    340
+   ],
+   [
+    65.5,
+    440,
+    353
+   ],
+   [
+    68,
+    440,
+    353
+   ],
+   [
+    69.5,
+    440,
+    353
+   ]
+  ],
+  "secs": 72.3,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B1-01.png"
+ },
+ {
+  "id": "B1-02",
+  "tile": "B1",
+  "hypothesis": "Creep from the lane edge at 0.1 and 0.25 strength. If the camera's in-lane test uses the dummy's centre, a partial overlap is unseen. The car's corner then clears the puzzle without the timed step-in (cheese), or the fault flips.",
+  "run": {
+   "reason": "end",
+   "step": 11,
+   "of": 11,
+   "secs": 38.812
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 1,
+   "passes": 6,
+   "failed": 5,
+   "restarts": 0,
+   "attempt": 38.3,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    440,
+    261
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    406,
+    244
+   ],
+   [
+    11,
+    441,
+    262
+   ],
+   [
+    13,
+    441,
+    262
+   ],
+   [
+    19,
+    441,
+    262
+   ],
+   [
+    22,
+    441,
+    262
+   ],
+   [
+    24.5,
+    441,
+    262
+   ],
+   [
+    27.5,
+    441,
+    275
+   ],
+   [
+    29.5,
+    441,
+    291
+   ],
+   [
+    30.5,
+    440,
+    265
+   ],
+   [
+    33,
+    440,
+    261
+   ],
+   [
+    35,
+    440,
+    261
+   ],
+   [
+    37,
+    440,
+    261
+   ],
+   [
+    40.5,
+    440,
+    261
+   ],
+   [
+    44,
+    440,
+    261
+   ],
+   [
+    47,
+    440,
+    261
+   ]
+  ],
+  "secs": 50.7,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B1-02.png"
+ },
+ {
+  "id": "B1-03",
+  "tile": "B1",
+  "hypothesis": "The north fence has 12-unit slots at x 288-300 and 500-512 and a gap at x 60-72. Pushing at 260-290°, spinning across them and dashing should not leave the tile. Expect 'pinned' at worst.",
+  "run": {
+   "reason": "timeout",
+   "step": 17,
+   "of": 24,
+   "secs": 75.041
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 1,
+   "passes": 11,
+   "failed": 10,
+   "restarts": 0,
+   "attempt": 72.8,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    59,
+    29
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:B114,1",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 28,
+    "key": "B114,1",
+    "tile": "B1",
+    "x": 287,
+    "y": 29,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "k": "pinned:B122,8",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 51.5,
+    "key": "B122,8",
+    "tile": "B1",
+    "x": 443,
+    "y": 170,
+    "stick": [
+     1,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    13,
+    341,
+    187
+   ],
+   [
+    15,
+    252,
+    66
+   ],
+   [
+    18,
+    287,
+    29
+   ],
+   [
+    19.5,
+    287,
+    29
+   ],
+   [
+    21,
+    287,
+    29
+   ],
+   [
+    24,
+    287,
+    29
+   ],
+   [
+    25.5,
+    287,
+    29
+   ],
+   [
+    27.5,
+    287,
+    29
+   ],
+   [
+    32,
+    245,
+    29
+   ],
+   [
+    34.5,
+    263,
+    29
+   ],
+   [
+    39,
+    287,
+    29
+   ],
+   [
+    41.5,
+    287,
+    29
+   ],
+   [
+    43.5,
+    254,
+    167
+   ],
+   [
+    46.5,
+    443,
+    170
+   ],
+   [
+    48.5,
+    443,
+    170
+   ],
+   [
+    51,
+    443,
+    170
+   ],
+   [
+    53,
+    443,
+    170
+   ],
+   [
+    58,
+    443,
+    169
+   ],
+   [
+    60,
+    443,
+    169
+   ],
+   [
+    62,
+    443,
+    169
+   ],
+   [
+    64,
+    443,
+    169
+   ],
+   [
+    66,
+    443,
+    169
+   ],
+   [
+    68.5,
+    443,
+    169
+   ],
+   [
+    72,
+    443,
+    169
+   ],
+   [
+    73.5,
+    437,
+    169
+   ],
+   [
+    76.5,
+    407,
+    169
+   ],
+   [
+    79.5,
+    376,
+    169
+   ],
+   [
+    82,
+    173,
+    170
+   ],
+   [
+    84,
+    43,
+    119
+   ],
+   [
+    87,
+    59,
+    29
+   ]
+  ],
+  "secs": 91.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B1-03.png"
+ },
+ {
+  "id": "B1-04",
+  "tile": "B1",
+  "hypothesis": "The south edge is unwalled at x 248-296, 360-440 and 600-608. Push and dash at 80/90/95/100° should stay fenced. 'Off tile' would be a blocker.",
+  "run": {
+   "reason": "end",
+   "step": 17,
+   "of": 17,
+   "secs": 59.168
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 1,
+   "passes": 8,
+   "failed": 7,
+   "restarts": 0,
+   "attempt": 57.6,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    607,
+    611
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:B121,31",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 22.6,
+    "key": "B121,31",
+    "tile": "B1",
+    "x": 420,
+    "y": 627,
+    "stick": [
+     0,
+     1
+    ]
+   },
+   {
+    "k": "pinned:B114,31",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 47.5,
+    "key": "B114,31",
+    "tile": "B1",
+    "x": 272,
+    "y": 627,
+    "stick": [
+     0,
+     1
+    ]
+   },
+   {
+    "k": "pinned:B130,31",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 71,
+    "key": "B130,31",
+    "tile": "B1",
+    "x": 607,
+    "y": 611,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    372,
+    243
+   ],
+   [
+    16.5,
+    421,
+    611
+   ],
+   [
+    19,
+    420,
+    627
+   ],
+   [
+    23.5,
+    434,
+    627
+   ],
+   [
+    25.5,
+    471,
+    627
+   ],
+   [
+    29,
+    447,
+    627
+   ],
+   [
+    31.5,
+    399,
+    627
+   ],
+   [
+    33.5,
+    398,
+    627
+   ],
+   [
+    36,
+    396,
+    627
+   ],
+   [
+    39,
+    298,
+    581
+   ],
+   [
+    42,
+    272,
+    596
+   ],
+   [
+    43.5,
+    272,
+    627
+   ],
+   [
+    46,
+    272,
+    627
+   ],
+   [
+    49,
+    272,
+    627
+   ],
+   [
+    51,
+    397,
+    564
+   ],
+   [
+    52,
+    427,
+    522
+   ],
+   [
+    54.5,
+    546,
+    465
+   ],
+   [
+    57.5,
+    607,
+    611
+   ],
+   [
+    59.5,
+    607,
+    611
+   ],
+   [
+    62,
+    607,
+    611
+   ],
+   [
+    64,
+    607,
+    611
+   ],
+   [
+    66.5,
+    607,
+    611
+   ],
+   [
+    68.5,
+    607,
+    611
+   ],
+   [
+    72,
+    607,
+    611
+   ]
+  ],
+  "secs": 75.3,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B1-04.png"
+ },
+ {
+  "id": "B1-05",
+  "tile": "B1",
+  "hypothesis": "Orbit the 16-unit column at (392,192), push into its corners at 45/225° and dash at 37/135°. This is the 36-unit channel to the block above. Expect 'pinned' or 'inside solid' at the corners.",
+  "run": {
+   "reason": "timeout",
+   "step": 11,
+   "of": 14,
+   "secs": 45.025
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 1,
+   "passes": 7,
+   "failed": 6,
+   "restarts": 0,
+   "attempt": 44.8,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    421,
+    186
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    371,
+    207
+   ],
+   [
+    11,
+    378,
+    205
+   ],
+   [
+    13,
+    422,
+    195
+   ],
+   [
+    15.5,
+    387,
+    178
+   ],
+   [
+    17,
+    414,
+    181
+   ],
+   [
+    19.5,
+    378,
+    188
+   ],
+   [
+    24,
+    393,
+    223
+   ],
+   [
+    26.5,
+    377,
+    186
+   ],
+   [
+    29,
+    389,
+    179
+   ],
+   [
+    32.5,
+    433,
+    199
+   ],
+   [
+    36,
+    554,
+    343
+   ],
+   [
+    40.5,
+    282,
+    156
+   ],
+   [
+    42,
+    213,
+    36
+   ],
+   [
+    44,
+    287,
+    136
+   ],
+   [
+    47,
+    378,
+    186
+   ],
+   [
+    51,
+    421,
+    186
+   ],
+   [
+    54.5,
+    421,
+    186
+   ]
+  ],
+  "secs": 58.2,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B1-05.png"
+ },
+ {
+  "id": "B1-06",
+  "tile": "B1",
+  "hypothesis": "Bumper nudge: walk and dash into the nose of a car stopped at its stop line. If that counts as a car-fault hit, the timed step-in is bypassed (blocker: progress on a fault).",
+  "run": {
+   "reason": "cleared",
+   "step": 0,
+   "of": 12,
+   "secs": 1.77
+  },
+  "end": {
+   "screen": "game",
+   "phase": "report",
+   "cleared": false,
+   "progress": 1,
+   "rung": 1,
+   "passes": 1,
+   "failed": 0,
+   "restarts": 0,
+   "attempt": 1.4,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    465,
+    275
+   ],
+   "alive": false,
+   "broken": 0,
+   "points": 2758.24393773505
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    10,
+    396,
+    238
+   ]
+  ],
+  "secs": 13.7,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B1-06.png"
+ },
+ {
+  "id": "C1-01",
+  "tile": "C1",
+  "hypothesis": "Intended move: up the stair at y 184-216, east edge; south on the deck to (312,326); step east through the y 303-335 gap as the car nears x 320. Drop timings u 0.30/0.33/0.27 bracket the window. Expect a car-fault clear after pass 1. No clear means the analog drop is unperformable or the gap is mislocated.",
+  "run": {
+   "reason": "timeout",
+   "step": 18,
+   "of": 21,
+   "secs": 90.05
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 7,
+   "failed": 6,
+   "restarts": 0,
+   "attempt": 86.7,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    312,
+    328
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C117,11",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 20,
+    "key": "C117,11",
+    "tile": "C1",
+    "x": 340,
+    "y": 229,
+    "stick": [
+     0,
+     -0.97
+    ]
+   },
+   {
+    "k": "pinned:C115,10",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 58.1,
+    "key": "C115,10",
+    "tile": "C1",
+    "x": 302,
+    "y": 205,
+    "stick": [
+     0.08,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    444,
+    221
+   ],
+   [
+    14.5,
+    340,
+    229
+   ],
+   [
+    18.5,
+    340,
+    229
+   ],
+   [
+    20.5,
+    340,
+    229
+   ],
+   [
+    24,
+    340,
+    229
+   ],
+   [
+    26,
+    300,
+    212
+   ],
+   [
+    28,
+    309,
+    319
+   ],
+   [
+    31,
+    425,
+    327
+   ],
+   [
+    33.5,
+    425,
+    327
+   ],
+   [
+    36.5,
+    425,
+    327
+   ],
+   [
+    38.5,
+    392,
+    278
+   ],
+   [
+    40.5,
+    340,
+    229
+   ],
+   [
+    42,
+    340,
+    229
+   ],
+   [
+    44.5,
+    340,
+    229
+   ],
+   [
+    47.5,
+    340,
+    229
+   ],
+   [
+    51.5,
+    305,
+    247
+   ],
+   [
+    53,
+    304,
+    235
+   ],
+   [
+    56,
+    302,
+    205
+   ],
+   [
+    61,
+    302,
+    205
+   ],
+   [
+    64.5,
+    302,
+    205
+   ],
+   [
+    66.5,
+    307,
+    205
+   ],
+   [
+    71.5,
+    307,
+    205
+   ],
+   [
+    74.5,
+    307,
+    205
+   ],
+   [
+    77,
+    307,
+    201
+   ],
+   [
+    80.5,
+    307,
+    200
+   ],
+   [
+    83.5,
+    307,
+    200
+   ],
+   [
+    86.5,
+    307,
+    200
+   ],
+   [
+    88.5,
+    304,
+    200
+   ],
+   [
+    90.5,
+    312,
+    326
+   ],
+   [
+    92,
+    312,
+    328
+   ],
+   [
+    94,
+    312,
+    328
+   ],
+   [
+    96,
+    312,
+    328
+   ],
+   [
+    98.5,
+    312,
+    328
+   ],
+   [
+    103,
+    312,
+    328
+   ]
+  ],
+  "secs": 105.4,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C1-01.png"
+ },
+ {
+  "id": "C1-02",
+  "tile": "C1",
+  "hypothesis": "Twist control: at the kerb the car should see the dummy and stop short. Then nudge and dash into its stopped nose. A clear counts as progress on a fault.",
+  "run": {
+   "reason": "end",
+   "step": 7,
+   "of": 7,
+   "secs": 41.233
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 40.5,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    277,
+    374
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    464,
+    224
+   ],
+   [
+    13,
+    450,
+    312
+   ],
+   [
+    16.5,
+    450,
+    312
+   ],
+   [
+    19.5,
+    450,
+    312
+   ],
+   [
+    22,
+    450,
+    312
+   ],
+   [
+    25,
+    450,
+    312
+   ],
+   [
+    27,
+    450,
+    312
+   ],
+   [
+    29.5,
+    476,
+    409
+   ],
+   [
+    33,
+    476,
+    409
+   ],
+   [
+    37.5,
+    476,
+    409
+   ],
+   [
+    40.5,
+    368,
+    381
+   ],
+   [
+    43.5,
+    315,
+    374
+   ],
+   [
+    45.5,
+    282,
+    374
+   ],
+   [
+    47,
+    277,
+    374
+   ],
+   [
+    49,
+    277,
+    374
+   ],
+   [
+    52,
+    277,
+    374
+   ]
+  ],
+  "secs": 56.3,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C1-02.png"
+ },
+ {
+  "id": "C1-03",
+  "tile": "C1",
+  "hypothesis": "On the z2 deck, dash at parapets at 0/180/10/170° and at the gap's north corner (320,303) at a shallow angle. A landing outside the y 303-335 span means a fence crossing. A landing in a column means 'inside solid'.",
+  "run": {
+   "reason": "end",
+   "step": 17,
+   "of": 17,
+   "secs": 41.83
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 38.4,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    314,
+    297
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C117,11",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 22.2,
+    "key": "C117,11",
+    "tile": "C1",
+    "x": 340,
+    "y": 229,
+    "stick": [
+     0,
+     -0.97
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    464,
+    224
+   ],
+   [
+    14.5,
+    340,
+    229
+   ],
+   [
+    17,
+    340,
+    229
+   ],
+   [
+    20,
+    340,
+    229
+   ],
+   [
+    22.5,
+    340,
+    229
+   ],
+   [
+    24.5,
+    340,
+    229
+   ],
+   [
+    27.5,
+    340,
+    229
+   ],
+   [
+    32.5,
+    259,
+    248
+   ],
+   [
+    34.5,
+    259,
+    248
+   ],
+   [
+    37,
+    221,
+    250
+   ],
+   [
+    40.5,
+    251,
+    252
+   ],
+   [
+    45,
+    205,
+    256
+   ],
+   [
+    47.5,
+    212,
+    258
+   ],
+   [
+    49.5,
+    314,
+    297
+   ],
+   [
+    53,
+    314,
+    297
+   ]
+  ],
+  "secs": 57.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C1-03.png"
+ },
+ {
+  "id": "C1-04",
+  "tile": "C1",
+  "hypothesis": "The east edge is open at y 172-184, y 248-260 and x 776-800, y 16-132, and there is an 8-unit slot at x 776-788 on the north edge. Push at 350/0/10° and 270°, then dash. 'Off tile' would be a blocker.",
+  "run": {
+   "reason": "timeout",
+   "step": 9,
+   "of": 17,
+   "secs": 60.052
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 6,
+   "failed": 5,
+   "restarts": 0,
+   "attempt": 55.8,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    771,
+    133
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C139,9",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 23.7,
+    "key": "C139,9",
+    "tile": "C1",
+    "x": 771,
+    "y": 171,
+    "stick": [
+     0.63,
+     0.23
+    ]
+   },
+   {
+    "k": "pinned:C139,7",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 53,
+    "key": "C139,7",
+    "tile": "C1",
+    "x": 771,
+    "y": 133,
+    "stick": [
+     0.25,
+     -0.97
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    14,
+    495,
+    214
+   ],
+   [
+    16.5,
+    695,
+    150
+   ],
+   [
+    20,
+    771,
+    171
+   ],
+   [
+    23.5,
+    771,
+    171
+   ],
+   [
+    27,
+    771,
+    171
+   ],
+   [
+    30,
+    771,
+    171
+   ],
+   [
+    35,
+    771,
+    171
+   ],
+   [
+    39,
+    771,
+    171
+   ],
+   [
+    41,
+    771,
+    144
+   ],
+   [
+    43.5,
+    771,
+    135
+   ],
+   [
+    46,
+    771,
+    136
+   ],
+   [
+    48.5,
+    771,
+    133
+   ],
+   [
+    53,
+    771,
+    133
+   ],
+   [
+    55.5,
+    771,
+    133
+   ],
+   [
+    59.5,
+    771,
+    133
+   ],
+   [
+    61,
+    771,
+    136
+   ],
+   [
+    68,
+    771,
+    136
+   ],
+   [
+    70.5,
+    771,
+    133
+   ],
+   [
+    73.5,
+    771,
+    133
+   ]
+  ],
+  "secs": 77.3,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C1-04.png"
+ },
+ {
+  "id": "C1-05",
+  "tile": "C1",
+  "hypothesis": "The z2 deck runs to both tile edges, y 0 and y 640. A dummy at z2 may ignore the z0 north wall: push and dash off both deck ends. Expect 'off tile' or a fall with no rescue.",
+  "run": {
+   "reason": "timeout",
+   "step": 7,
+   "of": 14,
+   "secs": 50.001
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 0,
+   "attempt": 42,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    237,
+    29
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C117,11",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 20.2,
+    "key": "C117,11",
+    "tile": "C1",
+    "x": 340,
+    "y": 229,
+    "stick": [
+     0,
+     -0.97
+    ]
+   },
+   {
+    "k": "pinned:C112,1",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 40,
+    "key": "C112,1",
+    "tile": "C1",
+    "x": 240,
+    "y": 29,
+    "stick": [
+     0,
+     -0.77
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    14,
+    464,
+    224
+   ],
+   [
+    16.5,
+    340,
+    229
+   ],
+   [
+    19,
+    340,
+    229
+   ],
+   [
+    21,
+    340,
+    229
+   ],
+   [
+    23.5,
+    340,
+    229
+   ],
+   [
+    29.5,
+    267,
+    94
+   ],
+   [
+    31.5,
+    240,
+    29
+   ],
+   [
+    35,
+    240,
+    29
+   ],
+   [
+    40.5,
+    240,
+    29
+   ],
+   [
+    43,
+    240,
+    29
+   ],
+   [
+    47,
+    240,
+    29
+   ],
+   [
+    50,
+    240,
+    29
+   ],
+   [
+    56.5,
+    240,
+    29
+   ],
+   [
+    58.5,
+    240,
+    29
+   ],
+   [
+    62.5,
+    240,
+    29
+   ],
+   [
+    65,
+    237,
+    29
+   ]
+  ],
+  "secs": 67.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C1-05.png"
+ },
+ {
+  "id": "B2-01",
+  "tile": "B2",
+  "hypothesis": "Intended move: cross to the island and hide off the kiosk's east end, which is downstream for an eastbound car. Dash at a point just ahead of the nose as it comes level. Triggers 75/90/60 with ahead 45/60/35. Expect a car-fault clear after pass 1. No clear means Edit 115's 'intended unverified' is unperformable.",
+  "run": {
+   "reason": "end",
+   "step": 18,
+   "of": 18,
+   "secs": 69.235
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 0,
+   "attempt": 68.2,
+   "faults": 2,
+   "standstill": 0,
+   "body": [
+    476,
+    397
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    430,
+    481
+   ],
+   [
+    14,
+    427,
+    368
+   ],
+   [
+    15.5,
+    424,
+    369
+   ],
+   [
+    20,
+    424,
+    369
+   ],
+   [
+    24.5,
+    424,
+    369
+   ],
+   [
+    26.5,
+    424,
+    369
+   ],
+   [
+    30,
+    445,
+    400
+   ],
+   [
+    34,
+    490,
+    399
+   ],
+   [
+    35.5,
+    490,
+    399
+   ],
+   [
+    38.5,
+    479,
+    397
+   ],
+   [
+    41.5,
+    424,
+    369
+   ],
+   [
+    43.5,
+    424,
+    369
+   ],
+   [
+    45.5,
+    424,
+    369
+   ],
+   [
+    48,
+    424,
+    369
+   ],
+   [
+    50,
+    424,
+    369
+   ],
+   [
+    52.5,
+    425,
+    374
+   ],
+   [
+    55,
+    425,
+    374
+   ],
+   [
+    56.5,
+    437,
+    364
+   ],
+   [
+    58.5,
+    424,
+    369
+   ],
+   [
+    60,
+    424,
+    369
+   ],
+   [
+    61.5,
+    424,
+    369
+   ],
+   [
+    63.5,
+    424,
+    369
+   ],
+   [
+    65.5,
+    424,
+    369
+   ],
+   [
+    68.5,
+    424,
+    369
+   ],
+   [
+    71,
+    424,
+    369
+   ],
+   [
+    72.5,
+    424,
+    369
+   ],
+   [
+    74,
+    424,
+    369
+   ],
+   [
+    76.5,
+    476,
+    397
+   ],
+   [
+    78,
+    476,
+    397
+   ],
+   [
+    80.5,
+    476,
+    397
+   ]
+  ],
+  "secs": 83.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B2-01.png"
+ },
+ {
+  "id": "B2-02",
+  "tile": "B2",
+  "hypothesis": "Twist: dash into the car's side must be the dummy's fault. Then dash at the front-left corner, ahead 0 and side -20. The corner contact may count as a car-fault hit without hiding; that is cheese, or a blocker if the fault engine credits a side contact.",
+  "run": {
+   "reason": "timeout",
+   "step": 12,
+   "of": 15,
+   "secs": 60.013
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 6,
+   "failed": 5,
+   "restarts": 0,
+   "attempt": 61.5,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    424,
+    369
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    416,
+    496
+   ],
+   [
+    11.5,
+    424,
+    369
+   ],
+   [
+    13.5,
+    424,
+    369
+   ],
+   [
+    15,
+    424,
+    369
+   ],
+   [
+    17,
+    483,
+    397
+   ],
+   [
+    20,
+    483,
+    397
+   ],
+   [
+    21.5,
+    424,
+    369
+   ],
+   [
+    23,
+    424,
+    369
+   ],
+   [
+    25,
+    424,
+    369
+   ],
+   [
+    29,
+    424,
+    369
+   ],
+   [
+    31.5,
+    424,
+    369
+   ],
+   [
+    33.5,
+    424,
+    369
+   ],
+   [
+    35,
+    424,
+    369
+   ],
+   [
+    38,
+    424,
+    369
+   ],
+   [
+    40.5,
+    424,
+    369
+   ],
+   [
+    42,
+    425,
+    376
+   ],
+   [
+    43.5,
+    425,
+    376
+   ],
+   [
+    45.5,
+    425,
+    376
+   ],
+   [
+    47,
+    425,
+    373
+   ],
+   [
+    49,
+    424,
+    369
+   ],
+   [
+    52.5,
+    424,
+    369
+   ],
+   [
+    54.5,
+    424,
+    369
+   ],
+   [
+    56.5,
+    424,
+    369
+   ],
+   [
+    58.5,
+    424,
+    369
+   ],
+   [
+    61,
+    424,
+    369
+   ],
+   [
+    63.5,
+    424,
+    369
+   ],
+   [
+    66,
+    424,
+    369
+   ],
+   [
+    67.5,
+    424,
+    369
+   ],
+   [
+    69,
+    424,
+    369
+   ]
+  ],
+  "secs": 72.4,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B2-02.png"
+ },
+ {
+  "id": "B2-03",
+  "tile": "B2",
+  "hypothesis": "Open-ground dash from the south kerb, 123 and 86 units off the lane centre, with no cover. If the side sensors' range is shorter than the dash, this clears without the kiosk: a major cheese bypassing the island.",
+  "run": {
+   "reason": "cleared",
+   "step": 3,
+   "of": 14,
+   "secs": 5.688
+  },
+  "end": {
+   "screen": "game",
+   "phase": "report",
+   "cleared": false,
+   "progress": 1,
+   "rung": 2,
+   "passes": 1,
+   "failed": 0,
+   "restarts": 0,
+   "attempt": 5.6,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    432,
+    440
+   ],
+   "alive": false,
+   "broken": 0,
+   "points": 2848.220359005541
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    418,
+    527
+   ],
+   [
+    11.5,
+    420,
+    574
+   ],
+   [
+    13.5,
+    420,
+    574
+   ]
+  ],
+  "secs": 17.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B2-03.png"
+ },
+ {
+  "id": "B2-04",
+  "tile": "B2",
+  "hypothesis": "Island channel: 36 units between monument and kiosk, with a sculpture at (318,366). Slide at 175/180/185°, orbit the kiosk both ways, then sweep 360° at 0.2 against its corners. Expect 'pinned' or 'inside solid' at the kiosk/sculpture corners.",
+  "run": {
+   "reason": "timeout",
+   "step": 11,
+   "of": 13,
+   "secs": 60.048
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 61.2,
+   "faults": 2,
+   "standstill": 0,
+   "body": [
+    424,
+    398
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:B21,20",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 26.5,
+    "key": "B21,20",
+    "tile": "B2",
+    "x": 13,
+    "y": 403,
+    "stick": [
+     -0.97,
+     0.23
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10,
+    436,
+    475
+   ],
+   [
+    12.5,
+    375,
+    357
+   ],
+   [
+    14.5,
+    162,
+    356
+   ],
+   [
+    16,
+    13,
+    341
+   ],
+   [
+    19.5,
+    13,
+    350
+   ],
+   [
+    22.5,
+    13,
+    403
+   ],
+   [
+    25,
+    13,
+    403
+   ],
+   [
+    26,
+    13,
+    403
+   ],
+   [
+    28,
+    13,
+    403
+   ],
+   [
+    30,
+    13,
+    381
+   ],
+   [
+    31.5,
+    13,
+    340
+   ],
+   [
+    33,
+    13,
+    305
+   ],
+   [
+    35,
+    13,
+    295
+   ],
+   [
+    37.5,
+    43,
+    284
+   ],
+   [
+    39.5,
+    242,
+    314
+   ],
+   [
+    42.5,
+    399,
+    360
+   ],
+   [
+    45,
+    399,
+    360
+   ],
+   [
+    47.5,
+    399,
+    360
+   ],
+   [
+    52.5,
+    399,
+    360
+   ],
+   [
+    56.5,
+    379,
+    361
+   ],
+   [
+    59.5,
+    373,
+    365
+   ],
+   [
+    63,
+    373,
+    365
+   ],
+   [
+    65.5,
+    377,
+    362
+   ],
+   [
+    70.5,
+    424,
+    398
+   ]
+  ],
+  "secs": 72.4,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B2-04.png"
+ },
+ {
+  "id": "B2-05",
+  "tile": "B2",
+  "hypothesis": "The west edge is open at y 138-416 and the east edge at y 138-502. Push at 170-190° and 350-10°, then dash out. 'Off tile' would be a blocker.",
+  "run": {
+   "reason": "timeout",
+   "step": 15,
+   "of": 16,
+   "secs": 60.153
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 61.1,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    787,
+    382
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:B227,15",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 4,
+    "t": 39.3,
+    "key": "B227,15",
+    "tile": "B2",
+    "x": 533,
+    "y": 300,
+    "stick": [
+     1,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    400,
+    481
+   ],
+   [
+    11.5,
+    266,
+    349
+   ],
+   [
+    13.5,
+    155,
+    298
+   ],
+   [
+    15,
+    23,
+    290
+   ],
+   [
+    17,
+    13,
+    290
+   ],
+   [
+    18,
+    13,
+    290
+   ],
+   [
+    20.5,
+    13,
+    322
+   ],
+   [
+    23,
+    13,
+    304
+   ],
+   [
+    26,
+    13,
+    285
+   ],
+   [
+    27,
+    13,
+    285
+   ],
+   [
+    29,
+    189,
+    288
+   ],
+   [
+    30.5,
+    339,
+    301
+   ],
+   [
+    34,
+    533,
+    296
+   ],
+   [
+    37,
+    533,
+    299
+   ],
+   [
+    41,
+    533,
+    300
+   ],
+   [
+    43.5,
+    533,
+    300
+   ],
+   [
+    45,
+    533,
+    300
+   ],
+   [
+    49,
+    533,
+    300
+   ],
+   [
+    51,
+    533,
+    300
+   ],
+   [
+    53.5,
+    533,
+    300
+   ],
+   [
+    57,
+    533,
+    300
+   ],
+   [
+    59,
+    562,
+    324
+   ],
+   [
+    60.5,
+    743,
+    356
+   ],
+   [
+    62,
+    787,
+    384
+   ],
+   [
+    64,
+    787,
+    383
+   ],
+   [
+    68,
+    787,
+    382
+   ],
+   [
+    70.5,
+    787,
+    382
+   ]
+  ],
+  "secs": 72.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B2-05.png"
+ },
+ {
+  "id": "B2-06",
+  "tile": "B2",
+  "hypothesis": "Dash 164 units at the 12-unit-thick sculptures and the monument corners. A fast dash may tunnel through thin solids. Expect 'inside solid' or a crossing.",
+  "run": {
+   "reason": "timeout",
+   "step": 9,
+   "of": 15,
+   "secs": 45.025
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 0,
+   "attempt": 45.6,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    320,
+    301
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:B223,14",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 21.2,
+    "key": "B223,14",
+    "tile": "B2",
+    "x": 470,
+    "y": 287,
+    "stick": [
+     0,
+     -1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    429,
+    433
+   ],
+   [
+    14,
+    465,
+    287
+   ],
+   [
+    17,
+    470,
+    287
+   ],
+   [
+    20.5,
+    470,
+    287
+   ],
+   [
+    23,
+    470,
+    287
+   ],
+   [
+    24.5,
+    470,
+    287
+   ],
+   [
+    29,
+    470,
+    287
+   ],
+   [
+    31.5,
+    469,
+    341
+   ],
+   [
+    33,
+    469,
+    341
+   ],
+   [
+    37,
+    495,
+    267
+   ],
+   [
+    41.5,
+    480,
+    339
+   ],
+   [
+    47,
+    480,
+    339
+   ],
+   [
+    48.5,
+    453,
+    338
+   ],
+   [
+    52,
+    453,
+    311
+   ],
+   [
+    54,
+    372,
+    289
+   ],
+   [
+    56,
+    320,
+    301
+   ]
+  ],
+  "secs": 59.8,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B2-06.png"
+ },
+ {
+  "id": "B2-07",
+  "tile": "B2",
+  "hypothesis": "Spin the stick at ±720°/s through a dash from the kiosk hide. If the dash steers with the stick, it can bend around cover (cheese) or produce NaN. Start one dash aimed into the kiosk (200°) and spin out of it.",
+  "run": {
+   "reason": "timeout",
+   "step": 13,
+   "of": 14,
+   "secs": 45.002
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 46.5,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    413,
+    361
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    417,
+    492
+   ],
+   [
+    14.5,
+    424,
+    369
+   ],
+   [
+    16,
+    424,
+    369
+   ],
+   [
+    19.5,
+    424,
+    369
+   ],
+   [
+    21.5,
+    424,
+    369
+   ],
+   [
+    24,
+    424,
+    369
+   ],
+   [
+    26,
+    424,
+    369
+   ],
+   [
+    30.5,
+    450,
+    397
+   ],
+   [
+    33,
+    450,
+    397
+   ],
+   [
+    36.5,
+    450,
+    397
+   ],
+   [
+    40.5,
+    424,
+    369
+   ],
+   [
+    42.5,
+    424,
+    369
+   ],
+   [
+    45.5,
+    424,
+    369
+   ],
+   [
+    47,
+    424,
+    369
+   ],
+   [
+    49,
+    424,
+    369
+   ],
+   [
+    50,
+    424,
+    369
+   ],
+   [
+    53,
+    424,
+    369
+   ],
+   [
+    56,
+    432,
+    357
+   ],
+   [
+    57.5,
+    413,
+    361
+   ]
+  ],
+  "secs": 60.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B2-07.png"
+ },
+ {
+  "id": "A2-01",
+  "tile": "A2",
+  "hypothesis": "Intended move: break the post right after a new pass begins, while the car is ~450 units off. Hide in the 24-unit slot at the cabinet's downstream (west) end and dash at the lane as the nose comes level. Expect a car-fault clear.",
+  "run": {
+   "reason": "timeout",
+   "step": 9,
+   "of": 19,
+   "secs": 90.006
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 90.3,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    362,
+    139
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A215,7",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 15.1,
+    "key": "A215,7",
+    "tile": "A2",
+    "x": 293,
+    "y": 139,
+    "stick": [
+     -0.99,
+     0.14
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    293,
+    137
+   ],
+   [
+    12.5,
+    293,
+    139
+   ],
+   [
+    14,
+    293,
+    139
+   ],
+   [
+    16,
+    293,
+    139
+   ],
+   [
+    18,
+    293,
+    139
+   ],
+   [
+    20.5,
+    293,
+    139
+   ],
+   [
+    23.5,
+    293,
+    139
+   ],
+   [
+    25,
+    293,
+    139
+   ],
+   [
+    27,
+    333,
+    139
+   ],
+   [
+    29,
+    333,
+    139
+   ],
+   [
+    31,
+    333,
+    139
+   ],
+   [
+    32.5,
+    333,
+    139
+   ],
+   [
+    34,
+    333,
+    139
+   ],
+   [
+    36.5,
+    360,
+    139
+   ],
+   [
+    38.5,
+    362,
+    139
+   ],
+   [
+    41,
+    362,
+    139
+   ],
+   [
+    44,
+    362,
+    139
+   ],
+   [
+    45,
+    362,
+    139
+   ],
+   [
+    48.5,
+    362,
+    139
+   ],
+   [
+    51,
+    362,
+    139
+   ],
+   [
+    53,
+    362,
+    139
+   ],
+   [
+    56,
+    362,
+    139
+   ],
+   [
+    58.5,
+    362,
+    139
+   ],
+   [
+    60.5,
+    362,
+    139
+   ],
+   [
+    65,
+    362,
+    139
+   ],
+   [
+    68,
+    362,
+    139
+   ],
+   [
+    71,
+    362,
+    139
+   ],
+   [
+    73,
+    362,
+    139
+   ],
+   [
+    78,
+    362,
+    139
+   ],
+   [
+    80.5,
+    362,
+    139
+   ],
+   [
+    84,
+    374,
+    139
+   ],
+   [
+    87,
+    378,
+    139
+   ],
+   [
+    89.5,
+    378,
+    139
+   ],
+   [
+    92.5,
+    378,
+    139
+   ],
+   [
+    95.5,
+    363,
+    139
+   ],
+   [
+    97.5,
+    362,
+    139
+   ],
+   [
+    100,
+    362,
+    139
+   ]
+  ],
+  "secs": 103.3,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A2-01.png"
+ },
+ {
+  "id": "A2-02",
+  "tile": "A2",
+  "hypothesis": "Repro Edit 115's drop cheese from the z1 gap, east then west parapet, at rung 4. Expect a clear without touching the camera: cheese. Also log whether the stair column at (484,68) blocks the climb.",
+  "run": {
+   "reason": "timeout",
+   "step": 11,
+   "of": 14,
+   "secs": 90.012
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 91.1,
+   "faults": 0,
+   "standstill": 2,
+   "body": [
+    486,
+    232
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A223,5",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 15.1,
+    "key": "A223,5",
+    "tile": "A2",
+    "x": 470,
+    "y": 109,
+    "stick": [
+     0,
+     -0.97
+    ]
+   },
+   {
+    "k": "pinned:A226,5",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 61.7,
+    "key": "A226,5",
+    "tile": "A2",
+    "x": 529,
+    "y": 106,
+    "stick": [
+     -0.92,
+     -0.4
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    8.5,
+    341,
+    126
+   ],
+   [
+    10.5,
+    469,
+    109
+   ],
+   [
+    11.5,
+    470,
+    109
+   ],
+   [
+    15.5,
+    470,
+    109
+   ],
+   [
+    18,
+    470,
+    109
+   ],
+   [
+    21,
+    470,
+    109
+   ],
+   [
+    23,
+    470,
+    109
+   ],
+   [
+    25,
+    470,
+    109
+   ],
+   [
+    27,
+    470,
+    109
+   ],
+   [
+    29,
+    470,
+    109
+   ],
+   [
+    33,
+    637,
+    312
+   ],
+   [
+    37.5,
+    729,
+    318
+   ],
+   [
+    40.5,
+    729,
+    318
+   ],
+   [
+    42.5,
+    729,
+    318
+   ],
+   [
+    44.5,
+    617,
+    248
+   ],
+   [
+    46.5,
+    489,
+    106
+   ],
+   [
+    50,
+    489,
+    106
+   ],
+   [
+    53,
+    489,
+    105
+   ],
+   [
+    55,
+    489,
+    106
+   ],
+   [
+    58.5,
+    529,
+    106
+   ],
+   [
+    61,
+    529,
+    106
+   ],
+   [
+    63.5,
+    529,
+    106
+   ],
+   [
+    65.5,
+    529,
+    106
+   ],
+   [
+    67,
+    552,
+    100
+   ],
+   [
+    69,
+    489,
+    302
+   ],
+   [
+    71,
+    486,
+    312
+   ],
+   [
+    72.5,
+    486,
+    312
+   ],
+   [
+    74.5,
+    486,
+    312
+   ],
+   [
+    77.5,
+    486,
+    312
+   ],
+   [
+    80.5,
+    486,
+    232
+   ],
+   [
+    84,
+    486,
+    232
+   ],
+   [
+    87,
+    486,
+    232
+   ],
+   [
+    89.5,
+    486,
+    232
+   ],
+   [
+    92.5,
+    486,
+    232
+   ],
+   [
+    95,
+    486,
+    232
+   ],
+   [
+    97,
+    486,
+    232
+   ],
+   [
+    99,
+    486,
+    232
+   ]
+  ],
+  "secs": 101.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A2-02.png"
+ },
+ {
+  "id": "A2-03",
+  "tile": "A2",
+  "hypothesis": "Squeeze the 24-unit slot between the block (y 216) and the cabinet (y 240). Push at 175/180/185°, spin inside it, then dash through at 180° and 5°. Expect 'pinned' or 'inside solid'.",
+  "run": {
+   "reason": "timeout",
+   "step": 11,
+   "of": 12,
+   "secs": 45.021
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 45.8,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    438,
+    227
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A220,11",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 18.2,
+    "key": "A220,11",
+    "tile": "A2",
+    "x": 398,
+    "y": 227,
+    "stick": [
+     -1,
+     0
+    ]
+   },
+   {
+    "k": "pinned:A222,11",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 26.4,
+    "key": "A222,11",
+    "tile": "A2",
+    "x": 437,
+    "y": 227,
+    "stick": [
+     -0.5,
+     -0.87
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    338,
+    131
+   ],
+   [
+    12,
+    405,
+    219
+   ],
+   [
+    15,
+    398,
+    227
+   ],
+   [
+    18.5,
+    398,
+    227
+   ],
+   [
+    20,
+    397,
+    227
+   ],
+   [
+    21.5,
+    398,
+    227
+   ],
+   [
+    23,
+    437,
+    227
+   ],
+   [
+    25.5,
+    437,
+    227
+   ],
+   [
+    27.5,
+    437,
+    227
+   ],
+   [
+    31,
+    420,
+    227
+   ],
+   [
+    33,
+    419,
+    227
+   ],
+   [
+    35.5,
+    399,
+    227
+   ],
+   [
+    37.5,
+    398,
+    227
+   ],
+   [
+    40,
+    398,
+    227
+   ],
+   [
+    42,
+    398,
+    227
+   ],
+   [
+    45,
+    438,
+    227
+   ],
+   [
+    47,
+    438,
+    227
+   ],
+   [
+    51,
+    438,
+    227
+   ],
+   [
+    54.5,
+    438,
+    227
+   ]
+  ],
+  "secs": 58.7,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A2-03.png"
+ },
+ {
+  "id": "A2-04",
+  "tile": "A2",
+  "hypothesis": "Run a control, then R mid-dash. First hide and dash with the camera intact: expect no clear. Then dash at the post and press R 0.1 s later; then hide and dash again. A clear means the broken-camera state survives R. 'Inside solid' at the drop point means dash momentum survives R.",
+  "run": {
+   "reason": "timeout",
+   "step": 2,
+   "of": 16,
+   "secs": 80.012
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 80.9,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    362,
+    139
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A215,7",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 14.5,
+    "key": "A215,7",
+    "tile": "A2",
+    "x": 293,
+    "y": 139,
+    "stick": [
+     -0.99,
+     0.14
+    ]
+   },
+   {
+    "k": "pinned:A218,7",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 25.7,
+    "key": "A218,7",
+    "tile": "A2",
+    "x": 362,
+    "y": 139,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10,
+    327,
+    130
+   ],
+   [
+    13,
+    293,
+    139
+   ],
+   [
+    15,
+    293,
+    139
+   ],
+   [
+    17.5,
+    293,
+    139
+   ],
+   [
+    19.5,
+    350,
+    139
+   ],
+   [
+    21,
+    360,
+    139
+   ],
+   [
+    25.5,
+    362,
+    139
+   ],
+   [
+    27,
+    362,
+    139
+   ],
+   [
+    29,
+    362,
+    139
+   ],
+   [
+    32,
+    362,
+    139
+   ],
+   [
+    33.5,
+    362,
+    139
+   ],
+   [
+    38,
+    362,
+    139
+   ],
+   [
+    41,
+    362,
+    139
+   ],
+   [
+    46.5,
+    362,
+    139
+   ],
+   [
+    49,
+    362,
+    139
+   ],
+   [
+    53,
+    362,
+    139
+   ],
+   [
+    55.5,
+    362,
+    139
+   ],
+   [
+    60.5,
+    362,
+    139
+   ],
+   [
+    63.5,
+    362,
+    139
+   ],
+   [
+    66,
+    362,
+    139
+   ],
+   [
+    68,
+    362,
+    139
+   ],
+   [
+    70.5,
+    362,
+    139
+   ],
+   [
+    73,
+    362,
+    139
+   ],
+   [
+    77,
+    362,
+    139
+   ],
+   [
+    79.5,
+    362,
+    139
+   ],
+   [
+    85,
+    362,
+    139
+   ],
+   [
+    88.5,
+    362,
+    139
+   ],
+   [
+    91,
+    362,
+    139
+   ]
+  ],
+  "secs": 93,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A2-04.png"
+ },
+ {
+  "id": "A2-05",
+  "tile": "A2",
+  "hypothesis": "Make the car brake, then dash head-on into its nose and dash under it from the side at 90°. Expect no hit and no 'inside solid'. A car-fault clear from a self-inflicted dash into a stopped car is a blocker.",
+  "run": {
+   "reason": "timeout",
+   "step": 1,
+   "of": 13,
+   "secs": 50.099
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 51.2,
+   "faults": 1,
+   "standstill": 1,
+   "body": [
+    519,
+    224
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    343,
+    133
+   ],
+   [
+    14,
+    528,
+    261
+   ],
+   [
+    16,
+    560,
+    266
+   ],
+   [
+    18,
+    559,
+    293
+   ],
+   [
+    22,
+    559,
+    293
+   ],
+   [
+    24,
+    559,
+    293
+   ],
+   [
+    27.5,
+    559,
+    293
+   ],
+   [
+    29,
+    559,
+    293
+   ],
+   [
+    32,
+    559,
+    293
+   ],
+   [
+    35,
+    559,
+    293
+   ],
+   [
+    37,
+    559,
+    293
+   ],
+   [
+    39,
+    559,
+    293
+   ],
+   [
+    41.5,
+    519,
+    224
+   ],
+   [
+    43.5,
+    519,
+    224
+   ],
+   [
+    45,
+    519,
+    224
+   ],
+   [
+    48.5,
+    519,
+    224
+   ],
+   [
+    53,
+    519,
+    224
+   ],
+   [
+    56.5,
+    519,
+    224
+   ],
+   [
+    59.5,
+    519,
+    224
+   ]
+  ],
+  "secs": 64.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A2-05.png"
+ },
+ {
+  "id": "A2-06",
+  "tile": "A2",
+  "hypothesis": "Fence holes: the south road exit (x 184-240), the west gap at x 0-24, y 28-132, and the open east edge at y 136-524. Push and dash out. 'Off tile' would be a blocker.",
+  "run": {
+   "reason": "timeout",
+   "step": 7,
+   "of": 17,
+   "secs": 70.103
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 71.4,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    333,
+    139
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A215,7",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 5,
+    "t": 19.3,
+    "key": "A215,7",
+    "tile": "A2",
+    "x": 293,
+    "y": 139,
+    "stick": [
+     -0.17,
+     0.99
+    ]
+   },
+   {
+    "k": "pinned:A217,7",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 31.1,
+    "key": "A217,7",
+    "tile": "A2",
+    "x": 333,
+    "y": 139,
+    "stick": [
+     -0.15,
+     0.99
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    334,
+    133
+   ],
+   [
+    13.5,
+    293,
+    139
+   ],
+   [
+    18,
+    293,
+    139
+   ],
+   [
+    20.5,
+    293,
+    139
+   ],
+   [
+    23,
+    293,
+    139
+   ],
+   [
+    24.5,
+    293,
+    139
+   ],
+   [
+    26.5,
+    293,
+    139
+   ],
+   [
+    28.5,
+    333,
+    139
+   ],
+   [
+    30,
+    333,
+    139
+   ],
+   [
+    32.5,
+    333,
+    139
+   ],
+   [
+    34.5,
+    333,
+    139
+   ],
+   [
+    36,
+    316,
+    139
+   ],
+   [
+    38,
+    296,
+    139
+   ],
+   [
+    41,
+    296,
+    139
+   ],
+   [
+    44,
+    296,
+    139
+   ],
+   [
+    46.5,
+    293,
+    139
+   ],
+   [
+    48.5,
+    293,
+    139
+   ],
+   [
+    53,
+    333,
+    139
+   ],
+   [
+    55,
+    333,
+    139
+   ],
+   [
+    58,
+    333,
+    139
+   ],
+   [
+    61,
+    293,
+    139
+   ],
+   [
+    64,
+    293,
+    139
+   ],
+   [
+    67,
+    293,
+    139
+   ],
+   [
+    71.5,
+    293,
+    139
+   ],
+   [
+    74.5,
+    293,
+    139
+   ],
+   [
+    77.5,
+    333,
+    139
+   ],
+   [
+    81,
+    333,
+    139
+   ]
+  ],
+  "secs": 85.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A2-06.png"
+ },
+ {
+  "id": "A3-01",
+  "tile": "A3",
+  "hypothesis": "Intended move: carry cone 0 to (470,348) in the lane and hide north of the kiosk. Step to the other lane (480,298) as the rung-4 car swerves left. Expect a car-fault clear. Edit 115's 92.5 s exceeds this 90 s cap; no clear here means the window is too tight for the pad.",
+  "run": {
+   "reason": "end",
+   "step": 18,
+   "of": 18,
+   "secs": 66.087
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 0,
+   "attempt": 66.1,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    488,
+    297
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A322,14",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 21.8,
+    "key": "A322,14",
+    "tile": "A3",
+    "x": 432,
+    "y": 275,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "k": "inside-solid:A3kiosk417",
+    "kind": "kiosk",
+    "sev": "major",
+    "n": 1,
+    "t": 25.6,
+    "key": "A3kiosk417",
+    "tile": "A3",
+    "x": 441,
+    "y": 234,
+    "layer": 0
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10.5,
+    371,
+    224
+   ],
+   [
+    12,
+    409,
+    282
+   ],
+   [
+    14,
+    450,
+    289
+   ],
+   [
+    16.5,
+    432,
+    275
+   ],
+   [
+    20,
+    432,
+    275
+   ],
+   [
+    23,
+    471,
+    294
+   ],
+   [
+    26,
+    437,
+    227
+   ],
+   [
+    29.5,
+    437,
+    227
+   ],
+   [
+    34,
+    437,
+    227
+   ],
+   [
+    35,
+    434,
+    229
+   ],
+   [
+    38.5,
+    434,
+    229
+   ],
+   [
+    41,
+    434,
+    229
+   ],
+   [
+    43,
+    434,
+    229
+   ],
+   [
+    45.5,
+    434,
+    229
+   ],
+   [
+    48.5,
+    479,
+    295
+   ],
+   [
+    51,
+    479,
+    295
+   ],
+   [
+    54,
+    479,
+    295
+   ],
+   [
+    57.5,
+    479,
+    295
+   ],
+   [
+    59,
+    467,
+    278
+   ],
+   [
+    62.5,
+    432,
+    229
+   ],
+   [
+    64,
+    432,
+    229
+   ],
+   [
+    66,
+    432,
+    229
+   ],
+   [
+    67.5,
+    432,
+    229
+   ],
+   [
+    69,
+    445,
+    229
+   ],
+   [
+    70.5,
+    488,
+    297
+   ],
+   [
+    72.5,
+    488,
+    297
+   ],
+   [
+    76,
+    488,
+    297
+   ]
+  ],
+  "secs": 79.3,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A3-01.png"
+ },
+ {
+  "id": "A3-02",
+  "tile": "A3",
+  "hypothesis": "Carry cone 1 up the z1 stair and drop it on the deck over the lane, then at the gap edge. Expect the cone to stay at z1. A car swerve under the deck means a z mismatch; a cone inside a parapet or off the tile is a bug.",
+  "run": {
+   "reason": "timeout",
+   "step": 13,
+   "of": 14,
+   "secs": 70.022
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 0,
+   "attempt": 70.9,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    637,
+    319
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A323,5",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 16.1,
+    "key": "A323,5",
+    "tile": "A3",
+    "x": 470,
+    "y": 109,
+    "stick": [
+     0,
+     -0.97
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10,
+    431,
+    222
+   ],
+   [
+    11.5,
+    465,
+    153
+   ],
+   [
+    13.5,
+    470,
+    109
+   ],
+   [
+    15.5,
+    470,
+    109
+   ],
+   [
+    17.5,
+    470,
+    109
+   ],
+   [
+    24.5,
+    560,
+    203
+   ],
+   [
+    28,
+    560,
+    200
+   ],
+   [
+    30,
+    560,
+    200
+   ],
+   [
+    32.5,
+    560,
+    200
+   ],
+   [
+    34.5,
+    560,
+    200
+   ],
+   [
+    37.5,
+    560,
+    200
+   ],
+   [
+    39.5,
+    560,
+    200
+   ],
+   [
+    41.5,
+    560,
+    200
+   ],
+   [
+    43.5,
+    560,
+    200
+   ],
+   [
+    48,
+    560,
+    200
+   ],
+   [
+    51.5,
+    560,
+    200
+   ],
+   [
+    54.5,
+    560,
+    200
+   ],
+   [
+    56,
+    560,
+    200
+   ],
+   [
+    57.5,
+    560,
+    233
+   ],
+   [
+    60.5,
+    546,
+    348
+   ],
+   [
+    62,
+    595,
+    330
+   ],
+   [
+    64,
+    637,
+    319
+   ],
+   [
+    65.5,
+    637,
+    319
+   ],
+   [
+    68,
+    637,
+    319
+   ],
+   [
+    71,
+    637,
+    319
+   ],
+   [
+    72.5,
+    637,
+    319
+   ],
+   [
+    80,
+    637,
+    319
+   ]
+  ],
+  "secs": 83.3,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A3-02.png"
+ },
+ {
+  "id": "A3-03",
+  "tile": "A3",
+  "hypothesis": "Cone both lanes at x 480. The rung-4 car swerves, does not stop, and now has no path. Expect a stall ('no red car 25 s'), a write-off stuck in the cone/kiosk, or a car through the cone. Then R must reset both cones.",
+  "run": {
+   "reason": "timeout",
+   "step": 11,
+   "of": 12,
+   "secs": 75.032
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 8,
+   "failed": 6,
+   "restarts": 1,
+   "attempt": 0.4,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    400,
+    224
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    396,
+    224
+   ],
+   [
+    13.5,
+    424,
+    292
+   ],
+   [
+    16.5,
+    464,
+    230
+   ],
+   [
+    19,
+    441,
+    229
+   ],
+   [
+    20.5,
+    433,
+    229
+   ],
+   [
+    22,
+    433,
+    229
+   ],
+   [
+    24,
+    433,
+    229
+   ],
+   [
+    25.5,
+    433,
+    229
+   ],
+   [
+    28.5,
+    433,
+    229
+   ],
+   [
+    31.5,
+    433,
+    229
+   ],
+   [
+    35.5,
+    433,
+    229
+   ],
+   [
+    37.5,
+    433,
+    229
+   ],
+   [
+    40.5,
+    433,
+    229
+   ],
+   [
+    44.5,
+    433,
+    229
+   ],
+   [
+    46,
+    433,
+    229
+   ],
+   [
+    47.5,
+    433,
+    229
+   ],
+   [
+    49,
+    433,
+    229
+   ],
+   [
+    51,
+    433,
+    229
+   ],
+   [
+    54.5,
+    433,
+    229
+   ],
+   [
+    56,
+    433,
+    229
+   ],
+   [
+    57.5,
+    433,
+    229
+   ],
+   [
+    60,
+    433,
+    229
+   ],
+   [
+    63,
+    433,
+    229
+   ],
+   [
+    65.5,
+    433,
+    229
+   ],
+   [
+    68,
+    433,
+    229
+   ],
+   [
+    70.5,
+    433,
+    229
+   ],
+   [
+    72.5,
+    433,
+    229
+   ],
+   [
+    75.5,
+    433,
+    229
+   ],
+   [
+    77.5,
+    433,
+    229
+   ],
+   [
+    79,
+    433,
+    229
+   ],
+   [
+    81.5,
+    433,
+    229
+   ],
+   [
+    83.5,
+    433,
+    229
+   ],
+   [
+    85,
+    433,
+    229
+   ]
+  ],
+  "secs": 89.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A3-03.png"
+ },
+ {
+  "id": "A3-04",
+  "tile": "A3",
+  "hypothesis": "Fence holes: the west gap at x 0-24, y 332-488 (low masses only), the north road entry at x 184-240, and the open east edge at y 216-624. Also slide 5° into the south wall both ways and wedge the SE corner. 'Off tile' would be a blocker; 'pinned' major.",
+  "run": {
+   "reason": "timeout",
+   "step": 12,
+   "of": 19,
+   "secs": 80.074
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 8,
+   "failed": 7,
+   "restarts": 0,
+   "attempt": 80.5,
+   "faults": 0,
+   "standstill": 1,
+   "body": [
+    787,
+    579
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A37,24",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 18.3,
+    "key": "A37,24",
+    "tile": "A3",
+    "x": 149,
+    "y": 489,
+    "stick": [
+     -1,
+     -0.07
+    ]
+   },
+   {
+    "k": "pinned:A38,24",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 33.9,
+    "key": "A38,24",
+    "tile": "A3",
+    "x": 154,
+    "y": 485,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "k": "pinned:A313,1",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 50.3,
+    "key": "A313,1",
+    "tile": "A3",
+    "x": 250,
+    "y": 13,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "k": "pinned:A335,27",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 72,
+    "key": "A335,27",
+    "tile": "A3",
+    "x": 700,
+    "y": 531,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    400,
+    224
+   ],
+   [
+    10.5,
+    345,
+    294
+   ],
+   [
+    12,
+    239,
+    430
+   ],
+   [
+    15,
+    149,
+    489
+   ],
+   [
+    17.5,
+    149,
+    489
+   ],
+   [
+    20,
+    149,
+    489
+   ],
+   [
+    21.5,
+    149,
+    489
+   ],
+   [
+    23.5,
+    149,
+    489
+   ],
+   [
+    25,
+    149,
+    489
+   ],
+   [
+    29,
+    149,
+    489
+   ],
+   [
+    31,
+    154,
+    485
+   ],
+   [
+    33,
+    154,
+    485
+   ],
+   [
+    35,
+    154,
+    485
+   ],
+   [
+    37,
+    149,
+    489
+   ],
+   [
+    39,
+    182,
+    485
+   ],
+   [
+    41,
+    215,
+    324
+   ],
+   [
+    44,
+    248,
+    55
+   ],
+   [
+    45,
+    250,
+    13
+   ],
+   [
+    48,
+    250,
+    13
+   ],
+   [
+    50,
+    250,
+    13
+   ],
+   [
+    53.5,
+    231,
+    13
+   ],
+   [
+    55.5,
+    212,
+    13
+   ],
+   [
+    59,
+    252,
+    68
+   ],
+   [
+    61,
+    392,
+    238
+   ],
+   [
+    64.5,
+    635,
+    532
+   ],
+   [
+    67,
+    698,
+    531
+   ],
+   [
+    69.5,
+    700,
+    531
+   ],
+   [
+    71,
+    700,
+    531
+   ],
+   [
+    74.5,
+    700,
+    531
+   ],
+   [
+    79,
+    700,
+    531
+   ],
+   [
+    81,
+    700,
+    531
+   ],
+   [
+    84,
+    700,
+    531
+   ],
+   [
+    86.5,
+    787,
+    549
+   ],
+   [
+    88.5,
+    787,
+    568
+   ],
+   [
+    90.5,
+    787,
+    579
+   ]
+  ],
+  "secs": 93.2,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A3-04.png"
+ },
+ {
+  "id": "A3-05",
+  "tile": "A3",
+  "hypothesis": "Fuzz 85 s of random analog with random X: cones picked and dropped against kiosk, blocks and deck columns. Expect no cone inside a solid, no dummy pinned holding a cone, no NaN.",
+  "run": {
+   "reason": "timeout",
+   "step": 1,
+   "of": 2,
+   "secs": 90.035
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 10,
+   "failed": 9,
+   "restarts": 0,
+   "attempt": 91.1,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    787,
+    232
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A339,11",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 4,
+    "t": 19.2,
+    "key": "A339,11",
+    "tile": "A3",
+    "x": 787,
+    "y": 229,
+    "stick": [
+     0.94,
+     0
+    ]
+   },
+   {
+    "k": "pinned:A339,12",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 12,
+    "t": 41.1,
+    "key": "A339,12",
+    "tile": "A3",
+    "x": 787,
+    "y": 230,
+    "stick": [
+     0.94,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    400,
+    224
+   ],
+   [
+    12.5,
+    537,
+    224
+   ],
+   [
+    16,
+    787,
+    229
+   ],
+   [
+    18.5,
+    787,
+    229
+   ],
+   [
+    22,
+    787,
+    229
+   ],
+   [
+    24.5,
+    787,
+    229
+   ],
+   [
+    26.5,
+    787,
+    229
+   ],
+   [
+    29.5,
+    787,
+    230
+   ],
+   [
+    32.5,
+    787,
+    230
+   ],
+   [
+    34.5,
+    787,
+    230
+   ],
+   [
+    37,
+    787,
+    230
+   ],
+   [
+    42,
+    787,
+    230
+   ],
+   [
+    44.5,
+    787,
+    230
+   ],
+   [
+    46.5,
+    787,
+    230
+   ],
+   [
+    49.5,
+    787,
+    230
+   ],
+   [
+    52,
+    787,
+    230
+   ],
+   [
+    55,
+    787,
+    231
+   ],
+   [
+    57.5,
+    787,
+    231
+   ],
+   [
+    60,
+    787,
+    231
+   ],
+   [
+    62,
+    787,
+    231
+   ],
+   [
+    64,
+    787,
+    231
+   ],
+   [
+    66,
+    787,
+    231
+   ],
+   [
+    69,
+    787,
+    231
+   ],
+   [
+    71,
+    787,
+    231
+   ],
+   [
+    74,
+    787,
+    231
+   ],
+   [
+    75.5,
+    787,
+    231
+   ],
+   [
+    78,
+    787,
+    231
+   ],
+   [
+    80,
+    787,
+    232
+   ],
+   [
+    82,
+    787,
+    232
+   ],
+   [
+    84,
+    787,
+    232
+   ],
+   [
+    86,
+    787,
+    232
+   ],
+   [
+    88,
+    787,
+    232
+   ],
+   [
+    90.5,
+    787,
+    232
+   ],
+   [
+    93,
+    787,
+    232
+   ],
+   [
+    96,
+    787,
+    232
+   ],
+   [
+    98,
+    787,
+    232
+   ],
+   [
+    99.5,
+    787,
+    232
+   ],
+   [
+    101,
+    787,
+    232
+   ]
+  ],
+  "secs": 103.7,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A3-05.png"
+ },
+ {
+  "id": "C2-01",
+  "tile": "C2",
+  "hypothesis": "Intended move: walk round the kiosk via the lane edge once the car leaves, then dash east to break the post at (343,252). Hide at the kiosk's downstream (west) end and dash at the lane as the westbound nose comes level. Expect a car-fault clear after the break.",
+  "run": {
+   "reason": "timeout",
+   "step": 19,
+   "of": 20,
+   "secs": 90.104
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 8,
+   "failed": 7,
+   "restarts": 0,
+   "attempt": 91.2,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    273,
+    398
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C217,12",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 70.9,
+    "key": "C217,12",
+    "tile": "C2",
+    "x": 345,
+    "y": 243,
+    "stick": [
+     0.95,
+     -0.32
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10.5,
+    400,
+    224
+   ],
+   [
+    11.5,
+    400,
+    224
+   ],
+   [
+    14,
+    400,
+    224
+   ],
+   [
+    16.5,
+    400,
+    224
+   ],
+   [
+    18.5,
+    400,
+    224
+   ],
+   [
+    21,
+    400,
+    224
+   ],
+   [
+    24,
+    400,
+    224
+   ],
+   [
+    25.5,
+    400,
+    224
+   ],
+   [
+    27.5,
+    400,
+    224
+   ],
+   [
+    30,
+    400,
+    224
+   ],
+   [
+    33,
+    400,
+    224
+   ],
+   [
+    35,
+    343,
+    275
+   ],
+   [
+    36.5,
+    265,
+    254
+   ],
+   [
+    39.5,
+    345,
+    259
+   ],
+   [
+    43,
+    345,
+    259
+   ],
+   [
+    45,
+    345,
+    257
+   ],
+   [
+    48,
+    345,
+    249
+   ],
+   [
+    51.5,
+    345,
+    249
+   ],
+   [
+    54.5,
+    345,
+    249
+   ],
+   [
+    56,
+    345,
+    249
+   ],
+   [
+    57.5,
+    345,
+    249
+   ],
+   [
+    59.5,
+    345,
+    249
+   ],
+   [
+    61.5,
+    345,
+    258
+   ],
+   [
+    63.5,
+    345,
+    258
+   ],
+   [
+    65,
+    345,
+    258
+   ],
+   [
+    66.5,
+    345,
+    243
+   ],
+   [
+    68.5,
+    345,
+    243
+   ],
+   [
+    71,
+    345,
+    243
+   ],
+   [
+    73,
+    345,
+    243
+   ],
+   [
+    76,
+    345,
+    243
+   ],
+   [
+    78.5,
+    345,
+    243
+   ],
+   [
+    81.5,
+    345,
+    243
+   ],
+   [
+    83,
+    345,
+    243
+   ],
+   [
+    85,
+    345,
+    243
+   ],
+   [
+    88,
+    345,
+    243
+   ],
+   [
+    91.5,
+    345,
+    243
+   ],
+   [
+    93,
+    345,
+    243
+   ],
+   [
+    95.5,
+    273,
+    398
+   ],
+   [
+    99.5,
+    273,
+    398
+   ]
+  ],
+  "secs": 104,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C2-01.png"
+ },
+ {
+  "id": "C2-02",
+  "tile": "C2",
+  "hypothesis": "There is a 12-unit slot at x 358-368 between the block (y 230) and the kiosk (y 242). From the pocket north of the kiosk, push at 175/180/185°, spin, then dash through. Expect 'pinned', or a dash clip into the block/kiosk or onto the camera side.",
+  "run": {
+   "reason": "timeout",
+   "step": 10,
+   "of": 12,
+   "secs": 40.013
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 2,
+   "failed": 1,
+   "restarts": 0,
+   "attempt": 40.7,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    381,
+    229
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C219,11",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 24.7,
+    "key": "C219,11",
+    "tile": "C2",
+    "x": 381,
+    "y": 229,
+    "stick": [
+     -1,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    388,
+    229
+   ],
+   [
+    11,
+    381,
+    229
+   ],
+   [
+    13,
+    381,
+    229
+   ],
+   [
+    15.5,
+    381,
+    229
+   ],
+   [
+    18.5,
+    381,
+    229
+   ],
+   [
+    23.5,
+    381,
+    229
+   ],
+   [
+    24.5,
+    381,
+    229
+   ],
+   [
+    27,
+    381,
+    229
+   ],
+   [
+    28.5,
+    381,
+    229
+   ],
+   [
+    30,
+    381,
+    229
+   ],
+   [
+    33,
+    381,
+    197
+   ],
+   [
+    36,
+    381,
+    229
+   ],
+   [
+    39,
+    381,
+    229
+   ],
+   [
+    41.5,
+    381,
+    229
+   ],
+   [
+    44,
+    381,
+    229
+   ],
+   [
+    46.5,
+    381,
+    229
+   ]
+  ],
+  "secs": 51.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C2-02.png"
+ },
+ {
+  "id": "C2-03",
+  "tile": "C2",
+  "hypothesis": "Cone in the lane: the rung-5 car stops at it, possibly forever. Then stand in front of the stopped car and pick the cone up. If the car resumes into a dummy it can see, that is a car-fault clear without the camera break (cheese). If it never resumes after removal, that is a softlock.",
+  "run": {
+   "reason": "timeout",
+   "step": 12,
+   "of": 13,
+   "secs": 70.017
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 71.3,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    392,
+    226
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    400,
+    224
+   ],
+   [
+    14.5,
+    446,
+    279
+   ],
+   [
+    17,
+    430,
+    237
+   ],
+   [
+    19.5,
+    430,
+    237
+   ],
+   [
+    21.5,
+    430,
+    237
+   ],
+   [
+    25.5,
+    392,
+    227
+   ],
+   [
+    28,
+    392,
+    227
+   ],
+   [
+    31,
+    392,
+    227
+   ],
+   [
+    34,
+    392,
+    227
+   ],
+   [
+    37,
+    392,
+    227
+   ],
+   [
+    41.5,
+    392,
+    227
+   ],
+   [
+    49.5,
+    452,
+    292
+   ],
+   [
+    52.5,
+    452,
+    232
+   ],
+   [
+    56,
+    452,
+    232
+   ],
+   [
+    61,
+    430,
+    236
+   ],
+   [
+    62,
+    430,
+    236
+   ],
+   [
+    66,
+    430,
+    236
+   ],
+   [
+    70,
+    430,
+    236
+   ],
+   [
+    72.5,
+    430,
+    236
+   ],
+   [
+    75.5,
+    392,
+    226
+   ],
+   [
+    77.5,
+    392,
+    226
+   ],
+   [
+    79.5,
+    392,
+    226
+   ],
+   [
+    82.5,
+    392,
+    226
+   ]
+  ],
+  "secs": 84.8,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C2-03.png"
+ },
+ {
+  "id": "C2-04",
+  "tile": "C2",
+  "hypothesis": "Drop from the z2 gap via the east-edge stair at rung 5: lidar and cameras are known. Edit 115 says lidar does not close drops. A clear bypasses puzzle 7's camera-break lesson: major cheese.",
+  "run": {
+   "reason": "timeout",
+   "step": 4,
+   "of": 14,
+   "secs": 80.041
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 6,
+   "failed": 5,
+   "restarts": 0,
+   "attempt": 81.5,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    343,
+    409
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C217,27",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 20.3,
+    "key": "C217,27",
+    "tile": "C2",
+    "x": 330,
+    "y": 531,
+    "stick": [
+     0,
+     1
+    ]
+   },
+   {
+    "k": "pinned:C215,27",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 40.8,
+    "key": "C215,27",
+    "tile": "C2",
+    "x": 300,
+    "y": 535,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    391,
+    311
+   ],
+   [
+    14.5,
+    334,
+    531
+   ],
+   [
+    17,
+    330,
+    531
+   ],
+   [
+    19.5,
+    330,
+    531
+   ],
+   [
+    22.5,
+    330,
+    531
+   ],
+   [
+    26,
+    330,
+    531
+   ],
+   [
+    30,
+    330,
+    531
+   ],
+   [
+    32,
+    330,
+    531
+   ],
+   [
+    35.5,
+    301,
+    535
+   ],
+   [
+    38.5,
+    300,
+    535
+   ],
+   [
+    41.5,
+    300,
+    535
+   ],
+   [
+    45,
+    300,
+    332
+   ],
+   [
+    47,
+    317,
+    313
+   ],
+   [
+    52.5,
+    317,
+    313
+   ],
+   [
+    54.5,
+    317,
+    313
+   ],
+   [
+    56,
+    317,
+    313
+   ],
+   [
+    59,
+    317,
+    313
+   ],
+   [
+    64,
+    343,
+    409
+   ],
+   [
+    66,
+    343,
+    409
+   ],
+   [
+    69.5,
+    343,
+    409
+   ],
+   [
+    72,
+    343,
+    409
+   ],
+   [
+    77,
+    343,
+    409
+   ],
+   [
+    79,
+    343,
+    409
+   ],
+   [
+    80.5,
+    343,
+    409
+   ],
+   [
+    82.5,
+    343,
+    409
+   ],
+   [
+    84.5,
+    343,
+    409
+   ],
+   [
+    86.5,
+    343,
+    409
+   ],
+   [
+    88.5,
+    343,
+    409
+   ],
+   [
+    90.5,
+    343,
+    409
+   ]
+  ],
+  "secs": 93.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C2-04.png"
+ },
+ {
+  "id": "C2-05",
+  "tile": "C2",
+  "hypothesis": "The stair openings [544,576] and [554,610] overlap, and the first is occluded by the column at x 292-316, y 548-572. Probe each, then push and dash off both deck ends at z2. Expect 'pinned', 'inside solid' or 'off tile'.",
+  "run": {
+   "reason": "timeout",
+   "step": 9,
+   "of": 13,
+   "secs": 70.114
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 0,
+   "attempt": 70.3,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    240,
+    127
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C217,27",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 19.1,
+    "key": "C217,27",
+    "tile": "C2",
+    "x": 330,
+    "y": 531,
+    "stick": [
+     0,
+     0.83
+    ]
+   },
+   {
+    "k": "pinned:C212,12",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 46.6,
+    "key": "C212,12",
+    "tile": "C2",
+    "x": 239,
+    "y": 243,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "k": "inside-solid:C2block112",
+    "kind": "block",
+    "sev": "major",
+    "n": 3,
+    "t": 53.1,
+    "key": "C2block112",
+    "tile": "C2",
+    "x": 240,
+    "y": 215,
+    "layer": 0
+   },
+   {
+    "k": "pinned:C212,6",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 73.7,
+    "key": "C212,6",
+    "tile": "C2",
+    "x": 240,
+    "y": 127,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    400,
+    224
+   ],
+   [
+    13,
+    367,
+    402
+   ],
+   [
+    15,
+    330,
+    531
+   ],
+   [
+    17.5,
+    330,
+    531
+   ],
+   [
+    20.5,
+    330,
+    531
+   ],
+   [
+    23.5,
+    330,
+    531
+   ],
+   [
+    25,
+    330,
+    531
+   ],
+   [
+    27.5,
+    173,
+    531
+   ],
+   [
+    29.5,
+    309,
+    592
+   ],
+   [
+    31.5,
+    202,
+    600
+   ],
+   [
+    33.5,
+    173,
+    593
+   ],
+   [
+    35,
+    173,
+    585
+   ],
+   [
+    37,
+    202,
+    558
+   ],
+   [
+    39,
+    217,
+    339
+   ],
+   [
+    42,
+    234,
+    243
+   ],
+   [
+    45.5,
+    238,
+    243
+   ],
+   [
+    48,
+    240,
+    243
+   ],
+   [
+    50,
+    240,
+    243
+   ],
+   [
+    51,
+    240,
+    243
+   ],
+   [
+    54,
+    240,
+    123
+   ],
+   [
+    56,
+    240,
+    123
+   ],
+   [
+    58,
+    240,
+    123
+   ],
+   [
+    60.5,
+    240,
+    13
+   ],
+   [
+    63,
+    240,
+    13
+   ],
+   [
+    65.5,
+    240,
+    13
+   ],
+   [
+    67.5,
+    240,
+    97
+   ],
+   [
+    73,
+    240,
+    127
+   ],
+   [
+    75,
+    240,
+    127
+   ],
+   [
+    77,
+    240,
+    127
+   ],
+   [
+    78.5,
+    240,
+    127
+   ],
+   [
+    82.5,
+    240,
+    127
+   ]
+  ],
+  "secs": 84.7,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C2-05.png"
+ },
+ {
+  "id": "C2-06",
+  "tile": "C2",
+  "hypothesis": "Road exits: north at x 584-640 and west at y 264-320. Push and dash out. Slide 5° into the east wall both ways. 'Off tile' would be a blocker.",
+  "run": {
+   "reason": "end",
+   "step": 14,
+   "of": 14,
+   "secs": 52.891
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 53.3,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    13,
+    332
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C233,1",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 20.1,
+    "key": "C233,1",
+    "tile": "C2",
+    "x": 650,
+    "y": 13,
+    "stick": [
+     0,
+     -1
+    ]
+   },
+   {
+    "k": "pinned:C21,17",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 59,
+    "key": "C21,17",
+    "tile": "C2",
+    "x": 13,
+    "y": 331,
+    "stick": [
+     -1,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    400,
+    224
+   ],
+   [
+    10.5,
+    501,
+    224
+   ],
+   [
+    12,
+    644,
+    224
+   ],
+   [
+    14.5,
+    650,
+    32
+   ],
+   [
+    18,
+    650,
+    13
+   ],
+   [
+    20.5,
+    650,
+    13
+   ],
+   [
+    22,
+    638,
+    13
+   ],
+   [
+    24,
+    619,
+    13
+   ],
+   [
+    26,
+    619,
+    13
+   ],
+   [
+    29,
+    741,
+    244
+   ],
+   [
+    32,
+    771,
+    97
+   ],
+   [
+    34.5,
+    771,
+    13
+   ],
+   [
+    38,
+    771,
+    43
+   ],
+   [
+    41,
+    771,
+    384
+   ],
+   [
+    43.5,
+    771,
+    627
+   ],
+   [
+    45.5,
+    771,
+    627
+   ],
+   [
+    49,
+    451,
+    508
+   ],
+   [
+    51.5,
+    189,
+    400
+   ],
+   [
+    55.5,
+    13,
+    331
+   ],
+   [
+    58,
+    13,
+    331
+   ],
+   [
+    59.5,
+    13,
+    331
+   ],
+   [
+    62.5,
+    13,
+    332
+   ]
+  ],
+  "secs": 65.2,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C2-06.png"
+ },
+ {
+  "id": "B3-01",
+  "tile": "B3",
+  "hypothesis": "Intended move: duck (hold C) at the hedge's downstream (west) end, (166,236). Stand and dash at the lane through the 27-unit hedge-planter gap as the westbound nose comes level. The last attempt dashes still holding C. Expect a car-fault clear. No clear means the intended move is unperformable.",
+  "run": {
+   "reason": "end",
+   "step": 20,
+   "of": 20,
+   "secs": 62.206
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 0,
+   "attempt": 63.3,
+   "faults": 2,
+   "standstill": 0,
+   "body": [
+    159,
+    266
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    320,
+    224
+   ],
+   [
+    13,
+    182,
+    233
+   ],
+   [
+    16,
+    166,
+    236
+   ],
+   [
+    19,
+    121,
+    266
+   ],
+   [
+    23,
+    94,
+    275
+   ],
+   [
+    26,
+    94,
+    275
+   ],
+   [
+    28.5,
+    107,
+    275
+   ],
+   [
+    30.5,
+    107,
+    275
+   ],
+   [
+    33,
+    118,
+    236
+   ],
+   [
+    35.5,
+    167,
+    235
+   ],
+   [
+    38,
+    167,
+    235
+   ],
+   [
+    40.5,
+    167,
+    235
+   ],
+   [
+    44.5,
+    122,
+    378
+   ],
+   [
+    47,
+    116,
+    397
+   ],
+   [
+    49,
+    116,
+    397
+   ],
+   [
+    51.5,
+    116,
+    397
+   ],
+   [
+    54.5,
+    162,
+    243
+   ],
+   [
+    58,
+    166,
+    236
+   ],
+   [
+    63,
+    166,
+    236
+   ],
+   [
+    65,
+    166,
+    236
+   ],
+   [
+    67,
+    166,
+    236
+   ],
+   [
+    69.5,
+    159,
+    266
+   ],
+   [
+    71.5,
+    159,
+    266
+   ],
+   [
+    73.5,
+    159,
+    266
+   ]
+  ],
+  "secs": 76.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B3-01.png"
+ },
+ {
+  "id": "B3-02",
+  "tile": "B3",
+  "hypothesis": "Twist control: the same move standing. The car should see the dummy over the hedge, so no clear in 3 passes. A clear makes Super Knees optional.",
+  "run": {
+   "reason": "timeout",
+   "step": 6,
+   "of": 14,
+   "secs": 60.116
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 61.4,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    183,
+    223
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    320,
+    224
+   ],
+   [
+    13,
+    167,
+    235
+   ],
+   [
+    15.5,
+    165,
+    236
+   ],
+   [
+    17.5,
+    165,
+    236
+   ],
+   [
+    19,
+    165,
+    236
+   ],
+   [
+    22,
+    165,
+    236
+   ],
+   [
+    23.5,
+    165,
+    236
+   ],
+   [
+    25.5,
+    165,
+    236
+   ],
+   [
+    28,
+    165,
+    236
+   ],
+   [
+    31,
+    127,
+    226
+   ],
+   [
+    36,
+    127,
+    226
+   ],
+   [
+    37,
+    127,
+    226
+   ],
+   [
+    39,
+    127,
+    226
+   ],
+   [
+    41.5,
+    221,
+    233
+   ],
+   [
+    44,
+    222,
+    233
+   ],
+   [
+    46,
+    222,
+    233
+   ],
+   [
+    48.5,
+    222,
+    233
+   ],
+   [
+    50,
+    222,
+    233
+   ],
+   [
+    52.5,
+    183,
+    223
+   ],
+   [
+    55,
+    183,
+    223
+   ],
+   [
+    57.5,
+    183,
+    223
+   ],
+   [
+    59.5,
+    183,
+    223
+   ],
+   [
+    61.5,
+    183,
+    223
+   ],
+   [
+    63.5,
+    183,
+    223
+   ],
+   [
+    67,
+    183,
+    223
+   ],
+   [
+    69,
+    183,
+    223
+   ],
+   [
+    70.5,
+    183,
+    223
+   ]
+  ],
+  "secs": 74.4,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B3-02.png"
+ },
+ {
+  "id": "B3-03",
+  "tile": "B3",
+  "hypothesis": "Duck in the open lane and stand still. If the forward camera tests height, a ducked dummy is invisible in its own lane: a car-fault clear by standing still is a design bug (major cheese).",
+  "run": {
+   "reason": "timeout",
+   "step": 2,
+   "of": 4,
+   "secs": 50.002
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 51.3,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    122,
+    217
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    282,
+    237
+   ],
+   [
+    15.5,
+    122,
+    297
+   ],
+   [
+    19.5,
+    122,
+    297
+   ],
+   [
+    21,
+    122,
+    297
+   ],
+   [
+    24,
+    122,
+    297
+   ],
+   [
+    26,
+    122,
+    297
+   ],
+   [
+    28.5,
+    122,
+    297
+   ],
+   [
+    30.5,
+    122,
+    217
+   ],
+   [
+    32.5,
+    122,
+    217
+   ],
+   [
+    34.5,
+    122,
+    217
+   ],
+   [
+    36.5,
+    122,
+    217
+   ],
+   [
+    38.5,
+    122,
+    217
+   ],
+   [
+    41.5,
+    122,
+    217
+   ],
+   [
+    44,
+    122,
+    217
+   ],
+   [
+    45.5,
+    122,
+    217
+   ],
+   [
+    48,
+    122,
+    217
+   ],
+   [
+    51.5,
+    122,
+    217
+   ],
+   [
+    53,
+    122,
+    217
+   ],
+   [
+    55,
+    122,
+    217
+   ],
+   [
+    57,
+    122,
+    217
+   ],
+   [
+    59,
+    122,
+    217
+   ],
+   [
+    61.5,
+    122,
+    217
+   ]
+  ],
+  "secs": 64.4,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B3-03.png"
+ },
+ {
+  "id": "B3-04",
+  "tile": "B3",
+  "hypothesis": "The planter is also cover. Duck behind it and dash: an alternate clear (minor; record it). Then duck in the 27-unit planter-hedge gap and creep south at 0.15. Expect a car-fault hit while ducked in the gap or lane, or 'pinned' in the gap.",
+  "run": {
+   "reason": "end",
+   "step": 13,
+   "of": 13,
+   "secs": 55.653
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 0,
+   "attempt": 57.1,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    160,
+    238
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    320,
+    224
+   ],
+   [
+    13.5,
+    91,
+    233
+   ],
+   [
+    15.5,
+    87,
+    233
+   ],
+   [
+    17.5,
+    87,
+    233
+   ],
+   [
+    20,
+    87,
+    233
+   ],
+   [
+    23,
+    87,
+    233
+   ],
+   [
+    24.5,
+    87,
+    233
+   ],
+   [
+    28,
+    87,
+    233
+   ],
+   [
+    30.5,
+    84,
+    266
+   ],
+   [
+    33,
+    84,
+    266
+   ],
+   [
+    35,
+    95,
+    275
+   ],
+   [
+    38,
+    95,
+    275
+   ],
+   [
+    40.5,
+    160,
+    239
+   ],
+   [
+    42,
+    160,
+    238
+   ],
+   [
+    45.5,
+    160,
+    238
+   ],
+   [
+    47,
+    160,
+    238
+   ],
+   [
+    48.5,
+    160,
+    238
+   ],
+   [
+    50.5,
+    160,
+    238
+   ],
+   [
+    52,
+    160,
+    238
+   ],
+   [
+    54.5,
+    160,
+    238
+   ],
+   [
+    57.5,
+    160,
+    238
+   ],
+   [
+    60,
+    160,
+    238
+   ],
+   [
+    62.5,
+    160,
+    238
+   ],
+   [
+    65,
+    160,
+    238
+   ],
+   [
+    67.5,
+    160,
+    238
+   ]
+  ],
+  "secs": 69.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B3-04.png"
+ },
+ {
+  "id": "B3-05",
+  "tile": "B3",
+  "hypothesis": "Fence holes: the x 264-280 corridor to the north edge (low masses only), the open east edge at y 312-624 and the west road exit. Slide 5° into the south wall both ways and wedge the SW corner. 'Off tile' would be a blocker.",
+  "run": {
+   "reason": "end",
+   "step": 18,
+   "of": 18,
+   "secs": 51.328
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 52.6,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    13,
+    330
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:B314,7",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 14.5,
+    "key": "B314,7",
+    "tile": "B3",
+    "x": 284,
+    "y": 149,
+    "stick": [
+     -0.09,
+     -1
+    ]
+   },
+   {
+    "k": "pinned:B31,31",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 52.8,
+    "key": "B31,31",
+    "tile": "B3",
+    "x": 13,
+    "y": 611,
+    "stick": [
+     -0.71,
+     0.71
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    8.5,
+    320,
+    224
+   ],
+   [
+    10,
+    277,
+    177
+   ],
+   [
+    11.5,
+    284,
+    149
+   ],
+   [
+    13.5,
+    284,
+    149
+   ],
+   [
+    16.5,
+    296,
+    149
+   ],
+   [
+    18.5,
+    338,
+    185
+   ],
+   [
+    20.5,
+    511,
+    332
+   ],
+   [
+    22,
+    641,
+    442
+   ],
+   [
+    24,
+    780,
+    558
+   ],
+   [
+    26.5,
+    787,
+    558
+   ],
+   [
+    28.9,
+    787,
+    587
+   ],
+   [
+    30,
+    787,
+    603
+   ],
+   [
+    31.5,
+    756,
+    603
+   ],
+   [
+    33.5,
+    537,
+    607
+   ],
+   [
+    35.5,
+    434,
+    611
+   ],
+   [
+    37,
+    587,
+    611
+   ],
+   [
+    38.5,
+    757,
+    611
+   ],
+   [
+    42,
+    731,
+    611
+   ],
+   [
+    44,
+    508,
+    611
+   ],
+   [
+    45.5,
+    337,
+    611
+   ],
+   [
+    48.5,
+    13,
+    611
+   ],
+   [
+    50.5,
+    13,
+    611
+   ],
+   [
+    53,
+    13,
+    590
+   ],
+   [
+    55,
+    13,
+    384
+   ],
+   [
+    56.5,
+    13,
+    330
+   ],
+   [
+    59,
+    13,
+    330
+   ],
+   [
+    61,
+    13,
+    330
+   ]
+  ],
+  "secs": 63,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B3-05.png"
+ },
+ {
+  "id": "B3-06",
+  "tile": "B3",
+  "hypothesis": "Ducked, slide along the hedge at 5°/175° and orbit it. Push and dash ducked into it, then release C while overlapping. Expect 'inside solid' if ducking shrinks the collider or the dash hops low cover.",
+  "run": {
+   "reason": "timeout",
+   "step": 8,
+   "of": 13,
+   "secs": 50.043
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 50.4,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    223,
+    233
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:B313,14",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 37.9,
+    "key": "B313,14",
+    "tile": "B3",
+    "x": 270,
+    "y": 275,
+    "stick": [
+     0,
+     -1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    8.5,
+    320,
+    224
+   ],
+   [
+    10,
+    224,
+    233
+   ],
+   [
+    12,
+    241,
+    233
+   ],
+   [
+    14,
+    275,
+    233
+   ],
+   [
+    16.5,
+    249,
+    233
+   ],
+   [
+    18.5,
+    215,
+    233
+   ],
+   [
+    20.5,
+    254,
+    215
+   ],
+   [
+    23,
+    269,
+    288
+   ],
+   [
+    24.5,
+    216,
+    309
+   ],
+   [
+    26.5,
+    161,
+    262
+   ],
+   [
+    29.5,
+    239,
+    201
+   ],
+   [
+    31.5,
+    283,
+    255
+   ],
+   [
+    34,
+    270,
+    275
+   ],
+   [
+    36,
+    270,
+    275
+   ],
+   [
+    37.5,
+    270,
+    275
+   ],
+   [
+    42.5,
+    273,
+    279
+   ],
+   [
+    45.5,
+    266,
+    282
+   ],
+   [
+    47.5,
+    268,
+    278
+   ],
+   [
+    49,
+    236,
+    227
+   ],
+   [
+    50.5,
+    236,
+    227
+   ],
+   [
+    52,
+    236,
+    227
+   ],
+   [
+    54,
+    236,
+    227
+   ],
+   [
+    56.5,
+    223,
+    233
+   ],
+   [
+    58.5,
+    223,
+    233
+   ]
+  ],
+  "secs": 61.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B3-06.png"
+ },
+ {
+  "id": "B3-07",
+  "tile": "B3",
+  "hypothesis": "Ducked, creep from the hedge's east end into the lane at 0.1, angled 110°. If 'hidden' latches from low cover, the dummy stays unseen in the open lane. A car-fault clear is cheese; correct behaviour is that the car stops.",
+  "run": {
+   "reason": "end",
+   "step": 6,
+   "of": 6,
+   "secs": 43.471
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 44.5,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    246,
+    228
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    300,
+    232
+   ],
+   [
+    11.5,
+    285,
+    238
+   ],
+   [
+    13,
+    285,
+    238
+   ],
+   [
+    15.5,
+    285,
+    238
+   ],
+   [
+    17,
+    285,
+    238
+   ],
+   [
+    19,
+    285,
+    238
+   ],
+   [
+    22,
+    285,
+    238
+   ],
+   [
+    26,
+    246,
+    228
+   ],
+   [
+    27.5,
+    246,
+    228
+   ],
+   [
+    30,
+    246,
+    228
+   ],
+   [
+    32,
+    246,
+    228
+   ],
+   [
+    35,
+    246,
+    228
+   ],
+   [
+    37,
+    246,
+    228
+   ],
+   [
+    40.5,
+    246,
+    228
+   ],
+   [
+    44,
+    246,
+    228
+   ],
+   [
+    47,
+    246,
+    228
+   ],
+   [
+    48.5,
+    246,
+    228
+   ],
+   [
+    51.5,
+    246,
+    228
+   ],
+   [
+    53.5,
+    246,
+    228
+   ]
+  ],
+  "secs": 55.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B3-07.png"
+ },
+ {
+  "id": "C3-01",
+  "tile": "C3",
+  "hypothesis": "Intended route, each hide at the cover's downstream end. Hit 1: the cabinet's east end. Hit 2: ducked at the hedge's east end. Hit 3: break the camera at (630,412), then the kiosk's east end. Expect 3 car-fault hits and a clear inside 90 s, with white traffic at 0.5.",
+  "run": {
+   "reason": "end",
+   "step": 18,
+   "of": 18,
+   "secs": 86.634
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 87.5,
+   "faults": 4,
+   "standstill": 0,
+   "body": [
+    635,
+    484
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    10.5,
+    438,
+    390
+   ],
+   [
+    13.5,
+    488,
+    482
+   ],
+   [
+    16.5,
+    503,
+    481
+   ],
+   [
+    19.5,
+    503,
+    481
+   ],
+   [
+    21.5,
+    503,
+    481
+   ],
+   [
+    23.5,
+    503,
+    481
+   ],
+   [
+    28,
+    390,
+    534
+   ],
+   [
+    31,
+    174,
+    568
+   ],
+   [
+    32.5,
+    174,
+    568
+   ],
+   [
+    35.5,
+    174,
+    568
+   ],
+   [
+    39,
+    174,
+    568
+   ],
+   [
+    42,
+    174,
+    568
+   ],
+   [
+    44,
+    192,
+    532
+   ],
+   [
+    47,
+    226,
+    530
+   ],
+   [
+    50,
+    226,
+    530
+   ],
+   [
+    52.5,
+    226,
+    530
+   ],
+   [
+    54,
+    246,
+    523
+   ],
+   [
+    57,
+    536,
+    435
+   ],
+   [
+    60.5,
+    568,
+    412
+   ],
+   [
+    63.5,
+    568,
+    412
+   ],
+   [
+    66.5,
+    568,
+    412
+   ],
+   [
+    71,
+    568,
+    412
+   ],
+   [
+    73.5,
+    568,
+    412
+   ],
+   [
+    77.5,
+    568,
+    412
+   ],
+   [
+    80.5,
+    740,
+    412
+   ],
+   [
+    82,
+    602,
+    398
+   ],
+   [
+    84.5,
+    630,
+    484
+   ],
+   [
+    88,
+    635,
+    484
+   ],
+   [
+    91,
+    635,
+    484
+   ],
+   [
+    93.5,
+    635,
+    484
+   ],
+   [
+    97,
+    635,
+    484
+   ]
+  ],
+  "secs": 100,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-01.png"
+ },
+ {
+  "id": "C3-02",
+  "tile": "C3",
+  "hypothesis": "Repeat the cabinet move three times. Crash memory (rung 6) plus 'a new way each' should cap progress at 1. Progress 2 or 3 means repeats count; a clear is a blocker.",
+  "run": {
+   "reason": "end",
+   "step": 15,
+   "of": 15,
+   "secs": 83.592
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 6,
+   "failed": 5,
+   "restarts": 0,
+   "attempt": 83.9,
+   "faults": 3,
+   "standstill": 0,
+   "body": [
+    510,
+    483
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    425,
+    387
+   ],
+   [
+    17,
+    441,
+    393
+   ],
+   [
+    19.5,
+    441,
+    393
+   ],
+   [
+    21,
+    441,
+    393
+   ],
+   [
+    22.5,
+    441,
+    393
+   ],
+   [
+    24.5,
+    441,
+    393
+   ],
+   [
+    27,
+    514,
+    481
+   ],
+   [
+    29.5,
+    514,
+    481
+   ],
+   [
+    32.5,
+    514,
+    481
+   ],
+   [
+    36,
+    444,
+    398
+   ],
+   [
+    40,
+    441,
+    392
+   ],
+   [
+    44,
+    441,
+    392
+   ],
+   [
+    47,
+    441,
+    392
+   ],
+   [
+    49,
+    441,
+    392
+   ],
+   [
+    54.5,
+    441,
+    392
+   ],
+   [
+    58,
+    427,
+    496
+   ],
+   [
+    62.5,
+    427,
+    496
+   ],
+   [
+    64,
+    427,
+    496
+   ],
+   [
+    67.5,
+    443,
+    414
+   ],
+   [
+    70,
+    440,
+    392
+   ],
+   [
+    71,
+    440,
+    392
+   ],
+   [
+    73.5,
+    440,
+    392
+   ],
+   [
+    75,
+    440,
+    392
+   ],
+   [
+    77.5,
+    440,
+    392
+   ],
+   [
+    79.5,
+    440,
+    392
+   ],
+   [
+    81.5,
+    440,
+    392
+   ],
+   [
+    83,
+    440,
+    392
+   ],
+   [
+    85.5,
+    440,
+    392
+   ],
+   [
+    88.5,
+    510,
+    483
+   ],
+   [
+    92.5,
+    510,
+    483
+   ],
+   [
+    95.5,
+    510,
+    483
+   ]
+  ],
+  "secs": 98.3,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-02.png"
+ },
+ {
+  "id": "C3-03",
+  "tile": "C3",
+  "hypothesis": "Drop twice from the z2 gap (y 463-495) via the east-edge stair. Record whether a drop counts as a 'new way' and whether the second is rejected. Two drops counting is a design bug.",
+  "run": {
+   "reason": "timeout",
+   "step": 9,
+   "of": 13,
+   "secs": 90.013
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 3,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 90.9,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    286,
+    584
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C317,27",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 17.9,
+    "key": "C317,27",
+    "tile": "C3",
+    "x": 330,
+    "y": 531,
+    "stick": [
+     0,
+     1
+    ]
+   },
+   {
+    "k": "pinned:C317,30",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 31.4,
+    "key": "C317,30",
+    "tile": "C3",
+    "x": 330,
+    "y": 591,
+    "stick": [
+     -1,
+     -0.03
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    400,
+    384
+   ],
+   [
+    12,
+    369,
+    417
+   ],
+   [
+    13.5,
+    335,
+    531
+   ],
+   [
+    15.5,
+    330,
+    531
+   ],
+   [
+    19,
+    330,
+    531
+   ],
+   [
+    20.5,
+    330,
+    531
+   ],
+   [
+    22,
+    330,
+    531
+   ],
+   [
+    24.5,
+    330,
+    531
+   ],
+   [
+    28,
+    330,
+    591
+   ],
+   [
+    31.5,
+    330,
+    591
+   ],
+   [
+    33.5,
+    307,
+    569
+   ],
+   [
+    35,
+    312,
+    490
+   ],
+   [
+    37,
+    312,
+    490
+   ],
+   [
+    39.5,
+    312,
+    490
+   ],
+   [
+    42,
+    312,
+    490
+   ],
+   [
+    44,
+    312,
+    490
+   ],
+   [
+    47.5,
+    312,
+    490
+   ],
+   [
+    50.5,
+    312,
+    490
+   ],
+   [
+    53.5,
+    312,
+    490
+   ],
+   [
+    57,
+    312,
+    490
+   ],
+   [
+    59.5,
+    312,
+    490
+   ],
+   [
+    62.5,
+    312,
+    590
+   ],
+   [
+    64.5,
+    312,
+    590
+   ],
+   [
+    69.5,
+    312,
+    590
+   ],
+   [
+    72,
+    312,
+    590
+   ],
+   [
+    74.5,
+    312,
+    590
+   ],
+   [
+    77,
+    326,
+    590
+   ],
+   [
+    80,
+    312,
+    487
+   ],
+   [
+    84.5,
+    312,
+    487
+   ],
+   [
+    88,
+    312,
+    487
+   ],
+   [
+    91.5,
+    312,
+    487
+   ],
+   [
+    96.5,
+    286,
+    584
+   ],
+   [
+    99,
+    286,
+    584
+   ]
+  ],
+  "secs": 104.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-03.png"
+ },
+ {
+  "id": "C3-04",
+  "tile": "C3",
+  "hypothesis": "The hedge's footprint (x 72-168, y 538-554) intrudes 8 units into the deck (x 160+) at the west stair opening (y 544-576). Probe the opening at 0/355/5°, dash in, then stand and duck on the deck over the hedge. Expect 'pinned', 'inside solid' or z confusion.",
+  "run": {
+   "reason": "timeout",
+   "step": 1,
+   "of": 12,
+   "secs": 50.047
+  },
+  "end": {
+   "screen": "game",
+   "phase": "lesson",
+   "cleared": false,
+   "progress": 1,
+   "rung": 5,
+   "passes": 1,
+   "failed": 0,
+   "restarts": 0,
+   "attempt": 10.6,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    307,
+    570
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 164.10162821548556
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    383,
+    387
+   ],
+   [
+    17,
+    184,
+    570
+   ],
+   [
+    19.5,
+    305,
+    570
+   ]
+  ],
+  "secs": 64.8,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-04.png"
+ },
+ {
+  "id": "C3-05",
+  "tile": "C3",
+  "hypothesis": "The east edge is open at y 400-536 (road exit). Push and dash at 350/0/10/15°, then wedge under the booth. 'Off tile' would be a blocker.",
+  "run": {
+   "reason": "timeout",
+   "step": 10,
+   "of": 13,
+   "secs": 45.059
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 46.5,
+   "faults": 2,
+   "standstill": 0,
+   "body": [
+    763,
+    523
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C339,19",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 38.2,
+    "key": "C339,19",
+    "tile": "C3",
+    "x": 771,
+    "y": 388,
+    "stick": [
+     0.98,
+     0.17
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    416,
+    386
+   ],
+   [
+    16,
+    761,
+    434
+   ],
+   [
+    19,
+    763,
+    440
+   ],
+   [
+    21,
+    763,
+    440
+   ],
+   [
+    24,
+    763,
+    437
+   ],
+   [
+    27.5,
+    762,
+    432
+   ],
+   [
+    29.5,
+    763,
+    432
+   ],
+   [
+    32,
+    763,
+    391
+   ],
+   [
+    33.5,
+    763,
+    391
+   ],
+   [
+    35.5,
+    771,
+    388
+   ],
+   [
+    37.5,
+    771,
+    388
+   ],
+   [
+    40,
+    771,
+    380
+   ],
+   [
+    43,
+    771,
+    346
+   ],
+   [
+    45,
+    771,
+    351
+   ],
+   [
+    47,
+    763,
+    451
+   ],
+   [
+    49,
+    753,
+    478
+   ],
+   [
+    51,
+    763,
+    479
+   ],
+   [
+    52.5,
+    763,
+    481
+   ],
+   [
+    53.5,
+    763,
+    481
+   ],
+   [
+    55,
+    763,
+    523
+   ],
+   [
+    57.5,
+    763,
+    523
+   ]
+  ],
+  "secs": 60.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-05.png"
+ },
+ {
+  "id": "C3-06",
+  "tile": "C3",
+  "hypothesis": "Press R 0.4 s after hit 1 lands, during the write-off: progress must reset to 0, restarts=1, with no 'rescue stuck'. Then START at the moment of a second hit: expect no 'write-off stuck' and progress counted once.",
+  "run": {
+   "reason": "timeout",
+   "step": 6,
+   "of": 16,
+   "secs": 70.068
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 2,
+   "failed": 1,
+   "restarts": 1,
+   "attempt": 7.3,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    400,
+    384
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "no-red-car:C3",
+    "kind": "no-red-car",
+    "sev": "major",
+    "n": 1,
+    "t": 52.8,
+    "key": "C3",
+    "tile": "C3",
+    "secs": 25
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    408,
+    386
+   ],
+   [
+    14.5,
+    442,
+    393
+   ],
+   [
+    20.5,
+    400,
+    384
+   ],
+   [
+    24,
+    400,
+    384
+   ],
+   [
+    28.5,
+    400,
+    384
+   ],
+   [
+    30,
+    400,
+    384
+   ],
+   [
+    33.5,
+    400,
+    384
+   ],
+   [
+    36.5,
+    400,
+    384
+   ],
+   [
+    41.5,
+    400,
+    384
+   ],
+   [
+    44,
+    400,
+    384
+   ],
+   [
+    45,
+    400,
+    384
+   ],
+   [
+    46.5,
+    400,
+    384
+   ],
+   [
+    48,
+    400,
+    384
+   ],
+   [
+    49.5,
+    400,
+    384
+   ],
+   [
+    51.5,
+    400,
+    384
+   ],
+   [
+    55,
+    400,
+    384
+   ],
+   [
+    57.5,
+    400,
+    384
+   ],
+   [
+    60,
+    400,
+    384
+   ],
+   [
+    63,
+    400,
+    384
+   ],
+   [
+    65.5,
+    400,
+    384
+   ],
+   [
+    67.5,
+    400,
+    384
+   ],
+   [
+    70,
+    400,
+    384
+   ],
+   [
+    73,
+    400,
+    384
+   ],
+   [
+    75.5,
+    400,
+    384
+   ],
+   [
+    77.5,
+    400,
+    384
+   ],
+   [
+    80,
+    400,
+    384
+   ],
+   [
+    82.5,
+    400,
+    384
+   ]
+  ],
+  "secs": 84.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-06.png"
+ },
+ {
+  "id": "C3-07",
+  "tile": "C3",
+  "hypothesis": "Fuzz 85 s of random analog with A and X among white traffic, cones, deck and cover. Expect no NaN, no progress on a fault (white-car contacts must not count), no 'pinned', no 'inside solid'.",
+  "run": {
+   "reason": "timeout",
+   "step": 4,
+   "of": 5,
+   "secs": 90.055
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 8,
+   "failed": 7,
+   "restarts": 0,
+   "attempt": 91.5,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    771,
+    385
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C339,19",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 19,
+    "t": 23.6,
+    "key": "C339,19",
+    "tile": "C3",
+    "x": 771,
+    "y": 384,
+    "stick": [
+     0.58,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    422,
+    384
+   ],
+   [
+    16,
+    628,
+    384
+   ],
+   [
+    18.5,
+    771,
+    384
+   ],
+   [
+    21.5,
+    771,
+    384
+   ],
+   [
+    23.5,
+    771,
+    384
+   ],
+   [
+    25.5,
+    771,
+    384
+   ],
+   [
+    28.5,
+    771,
+    384
+   ],
+   [
+    31,
+    771,
+    384
+   ],
+   [
+    33,
+    771,
+    384
+   ],
+   [
+    35,
+    771,
+    384
+   ],
+   [
+    36.5,
+    771,
+    384
+   ],
+   [
+    38.5,
+    771,
+    384
+   ],
+   [
+    40.5,
+    771,
+    384
+   ],
+   [
+    42.5,
+    771,
+    384
+   ],
+   [
+    44.5,
+    771,
+    384
+   ],
+   [
+    46.5,
+    771,
+    384
+   ],
+   [
+    48.5,
+    771,
+    384
+   ],
+   [
+    51,
+    771,
+    384
+   ],
+   [
+    52.5,
+    771,
+    384
+   ],
+   [
+    54.5,
+    771,
+    384
+   ],
+   [
+    56.5,
+    771,
+    384
+   ],
+   [
+    59,
+    771,
+    384
+   ],
+   [
+    60.5,
+    771,
+    384
+   ],
+   [
+    62,
+    771,
+    384
+   ],
+   [
+    63.5,
+    771,
+    384
+   ],
+   [
+    64.5,
+    771,
+    384
+   ],
+   [
+    66,
+    771,
+    384
+   ],
+   [
+    68.5,
+    771,
+    385
+   ],
+   [
+    70.5,
+    771,
+    385
+   ],
+   [
+    73,
+    771,
+    385
+   ],
+   [
+    74.5,
+    771,
+    385
+   ],
+   [
+    76,
+    771,
+    385
+   ],
+   [
+    78,
+    771,
+    385
+   ],
+   [
+    80,
+    771,
+    385
+   ],
+   [
+    81.5,
+    771,
+    385
+   ],
+   [
+    82.5,
+    771,
+    385
+   ],
+   [
+    85,
+    771,
+    385
+   ],
+   [
+    87,
+    771,
+    385
+   ],
+   [
+    89,
+    771,
+    385
+   ],
+   [
+    91,
+    771,
+    385
+   ],
+   [
+    92.5,
+    771,
+    385
+   ],
+   [
+    94.5,
+    771,
+    385
+   ],
+   [
+    96.5,
+    771,
+    385
+   ],
+   [
+    99,
+    771,
+    385
+   ],
+   [
+    101.5,
+    771,
+    385
+   ],
+   [
+    103,
+    771,
+    385
+   ]
+  ],
+  "secs": 104.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-07.png"
+ }
+]

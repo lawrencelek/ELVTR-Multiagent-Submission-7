@@ -67,6 +67,8 @@ def p11_game_js(g):
          "      if (c._brk && (c.v > 1 || held) && !window.P11) { // Prototype 11.2 (Edit 117): no red brake fans in the puzzles (red is the car and its memory); the stop line says it"),
         ("  function drawViewEdges(s) {\n",
          "  function drawViewEdges(s) {\n    if (window.P11) return; // Prototype 11.2 (Edit 117): the board is whole; the dummy's view edges read as sensor edges\n"),
+        ("xHeld: held.has('x') || pad.xHeld || !!TOUCH.down.x, duck: held.has('duck') }; // Submission 7: hold C to duck",
+         "xHeld: held.has('x') || pad.xHeld || !!TOUCH.down.x, duck: held.has('duck') || held.has('b') || pad.bHeld || !!TOUCH.down.b || padShoulder() }; // Submission 7: hold C to duck. Prototype 11.2 (QA): pad and touch duck too: hold B (no jump in Map 1), or a shoulder button\n  function padShoulder() { try { for (const g of (navigator.getGamepads && navigator.getGamepads()) || []) if (g && [4, 5, 6].some((i) => g.buttons[i] && (g.buttons[i].pressed || g.buttons[i].value > 0.5))) return true; } catch (e) { /* the page forbids pads */ } return false; }"),
         ("  window.__dummies = app;\n",
          "  window.__dummies = app;\n  window.__dummiesHits = () => HITS.map((h) => ({ x: h.x, y: h.y, w: h.w, h: h.h, tag: h.tag })); // Prototype 11.2: this frame's tap targets, for QA (qa/clicks.js)\n"),
         ("KeyC: 'duck', ControlLeft: 'duck', ControlRight: 'duck', // Submission 7: DUCK\n",

@@ -28,11 +28,11 @@ function run(tile, script, secs, opts) {
   const target = (z, t) => { if (!t) return null; if (Array.isArray(t)) return { x: t[0], y: t[1] }; if (t === 'car') return z.c ? { x: z.c.x, y: z.c.y } : null; if (t === 'drop') { const d = s.p11.q.layout && s.p11.q.layout.drop; return d ? { x: d[0], y: d[1] } : null; }
     if (t.route != null) return routePt(z, t.route, t.side); if (t.ahead != null) { if (!z.c) return null; const p = X.pathAt(z.c.path, Math.min(z.c.path.length - 1, z.c.s + t.ahead)); return { x: p.x + p.nx * (t.side || 0), y: p.y + p.ny * (t.side || 0) }; }
     if (t.cover != null) { const q = (T.level.statics || []).filter((w) => w.duel)[t.cover]; return q ? { x: q.x + q.w / 2 + (t.dx || 0), y: q.y + q.h / 2 + (t.dy || 0) } : null; } if (t.camera != null) { const k = (T.level.cameras || [])[t.camera]; return k ? { x: k[0] + (t.dx || 0), y: k[1] + (t.dy || 0) } : null; } if (t.cone != null) { const k = (s.cones || [])[t.cone]; return k ? { x: k.x, y: k.y } : null; } return null; };
-  let i = 0, stepT = 0, duck = false, seed = 1, t = 0, cleared = null, faults = 0, k = 0, cmd = {}, held = { mx: 0, my: 0 }; const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  let i = 0, stepT = 0, duck = false, xUntil = -1, seed = 1, t = 0, cleared = null, faults = 0, k = 0, cmd = {}, held = { mx: 0, my: 0 }; const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
   const stick = (a, m) => { held = { mx: Math.cos(a) * m, my: Math.sin(a) * m }; };
   for (; t < (secs || 90); t += dt, k++) {
     if (s.phase === 'brief') s.continueBrief(); if (s.phase === 'lesson') s.continueLesson();
-    if (s.result || s.phase === 'report' || s.phase === 'writeoff') { cleared = +t.toFixed(2); break; }
+    if ((s.p11 && s.p11.result) || s.phase === 'report' || s.phase === 'writeoff') { cleared = +t.toFixed(2); break; }
     let press = {};
     if (k % 3 === 0 && s.phase === 'play' && !s.rescue && i < steps.length) { // 20 Hz, as the browser runner
       const z = st(), q = steps[i], b = s.body, d3 = 3 * dt; stepT += d3; let next = false;
@@ -46,7 +46,7 @@ function run(tile, script, secs, opts) {
         case 'waitNew': { held = { mx: 0, my: 0 }; if (q._seq == null) q._seq = T.redSeq; if (T.redSeq !== q._seq && z.c && z.u != null && z.u < 0.3) { q._seq = null; next = true; } if (stepT > (q.max || 30)) { q._seq = null; next = true; } break; }
         case 'aim': { const p = target(z, q.at); if (p) stick(Math.atan2(p.y - b.y, p.x - b.x), q.mag || 1); else if (q.deg != null) stick(q.deg * Math.PI / 180, q.mag || 1); next = stepT >= (q.secs || 0.1); break; }
         case 'dash': { const p = target(z, q.at); if (p) stick(Math.atan2(p.y - b.y, p.x - b.x), 1); else if (q.deg != null) stick(q.deg * Math.PI / 180, 1); if (stepT >= 0.1) { press.aPress = true; next = true; } break; }
-        case 'press': if (q.btn === 'A' || q.btn === 'RT') press.aPress = true; else if (q.btn === 'X') press.xPress = true; else if (q.btn === 'Y') press.yPress = true; else if (q.btn === 'B') press.bPress = true; next = true; break;
+        case 'press': if (q.btn === 'A' || q.btn === 'RT') press.aPress = true; else if (q.btn === 'X') { press.xPress = true; xUntil = t + (q.secs || 0.12); } else if (q.btn === 'Y') press.yPress = true; else if (q.btn === 'B') press.bPress = true; next = true; break;
         case 'key': if (q.code === 'KeyR') s.restart && s.restart('R'); next = true; break;
         case 'hold': if (q.code === 'KeyC' || q.code === 'ControlLeft') duck = q.on !== false; next = true; break;
         case 'restart': s.restart && s.restart('R'); next = true; break;
@@ -54,12 +54,12 @@ function run(tile, script, secs, opts) {
       }
       if (next) { i++; stepT = 0; }
     }
-    cmd = Object.assign({ mx: held.mx, my: held.my, duck }, press);
+    cmd = Object.assign({ mx: held.mx, my: held.my, duck, xHeld: t < xUntil }, press); // X held as the pad holds it
     const ev0 = s.events.length; s.step(cmd); for (let j = ev0; j < s.events.length; j++) if (s.events[j].type === 'fault') faults++;
     if (o.until && o.until(s)) break;
   }
   const p = s.p11;
-  return { tile, cleared, t: +t.toFixed(1), step: i, of: steps.length, result: s.result || null, progress: s.duelProgress ? s.duelProgress() : null, rung: T.rung, passes: p && p.passes, faults, body: [Math.round(s.body.x), Math.round(s.body.y)] };
+  return { tile, cleared, t: +t.toFixed(1), step: i, of: steps.length, result: (s.p11 && s.p11.result) || null, progress: s.duelProgress ? s.duelProgress() : null, rung: T.rung, passes: p && p.passes, faults, body: [Math.round(s.body.x), Math.round(s.body.y)] };
 }
 module.exports = { run, make, boot };
 if (require.main === module) { const sc = JSON.parse(fs.readFileSync(process.argv[3], 'utf8')); console.log(JSON.stringify(run(process.argv[2], sc.script || sc, +(process.argv[4] || 90)))); }

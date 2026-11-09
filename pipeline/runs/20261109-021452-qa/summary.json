@@ -1,0 +1,59 @@
+{
+ "plans": [
+  57,
+  30
+ ],
+ "cleared": [
+  0,
+  5
+ ],
+ "bugs": 15,
+ "calls": [
+  {
+   "label": "a_round1",
+   "role": "qa_adversary",
+   "model": "opus",
+   "seconds": 611.3,
+   "cost_usd": 1.60092,
+   "input_tokens": 2,
+   "cache_write_tokens": 42169,
+   "cache_read_tokens": 0,
+   "output_tokens": 63178,
+   "prompt_chars": 51674,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  {
+   "label": "b_round2",
+   "role": "qa_adversary",
+   "model": "opus",
+   "seconds": 563.7,
+   "cost_usd": 1.7248260000000002,
+   "input_tokens": 2,
+   "cache_write_tokens": 74332,
+   "cache_read_tokens": 14510,
+   "output_tokens": 56363,
+   "prompt_chars": 142292,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  {
+   "label": "c_report",
+   "role": "qa_adversary",
+   "model": "opus",
+   "seconds": 334.1,
+   "cost_usd": 1.22413,
+   "input_tokens": 2,
+   "cache_write_tokens": 71580,
+   "cache_read_tokens": 14510,
+   "output_tokens": 32429,
+   "prompt_chars": 139249,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  }
+ ],
+ "cost_usd": 4.55
+}

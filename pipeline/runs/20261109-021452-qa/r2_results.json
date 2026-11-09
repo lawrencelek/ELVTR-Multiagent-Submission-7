@@ -1,0 +1,4223 @@
+[
+ {
+  "id": "B1-07",
+  "tile": "B1",
+  "hypothesis": "Parent B1-06. Repro: walking from the drop toward (500,292) at t=0 got a car-fault hit 1.77 s into pass 1, with progress 1 and faults 0. The rung-1 stop line is meant to stop the car for a dummy in its lane. If this clears in pass 1 again, it is a major first-pass cheese. Also record whether result stays null although stopped=cleared (seen in A1-01, A1-08, B1-06, B2-03).",
+  "run": {
+   "reason": "cleared",
+   "step": 0,
+   "of": 2,
+   "secs": 1.603
+  },
+  "end": {
+   "screen": "game",
+   "phase": "report",
+   "cleared": true,
+   "progress": 1,
+   "rung": 1,
+   "passes": 1,
+   "failed": 0,
+   "restarts": 0,
+   "attempt": 1.4,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    465,
+    274
+   ],
+   "alive": false,
+   "broken": 0,
+   "points": 2755.7624579164026
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    368,
+    224
+   ]
+  ],
+  "secs": 17.3,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B1-07.png"
+ },
+ {
+  "id": "B1-08",
+  "tile": "B1",
+  "hypothesis": "Parent B1-06. Is the cut-in cheese just pass-1 timing, or does any diagonal entry beat the stop line? Each attempt waits for a new pass, then walks into the lane at 27° (the B1-06 heading), 60°, 120° and 45° at strength 0.5. A clear on pass 2 or later at a non-8-way angle means the forward camera misses diagonal entries.",
+  "run": {
+   "reason": "cleared",
+   "step": 8,
+   "of": 20,
+   "secs": 27.281
+  },
+  "end": {
+   "screen": "game",
+   "phase": "report",
+   "cleared": true,
+   "progress": 1,
+   "rung": 1,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 26.8,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    466,
+    290
+   ],
+   "alive": false,
+   "broken": 0,
+   "points": 2737.566343886608
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    368,
+    224
+   ],
+   [
+    16,
+    442,
+    241
+   ],
+   [
+    18.5,
+    442,
+    241
+   ],
+   [
+    21,
+    510,
+    267
+   ],
+   [
+    24.5,
+    515,
+    270
+   ],
+   [
+    28,
+    515,
+    270
+   ],
+   [
+    30,
+    440,
+    240
+   ],
+   [
+    31,
+    440,
+    240
+   ],
+   [
+    34,
+    440,
+    240
+   ],
+   [
+    35.5,
+    440,
+    240
+   ],
+   [
+    39,
+    460,
+    275
+   ]
+  ],
+  "secs": 42.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B1-08.png"
+ },
+ {
+  "id": "B1-09",
+  "tile": "B1",
+  "hypothesis": "Parent B1-01. Its 3 faults mean every step-in was late: the car is about 225 u/s and the walk about 90 u/s, so a 38-unit step takes about 0.45 s. Retry from (440,250) with earlier triggers (near 140, 120, 105, 160), each on a new pass so pass-1 luck is excluded. Expect a car-fault clear. A fault at every trigger means the window is narrower than one 20 Hz tick at full stick.",
+  "run": {
+   "reason": "cleared",
+   "step": 3,
+   "of": 20,
+   "secs": 9.311
+  },
+  "end": {
+   "screen": "game",
+   "phase": "report",
+   "cleared": true,
+   "progress": 1,
+   "rung": 1,
+   "passes": 2,
+   "failed": 1,
+   "restarts": 0,
+   "attempt": 8.8,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    438,
+    289
+   ],
+   "alive": false,
+   "broken": 0,
+   "points": 2700
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    385,
+    230
+   ],
+   [
+    14.5,
+    440,
+    250
+   ],
+   [
+    17.5,
+    440,
+    250
+   ],
+   [
+    20,
+    440,
+    250
+   ]
+  ],
+  "secs": 24.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B1-09.png"
+ },
+ {
+  "id": "B1-10",
+  "tile": "B1",
+  "hypothesis": "Parent B1-03, where the dummy was pinned 3 times at (443,170) pushing east. The solids table has nothing there: the block at 300-500 ends at y 156 and the block at 536 starts at x 536. Walk east along y 172 at full stick. A final x near 443 instead of about 523 means an untabled collider, probably the podium skybridge.",
+  "run": {
+   "reason": "end",
+   "step": 5,
+   "of": 5,
+   "secs": 10.174
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 1,
+   "passes": 2,
+   "failed": 1,
+   "restarts": 0,
+   "attempt": 10.5,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    443,
+    190
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    368,
+    217
+   ],
+   [
+    11.5,
+    443,
+    172
+   ],
+   [
+    13.5,
+    443,
+    172
+   ],
+   [
+    16,
+    443,
+    172
+   ],
+   [
+    18,
+    443,
+    184
+   ],
+   [
+    20,
+    443,
+    190
+   ]
+  ],
+  "secs": 22.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B1-10.png"
+ },
+ {
+  "id": "B2-08",
+  "tile": "B2",
+  "hypothesis": "Parent B2-03. Repro: an open-ground dash from the south kerb at (420,575) cleared in pass 1 at 5.7 s with no kiosk. The rung-2 side sensors do not reach 151 units, and the 164-unit dash covers it. If it clears again, it is a major cheese that bypasses the island, and a first-pass clear.",
+  "run": {
+   "reason": "cleared",
+   "step": 3,
+   "of": 4,
+   "secs": 5.766
+  },
+  "end": {
+   "screen": "game",
+   "phase": "report",
+   "cleared": true,
+   "progress": 1,
+   "rung": 2,
+   "passes": 1,
+   "failed": 0,
+   "restarts": 0,
+   "attempt": 5.6,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    431,
+    442
+   ],
+   "alive": false,
+   "broken": 0,
+   "points": 2919.203506127644
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    417,
+    506
+   ],
+   [
+    11.5,
+    420,
+    576
+   ],
+   [
+    14,
+    420,
+    576
+   ]
+  ],
+  "secs": 17.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B2-08.png"
+ },
+ {
+  "id": "B2-09",
+  "tile": "B2",
+  "hypothesis": "Parent B2-03. Vary it on pass 2 and later from three open-kerb spots (x 420, 520, 340). A clear from any of them shows the side-sensor range is shorter than the dash, independent of pass-1 timing. It also maps where the cheese works.",
+  "run": {
+   "reason": "timeout",
+   "step": 12,
+   "of": 15,
+   "secs": 75.119
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 6,
+   "failed": 5,
+   "restarts": 0,
+   "attempt": 76.1,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    340,
+    590
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    416,
+    496
+   ],
+   [
+    16.5,
+    420,
+    577
+   ],
+   [
+    19,
+    420,
+    577
+   ],
+   [
+    21.5,
+    420,
+    577
+   ],
+   [
+    23.5,
+    420,
+    577
+   ],
+   [
+    25,
+    420,
+    577
+   ],
+   [
+    27,
+    420,
+    577
+   ],
+   [
+    29.5,
+    474,
+    444
+   ],
+   [
+    33.5,
+    496,
+    444
+   ],
+   [
+    37,
+    496,
+    444
+   ],
+   [
+    40.5,
+    520,
+    568
+   ],
+   [
+    44,
+    520,
+    569
+   ],
+   [
+    46,
+    520,
+    569
+   ],
+   [
+    49.5,
+    520,
+    569
+   ],
+   [
+    51,
+    520,
+    569
+   ],
+   [
+    52.5,
+    513,
+    505
+   ],
+   [
+    55.5,
+    513,
+    505
+   ],
+   [
+    57,
+    513,
+    505
+   ],
+   [
+    59,
+    513,
+    505
+   ],
+   [
+    60.5,
+    513,
+    505
+   ],
+   [
+    65,
+    340,
+    590
+   ],
+   [
+    67.5,
+    340,
+    590
+   ],
+   [
+    69.5,
+    340,
+    590
+   ],
+   [
+    74.5,
+    340,
+    590
+   ],
+   [
+    76.5,
+    340,
+    590
+   ],
+   [
+    78.5,
+    340,
+    590
+   ],
+   [
+    80.5,
+    340,
+    590
+   ],
+   [
+    83,
+    340,
+    590
+   ],
+   [
+    87.5,
+    340,
+    590
+   ]
+  ],
+  "secs": 90.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B2-09.png"
+ },
+ {
+  "id": "B2-10",
+  "tile": "B2",
+  "hypothesis": "Parent B2-01. Hiding at (421,370) clipped the kiosk's east corner, so the dashes were blocked or late (body stuck at 424,369; faults 2). Retry from two clean spots. A: (428,382), off the kiosk's east end, 42 from the lane centre, near 58/70. B: (426,362), north-east, 62 from the lane centre, near 80/95. Dash straight south at 90°, crossing the lane only after the car has passed. Expect a car-fault clear. If none, Edit 115's spring is unperformable.",
+  "run": {
+   "reason": "timeout",
+   "step": 15,
+   "of": 29,
+   "secs": 110.105
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 7,
+   "failed": 6,
+   "restarts": 0,
+   "attempt": 111.2,
+   "faults": 2,
+   "standstill": 0,
+   "body": [
+    420,
+    358
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    416,
+    496
+   ],
+   [
+    15,
+    416,
+    496
+   ],
+   [
+    18.5,
+    416,
+    496
+   ],
+   [
+    21.5,
+    416,
+    496
+   ],
+   [
+    23.5,
+    438,
+    473
+   ],
+   [
+    25.5,
+    433,
+    379
+   ],
+   [
+    27.5,
+    428,
+    382
+   ],
+   [
+    29,
+    428,
+    382
+   ],
+   [
+    33,
+    428,
+    382
+   ],
+   [
+    35,
+    428,
+    382
+   ],
+   [
+    37,
+    428,
+    382
+   ],
+   [
+    38.5,
+    428,
+    382
+   ],
+   [
+    39.5,
+    428,
+    382
+   ],
+   [
+    42,
+    431,
+    396
+   ],
+   [
+    44.5,
+    431,
+    396
+   ],
+   [
+    46.5,
+    431,
+    396
+   ],
+   [
+    50.5,
+    431,
+    396
+   ],
+   [
+    53,
+    431,
+    396
+   ],
+   [
+    55.5,
+    431,
+    396
+   ],
+   [
+    57.5,
+    431,
+    396
+   ],
+   [
+    61,
+    431,
+    396
+   ],
+   [
+    66.5,
+    431,
+    396
+   ],
+   [
+    69.5,
+    421,
+    358
+   ],
+   [
+    72,
+    421,
+    358
+   ],
+   [
+    75.5,
+    421,
+    358
+   ],
+   [
+    77,
+    437,
+    372
+   ],
+   [
+    80.5,
+    427,
+    383
+   ],
+   [
+    82.5,
+    427,
+    383
+   ],
+   [
+    85,
+    427,
+    383
+   ],
+   [
+    87,
+    427,
+    383
+   ],
+   [
+    90.5,
+    427,
+    383
+   ],
+   [
+    92.5,
+    427,
+    383
+   ],
+   [
+    94.5,
+    430,
+    396
+   ],
+   [
+    98,
+    430,
+    396
+   ],
+   [
+    100.5,
+    430,
+    396
+   ],
+   [
+    102,
+    430,
+    396
+   ],
+   [
+    104.5,
+    430,
+    396
+   ],
+   [
+    109,
+    430,
+    396
+   ],
+   [
+    111.5,
+    430,
+    396
+   ],
+   [
+    116,
+    430,
+    396
+   ],
+   [
+    118.5,
+    430,
+    396
+   ],
+   [
+    120.5,
+    420,
+    358
+   ],
+   [
+    122.5,
+    420,
+    358
+   ]
+  ],
+  "secs": 125.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B2-10.png"
+ },
+ {
+  "id": "C3-08",
+  "tile": "C3",
+  "hypothesis": "Parent C3-04. Repro: walking from the drop to (150,570) crossed the lane on pass 1 and scored boss hit 1 (progress 1, faults 0). A rung-5 car should see a walker in its lane. Then vary on later passes: a straight 90° cross at near 120, and a 76° cross at near 160. Progress above 1 means boss hits can be farmed by walking: major.",
+  "run": {
+   "reason": "timeout",
+   "step": 2,
+   "of": 14,
+   "secs": 75.002
+  },
+  "end": {
+   "screen": "game",
+   "phase": "lesson",
+   "cleared": false,
+   "progress": 1,
+   "rung": 5,
+   "passes": 1,
+   "failed": 0,
+   "restarts": 0,
+   "attempt": 10.6,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    148,
+    570
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 138.9939742938691
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    372,
+    394
+   ],
+   [
+    15.5,
+    157,
+    569
+   ],
+   [
+    18,
+    148,
+    570
+   ],
+   [
+    20.5,
+    148,
+    570
+   ]
+  ],
+  "secs": 89.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-08.png"
+ },
+ {
+  "id": "C3-09",
+  "tile": "C3",
+  "hypothesis": "Parent C3-06, which logged 'no-red-car' (25 s) after R was pressed 0.4 s after a fault dash and then the game was paused. Repro without the pause: same dash, R, then wait 35 s. 'no-red-car' again means R during a contact or write-off leaves the spawner dead: major softlock.",
+  "run": {
+   "reason": "timeout",
+   "step": 5,
+   "of": 6,
+   "secs": 50.017
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 1,
+   "attempt": 42.7,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    400,
+    384
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    433,
+    387
+   ],
+   [
+    14.5,
+    442,
+    395
+   ],
+   [
+    16.5,
+    511,
+    480
+   ],
+   [
+    21,
+    400,
+    384
+   ],
+   [
+    23.5,
+    400,
+    384
+   ],
+   [
+    26,
+    400,
+    384
+   ],
+   [
+    30.5,
+    400,
+    384
+   ],
+   [
+    36,
+    400,
+    384
+   ],
+   [
+    39.5,
+    400,
+    384
+   ],
+   [
+    43.5,
+    400,
+    384
+   ],
+   [
+    47,
+    400,
+    384
+   ],
+   [
+    51,
+    400,
+    384
+   ],
+   [
+    54,
+    400,
+    384
+   ],
+   [
+    55.5,
+    400,
+    384
+   ],
+   [
+    59,
+    400,
+    384
+   ],
+   [
+    62,
+    400,
+    384
+   ]
+  ],
+  "secs": 65.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-09.png"
+ },
+ {
+  "id": "C3-10",
+  "tile": "C3",
+  "hypothesis": "Parent C3-06. Control: press R mid-pass with no contact (car at u 0.5), then wait 35 s. 'no-red-car' here means any R with the car on the road kills the spawner. If only C3-09 fails, the trigger is R during a contact.",
+  "run": {
+   "reason": "timeout",
+   "step": 2,
+   "of": 3,
+   "secs": 45.138
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 5,
+   "failed": 3,
+   "restarts": 1,
+   "attempt": 39.5,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    400,
+    384
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    400,
+    384
+   ],
+   [
+    18.5,
+    400,
+    384
+   ],
+   [
+    24,
+    400,
+    384
+   ],
+   [
+    27,
+    400,
+    384
+   ],
+   [
+    29.5,
+    400,
+    384
+   ],
+   [
+    33,
+    400,
+    384
+   ],
+   [
+    36,
+    400,
+    384
+   ],
+   [
+    38,
+    400,
+    384
+   ],
+   [
+    41,
+    400,
+    384
+   ],
+   [
+    44.5,
+    400,
+    384
+   ],
+   [
+    47.5,
+    400,
+    384
+   ],
+   [
+    52.5,
+    400,
+    384
+   ],
+   [
+    54,
+    400,
+    384
+   ],
+   [
+    56.5,
+    400,
+    384
+   ]
+  ],
+  "secs": 60.7,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-10.png"
+ },
+ {
+  "id": "C3-11",
+  "tile": "C3",
+  "hypothesis": "Parent C3-07: jitter stayed at (771,384-385) for 68 s under random input, with 19 pins. That is the east wall's south end, where the road exit opens. Push east 4 s at 0.6, then hold 180° at full strength for 2 s. A final body still at about 771,384 means the dummy is trapped: blocker softlock that only R escapes.",
+  "run": {
+   "reason": "end",
+   "step": 4,
+   "of": 4,
+   "secs": 18.929
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 20.5,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    246,
+    384
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C339,19",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 21.7,
+    "key": "C339,19",
+    "tile": "C3",
+    "x": 771,
+    "y": 384,
+    "stick": [
+     0.6,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    400,
+    384
+   ],
+   [
+    16,
+    760,
+    384
+   ],
+   [
+    18.5,
+    771,
+    384
+   ],
+   [
+    20.5,
+    771,
+    384
+   ],
+   [
+    22.5,
+    771,
+    384
+   ],
+   [
+    26,
+    752,
+    384
+   ],
+   [
+    30,
+    295,
+    384
+   ],
+   [
+    32,
+    246,
+    384
+   ]
+  ],
+  "secs": 34.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-11.png"
+ },
+ {
+  "id": "C3-12",
+  "tile": "C3",
+  "hypothesis": "Parent C3-01, which got 4 faults: every dash was late, and the hide at (440,394) overlapped the cabinet corner. Calibration from B2-03: the dash is about 2x car speed. Hit 1: cabinet NE at (444,392), 116 off the lane, dash 90° at near 155. Hit 2: ducked at the hedge's east end (181,566), dash 270° at near 70. Hit 3: break the post at (630,412) from (600,412), then the kiosk NE (568,394), dash 90° at near 140. Lane crossings wait for u 0.9. Expect 3 car-fault hits and a clear.",
+  "run": {
+   "reason": "timeout",
+   "step": 3,
+   "of": 24,
+   "secs": 120.039
+  },
+  "end": {
+   "screen": "game",
+   "phase": "lesson",
+   "cleared": false,
+   "progress": 1,
+   "rung": 5,
+   "passes": 1,
+   "failed": 0,
+   "restarts": 0,
+   "attempt": 11.4,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    471,
+    544
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 199.99999999999994
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    423,
+    387
+   ],
+   [
+    17,
+    471,
+    544
+   ],
+   [
+    20.5,
+    471,
+    544
+   ],
+   [
+    22.5,
+    471,
+    544
+   ]
+  ],
+  "secs": 135.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-12.png"
+ },
+ {
+  "id": "C3-13",
+  "tile": "C3",
+  "hypothesis": "Parent C3-03, which never climbed: the ramp's sides pinned it at (330,531) and (330,591). Enter the east ramp end-on at y 560 heading 180°. On the deck, drop SE (60°) through the y 463-495 gap at near 100, then again at near 80. If one drop counts, it is an unlisted 'new way'. If both count, crash memory ignores drops: major.",
+  "run": {
+   "reason": "timeout",
+   "step": 14,
+   "of": 18,
+   "secs": 100.158
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 0,
+   "attempt": 97.7,
+   "faults": 0,
+   "standstill": 1,
+   "body": [
+    308,
+    481
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C319,29",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 92.5,
+    "key": "C319,29",
+    "tile": "C3",
+    "x": 380,
+    "y": 589,
+    "stick": [
+     0,
+     -0.97
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    400,
+    384
+   ],
+   [
+    13,
+    400,
+    384
+   ],
+   [
+    15,
+    400,
+    384
+   ],
+   [
+    18,
+    392,
+    387
+   ],
+   [
+    20.5,
+    375,
+    470
+   ],
+   [
+    23,
+    380,
+    531
+   ],
+   [
+    26.5,
+    380,
+    531
+   ],
+   [
+    28.5,
+    277,
+    531
+   ],
+   [
+    31,
+    181,
+    541
+   ],
+   [
+    33,
+    292,
+    560
+   ],
+   [
+    34.5,
+    308,
+    485
+   ],
+   [
+    37.5,
+    308,
+    482
+   ],
+   [
+    43.5,
+    308,
+    482
+   ],
+   [
+    46,
+    308,
+    482
+   ],
+   [
+    48.5,
+    308,
+    482
+   ],
+   [
+    52.5,
+    282,
+    578
+   ],
+   [
+    54,
+    282,
+    578
+   ],
+   [
+    56,
+    282,
+    578
+   ],
+   [
+    58,
+    282,
+    578
+   ],
+   [
+    59,
+    282,
+    578
+   ],
+   [
+    61.5,
+    282,
+    578
+   ],
+   [
+    65.5,
+    282,
+    578
+   ],
+   [
+    72.5,
+    401,
+    611
+   ],
+   [
+    74.5,
+    401,
+    611
+   ],
+   [
+    77.5,
+    401,
+    611
+   ],
+   [
+    81,
+    401,
+    611
+   ],
+   [
+    83,
+    401,
+    611
+   ],
+   [
+    85,
+    401,
+    611
+   ],
+   [
+    87,
+    401,
+    611
+   ],
+   [
+    88,
+    383,
+    589
+   ],
+   [
+    90,
+    380,
+    589
+   ],
+   [
+    92,
+    380,
+    589
+   ],
+   [
+    93.5,
+    380,
+    589
+   ],
+   [
+    95.5,
+    364,
+    589
+   ],
+   [
+    98,
+    96,
+    589
+   ],
+   [
+    100.5,
+    203,
+    570
+   ],
+   [
+    103.5,
+    308,
+    481
+   ],
+   [
+    105.5,
+    308,
+    481
+   ],
+   [
+    109,
+    308,
+    481
+   ],
+   [
+    111.5,
+    308,
+    481
+   ]
+  ],
+  "secs": 114.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C3-13.png"
+ },
+ {
+  "id": "A3-07",
+  "tile": "A3",
+  "hypothesis": "Parent A3-05: jitter stayed at (787,229-232) for 70 s, past the planter's x 784 line, pinned 16 times. Reach (787,226), push east 5 s at 0.94, then hold 180° for 2 s. A final x still about 787 means the open-edge fence clamp traps the dummy: blocker.",
+  "run": {
+   "reason": "timeout",
+   "step": 4,
+   "of": 5,
+   "secs": 30.142
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 31.5,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    269,
+    229
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A339,11",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 29.7,
+    "key": "A339,11",
+    "tile": "A3",
+    "x": 787,
+    "y": 229,
+    "stick": [
+     0.94,
+     0
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    400,
+    224
+   ],
+   [
+    13.5,
+    637,
+    226
+   ],
+   [
+    15,
+    749,
+    226
+   ],
+   [
+    17.5,
+    787,
+    229
+   ],
+   [
+    20,
+    787,
+    229
+   ],
+   [
+    22,
+    787,
+    229
+   ],
+   [
+    24,
+    787,
+    229
+   ],
+   [
+    27,
+    787,
+    229
+   ],
+   [
+    29.5,
+    787,
+    229
+   ],
+   [
+    33.5,
+    787,
+    229
+   ],
+   [
+    37.5,
+    558,
+    229
+   ],
+   [
+    40,
+    296,
+    229
+   ]
+  ],
+  "secs": 44.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A3-07.png"
+ },
+ {
+  "id": "A3-06",
+  "tile": "A3",
+  "hypothesis": "Parent A3-01, which flagged 'kiosk' (inside solid) at (441,234), 5 units into the kiosk top. Approach the kiosk top from the east and push in at 90° and 0.3, first empty-handed, then carrying cone 0. 'Inside solid' only while carrying means the held cone pushes the dummy into the kiosk.",
+  "run": {
+   "reason": "timeout",
+   "step": 10,
+   "of": 11,
+   "secs": 50.028
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 50.7,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    428,
+    353
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A316,1",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 36.8,
+    "key": "A316,1",
+    "tile": "A3",
+    "x": 312,
+    "y": 13,
+    "stick": [
+     0,
+     -0.67
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    421,
+    225
+   ],
+   [
+    18,
+    432,
+    229
+   ],
+   [
+    22,
+    428,
+    229
+   ],
+   [
+    24,
+    399,
+    301
+   ],
+   [
+    27.4,
+    361,
+    400
+   ],
+   [
+    29,
+    341,
+    234
+   ],
+   [
+    31,
+    318,
+    43
+   ],
+   [
+    35,
+    312,
+    13
+   ],
+   [
+    36.5,
+    312,
+    13
+   ],
+   [
+    39,
+    404,
+    138
+   ],
+   [
+    44,
+    431,
+    229
+   ],
+   [
+    46.5,
+    431,
+    229
+   ],
+   [
+    49.5,
+    431,
+    229
+   ],
+   [
+    53.5,
+    468,
+    322
+   ],
+   [
+    55,
+    507,
+    322
+   ],
+   [
+    60.5,
+    442,
+    419
+   ],
+   [
+    63.5,
+    428,
+    353
+   ]
+  ],
+  "secs": 65.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A3-06.png"
+ },
+ {
+  "id": "A3-08",
+  "tile": "A3",
+  "hypothesis": "Parent A3-01. The kiosk's SE corner blocked the step from (432,230) to (480,298). Retry: after the car passes, carry cone 0 to (480,348) using the cone target. Hide NE of the kiosk at (470,232), outside the kiosk's corner, and step to (500,300) in the other lane at near 200, 170 and 230. Expect a car-fault clear as the car swerves left into the dummy.",
+  "run": {
+   "reason": "timeout",
+   "step": 19,
+   "of": 20,
+   "secs": 100.029
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 6,
+   "failed": 5,
+   "restarts": 0,
+   "attempt": 100.1,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    499,
+    298
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    13,
+    400,
+    224
+   ],
+   [
+    15,
+    400,
+    224
+   ],
+   [
+    18,
+    400,
+    224
+   ],
+   [
+    19.5,
+    400,
+    224
+   ],
+   [
+    22.5,
+    400,
+    224
+   ],
+   [
+    25,
+    400,
+    224
+   ],
+   [
+    29.5,
+    400,
+    224
+   ],
+   [
+    31.5,
+    400,
+    224
+   ],
+   [
+    36,
+    142,
+    220
+   ],
+   [
+    40,
+    45,
+    213
+   ],
+   [
+    45,
+    342,
+    296
+   ],
+   [
+    46.5,
+    472,
+    345
+   ],
+   [
+    49.5,
+    470,
+    231
+   ],
+   [
+    52.5,
+    470,
+    231
+   ],
+   [
+    57,
+    470,
+    231
+   ],
+   [
+    61,
+    470,
+    231
+   ],
+   [
+    64.5,
+    499,
+    297
+   ],
+   [
+    67,
+    499,
+    297
+   ],
+   [
+    69.5,
+    499,
+    297
+   ],
+   [
+    72,
+    499,
+    297
+   ],
+   [
+    73.5,
+    499,
+    297
+   ],
+   [
+    77.5,
+    469,
+    231
+   ],
+   [
+    82.5,
+    469,
+    231
+   ],
+   [
+    85.5,
+    469,
+    231
+   ],
+   [
+    89.5,
+    499,
+    298
+   ],
+   [
+    92.5,
+    499,
+    298
+   ],
+   [
+    95,
+    499,
+    298
+   ],
+   [
+    97.5,
+    489,
+    274
+   ],
+   [
+    99.5,
+    470,
+    233
+   ],
+   [
+    102.5,
+    432,
+    223
+   ],
+   [
+    104.5,
+    432,
+    223
+   ],
+   [
+    107,
+    432,
+    223
+   ],
+   [
+    108.5,
+    482,
+    272
+   ],
+   [
+    110.5,
+    499,
+    298
+   ],
+   [
+    112,
+    499,
+    298
+   ]
+  ],
+  "secs": 116.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A3-08.png"
+ },
+ {
+  "id": "A3-09",
+  "tile": "A3",
+  "hypothesis": "Parent A3-01. Place the same cone, then stand still at (540,296) in the swerve lane from the start and never touch the stick. A car-fault clear means Swerve is beaten by standing still and the kiosk hide is decorative: design bug.",
+  "run": {
+   "reason": "timeout",
+   "step": 6,
+   "of": 7,
+   "secs": 60.006
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 60.9,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    541,
+    295
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    400,
+    224
+   ],
+   [
+    13.5,
+    400,
+    224
+   ],
+   [
+    17.5,
+    400,
+    224
+   ],
+   [
+    20.5,
+    400,
+    224
+   ],
+   [
+    23.5,
+    400,
+    224
+   ],
+   [
+    26.5,
+    400,
+    224
+   ],
+   [
+    30,
+    400,
+    224
+   ],
+   [
+    32.5,
+    378,
+    224
+   ],
+   [
+    34,
+    246,
+    224
+   ],
+   [
+    36,
+    62,
+    213
+   ],
+   [
+    39.5,
+    159,
+    227
+   ],
+   [
+    43.5,
+    479,
+    348
+   ],
+   [
+    47,
+    541,
+    295
+   ],
+   [
+    50,
+    541,
+    295
+   ],
+   [
+    52.5,
+    541,
+    295
+   ],
+   [
+    55,
+    541,
+    295
+   ],
+   [
+    59.5,
+    541,
+    295
+   ],
+   [
+    62.5,
+    541,
+    295
+   ],
+   [
+    65,
+    541,
+    295
+   ],
+   [
+    67.5,
+    541,
+    295
+   ],
+   [
+    70,
+    541,
+    295
+   ]
+  ],
+  "secs": 75.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A3-09.png"
+ },
+ {
+  "id": "A1-09",
+  "tile": "A1",
+  "hypothesis": "Parents A1-05 and A1-06: 'inside column' at (501,99), and pinned at (470,109) under the NW stair. The column at 484-508, 68-92 fills the y 64-96 stair opening. Enter end-on at y 80, then at y 96, then at 350° and 10°. Expect pinned at about 471,80. Expect 'inside column' when the stair is squeezed past the column's south face: major, as the stair is usable only by clipping.",
+  "run": {
+   "reason": "timeout",
+   "step": 6,
+   "of": 9,
+   "secs": 30.014
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 0,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 0,
+   "attempt": 31.3,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    445,
+    109
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A121,5",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 15.9,
+    "key": "A121,5",
+    "tile": "A1",
+    "x": 420,
+    "y": 109,
+    "stick": [
+     0,
+     -0.97
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    9.5,
+    402,
+    207
+   ],
+   [
+    14,
+    420,
+    109
+   ],
+   [
+    17.5,
+    420,
+    109
+   ],
+   [
+    21,
+    541,
+    109
+   ],
+   [
+    22.5,
+    699,
+    109
+   ],
+   [
+    24.5,
+    661,
+    107
+   ],
+   [
+    26,
+    495,
+    105
+   ],
+   [
+    27.9,
+    449,
+    109
+   ],
+   [
+    29,
+    563,
+    109
+   ],
+   [
+    30.5,
+    699,
+    109
+   ],
+   [
+    32.5,
+    699,
+    109
+   ],
+   [
+    33.5,
+    699,
+    109
+   ],
+   [
+    35,
+    628,
+    105
+   ],
+   [
+    36.5,
+    472,
+    109
+   ],
+   [
+    39,
+    425,
+    109
+   ]
+  ],
+  "secs": 42.5,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A1-09.png"
+ },
+ {
+  "id": "A1-12",
+  "tile": "A1",
+  "hypothesis": "Parent A1-05. Verbatim repro of the first half, which put the dummy inside column 612 (6 events) at (643,552), by the SE stair opening (y 544-576). Expect the same 'column' finding at about t 39. It confirms the stair ramp and column overlap on the east side too.",
+  "run": {
+   "reason": "end",
+   "step": 10,
+   "of": 10,
+   "secs": 41.795
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 0,
+   "passes": 7,
+   "failed": 6,
+   "restarts": 0,
+   "attempt": 43.4,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    501,
+    221
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "inside-solid:A1column612",
+    "kind": "column",
+    "sev": "major",
+    "n": 6,
+    "t": 40.8,
+    "key": "A1column612",
+    "tile": "A1",
+    "x": 642,
+    "y": 552,
+    "layer": 0
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    11,
+    411,
+    235
+   ],
+   [
+    13.5,
+    610,
+    432
+   ],
+   [
+    15,
+    732,
+    553
+   ],
+   [
+    16.4,
+    748,
+    606
+   ],
+   [
+    18.5,
+    701,
+    627
+   ],
+   [
+    20.5,
+    701,
+    627
+   ],
+   [
+    23,
+    718,
+    627
+   ],
+   [
+    24.5,
+    733,
+    627
+   ],
+   [
+    25.5,
+    729,
+    627
+   ],
+   [
+    27,
+    713,
+    627
+   ],
+   [
+    29.5,
+    742,
+    627
+   ],
+   [
+    32,
+    787,
+    627
+   ],
+   [
+    34,
+    787,
+    627
+   ],
+   [
+    35.5,
+    787,
+    627
+   ],
+   [
+    37.5,
+    787,
+    627
+   ],
+   [
+    40.5,
+    660,
+    552
+   ],
+   [
+    42.5,
+    518,
+    451
+   ],
+   [
+    45,
+    501,
+    297
+   ],
+   [
+    46.5,
+    501,
+    255
+   ],
+   [
+    48.5,
+    501,
+    232
+   ],
+   [
+    50,
+    501,
+    226
+   ],
+   [
+    51.5,
+    501,
+    222
+   ],
+   [
+    53.5,
+    501,
+    221
+   ]
+  ],
+  "secs": 55.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A1-12.png"
+ },
+ {
+  "id": "A1-10",
+  "tile": "A1",
+  "hypothesis": "Parent A1-07, which ended with progress 1 and faults 1 after the dummy was traced at (636,374), 39 units past the gap's south end, at the parapet's x. Repro the 0.4-strength slide at 85°, then push east 1 s. If the final x is about 627, the slide stayed on the deck past the gap (the gap misses shallow analog slides). If x is 700 or more, it dropped. Also record whether one contact logs both a fault and progress.",
+  "run": {
+   "reason": "end",
+   "step": 6,
+   "of": 6,
+   "secs": 14.081
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 0,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 15,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    756,
+    431
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    10,
+    400,
+    224
+   ],
+   [
+    12,
+    542,
+    96
+   ],
+   [
+    14.5,
+    608,
+    193
+   ],
+   [
+    17,
+    637,
+    290
+   ],
+   [
+    19,
+    643,
+    357
+   ],
+   [
+    21.5,
+    649,
+    431
+   ],
+   [
+    23,
+    688,
+    431
+   ],
+   [
+    25.5,
+    756,
+    431
+   ]
+  ],
+  "secs": 27.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A1-10.png"
+ },
+ {
+  "id": "C2-07",
+  "tile": "C2",
+  "hypothesis": "Parent C2-05: after entering at y 600, the dummy walked north along x 240 and was pinned at (239,243) by the z0 block 112-368 x 140-230. It then logged 'inside block' at (240,215) and reached (240,13). Repro. Same findings mean a z2 deck walker collides with a z0 block and then tunnels through it: blocker-class geometry.",
+  "run": {
+   "reason": "timeout",
+   "step": 4,
+   "of": 6,
+   "secs": 40.06
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 41.1,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    240,
+    243
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C217,27",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 19.4,
+    "key": "C217,27",
+    "tile": "C2",
+    "x": 330,
+    "y": 531,
+    "stick": [
+     0,
+     1
+    ]
+   },
+   {
+    "k": "pinned:C212,12",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 3,
+    "t": 37.8,
+    "key": "C212,12",
+    "tile": "C2",
+    "x": 240,
+    "y": 243,
+    "stick": [
+     0,
+     -1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    409,
+    295
+   ],
+   [
+    14,
+    360,
+    486
+   ],
+   [
+    17,
+    330,
+    531
+   ],
+   [
+    20,
+    330,
+    531
+   ],
+   [
+    22.5,
+    276,
+    531
+   ],
+   [
+    25,
+    173,
+    531
+   ],
+   [
+    28,
+    173,
+    531
+   ],
+   [
+    30.5,
+    242,
+    561
+   ],
+   [
+    33.5,
+    241,
+    285
+   ],
+   [
+    35.5,
+    240,
+    243
+   ],
+   [
+    37,
+    240,
+    243
+   ],
+   [
+    38.5,
+    240,
+    243
+   ],
+   [
+    40.5,
+    240,
+    243
+   ],
+   [
+    41.5,
+    240,
+    243
+   ],
+   [
+    44,
+    240,
+    243
+   ],
+   [
+    46.5,
+    240,
+    243
+   ],
+   [
+    49,
+    240,
+    243
+   ],
+   [
+    51,
+    240,
+    243
+   ]
+  ],
+  "secs": 53.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C2-07.png"
+ },
+ {
+  "id": "C2-10",
+  "tile": "C2",
+  "hypothesis": "Parent C2-05. Control at z0: walk under the deck to (240,250) and push north into block 112 for 8 s. A final y below 230 means even a ground walker tunnels through the block after a pin. y about 243 isolates the bug to the deck layer (see C2-07).",
+  "run": {
+   "reason": "timeout",
+   "step": 2,
+   "of": 6,
+   "secs": 25.05
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 2,
+   "failed": 1,
+   "restarts": 0,
+   "attempt": 26.3,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    326,
+    275
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    400,
+    224
+   ],
+   [
+    14,
+    400,
+    224
+   ],
+   [
+    15.9,
+    400,
+    224
+   ],
+   [
+    20.5,
+    400,
+    224
+   ],
+   [
+    22.5,
+    400,
+    224
+   ],
+   [
+    25.5,
+    400,
+    224
+   ],
+   [
+    28.5,
+    400,
+    224
+   ],
+   [
+    31,
+    400,
+    224
+   ],
+   [
+    32.5,
+    400,
+    224
+   ],
+   [
+    34,
+    400,
+    224
+   ],
+   [
+    36,
+    354,
+    275
+   ]
+  ],
+  "secs": 39.4,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C2-10.png"
+ },
+ {
+  "id": "C2-08",
+  "tile": "C2",
+  "hypothesis": "Parent C2-01. The break worked, but the follow-up dashes from (345,248) barely moved the dummy: the battery was likely spent or recharging. Retry. Break the post from (262,250) right after a pass. Hide at the post's spot, the kiosk's west end (345,247). Skip a pass for recharge, then dash 90° (46 off the lane centre) at near 55, 70 and 45. Expect a car-fault clear. No dash movement means Battery 1 does not recharge after a camera break: major.",
+  "run": {
+   "reason": "timeout",
+   "step": 16,
+   "of": 26,
+   "secs": 110.022
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 7,
+   "failed": 6,
+   "restarts": 0,
+   "attempt": 108.8,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    381,
+    229
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "inside-solid:C2kiosk358",
+    "kind": "kiosk",
+    "sev": "major",
+    "n": 1,
+    "t": 87.4,
+    "key": "C2kiosk358",
+    "tile": "C2",
+    "x": 350,
+    "y": 256,
+    "layer": 0
+   },
+   {
+    "k": "pinned:C219,11",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 2,
+    "t": 100.7,
+    "key": "C219,11",
+    "tile": "C2",
+    "x": 381,
+    "y": 229,
+    "stick": [
+     -0.71,
+     0.71
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    10.5,
+    400,
+    224
+   ],
+   [
+    12.4,
+    400,
+    224
+   ],
+   [
+    14.5,
+    400,
+    224
+   ],
+   [
+    17,
+    400,
+    224
+   ],
+   [
+    20.5,
+    400,
+    224
+   ],
+   [
+    22,
+    400,
+    224
+   ],
+   [
+    24.5,
+    400,
+    224
+   ],
+   [
+    27,
+    400,
+    224
+   ],
+   [
+    30.5,
+    400,
+    224
+   ],
+   [
+    32.5,
+    400,
+    224
+   ],
+   [
+    36,
+    283,
+    276
+   ],
+   [
+    39.5,
+    345,
+    252
+   ],
+   [
+    41.5,
+    345,
+    248
+   ],
+   [
+    47,
+    345,
+    248
+   ],
+   [
+    51,
+    345,
+    248
+   ],
+   [
+    54,
+    345,
+    248
+   ],
+   [
+    56,
+    345,
+    248
+   ],
+   [
+    58.5,
+    345,
+    248
+   ],
+   [
+    61.5,
+    345,
+    248
+   ],
+   [
+    63,
+    342,
+    264
+   ],
+   [
+    66.5,
+    342,
+    264
+   ],
+   [
+    69,
+    342,
+    264
+   ],
+   [
+    71,
+    342,
+    264
+   ],
+   [
+    73.5,
+    342,
+    264
+   ],
+   [
+    79,
+    342,
+    264
+   ],
+   [
+    81,
+    342,
+    264
+   ],
+   [
+    83,
+    342,
+    264
+   ],
+   [
+    86,
+    342,
+    264
+   ],
+   [
+    88.5,
+    384,
+    222
+   ],
+   [
+    93.5,
+    384,
+    222
+   ],
+   [
+    95,
+    381,
+    227
+   ],
+   [
+    98.5,
+    381,
+    229
+   ],
+   [
+    100.5,
+    381,
+    229
+   ],
+   [
+    102,
+    381,
+    229
+   ],
+   [
+    105.5,
+    381,
+    229
+   ],
+   [
+    107,
+    381,
+    229
+   ],
+   [
+    112.5,
+    381,
+    229
+   ],
+   [
+    115,
+    381,
+    229
+   ],
+   [
+    118,
+    381,
+    229
+   ],
+   [
+    121,
+    381,
+    229
+   ]
+  ],
+  "secs": 124.2,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C2-08.png"
+ },
+ {
+  "id": "C2-09",
+  "tile": "C2",
+  "hypothesis": "Parent C2-04, whose climb failed (pinned at 330,531). Enter the deck at y 595, where C2-05 got onto the deck, below column 292-316. Walk to the y 303-335 gap and drop 340° at near 100, then 80. A clear at rung 5 without breaking the camera bypasses Portal's lesson: major cheese.",
+  "run": {
+   "reason": "timeout",
+   "step": 8,
+   "of": 21,
+   "secs": 80.11
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 5,
+   "failed": 4,
+   "restarts": 0,
+   "attempt": 80.6,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    334,
+    415
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:C219,27",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 46.3,
+    "key": "C219,27",
+    "tile": "C2",
+    "x": 380,
+    "y": 531,
+    "stick": [
+     0,
+     1
+    ]
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    13,
+    400,
+    224
+   ],
+   [
+    18.5,
+    400,
+    224
+   ],
+   [
+    22,
+    400,
+    224
+   ],
+   [
+    24.5,
+    400,
+    224
+   ],
+   [
+    28,
+    400,
+    224
+   ],
+   [
+    30,
+    400,
+    224
+   ],
+   [
+    33.5,
+    400,
+    224
+   ],
+   [
+    35.5,
+    400,
+    224
+   ],
+   [
+    39.5,
+    384,
+    531
+   ],
+   [
+    43.5,
+    380,
+    531
+   ],
+   [
+    46.5,
+    380,
+    531
+   ],
+   [
+    49,
+    380,
+    531
+   ],
+   [
+    52.5,
+    173,
+    531
+   ],
+   [
+    54.5,
+    173,
+    531
+   ],
+   [
+    57,
+    240,
+    493
+   ],
+   [
+    59,
+    244,
+    320
+   ],
+   [
+    62.5,
+    308,
+    318
+   ],
+   [
+    66,
+    308,
+    318
+   ],
+   [
+    70,
+    308,
+    318
+   ],
+   [
+    73.5,
+    308,
+    318
+   ],
+   [
+    76,
+    308,
+    318
+   ],
+   [
+    78.5,
+    334,
+    415
+   ],
+   [
+    80.5,
+    334,
+    415
+   ],
+   [
+    83,
+    334,
+    415
+   ],
+   [
+    84.5,
+    334,
+    415
+   ],
+   [
+    86.5,
+    334,
+    415
+   ],
+   [
+    92,
+    334,
+    415
+   ],
+   [
+    93.5,
+    334,
+    415
+   ]
+  ],
+  "secs": 95.9,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C2-09.png"
+ },
+ {
+  "id": "A2-07",
+  "tile": "A2",
+  "hypothesis": "Parent A2-01, which failed on my pathing. The drop pocket only exits east (a 16-unit slot west), and the 24-unit block/cabinet slot fits no 26-unit dummy (A2-03). Retry: go east, then along the lane edge, to (300,252) after a pass. Dash 0° through the post at (365,251), stopping on the cabinet's west end. Hide at (358,240). Skip a pass, then dash 90° at near 70, 85 and 60. Expect a car-fault clear.",
+  "run": {
+   "reason": "timeout",
+   "step": 20,
+   "of": 27,
+   "secs": 110.055
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 7,
+   "failed": 6,
+   "restarts": 0,
+   "attempt": 111.2,
+   "faults": 2,
+   "standstill": 0,
+   "body": [
+    227,
+    267
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    414,
+    139
+   ],
+   [
+    15.5,
+    417,
+    140
+   ],
+   [
+    18,
+    417,
+    140
+   ],
+   [
+    20,
+    417,
+    140
+   ],
+   [
+    21.5,
+    417,
+    140
+   ],
+   [
+    24,
+    417,
+    140
+   ],
+   [
+    25.5,
+    417,
+    140
+   ],
+   [
+    28.5,
+    417,
+    140
+   ],
+   [
+    33,
+    430,
+    217
+   ],
+   [
+    35.5,
+    331,
+    270
+   ],
+   [
+    37,
+    360,
+    251
+   ],
+   [
+    39.5,
+    358,
+    240
+   ],
+   [
+    44.5,
+    358,
+    239
+   ],
+   [
+    47.5,
+    358,
+    239
+   ],
+   [
+    49,
+    358,
+    239
+   ],
+   [
+    51.5,
+    358,
+    239
+   ],
+   [
+    53,
+    358,
+    239
+   ],
+   [
+    54.5,
+    358,
+    239
+   ],
+   [
+    56.5,
+    358,
+    239
+   ],
+   [
+    60,
+    354,
+    264
+   ],
+   [
+    62.5,
+    354,
+    264
+   ],
+   [
+    65.5,
+    354,
+    264
+   ],
+   [
+    67.5,
+    354,
+    264
+   ],
+   [
+    69.5,
+    354,
+    264
+   ],
+   [
+    71,
+    354,
+    264
+   ],
+   [
+    75,
+    354,
+    264
+   ],
+   [
+    78,
+    354,
+    264
+   ],
+   [
+    81,
+    354,
+    264
+   ],
+   [
+    82.5,
+    334,
+    230
+   ],
+   [
+    85.5,
+    334,
+    230
+   ],
+   [
+    88.5,
+    334,
+    230
+   ],
+   [
+    91.5,
+    332,
+    269
+   ],
+   [
+    94,
+    358,
+    240
+   ],
+   [
+    95.5,
+    358,
+    240
+   ],
+   [
+    98,
+    358,
+    240
+   ],
+   [
+    100.5,
+    358,
+    240
+   ],
+   [
+    104.5,
+    358,
+    240
+   ],
+   [
+    108,
+    296,
+    307
+   ],
+   [
+    110,
+    296,
+    307
+   ],
+   [
+    112.5,
+    296,
+    307
+   ],
+   [
+    114.5,
+    296,
+    307
+   ],
+   [
+    116,
+    296,
+    307
+   ],
+   [
+    118,
+    296,
+    307
+   ],
+   [
+    121,
+    227,
+    267
+   ]
+  ],
+  "secs": 123.4,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A2-07.png"
+ },
+ {
+  "id": "A2-08",
+  "tile": "A2",
+  "hypothesis": "Parent A2-02, whose climb failed (pinned at 470,109). Enter the NW stair end-on at y 80 from x 430. Drop east through the y 303-335 gap at 340° and near 110, landing ahead of the westbound car. Then repeat from the west parapet at 200° and near 80. A clear at rung 4 reproduces Edit 115's drop cheese that skips the camera break.",
+  "run": {
+   "reason": "timeout",
+   "step": 9,
+   "of": 19,
+   "secs": 90.048
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 4,
+   "passes": 4,
+   "failed": 3,
+   "restarts": 0,
+   "attempt": 91.5,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    634,
+    436
+   ],
+   "alive": true,
+   "broken": 1,
+   "points": 0
+  },
+  "findings": [
+   {
+    "k": "pinned:A221,5",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 20.2,
+    "key": "A221,5",
+    "tile": "A2",
+    "x": 430,
+    "y": 109,
+    "stick": [
+     0,
+     -0.97
+    ]
+   },
+   {
+    "k": "pinned:A222,5",
+    "kind": "pinned",
+    "sev": "minor",
+    "n": 1,
+    "t": 29.5,
+    "key": "A222,5",
+    "tile": "A2",
+    "x": 448,
+    "y": 109,
+    "stick": [
+     1,
+     0.01
+    ]
+   },
+   {
+    "k": "inside-solid:A2block656",
+    "kind": "block",
+    "sev": "major",
+    "n": 2,
+    "t": 94.5,
+    "key": "A2block656",
+    "tile": "A2",
+    "x": 682,
+    "y": 408,
+    "layer": 0
+   }
+  ],
+  "pageErrors": [],
+  "trace": [
+   [
+    12.5,
+    414,
+    139
+   ],
+   [
+    15,
+    430,
+    109
+   ],
+   [
+    18,
+    430,
+    109
+   ],
+   [
+    20,
+    430,
+    109
+   ],
+   [
+    22.5,
+    445,
+    109
+   ],
+   [
+    25,
+    448,
+    109
+   ],
+   [
+    28,
+    448,
+    109
+   ],
+   [
+    30.5,
+    448,
+    109
+   ],
+   [
+    36,
+    625,
+    305
+   ],
+   [
+    39.5,
+    628,
+    314
+   ],
+   [
+    43,
+    628,
+    314
+   ],
+   [
+    45.5,
+    628,
+    314
+   ],
+   [
+    48,
+    628,
+    414
+   ],
+   [
+    50,
+    628,
+    414
+   ],
+   [
+    52.5,
+    628,
+    414
+   ],
+   [
+    56.5,
+    628,
+    414
+   ],
+   [
+    58.5,
+    628,
+    414
+   ],
+   [
+    62,
+    628,
+    414
+   ],
+   [
+    65,
+    628,
+    414
+   ],
+   [
+    68.5,
+    628,
+    414
+   ],
+   [
+    73,
+    628,
+    414
+   ],
+   [
+    75.5,
+    628,
+    414
+   ],
+   [
+    79,
+    628,
+    414
+   ],
+   [
+    82,
+    628,
+    414
+   ],
+   [
+    84.5,
+    628,
+    414
+   ],
+   [
+    88.5,
+    755,
+    366
+   ],
+   [
+    92,
+    755,
+    366
+   ],
+   [
+    93.5,
+    755,
+    366
+   ],
+   [
+    95,
+    634,
+    436
+   ],
+   [
+    97,
+    634,
+    436
+   ],
+   [
+    99,
+    634,
+    436
+   ],
+   [
+    101,
+    634,
+    436
+   ]
+  ],
+  "secs": 104.2,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/A2-08.png"
+ },
+ {
+  "id": "C1-06",
+  "tile": "C1",
+  "hypothesis": "Parent C1-01, which never climbed. The approach at (340,229) hit the ramp's side, and the 'deck' walk was at z0. Even a drop at y 326 lands on the lane edge (320). Retry: enter the y 184-216 ramp end-on from (380,200) heading 180°, cross the deck to x 240, go south to (308,322), and drop at 45° (SE, deeper into the lane) at near 110, 85 and 135. Expect a car-fault clear on pass 2 or later.",
+  "run": {
+   "reason": "cleared",
+   "step": 8,
+   "of": 31,
+   "secs": 22.817
+  },
+  "end": {
+   "screen": "game",
+   "phase": "report",
+   "cleared": true,
+   "progress": 1,
+   "rung": 2,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 22.8,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    356,
+    359
+   ],
+   "alive": false,
+   "broken": 0,
+   "points": 2878.8677692305605
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    11.5,
+    445,
+    218
+   ],
+   [
+    15.5,
+    182,
+    200
+   ],
+   [
+    18,
+    181,
+    200
+   ],
+   [
+    20,
+    204,
+    200
+   ],
+   [
+    22,
+    240,
+    302
+   ],
+   [
+    24,
+    310,
+    322
+   ],
+   [
+    26,
+    310,
+    322
+   ],
+   [
+    28.5,
+    310,
+    322
+   ],
+   [
+    30.5,
+    310,
+    322
+   ],
+   [
+    32.5,
+    310,
+    322
+   ]
+  ],
+  "secs": 36.6,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C1-06.png"
+ },
+ {
+  "id": "C1-07",
+  "tile": "C1",
+  "hypothesis": "Parent C1-01 and C1-03: a layer probe for the C1-06 route. After the end-on ramp entry, push east at y 250, where there is no gap. A final x of about 307 means the dummy is on the z2 deck (parapet). A final x of 340 or more means it never left z0. A pin before x 240 means the ramp has an untabled wall.",
+  "run": {
+   "reason": "end",
+   "step": 6,
+   "of": 6,
+   "secs": 12.086
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 2,
+   "passes": 2,
+   "failed": 1,
+   "restarts": 0,
+   "attempt": 13.7,
+   "faults": 0,
+   "standstill": 0,
+   "body": [
+    299,
+    248
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    12,
+    464,
+    224
+   ],
+   [
+    14,
+    381,
+    200
+   ],
+   [
+    15.5,
+    288,
+    200
+   ],
+   [
+    19,
+    181,
+    200
+   ],
+   [
+    21.5,
+    260,
+    248
+   ],
+   [
+    23.5,
+    299,
+    248
+   ],
+   [
+    25.5,
+    299,
+    248
+   ]
+  ],
+  "secs": 26.7,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/C1-07.png"
+ },
+ {
+  "id": "B3-08",
+  "tile": "B3",
+  "hypothesis": "Parent B3-01. Its ahead-aimed dashes went WSW through the 27-unit hedge-planter gap and clipped corners (faults 2). Retry from (160,232), ducked, centred on the gap: release C and dash straight 90° at near 80, 100 and 120. The last attempt dashes still holding C at near 60. Expect a car-fault clear. If none, the 27-unit gap is too tight for a 26-unit dummy's dash.",
+  "run": {
+   "reason": "timeout",
+   "step": 26,
+   "of": 37,
+   "secs": 100.016
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 9,
+   "failed": 8,
+   "restarts": 0,
+   "attempt": 101.6,
+   "faults": 1,
+   "standstill": 1,
+   "body": [
+    159,
+    400
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    8.5,
+    303,
+    225
+   ],
+   [
+    10,
+    166,
+    232
+   ],
+   [
+    12,
+    160,
+    232
+   ],
+   [
+    14,
+    160,
+    232
+   ],
+   [
+    16,
+    160,
+    232
+   ],
+   [
+    17.5,
+    160,
+    232
+   ],
+   [
+    19.5,
+    160,
+    232
+   ],
+   [
+    21,
+    160,
+    232
+   ],
+   [
+    23,
+    160,
+    232
+   ],
+   [
+    25.5,
+    159,
+    266
+   ],
+   [
+    27.5,
+    159,
+    266
+   ],
+   [
+    29.5,
+    159,
+    266
+   ],
+   [
+    31,
+    159,
+    266
+   ],
+   [
+    33,
+    159,
+    266
+   ],
+   [
+    36,
+    159,
+    266
+   ],
+   [
+    38.5,
+    159,
+    266
+   ],
+   [
+    40.5,
+    159,
+    266
+   ],
+   [
+    42.5,
+    169,
+    274
+   ],
+   [
+    44,
+    254,
+    295
+   ],
+   [
+    45.5,
+    294,
+    318
+   ],
+   [
+    47.5,
+    290,
+    234
+   ],
+   [
+    49,
+    167,
+    232
+   ],
+   [
+    51,
+    160,
+    232
+   ],
+   [
+    53,
+    160,
+    232
+   ],
+   [
+    55,
+    160,
+    232
+   ],
+   [
+    56,
+    160,
+    232
+   ],
+   [
+    57.5,
+    160,
+    232
+   ],
+   [
+    59.5,
+    160,
+    232
+   ],
+   [
+    61.5,
+    160,
+    232
+   ],
+   [
+    63.5,
+    160,
+    232
+   ],
+   [
+    65.5,
+    160,
+    232
+   ],
+   [
+    67.5,
+    160,
+    357
+   ],
+   [
+    69.5,
+    160,
+    398
+   ],
+   [
+    71.5,
+    160,
+    398
+   ],
+   [
+    73.5,
+    160,
+    398
+   ],
+   [
+    75.5,
+    160,
+    398
+   ],
+   [
+    77.5,
+    160,
+    398
+   ],
+   [
+    79.5,
+    160,
+    398
+   ],
+   [
+    81.5,
+    160,
+    398
+   ],
+   [
+    83.5,
+    286,
+    303
+   ],
+   [
+    85.5,
+    230,
+    233
+   ],
+   [
+    87,
+    159,
+    232
+   ],
+   [
+    89.5,
+    159,
+    232
+   ],
+   [
+    91.5,
+    159,
+    232
+   ],
+   [
+    93,
+    159,
+    232
+   ],
+   [
+    95,
+    159,
+    232
+   ],
+   [
+    97,
+    159,
+    232
+   ],
+   [
+    98.5,
+    159,
+    232
+   ],
+   [
+    100,
+    159,
+    232
+   ],
+   [
+    102,
+    159,
+    232
+   ],
+   [
+    104,
+    159,
+    232
+   ],
+   [
+    106,
+    159,
+    400
+   ],
+   [
+    108,
+    159,
+    400
+   ]
+  ],
+  "secs": 110.7,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B3-08.png"
+ },
+ {
+  "id": "B3-09",
+  "tile": "B3",
+  "hypothesis": "Parent B3-06 (inconclusive). Ducked at the hedge's middle (222,232), dash 90° straight into the low hedge at near 80, then at 85° with no car. If the dash hops low cover into the lane, it is an unlisted route, and a clear is cheese. If the dummy ends inside the hedge (x 174-270, y 246-262), it is 'inside solid'.",
+  "run": {
+   "reason": "end",
+   "step": 17,
+   "of": 17,
+   "secs": 40.856
+  },
+  "end": {
+   "screen": "game",
+   "phase": "play",
+   "cleared": false,
+   "progress": 0,
+   "rung": 5,
+   "passes": 3,
+   "failed": 2,
+   "restarts": 0,
+   "attempt": 42.4,
+   "faults": 1,
+   "standstill": 0,
+   "body": [
+    237,
+    396
+   ],
+   "alive": true,
+   "broken": 0,
+   "points": 0
+  },
+  "findings": [],
+  "pageErrors": [],
+  "trace": [
+   [
+    9,
+    297,
+    226
+   ],
+   [
+    10.5,
+    222,
+    232
+   ],
+   [
+    11.4,
+    222,
+    232
+   ],
+   [
+    14,
+    222,
+    232
+   ],
+   [
+    15.5,
+    222,
+    232
+   ],
+   [
+    16.5,
+    222,
+    232
+   ],
+   [
+    18.5,
+    222,
+    232
+   ],
+   [
+    21,
+    222,
+    232
+   ],
+   [
+    22.5,
+    222,
+    232
+   ],
+   [
+    24.5,
+    222,
+    232
+   ],
+   [
+    26.5,
+    172,
+    311
+   ],
+   [
+    29,
+    172,
+    311
+   ],
+   [
+    31,
+    172,
+    311
+   ],
+   [
+    32.5,
+    172,
+    311
+   ],
+   [
+    34.5,
+    172,
+    311
+   ],
+   [
+    37,
+    172,
+    311
+   ],
+   [
+    38,
+    172,
+    311
+   ],
+   [
+    39.5,
+    172,
+    231
+   ],
+   [
+    42,
+    190,
+    233
+   ],
+   [
+    44,
+    288,
+    287
+   ],
+   [
+    46,
+    252,
+    233
+   ],
+   [
+    48,
+    237,
+    396
+   ],
+   [
+    50,
+    237,
+    396
+   ]
+  ],
+  "secs": 52.1,
+  "shot": "/home/claude/elvtr-multiagent-submission-7/pipeline/runs/20261109-021452-qa/attack_shots/B3-09.png"
+ }
+]

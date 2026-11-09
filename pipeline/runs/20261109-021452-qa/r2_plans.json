@@ -1,0 +1,2911 @@
+[
+ {
+  "id": "B1-07",
+  "tile": "B1",
+  "kind": "attack",
+  "hypothesis": "Parent B1-06. Repro: walking from the drop toward (500,292) at t=0 got a car-fault hit 1.77 s into pass 1, with progress 1 and faults 0. The rung-1 stop line is meant to stop the car for a dummy in its lane. If this clears in pass 1 again, it is a major first-pass cheese. Also record whether result stays null although stopped=cleared (seen in A1-01, A1-08, B1-06, B2-03).",
+  "secs": 15,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     500,
+     292
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "wait",
+    "secs": 6
+   }
+  ]
+ },
+ {
+  "id": "B1-08",
+  "tile": "B1",
+  "kind": "attack",
+  "hypothesis": "Parent B1-06. Is the cut-in cheese just pass-1 timing, or does any diagonal entry beat the stop line? Each attempt waits for a new pass, then walks into the lane at 27\u00b0 (the B1-06 heading), 60\u00b0, 120\u00b0 and 45\u00b0 at strength 0.5. A clear on pass 2 or later at a non-8-way angle means the forward camera misses diagonal entries.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     440,
+     240
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 170,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 27,
+    "mag": 1,
+    "secs": 0.8
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     240
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 200,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 60,
+    "mag": 1,
+    "secs": 0.7
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     240
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 130,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 120,
+    "mag": 1,
+    "secs": 0.7
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     240
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 150,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 45,
+    "mag": 0.5,
+    "secs": 1.2
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   }
+  ]
+ },
+ {
+  "id": "B1-09",
+  "tile": "B1",
+  "kind": "solution",
+  "hypothesis": "Parent B1-01. Its 3 faults mean every step-in was late: the car is about 225 u/s and the walk about 90 u/s, so a 38-unit step takes about 0.45 s. Retry from (440,250) with earlier triggers (near 140, 120, 105, 160), each on a new pass so pass-1 luck is excluded. Expect a car-fault clear. A fault at every trigger means the window is narrower than one 20 Hz tick at full stick.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     440,
+     250
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 140,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     250
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 120,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     250
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 105,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     250
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 160,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   }
+  ]
+ },
+ {
+  "id": "B1-10",
+  "tile": "B1",
+  "kind": "attack",
+  "hypothesis": "Parent B1-03, where the dummy was pinned 3 times at (443,170) pushing east. The solids table has nothing there: the block at 300-500 ends at y 156 and the block at 536 starts at x 536. Walk east along y 172 at full stick. A final x near 443 instead of about 523 means an untabled collider, probably the podium skybridge.",
+  "secs": 20,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     368,
+     172
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     420,
+     172
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 5,
+    "mag": 1,
+    "secs": 1
+   },
+   {
+    "op": "wait",
+    "secs": 0.5
+   }
+  ]
+ },
+ {
+  "id": "B2-08",
+  "tile": "B2",
+  "kind": "attack",
+  "hypothesis": "Parent B2-03. Repro: an open-ground dash from the south kerb at (420,575) cleared in pass 1 at 5.7 s with no kiosk. The rung-2 side sensors do not reach 151 units, and the 164-unit dash covers it. If it clears again, it is a major cheese that bypasses the island, and a first-pass clear.",
+  "secs": 20,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     420,
+     575
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "waitCar",
+    "near": 170,
+    "max": 30
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 60,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "B2-09",
+  "tile": "B2",
+  "kind": "attack",
+  "hypothesis": "Parent B2-03. Vary it on pass 2 and later from three open-kerb spots (x 420, 520, 340). A clear from any of them shows the side-sensor range is shorter than the dash, independent of pass-1 timing. It also maps where the cheese works.",
+  "secs": 75,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     420,
+     575
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 170,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 60,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     520,
+     570
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 165,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 50,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     340,
+     590
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 165,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 55,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "B2-10",
+  "tile": "B2",
+  "kind": "solution",
+  "hypothesis": "Parent B2-01. Hiding at (421,370) clipped the kiosk's east corner, so the dashes were blocked or late (body stuck at 424,369; faults 2). Retry from two clean spots. A: (428,382), off the kiosk's east end, 42 from the lane centre, near 58/70. B: (426,362), north-east, 62 from the lane centre, near 80/95. Dash straight south at 90\u00b0, crossing the lane only after the car has passed. Expect a car-fault clear. If none, Edit 115's spring is unperformable.",
+  "secs": 110,
+  "script": [
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 12
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     470
+    ],
+    "tol": 6,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     372
+    ],
+    "tol": 5,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     428,
+     382
+    ],
+    "tol": 3,
+    "max": 2
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 58,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     372
+    ],
+    "tol": 5,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     428,
+     382
+    ],
+    "tol": 3,
+    "max": 2
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 70,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     362
+    ],
+    "tol": 5,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     426,
+     362
+    ],
+    "tol": 3,
+    "max": 2
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 80,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     362
+    ],
+    "tol": 5,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     426,
+     362
+    ],
+    "tol": 3,
+    "max": 2
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 95,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   }
+  ]
+ },
+ {
+  "id": "C3-08",
+  "tile": "C3",
+  "kind": "attack",
+  "hypothesis": "Parent C3-04. Repro: walking from the drop to (150,570) crossed the lane on pass 1 and scored boss hit 1 (progress 1, faults 0). A rung-5 car should see a walker in its lane. Then vary on later passes: a straight 90\u00b0 cross at near 120, and a 76\u00b0 cross at near 160. Progress above 1 means boss hits can be farmed by walking: major.",
+  "secs": 75,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     150,
+     570
+    ],
+    "tol": 4,
+    "max": 10
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "waitCar",
+    "u": 0.9,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     400,
+     450
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 120,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     400,
+     570
+    ],
+    "tol": 6,
+    "max": 2
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   },
+   {
+    "op": "waitCar",
+    "u": 0.9,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     400,
+     450
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 160,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     430,
+     570
+    ],
+    "tol": 6,
+    "max": 2.5
+   },
+   {
+    "op": "wait",
+    "secs": 3
+   }
+  ]
+ },
+ {
+  "id": "C3-09",
+  "tile": "C3",
+  "kind": "attack",
+  "hypothesis": "Parent C3-06, which logged 'no-red-car' (25 s) after R was pressed 0.4 s after a fault dash and then the game was paused. Repro without the pause: same dash, R, then wait 35 s. 'no-red-car' again means R during a contact or write-off leaves the spawner dead: major softlock.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     440,
+     394
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitCar",
+    "near": 125,
+    "max": 30
+   },
+   {
+    "op": "dash",
+    "at": {
+     "ahead": 45,
+     "side": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 0.4
+   },
+   {
+    "op": "restart"
+   },
+   {
+    "op": "wait",
+    "secs": 35
+   }
+  ]
+ },
+ {
+  "id": "C3-10",
+  "tile": "C3",
+  "kind": "attack",
+  "hypothesis": "Parent C3-06. Control: press R mid-pass with no contact (car at u 0.5), then wait 35 s. 'no-red-car' here means any R with the car on the road kills the spawner. If only C3-09 fails, the trigger is R during a contact.",
+  "secs": 45,
+  "script": [
+   {
+    "op": "waitCar",
+    "u": 0.5,
+    "max": 20
+   },
+   {
+    "op": "restart"
+   },
+   {
+    "op": "wait",
+    "secs": 35
+   }
+  ]
+ },
+ {
+  "id": "C3-11",
+  "tile": "C3",
+  "kind": "attack",
+  "hypothesis": "Parent C3-07: jitter stayed at (771,384-385) for 68 s under random input, with 19 pins. That is the east wall's south end, where the road exit opens. Push east 4 s at 0.6, then hold 180\u00b0 at full strength for 2 s. A final body still at about 771,384 means the dummy is trapped: blocker softlock that only R escapes.",
+  "secs": 25,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     771,
+     384
+    ],
+    "tol": 3,
+    "max": 10
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 0.6,
+    "secs": 4
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "wait",
+    "secs": 0.5
+   }
+  ]
+ },
+ {
+  "id": "C3-12",
+  "tile": "C3",
+  "kind": "solution",
+  "hypothesis": "Parent C3-01, which got 4 faults: every dash was late, and the hide at (440,394) overlapped the cabinet corner. Calibration from B2-03: the dash is about 2x car speed. Hit 1: cabinet NE at (444,392), 116 off the lane, dash 90\u00b0 at near 155. Hit 2: ducked at the hedge's east end (181,566), dash 270\u00b0 at near 70. Hit 3: break the post at (630,412) from (600,412), then the kiosk NE (568,394), dash 90\u00b0 at near 140. Lane crossings wait for u 0.9. Expect 3 car-fault hits and a clear.",
+  "secs": 120,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     444,
+     392
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitCar",
+    "near": 155,
+    "max": 30
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     250,
+     450
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "waitCar",
+    "u": 0.9,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     181,
+     566
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitNew",
+    "max": 25
+   },
+   {
+    "op": "waitCar",
+    "near": 70,
+    "max": 15
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "dash",
+    "deg": 270
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   },
+   {
+    "op": "waitCar",
+    "u": 0.9,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     580,
+     445
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     600,
+     412
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "dash",
+    "deg": 0
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     600,
+     394
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     568,
+     394
+    ],
+    "tol": 3,
+    "max": 2
+   },
+   {
+    "op": "waitNew",
+    "max": 25
+   },
+   {
+    "op": "waitCar",
+    "near": 140,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   }
+  ]
+ },
+ {
+  "id": "C3-13",
+  "tile": "C3",
+  "kind": "attack",
+  "hypothesis": "Parent C3-03, which never climbed: the ramp's sides pinned it at (330,531) and (330,591). Enter the east ramp end-on at y 560 heading 180\u00b0. On the deck, drop SE (60\u00b0) through the y 463-495 gap at near 100, then again at near 80. If one drop counts, it is an unlisted 'new way'. If both count, crash memory ignores drops: major.",
+  "secs": 100,
+  "script": [
+   {
+    "op": "waitCar",
+    "u": 0.9,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     380,
+     560
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     560
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     308,
+     482
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 25
+   },
+   {
+    "op": "waitCar",
+    "near": 100,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 60,
+    "mag": 1,
+    "secs": 0.7
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   },
+   {
+    "op": "waitCar",
+    "u": 0.9,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     380,
+     560
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     560
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     308,
+     482
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 25
+   },
+   {
+    "op": "waitCar",
+    "near": 80,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 60,
+    "mag": 1,
+    "secs": 0.7
+   },
+   {
+    "op": "wait",
+    "secs": 5
+   }
+  ]
+ },
+ {
+  "id": "A3-07",
+  "tile": "A3",
+  "kind": "attack",
+  "hypothesis": "Parent A3-05: jitter stayed at (787,229-232) for 70 s, past the planter's x 784 line, pinned 16 times. Reach (787,226), push east 5 s at 0.94, then hold 180\u00b0 for 2 s. A final x still about 787 means the open-edge fence clamp traps the dummy: blocker.",
+  "secs": 30,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     700,
+     226
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     787,
+     226
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 0.94,
+    "secs": 5
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "wait",
+    "secs": 0.5
+   }
+  ]
+ },
+ {
+  "id": "A3-06",
+  "tile": "A3",
+  "kind": "attack",
+  "hypothesis": "Parent A3-01, which flagged 'kiosk' (inside solid) at (441,234), 5 units into the kiosk top. Approach the kiosk top from the east and push in at 90\u00b0 and 0.3, first empty-handed, then carrying cone 0. 'Inside solid' only while carrying means the held cone pushes the dummy into the kiosk.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     470,
+     228
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     432,
+     228
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 0.3,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 95,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": {
+     "cone": 0
+    },
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     470,
+     228
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     432,
+     228
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 0.3,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 85,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "spin",
+    "deg0": 0,
+    "rate": 90,
+    "mag": 0.5,
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "A3-08",
+  "tile": "A3",
+  "kind": "solution",
+  "hypothesis": "Parent A3-01. The kiosk's SE corner blocked the step from (432,230) to (480,298). Retry: after the car passes, carry cone 0 to (480,348) using the cone target. Hide NE of the kiosk at (470,232), outside the kiosk's corner, and step to (500,300) in the other lane at near 200, 170 and 230. Expect a car-fault clear as the car swerves left into the dummy.",
+  "secs": 100,
+  "script": [
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 12
+   },
+   {
+    "op": "goto",
+    "to": {
+     "cone": 0
+    },
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     480,
+     348
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     470,
+     232
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 200,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     500,
+     300
+    ],
+    "tol": 6,
+    "max": 2.5
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     470,
+     232
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 170,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     500,
+     300
+    ],
+    "tol": 6,
+    "max": 2.5
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     470,
+     232
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 230,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     500,
+     300
+    ],
+    "tol": 6,
+    "max": 2.5
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "A3-09",
+  "tile": "A3",
+  "kind": "attack",
+  "hypothesis": "Parent A3-01. Place the same cone, then stand still at (540,296) in the swerve lane from the start and never touch the stick. A car-fault clear means Swerve is beaten by standing still and the kiosk hide is decorative: design bug.",
+  "secs": 60,
+  "script": [
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 12
+   },
+   {
+    "op": "goto",
+    "to": {
+     "cone": 0
+    },
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     480,
+     348
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "press",
+    "btn": "X",
+    "secs": 0.1
+   },
+   {
+    "op": "goto",
+    "to": [
+     540,
+     296
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "wait",
+    "secs": 40
+   }
+  ]
+ },
+ {
+  "id": "A1-09",
+  "tile": "A1",
+  "kind": "attack",
+  "hypothesis": "Parents A1-05 and A1-06: 'inside column' at (501,99), and pinned at (470,109) under the NW stair. The column at 484-508, 68-92 fills the y 64-96 stair opening. Enter end-on at y 80, then at y 96, then at 350\u00b0 and 10\u00b0. Expect pinned at about 471,80. Expect 'inside column' when the stair is squeezed past the column's south face: major, as the stair is usable only by clipping.",
+  "secs": 30,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     420,
+     80
+    ],
+    "tol": 3,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     420,
+     96
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 0.3,
+    "secs": 2
+   },
+   {
+    "op": "goto",
+    "to": [
+     420,
+     88
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 350,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 10,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "wait",
+    "secs": 0.5
+   }
+  ]
+ },
+ {
+  "id": "A1-12",
+  "tile": "A1",
+  "kind": "attack",
+  "hypothesis": "Parent A1-05. Verbatim repro of the first half, which put the dummy inside column 612 (6 events) at (643,552), by the SE stair opening (y 544-576). Expect the same 'column' finding at about t 39. It confirms the stair ramp and column overlap on the east side too.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     780,
+     600
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     700,
+     616
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 90,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "stick",
+    "deg": 85,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "stick",
+    "deg": 95,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     790,
+     630
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 45,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     286,
+     220
+    ],
+    "tol": 6,
+    "max": 10
+   }
+  ]
+ },
+ {
+  "id": "A1-10",
+  "tile": "A1",
+  "kind": "attack",
+  "hypothesis": "Parent A1-07, which ended with progress 1 and faults 1 after the dummy was traced at (636,374), 39 units past the gap's south end, at the parapet's x. Repro the 0.4-strength slide at 85\u00b0, then push east 1 s. If the final x is about 627, the slide stayed on the deck past the gap (the gap misses shallow analog slides). If x is 700 or more, it dropped. Also record whether one contact logs both a fault and progress.",
+  "secs": 30,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     560,
+     80
+    ],
+    "tol": 6,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     634,
+     250
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 85,
+    "mag": 0.4,
+    "secs": 4
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 1
+   },
+   {
+    "op": "wait",
+    "secs": 0.5
+   }
+  ]
+ },
+ {
+  "id": "C2-07",
+  "tile": "C2",
+  "kind": "attack",
+  "hypothesis": "Parent C2-05: after entering at y 600, the dummy walked north along x 240 and was pinned at (239,243) by the z0 block 112-368 x 140-230. It then logged 'inside block' at (240,215) and reached (240,13). Repro. Same findings mean a z2 deck walker collides with a z0 block and then tunnels through it: blocker-class geometry.",
+  "secs": 40,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     410,
+     300
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     330,
+     600
+    ],
+    "tol": 3,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     560
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     4
+    ],
+    "tol": 3,
+    "max": 14
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   }
+  ]
+ },
+ {
+  "id": "C2-10",
+  "tile": "C2",
+  "kind": "attack",
+  "hypothesis": "Parent C2-05. Control at z0: walk under the deck to (240,250) and push north into block 112 for 8 s. A final y below 230 means even a ground walker tunnels through the block after a pin. y about 243 isolates the bug to the deck layer (see C2-07).",
+  "secs": 25,
+  "script": [
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     400,
+     276
+    ],
+    "tol": 6,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     276
+    ],
+    "tol": 6,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     250
+    ],
+    "tol": 3,
+    "max": 2
+   },
+   {
+    "op": "stick",
+    "deg": 270,
+    "mag": 1,
+    "secs": 8
+   },
+   {
+    "op": "wait",
+    "secs": 0.5
+   }
+  ]
+ },
+ {
+  "id": "C2-08",
+  "tile": "C2",
+  "kind": "solution",
+  "hypothesis": "Parent C2-01. The break worked, but the follow-up dashes from (345,248) barely moved the dummy: the battery was likely spent or recharging. Retry. Break the post from (262,250) right after a pass. Hide at the post's spot, the kiosk's west end (345,247). Skip a pass for recharge, then dash 90\u00b0 (46 off the lane centre) at near 55, 70 and 45. Expect a car-fault clear. No dash movement means Battery 1 does not recharge after a camera break: major.",
+  "secs": 110,
+  "script": [
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 20
+   },
+   {
+    "op": "goto",
+    "to": [
+     400,
+     276
+    ],
+    "tol": 6,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     270,
+     276
+    ],
+    "tol": 6,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     262,
+     250
+    ],
+    "tol": 4,
+    "max": 2
+   },
+   {
+    "op": "dash",
+    "at": {
+     "camera": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     345,
+     247
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 55,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     330,
+     280
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     345,
+     247
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 70,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     330,
+     280
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     345,
+     247
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 45,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 95
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "C2-09",
+  "tile": "C2",
+  "kind": "attack",
+  "hypothesis": "Parent C2-04, whose climb failed (pinned at 330,531). Enter the deck at y 595, where C2-05 got onto the deck, below column 292-316. Walk to the y 303-335 gap and drop 340\u00b0 at near 100, then 80. A clear at rung 5 without breaking the camera bypasses Portal's lesson: major cheese.",
+  "secs": 80,
+  "script": [
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 15
+   },
+   {
+    "op": "goto",
+    "to": [
+     410,
+     300
+    ],
+    "tol": 6,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     380,
+     595
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     595
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     320
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     308,
+     318
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 100,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 340,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     380,
+     595
+    ],
+    "tol": 4,
+    "max": 6
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     595
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     320
+    ],
+    "tol": 4,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     308,
+     318
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 80,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 340,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "A2-07",
+  "tile": "A2",
+  "kind": "solution",
+  "hypothesis": "Parent A2-01, which failed on my pathing. The drop pocket only exits east (a 16-unit slot west), and the 24-unit block/cabinet slot fits no 26-unit dummy (A2-03). Retry: go east, then along the lane edge, to (300,252) after a pass. Dash 0\u00b0 through the post at (365,251), stopping on the cabinet's west end. Hide at (358,240). Skip a pass, then dash 90\u00b0 at near 70, 85 and 60. Expect a car-fault clear.",
+  "secs": 110,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     420,
+     140
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 20
+   },
+   {
+    "op": "goto",
+    "to": [
+     440,
+     276
+    ],
+    "tol": 6,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     340,
+     276
+    ],
+    "tol": 6,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     300,
+     252
+    ],
+    "tol": 4,
+    "max": 2
+   },
+   {
+    "op": "dash",
+    "at": {
+     "camera": 0
+    }
+   },
+   {
+    "op": "wait",
+    "secs": 1
+   },
+   {
+    "op": "goto",
+    "to": [
+     358,
+     240
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 70,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     330,
+     276
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     358,
+     240
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 85,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     330,
+     276
+    ],
+    "tol": 6,
+    "max": 6
+   },
+   {
+    "op": "goto",
+    "to": [
+     358,
+     240
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 60,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 100
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "A2-08",
+  "tile": "A2",
+  "kind": "attack",
+  "hypothesis": "Parent A2-02, whose climb failed (pinned at 470,109). Enter the NW stair end-on at y 80 from x 430. Drop east through the y 303-335 gap at 340\u00b0 and near 110, landing ahead of the westbound car. Then repeat from the west parapet at 200\u00b0 and near 80. A clear at rung 4 reproduces Edit 115's drop cheese that skips the camera break.",
+  "secs": 90,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     420,
+     140
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     430,
+     80
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     110
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     627,
+     312
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 110,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 340,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     430,
+     140
+    ],
+    "tol": 6,
+    "max": 8
+   },
+   {
+    "op": "goto",
+    "to": [
+     430,
+     80
+    ],
+    "tol": 3,
+    "max": 4
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     560,
+     110
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     493,
+     312
+    ],
+    "tol": 3,
+    "max": 5
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 80,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 200,
+    "mag": 1,
+    "secs": 0.6
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "C1-06",
+  "tile": "C1",
+  "kind": "solution",
+  "hypothesis": "Parent C1-01, which never climbed. The approach at (340,229) hit the ramp's side, and the 'deck' walk was at z0. Even a drop at y 326 lands on the lane edge (320). Retry: enter the y 184-216 ramp end-on from (380,200) heading 180\u00b0, cross the deck to x 240, go south to (308,322), and drop at 45\u00b0 (SE, deeper into the lane) at near 110, 85 and 135. Expect a car-fault clear on pass 2 or later.",
+  "secs": 110,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     380,
+     200
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     200
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     310
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     308,
+     322
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 110,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 45,
+    "mag": 1,
+    "secs": 0.7
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     380,
+     260
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     380,
+     200
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     200
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     310
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     308,
+     322
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 85,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 45,
+    "mag": 1,
+    "secs": 0.7
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     380,
+     260
+    ],
+    "tol": 6,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     380,
+     200
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     200
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     310
+    ],
+    "tol": 4,
+    "max": 4
+   },
+   {
+    "op": "goto",
+    "to": [
+     308,
+     322
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 135,
+    "max": 15
+   },
+   {
+    "op": "stick",
+    "deg": 45,
+    "mag": 1,
+    "secs": 0.7
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "C1-07",
+  "tile": "C1",
+  "kind": "attack",
+  "hypothesis": "Parent C1-01 and C1-03: a layer probe for the C1-06 route. After the end-on ramp entry, push east at y 250, where there is no gap. A final x of about 307 means the dummy is on the z2 deck (parapet). A final x of 340 or more means it never left z0. A pin before x 240 means the ramp has an untabled wall.",
+  "secs": 20,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     380,
+     200
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "stick",
+    "deg": 180,
+    "mag": 1,
+    "secs": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     200
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     240,
+     250
+    ],
+    "tol": 4,
+    "max": 2
+   },
+   {
+    "op": "stick",
+    "deg": 0,
+    "mag": 1,
+    "secs": 2
+   },
+   {
+    "op": "wait",
+    "secs": 0.5
+   }
+  ]
+ },
+ {
+  "id": "B3-08",
+  "tile": "B3",
+  "kind": "solution",
+  "hypothesis": "Parent B3-01. Its ahead-aimed dashes went WSW through the 27-unit hedge-planter gap and clipped corners (faults 2). Retry from (160,232), ducked, centred on the gap: release C and dash straight 90\u00b0 at near 80, 100 and 120. The last attempt dashes still holding C at near 60. Expect a car-fault clear. If none, the 27-unit gap is too tight for a 26-unit dummy's dash.",
+  "secs": 100,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     160,
+     232
+    ],
+    "tol": 3,
+    "max": 8
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 80,
+    "max": 15
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     290,
+     300
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     290,
+     232
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     160,
+     232
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 100,
+    "max": 15
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     290,
+     300
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     290,
+     232
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     160,
+     232
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 120,
+    "max": 15
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     290,
+     300
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     290,
+     232
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     160,
+     232
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 60,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   }
+  ]
+ },
+ {
+  "id": "B3-09",
+  "tile": "B3",
+  "kind": "attack",
+  "hypothesis": "Parent B3-06 (inconclusive). Ducked at the hedge's middle (222,232), dash 90\u00b0 straight into the low hedge at near 80, then at 85\u00b0 with no car. If the dash hops low cover into the lane, it is an unlisted route, and a clear is cheese. If the dummy ends inside the hedge (x 174-270, y 246-262), it is 'inside solid'.",
+  "secs": 50,
+  "script": [
+   {
+    "op": "goto",
+    "to": [
+     222,
+     232
+    ],
+    "tol": 3,
+    "max": 8
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "waitNew",
+    "max": 20
+   },
+   {
+    "op": "waitCar",
+    "near": 80,
+    "max": 15
+   },
+   {
+    "op": "dash",
+    "deg": 90
+   },
+   {
+    "op": "wait",
+    "secs": 0.3
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "wait",
+    "secs": 4
+   },
+   {
+    "op": "waitCar",
+    "u": 0.95,
+    "max": 10
+   },
+   {
+    "op": "goto",
+    "to": [
+     290,
+     300
+    ],
+    "tol": 6,
+    "max": 5
+   },
+   {
+    "op": "goto",
+    "to": [
+     290,
+     232
+    ],
+    "tol": 4,
+    "max": 3
+   },
+   {
+    "op": "goto",
+    "to": [
+     222,
+     232
+    ],
+    "tol": 3,
+    "max": 3
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": true
+   },
+   {
+    "op": "dash",
+    "deg": 85
+   },
+   {
+    "op": "wait",
+    "secs": 0.2
+   },
+   {
+    "op": "hold",
+    "code": "KeyC",
+    "on": false
+   },
+   {
+    "op": "wait",
+    "secs": 2
+   }
+  ]
+ }
+]

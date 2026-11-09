@@ -1,0 +1,351 @@
+{
+ "verdict": "Map 1 fails QA: Certification freezes after its first hit (blocker), the z1 deck cannot be reached on A1, A2 or A3, B1 and B2 can be cleared with a cheese in pass 1, and only 3 of the 9 intended solutions (A1, B1, C1) work with the analog pad.",
+ "bugs": [
+  {
+   "id": "QA-01",
+   "severity": "blocker",
+   "tile": "C3",
+   "title": "The game freezes after boss hit 1: the pass counter stops, the dummy stops moving and the game clock stops",
+   "evidence": [
+    "C3-04",
+    "C3-08",
+    "C3-12",
+    "no monitor finding (the monitor misses it)"
+   ],
+   "repro": "C3-08",
+   "what": "3 of 3 runs that scored hit 1 froze: progress 1, passes 1 to the end. C3-04 stayed frozen 50 s, C3-08 75 s, C3-12 120 s. The dummy stays put after the hit: (148,570) in C3-08, (471,544) in C3-12. The script keeps steering it and presses A in C3-12 at about 70 s. The trace records one sample per run, so game time stopped. No pinned, rescue-stuck, write-off-stuck or no-red-car finding fired. Runs with no hit cycled normally: C3-01 4 passes, C3-02 6 passes.",
+   "expected": "Hit 1 adds progress, the dummy respawns or is rescued, and the next pass starts. Hits 2 and 3 can then be played.",
+   "suspect": "C3 is the only puzzle with objective.count > 1, so the code path for a hit that does not clear the puzzle only runs here. Candidates: the mid-puzzle lesson card (Edit 115: 'two mid-puzzle lessons in 9') opens modally and does not close on pad input, or the hit-stop / write-off sequence never resumes when the puzzle does not clear.",
+   "fix": "Resume the simulation after any hit that does not clear the puzzle. Close lesson cards on A/START, with a timeout. Add a test: objective count 3, one hit, expect passes to keep rising. Add a monitor check: game clock stalled for more than 5 s while not paused."
+  },
+  {
+   "id": "QA-02",
+   "severity": "major",
+   "tile": "B2",
+   "title": "An open-kerb dash clears The Island in pass 1 without using the kiosk",
+   "evidence": [
+    "B2-03",
+    "B2-08",
+    "B2-09 (control: 0 clears on later passes)"
+   ],
+   "repro": "B2-08",
+   "what": "Walk from the drop to (420,575), about 151 off the lane, and dash at {ahead:60} when the car is within 170. Cleared at 5.7 s in pass 1, faults 0, 2 of 2 runs. The same dash from x 420, 520 and 340 on passes 2+ gave 0 clears and 1 fault.",
+   "expected": "Rung-2 side sensors see the dummy on the open kerb, so no clear without the kiosk. No clear in pass 1.",
+   "suspect": "Pass-1 perception state: the car spawns at cruise speed while the sensors are not yet primed, or pass 1 has different speed or stopping logic. The control shows the move only works in pass 1. The drop at (416,496) is about 1 pass-length of walking from a 151-unit kerb spot.",
+   "fix": "Run the sensors from spawn, or delay the first spawn until the dummy has been on the ground for a few seconds. Re-run B2-08 and B2-09 afterwards."
+  },
+  {
+   "id": "QA-03",
+   "severity": "major",
+   "tile": "B1",
+   "title": "Walking straight from the drop clears Stop Line in 1.6 s, in pass 1",
+   "evidence": [
+    "B1-06",
+    "B1-07"
+   ],
+   "repro": "B1-07",
+   "what": "goto (500,292) from the drop (368,224) at t=0 is a 27° walk. It meets the westbound car at (465,274): car-fault hit, cleared at 1.60 s and 1.77 s, faults 0, 2 of 2 runs. That beats par 15. The player never has to read the stop line.",
+   "expected": "No clear in pass 1. The timed step-in (B1-09) should be the first available clear.",
+   "suspect": "The drop at (368,224) and the car's first spawn at x 800 line up: the dummy's first walk enters the lane inside the car's braking distance. Same pass-1 cause as QA-02.",
+   "fix": "Move layout.drop farther from the lane, or delay RED-01's first spawn so the first walk arrives before the car can no longer stop."
+  },
+  {
+   "id": "QA-04",
+   "severity": "major",
+   "tile": "C3",
+   "title": "Walking across the lane scores boss hit 1 in pass 1 at rung 5",
+   "evidence": [
+    "C3-04",
+    "C3-08"
+   ],
+   "repro": "C3-08",
+   "what": "goto (150,570) from the drop (400,384) crosses lane y 508 in pass 1. Progress 1, faults 0, 2 of 2 runs. No cover, duck, cone or camera used. Rung 5 has side sensors and street cameras.",
+   "expected": "A walker crossing 124 units of open kerb is seen. The car stops or swerves, and no hit counts.",
+   "suspect": "Same pass-1 cause as QA-02 and QA-03.",
+   "fix": "As QA-02. Also require each boss hit to come from one of the listed ways (cabinet, hedge, kiosk) for 'a new way each'."
+  },
+  {
+   "id": "QA-05",
+   "severity": "major",
+   "tile": "A1",
+   "title": "Deck columns plug all four stair heads of the z1 deck template (A1, A2, A3)",
+   "evidence": [
+    "A1-06",
+    "A1-09",
+    "A2-02",
+    "A2-08",
+    "A3-02",
+    "pinned at y 109 under the NW stair: (470,109), (420,109), (430,109), (448,109)"
+   ],
+   "repro": "A1-09",
+   "what": "The stair openings span y 64-96 and 544-576. The columns at x 484-508 and 612-636 span y 68-92 and 548-572. That leaves 4 units each side for a 26-unit dummy. No run reached z1 on A1, A2 or A3. Edit 115.4's A2 drop result used teleport set-ups, so it never tested the climb.",
+   "expected": "Each stair opening fits the dummy, like C1's y 184-216 opening (C1-06 climbed it).",
+   "suspect": "The z1 deck template: decks[].stairOpenings sit on the same y spans as the deck columns.",
+   "fix": "Move the openings clear of the columns (for example y 100-132 and 508-540), or move the columns. Then re-test A2's drop cheese, now that the deck can be reached."
+  },
+  {
+   "id": "QA-06",
+   "severity": "major",
+   "tile": "A1",
+   "title": "The dummy can be pushed 7 units into column 612 at the SE stair",
+   "evidence": [
+    "A1-05",
+    "A1-12",
+    "column x6 each run"
+   ],
+   "repro": "A1-12",
+   "what": "Going NW from the SE corner toward (286,220) puts the dummy at (642,552), inside the 612-636 column's east face. 6 events per run, 2 of 2 runs. A1-05 also logged column 484 at (501,99) once.",
+   "expected": "The column pushes the dummy out. It never overlaps.",
+   "suspect": "The stair-ramp collider and the column collider resolve in opposite directions at the stair head (see QA-05).",
+   "fix": "Resolve the overlap together with QA-05. Run several collision-resolution passes, with solids last."
+  },
+  {
+   "id": "QA-07",
+   "severity": "major",
+   "tile": "B3",
+   "title": "A dash passes through the low hedge that blocks walking",
+   "evidence": [
+    "B3-09",
+    "B3-06 (walk pinned at hedge face 270,275)"
+   ],
+   "repro": "B3-09",
+   "what": "Ducked at (222,232), with no car, dash 85°. The dummy ends at (237,396), across the hedge at y 246-262. A walk is stopped at that face (B3-06). So the 27-unit hedge-planter gap is pointless: the dummy can dash into the lane from anywhere behind the hedge.",
+   "expected": "The dash collides with low solids, or Edit 115 allows hopping low cover.",
+   "suspect": "The dash sweep skips solids with low:true (or casts above their height).",
+   "fix": "Collide the dash with low solids, or document the hop and re-plan B3 and C3's hedge around it."
+  },
+  {
+   "id": "QA-08",
+   "severity": "major",
+   "tile": "B2",
+   "title": "A dash from cover overshoots the lane, so 'dash ahead of its nose' cannot be performed on B2, A2, C2 or B3",
+   "evidence": [
+    "B2-01",
+    "B2-10",
+    "A2-01",
+    "A2-07",
+    "C2-01",
+    "C2-08",
+    "B3-01",
+    "B3-04",
+    "B3-08"
+   ],
+   "repro": "B3-08",
+   "what": "The cover pieces sit 2 units off the kerb (layout cover gap 2), so the hide spots are 45-62 units from the lane centre. A 164-unit dash (movement.lungeDistance) carries the dummy 100+ units past the lane: B3-08 ended at (160,398), B3-09 at (237,396), with no contact. Earlier triggers cross ahead of the car. Later triggers hit the car's side: 10 faults across these runs, 0 clears. The only dashes that scored started about 116-151 units off the lane (C3-12, B2-08). B2's NE hide (426,362) also clips the kiosk corner, so a 90° dash does not move (B2-10).",
+   "expected": "Each puzzle's intended spring from cover clears within par/target.",
+   "suspect": "movement.lungeDistance 164 against layout cover gap 2. The dash ends the length of the lane past the hide. The only hit window is the dash's brief transit across the lane.",
+   "fix": "Pick one: end the dash at the first lane overlap; make the dash length scale with stick magnitude; or place the cover so the hide is about movement.lungeDistance minus half laneWidth from the lane centre. Then re-verify 4, 5, 7 and 8 with the pad."
+  },
+  {
+   "id": "QA-09",
+   "severity": "major",
+   "tile": "C2",
+   "title": "The dummy penetrates kiosks by 5 units",
+   "evidence": [
+    "A3-01 kiosk (441,234)",
+    "C2-08 kiosk (350,256)",
+    "A3-06 (deliberate repro: 0)"
+   ],
+   "repro": "C2-08",
+   "what": "C2-08: a 90° dash from the kiosk's west end at (345,247) slid down its west face and ended inside it. A3-01: a goto across the kiosk top ended inside it. A deliberate 0.3/1.0 push in A3-06 did not reproduce it.",
+   "expected": "No overlap with tall cover.",
+   "suspect": "The dash or goto step resolves against the camera post and the kiosk in one pass. The broken post's collider may leave a seam.",
+   "fix": "Sweep the dash (CCD) against cover. Re-test with the post intact and with it broken."
+  },
+  {
+   "id": "QA-10",
+   "severity": "major",
+   "tile": "C2",
+   "title": "A dummy on the deck is blocked by the z0 block 112, then passes through it",
+   "evidence": [
+    "C2-05 pinned (239,243) then 'block' x3 (240,215), reached (240,13)",
+    "C2-07 (no climb, no repro)",
+    "C2-10 (path failed)"
+   ],
+   "repro": "C2-05",
+   "what": "After entering via the y 554-610 opening, the dummy was pinned at the block's south face, logged inside it, then walked through 90 units of block to y 13.",
+   "expected": "At z2 the block below is ignored throughout. At z0 the block always stops the dummy.",
+   "suspect": "The dummy's layer flips during the deck walk, or the monitor reads the dummy at layer 0 while it is at z2.",
+   "fix": "Export the dummy's z in the monitor. Filter collisions by the deck layer for each step."
+  },
+  {
+   "id": "QA-11",
+   "severity": "major",
+   "tile": "A2",
+   "title": "After a deck-drop contact the dummy lands about 100 units off the lane, cannot be moved, and is pushed into block 656",
+   "evidence": [
+    "A2-08 'block' x2 (682,408)",
+    "C2-04 (343,409) static 16 s",
+    "C2-09 (334,415)"
+   ],
+   "repro": "A2-08",
+   "what": "A2-08 stayed at (628,414) from 48 s to 84.5 s while the script steered it. It then ended inside block 656. Progress 0, faults 0, so the contact is neither scored nor a fault. C2's runs show the same landing spot.",
+   "expected": "A drop graded SEEN returns control at once. Knockback never places the dummy inside a solid.",
+   "suspect": "The SEEN grade's knockback or rescue state takes away control and does not check for solids. The monitor's pinned and rescue checks do not cover this state.",
+   "fix": "Clamp knockback against solids. Give control back within 2 s. Add the state to the 'rescue stuck' monitor."
+  },
+  {
+   "id": "QA-12",
+   "severity": "minor",
+   "tile": "B1",
+   "title": "Untabled collider at x about 456, y 150-190",
+   "evidence": [
+    "B1-03 pinned x3 (443,170)",
+    "B1-10 final (443,190)"
+   ],
+   "repro": "B1-10",
+   "what": "Walking east along y 172 stops at x 443. No solid in the table is there.",
+   "expected": "Free walk to about x 523.",
+   "suspect": "The podium skybridge support has a collider but is not exported to solids[].",
+   "fix": "Export it, or remove the collider."
+  },
+  {
+   "id": "QA-13",
+   "severity": "minor",
+   "tile": "C1",
+   "title": "Stairs only work end-on: hidden ramp side walls pin angled approaches; C2 lists overlapping openings",
+   "evidence": [
+    "C1-01",
+    "C1-03",
+    "C1-05",
+    "C1-06 (end-on works)",
+    "C1-07",
+    "C2-04",
+    "C2-07",
+    "C2-09",
+    "C3-03",
+    "C3-13"
+   ],
+   "repro": "C1-07",
+   "what": "Angled approaches pinned at y = opening edge ± 13: (340,229), (330,531), (380,531), (330,591). An end-on entry from (380,200) heading 180° reached the deck: C1-07 ended at x 299 against the parapet. C2's stairOpenings [544,576] and [554,610] overlap.",
+   "expected": "The ramp sides are in solids[] and readable on screen. Each opening is listed once.",
+   "suspect": "Ramp colliders are not exported. C2 layout data duplicates the opening.",
+   "fix": "Export the ramp walls. Add a visible ramp edge. Remove one of C2's openings."
+  },
+  {
+   "id": "QA-14",
+   "severity": "minor",
+   "tile": "B1",
+   "title": "Clears report result null; round 1 reported cleared:false with stopped:cleared",
+   "evidence": [
+    "A1-01",
+    "A1-08",
+    "B1-06",
+    "B2-03",
+    "B1-07",
+    "B1-08",
+    "B1-09",
+    "B2-08",
+    "C1-06"
+   ],
+   "repro": "B1-07",
+   "what": "No stars, attempt time, restarts or passes are recorded on any of 9 clears.",
+   "expected": "The result is filled when the puzzle clears.",
+   "suspect": "The result is written after the clear card animation and read before it, or the result write is missing.",
+   "fix": "Write the result at the moment of the clear, then animate."
+  },
+  {
+   "id": "QA-15",
+   "severity": "minor",
+   "tile": "C3",
+   "title": "No red car for 25 s after R plus START (unconfirmed)",
+   "evidence": [
+    "C3-06 no-red-car",
+    "C3-09 (R after contact: OK)",
+    "C3-10 (R mid-pass: OK)"
+   ],
+   "repro": "C3-06",
+   "what": "Only reproduced with START in the sequence. R alone respawns the car.",
+   "expected": "The car returns within one pass after unpausing.",
+   "suspect": "The paused time counts toward the monitor's no-red-car timer, or the game stayed paused.",
+   "fix": "Record the pause state in the monitor. Re-run with START pressed twice."
+  }
+ ],
+ "puzzles": [
+  {
+   "tile": "A1",
+   "solution_verified": true,
+   "solution_plan": "A1-01",
+   "cheese": "None. A pass-1 clear is intended here (1.78 s).",
+   "softlocks": "None. Inside column 612 at the SE stair (QA-06). The z1 deck cannot be reached (QA-05).",
+   "verdict": "Passes. The your-fault flank contact was never made: A1-02 and A1-03 logged 0 faults."
+  },
+  {
+   "tile": "B1",
+   "solution_verified": true,
+   "solution_plan": "B1-09",
+   "cheese": "The first walk from the drop clears in pass 1 at 1.6 s (QA-03). Diagonal step-ins also clear (B1-08, pass 4).",
+   "softlocks": "None. Untabled collider (QA-12).",
+   "verdict": "Intended move works: 90° step at near 140, pass 2, 9.3 s, faults 0. The pass-1 cheese makes it unnecessary."
+  },
+  {
+   "tile": "C1",
+   "solution_verified": true,
+   "solution_plan": "C1-06",
+   "cheese": "None found. Kerb wait plus a dash into the stopped nose: no clear (C1-02).",
+   "softlocks": "None. Angled approaches pin at the ramp sides (QA-13).",
+   "verdict": "Passes: end-on ramp entry, drop at 45°, cleared at 22.8 s, faults 0. The NE opening (y 80-112) is plugged by column 292."
+  },
+  {
+   "tile": "B2",
+   "solution_verified": false,
+   "solution_plan": "B2-10",
+   "cheese": "Open-kerb dash in pass 1 (QA-02).",
+   "softlocks": "None.",
+   "verdict": "Fails: the only clear is the cheese. The kiosk spring scored 0 clears and 6 faults across B2-01, B2-02, B2-07 and B2-10 (QA-08)."
+  },
+  {
+   "tile": "A2",
+   "solution_verified": false,
+   "solution_plan": "A2-07",
+   "cheese": "The Edit 115 drop cheese cannot be tested: the stairs are plugged (QA-05).",
+   "softlocks": "Immobile dummy and inside block 656 after a drop contact (QA-11).",
+   "verdict": "Fails: break plus spring scored 0 clears and 2 faults (QA-08)."
+  },
+  {
+   "tile": "A3",
+   "solution_verified": false,
+   "solution_plan": "A3-08",
+   "cheese": "Standing still in the swerve lane did not clear (A3-09).",
+   "softlocks": "None. Kiosk penetration (QA-09).",
+   "verdict": "Unverified: 0 clears and 0 faults. The harness has no cone telemetry, so cone placement is unconfirmed. Edit 115.4's only clear (92.5 s) is over the 80 s target."
+  },
+  {
+   "tile": "C2",
+   "solution_verified": false,
+   "solution_plan": "C2-08",
+   "cheese": "The deck drop at rung 5 did not score (C2-04, C2-09).",
+   "softlocks": "Deck-layer block tunnel (QA-10). Kiosk penetration (QA-09).",
+   "verdict": "Fails: break plus spring scored 0 clears, triggers late (QA-08)."
+  },
+  {
+   "tile": "B3",
+   "solution_verified": false,
+   "solution_plan": "B3-08",
+   "cheese": "Dashes pass through the hedge (QA-07). No clear from ducking in the open lane (B3-03) or a ducked creep (B3-07). Standing behind the hedge sees the dummy, as designed (B3-02).",
+   "softlocks": "None.",
+   "verdict": "Fails: a ducked spring scored 0 clears and 4 faults. Full dashes overshoot the lane (QA-08)."
+  },
+  {
+   "tile": "C3",
+   "solution_verified": false,
+   "solution_plan": "C3-12",
+   "cheese": "A walk across the lane scores hit 1 in pass 1 (QA-04). A drop does not score (C3-13).",
+   "softlocks": "Freeze after hit 1 (QA-01).",
+   "verdict": "Blocked: hits 2 and 3 cannot be reached."
+  }
+ ],
+ "analog": "Off-axis input showed four things. First, stairs accept only a 0°/180° end-on entry; an approach 5-30° off pins on the hidden ramp side walls (C1-01 vs C1-06). Second, an 85° dash passes through the low hedge (B3-09). Third, 27°, 60° and 120° step-ins clear B1 like a 90° step does (B1-07, B1-08), so the forward camera has no angle weakness. Fourth, hide spots within 1-3 units of the kiosk corners block a straight 90° dash (B2-10); the pad's off-axis spring would be needed there, but it was not swept. No NaN or steering bend from a 720°/s spin during a dash (B2-07). Magnitudes of 0.1-0.3 at the lane edge were seen (B1-02, B3-07). The tests that would separate the pad from eight-way keys (dash angle sweeps of 60-80° from cover, dash length under partial stick) have not been run.",
+ "coverage": "Run: 79 plans across 9 tiles. Every tile-edge hole was pushed and dashed: no off-tile, no fence crossing, no NaN. Run in the Swerve and Certification fuzzes: jitter. Run for R: mid-pass, after a contact, with pause. Run on the decks: z2 climbs and drops on C1, C2 and C3. Run: twist controls for 2, 3, 4, 7 and 8. Not run: the z1 decks (unreachable), parapet leaks at z1, cones in impossible places (no cone positions in the end state), the dummy's z in the monitor, white-traffic contacts on C3, boss hits 2-3 and crash memory (blocked by QA-01), R and START during a dash, drop or write-off, a your-fault flank contact on A1, dash length versus stick magnitude.",
+ "next": [
+  "Fix QA-01, then rerun C3-12 and C3-02 for hits 2-3 and crash-memory repeats.",
+  "Add the dummy's z, cone positions, the game clock and pause state to the monitor and end state.",
+  "Rerun B2-08, B1-07 and C3-08 with the first spawn delayed, to confirm the pass-1 cause.",
+  "Sweep the dash trigger near 80-200 in steps of 10 and the angle 60-120° in steps of 5 from each hide in B2, A2, C2 and B3. Find the hit window in ticks.",
+  "Dash with stick magnitude 0.3/0.6/1.0 to see whether movement.lungeDistance scales.",
+  "After QA-05, climb z1 on A2 and rerun the A2-02/A2-08 drop cheese at rung 4.",
+  "Rerun C2-05 with z logged to settle QA-10.",
+  "Walk and dash into RED-01's flank on A1 so a your-fault contact actually happens.",
+  "Press R and START during a dash, during a drop and in the write-off, on A2 and C3."
+ ]
+}

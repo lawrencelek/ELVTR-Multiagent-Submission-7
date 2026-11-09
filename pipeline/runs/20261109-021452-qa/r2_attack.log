@@ -1,0 +1,31 @@
+B1-07 CLEARED · cleared · findings 0
+B1-09 CLEARED · cleared · findings 0
+B1-08 CLEARED · cleared · findings 0
+B2-08 CLEARED · cleared · findings 0
+B1-10 not cleared · end · findings 0
+B2-09 not cleared · timeout · findings 0
+B2-10 not cleared · timeout · findings 0
+C3-08 not cleared · timeout · findings 0
+C3-09 not cleared · timeout · findings 0
+C3-11 not cleared · end · findings 1
+C3-10 not cleared · timeout · findings 0
+C3-13 not cleared · timeout · findings 1
+C3-12 not cleared · timeout · findings 0
+A3-07 not cleared · timeout · findings 1
+A3-06 not cleared · timeout · findings 1
+A3-09 not cleared · timeout · findings 0
+A3-08 not cleared · timeout · findings 0
+A1-09 not cleared · timeout · findings 1
+A1-12 not cleared · end · findings 1
+A1-10 not cleared · end · findings 0
+C2-10 not cleared · timeout · findings 0
+C2-07 not cleared · timeout · findings 2
+C2-09 not cleared · timeout · findings 1
+C2-08 not cleared · timeout · findings 2
+A2-08 not cleared · timeout · findings 3
+A2-07 not cleared · timeout · findings 0
+C1-07 not cleared · end · findings 0
+C1-06 CLEARED · cleared · findings 0
+B3-09 not cleared · end · findings 0
+B3-08 not cleared · timeout · findings 0
+{"plans":30,"cleared":5,"findings":14,"errors":0}
