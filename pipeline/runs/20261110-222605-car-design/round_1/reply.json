@@ -1,0 +1,263 @@
+{
+ "verdict_current": "The previous module's three cars (prev_sheet_LUMINARY, prev_sheet_VANGUARD, prev_sheet_ENIGMA) look like the level's cars: they have a 1-px rim, an extruded rear face, stepped glass bands and corner head and tail lights. But all three are the same flat learner red (#F1544C top, #FB5E54 roof), so they differ only by outline. The ENIGMA van is dropped. Several part names are generic gear labels (DASH CAM, PARK RADAR, SHARK FIN, PLATE READER, CAB CAM), not this car's trade language.",
+ "style_rules": [
+  "Projection as carSprite: nose up, one footprint. The top face is the footprint lifted by the extrusion E. The rear face shows below it: the class side tone, with its bottom row in the class side2 tone. Side faces never show. Where the footprint narrows (GENESIS's front-wing trailing edge), the same rule shows a rear-face wedge behind it.",
+  "The top-face row directly above any rear-face pixel is the class line tone. It is the fold line, and it follows rounded corners and wing steps.",
+  "Outside ring: g.rim(#8FDFFF, #3A4A66). It is lit where the edge faces up or right. No black edge on dark ground.",
+  "Body tones come from the class ramp, not redSprite. Each class has its own roof, spec, top, shade, crease, deep, line, side and side2 tones. Glass #0E3A4F, glint #7FF0FF, head #CFF6FF, tail #7A2424/warn #FF3D3D and chrome keep the level's values.",
+  "Metallic is a ramp: a hard 2-row spec band across each panel (bonnet, roof, boot), a cool shade on the outer column and on the panel's far end, and a darker crease line. It is not a flat grey.",
+  "Glass is flat bands that stair-step 1 px every 4 rows (rear glass on GENESIS: every 2 rows). Each pane has one 2-px 45° glint at its top right, because the light comes from the top right.",
+  "Headlights are #CFF6FF blocks in the front corners, clipped by the nose curve. Tail lights are #7A2424 blocks in the rear corners and turn #FF3D3D when braking.",
+  "Inner details have no outline. Parts get a 1-px #05070B ink ring (4-neighbour) and a dark housing (podBody, pod3, chromeD). That ring lets white parts read on the white VANGUARD roof, red parts on the GENESIS red, and keeps every part clear of the grey LUMINARY.",
+  "Scale: about 4 hero px for each in-level px. The plate is 15×7 with 3×5 glyphs, the same font as the in-level roof tag.",
+  "Each car is symmetric about one centre column (odd W). Asymmetry appears only where the job needs it: police strobes and light bar blue left and red right, the driver's A-pillar spot, specular pixels on the right."
+ ],
+ "classes": [
+  {
+   "class": "LUMINARY",
+   "model": "SED-01-001",
+   "silhouette": "Stretched executive sedan, footprint 45×96 (ratio 2.13). Soft corners (r9 front, r8 rear), long bonnet, long roof, long boot. 4×6 mirror caps. Extrusion 8, so the car stands tall.",
+   "livery": "Grey metallic. Hero ramp: roof #B9C3CE, spec band #E8EEF4, top #949FAD, cool shade #7A8594, crease #66717F, fold line #4A5362, rear face graphite #5C6676 over #3C4452. In level, livery(): roof #C8D1DB, top #949FAD, side #5C6676, line #4A5362, side2 #3C4452. That makes a mid-grey car with a bright roof: darker than the white fleet (#DDE6EE), lighter than the road (#1E222C).",
+   "accent": "#E8C67E",
+   "details": [
+    "Chrome grille 11×6: chromeD frame, slats alternating chrome and chromeL",
+    "Hard spec bands at bonnet rows 11–12, roof rows 43–44 and boot rows 82–83, broken by the crease lines",
+    "Bonnet creases at v=±9; a cool shade at the bonnet's rear (rows 23–28) and on the outer column",
+    "chromeL trim under the windscreen (row 29) and the rear glass (row 80); chromeL bar between the tail lights",
+    "Glass sunroof 15×7; a drip rail in crease at v=±17",
+    "Rear face: chromeL bumper strip and the blue S01 plate"
+   ],
+   "buffer": [
+    57,
+    108
+   ]
+  },
+  {
+   "class": "VANGUARD",
+   "model": "POL-01-001",
+   "silhouette": "Wider, shorter pursuit sedan, footprint 47×90, r7 corners. A gunmetal push bar 27 px wide sits 5 rows ahead of the nose. 5×7 mirrors and a light bar across the roof front. Extrusion 8.",
+   "livery": "Panda white and black. Black (charcoal #3A4252, gloss band #5E6A82, shade #2E3544) on the bonnet, boot and rear face (#2C3240 / #1A1E27). White cabin band: roof #F4F8FB and white flanks along the cabin, with an outer column #DDE6EE. A 2-row chequer (2-px squares) marks the band's front and back edges at rows 24–25 and 76–77. In level, livery(): fleetRoof becomes white, fleetTop black, the faces dark. The in-level police sprite then reads as a black car with a white roof, and its light bar keeps its colours.",
+   "accent": "#5AA9FF",
+   "details": [
+    "Light bar rows 41–44 on the white roof: podBody frame, 4-px lamps. Blue on the left and red on the right alternate at 2 Hz",
+    "Black grille in a chrome frame, with blue and red hidden strobes in phase with the bar",
+    "Chequer bands at the cowl and above the boot (the Sillitoe police chequer)",
+    "Black mirror caps; chrome rear bumper strip; P01 plate"
+   ],
+   "buffer": [
+    59,
+    107
+   ]
+  },
+  {
+   "class": "GENESIS",
+   "model": "SPT-01-001",
+   "silhouette": "Mid-engined racer, footprint 51×98, the widest and lowest (extrusion 6). Wedge nose (29 px wide at row 0, 49 at row 12) over a carbon splitter 31 px wide. Front wings to v=24, a Coke-bottle waist at v=20 (rows 31–60) and rear haunches to v=25. Short cockpit, louvred engine cover, and a 55-px carbon rear wing at rows 82–88 that overhangs the haunches. Mirror pods sit on the waist at rows 38–41.",
+   "livery": "Racing red: roof #EE3A35, spec #FF7A6A, top #D8262C, shade #B21E26, deep #6E1219, fold line #5A1218, rear face #7C1A20 over #4E0E14. Twin white stripes at v=2..4 run nose to tail. In level, livery(): roof #F0403A, top #D8262C, dark-red faces.",
+   "accent": "#FF4D3D",
+   "details": [
+    "Low mouth grille (rows 1–4, v≤9) with podBody and pod3 mesh rows; slanted stair-step slit headlights",
+    "Twin bonnet louvre vents at v=9..12, rows 14–21",
+    "A dark-red rear-face wedge behind each front wing, made by the footprint step: depth from projection, not paint",
+    "Side intakes on the haunch leading edge (rows 61–70): pod3 slot with a podBody inner edge",
+    "Engine-cover louvres every 3 rows at v=6..10",
+    "Carbon wing: lit chrome leading row, podBody chord, red endplates with a spec top. The blue R01 plate sits in the wing centre (the rear face is too shallow for it)",
+    "Slanted tail-light strips and a centre rain light; diffuser fins on the rear face"
+   ],
+   "buffer": [
+    63,
+    108
+   ]
+  }
+ ],
+ "kit": [
+  {
+   "class": "LUMINARY",
+   "rung": 1,
+   "name": "OUTLOOK",
+   "look": "Chrome-cased lens bar at the windscreen top: white lens with a dark pupil.",
+   "why": "The board wants no surprises on the road ahead."
+  },
+  {
+   "class": "LUMINARY",
+   "rung": 2,
+   "name": "WINGMEN",
+   "look": "Blue-grey sensor lens in each mirror cap, with a chromeL spec pixel at its top right.",
+   "why": "A CEO never walks alone; the mirrors watch both flanks."
+  },
+  {
+   "class": "LUMINARY",
+   "rung": 3,
+   "name": "OVERSIGHT",
+   "look": "Flush glass dome mid-roof: violet ring, glass core, a hand turning in eight steps.",
+   "why": "The board sees everything from above, flush and discreet."
+  },
+  {
+   "class": "LUMINARY",
+   "rung": 4,
+   "name": "INSIDER TIP",
+   "look": "Dark shark-fin aerial at the roof's rear edge with a mint link strip down its spine.",
+   "why": "Contacts on the street tip the chauffeur off."
+  },
+  {
+   "class": "LUMINARY",
+   "rung": 5,
+   "name": "RED TAPE",
+   "look": "Dark strip across the front bumper with four orange parking-sensor lamps.",
+   "why": "Cones and barrier tape now stop it, like any procedure."
+  },
+  {
+   "class": "LUMINARY",
+   "rung": 6,
+   "name": "AUDIT TRAIL",
+   "look": "Chrome-topped plate on the bonnet with three red lamps, one lit per remembered crash spot.",
+   "why": "Every incident leaves a trail the board can check."
+  },
+  {
+   "class": "LUMINARY",
+   "rung": 7,
+   "name": "LIMELIGHT",
+   "look": "Round gunmetal lamp risen through the sunroof; its red lens flashes while it searches.",
+   "why": "The chauffeur never steps out; the spotlight looks instead."
+  },
+  {
+   "class": "VANGUARD",
+   "rung": 1,
+   "name": "EYEWITNESS",
+   "look": "Black dash-cam box at the windscreen top: white lens, dark pupil, a REC dot blinking at 1 Hz.",
+   "why": "A patrol car records the road ahead as evidence."
+  },
+  {
+   "class": "VANGUARD",
+   "rung": 2,
+   "name": "OUTRIDERS",
+   "look": "Black pod on each mirror with blue-grey lenses facing forward and back.",
+   "why": "Escort riders guard a convoy's flanks; these pods do now."
+  },
+  {
+   "class": "VANGUARD",
+   "rung": 3,
+   "name": "AIR SUPPORT",
+   "look": "Octagonal roof turret on the white roof: violet ring, dark core, a radar hand turning.",
+   "why": "Police call the helicopter for a view from above."
+  },
+  {
+   "class": "VANGUARD",
+   "rung": 4,
+   "name": "ALL POINTS",
+   "look": "Black aerial base on the rear roof with a mint link light and a chrome whip.",
+   "why": "An all-points bulletin puts every camera on the lookout."
+  },
+  {
+   "class": "VANGUARD",
+   "rung": 5,
+   "name": "ROADBLOCK",
+   "look": "Orange sensor slit along the push bar, split into lamps by dark gaps.",
+   "why": "Police know a roadblock when they see one: they stop."
+  },
+  {
+   "class": "VANGUARD",
+   "rung": 6,
+   "name": "RAP SHEET",
+   "look": "Gunmetal clipboard on the black bonnet: a white sheet with three red lines, one per crash spot.",
+   "why": "Every offence goes on the record; so does every crash."
+  },
+  {
+   "class": "VANGUARD",
+   "rung": 7,
+   "name": "MANHUNT",
+   "look": "Gunmetal spotlight on the driver's A-pillar; its red lens flashes while it searches.",
+   "why": "The search starts where the suspect was last seen."
+  },
+  {
+   "class": "GENESIS",
+   "rung": 1,
+   "name": "RACING LINE",
+   "look": "Onboard camera bar at the windscreen top: white lens, dark pupil.",
+   "why": "A racer owns its line; anything on it gets seen."
+  },
+  {
+   "class": "GENESIS",
+   "rung": 2,
+   "name": "SPOTTER",
+   "look": "Blue-grey lens in each mirror pod, with a chromeL spec pixel.",
+   "why": "A spotter calls every car alongside; these lenses do too."
+  },
+  {
+   "class": "GENESIS",
+   "rung": 3,
+   "name": "ROLL HOOP",
+   "look": "Carbon airbox behind the cockpit with an intake slot and a violet lidar ring turning on top.",
+   "why": "The roll hoop carries the high camera; this one scans all round."
+  },
+  {
+   "class": "GENESIS",
+   "rung": 4,
+   "name": "PIT WALL",
+   "look": "Telemetry aerial on the engine cover: a carbon base, a mint link strip and a chrome whip.",
+   "why": "The pit wall watches every screen and radios the driver."
+  },
+  {
+   "class": "GENESIS",
+   "rung": 5,
+   "name": "YELLOW FLAG",
+   "look": "Orange LED strip across the splitter lip, split into four-pixel lamps.",
+   "why": "Drivers slow for debris under a yellow flag."
+  },
+  {
+   "class": "GENESIS",
+   "rung": 6,
+   "name": "PACE NOTES",
+   "look": "Carbon tablet on the bonnet between the vents, with three red lamps, one lit per crash spot.",
+   "why": "Rally crews note every bad corner and lift there."
+  },
+  {
+   "class": "GENESIS",
+   "rung": 7,
+   "name": "RECON LAP",
+   "look": "Gunmetal spot lamp on the roof front; its red lens flashes while it searches.",
+   "why": "Drivers lap slowly before the race to scout the track."
+  }
+ ],
+ "model_line": "Panel top left in label ink #7FA8BC: 'SED-01-001 · LUMINARY™ · AMBASSADOR' (POL-01-001 · VANGUARD™ · MARSHAL; SPT-01-001 · GENESIS™ · AURUM). The car repeats the in-level tag in tagFill/tagInk: S01 and P01 on the rear-face plate, R01 on the rear wing.",
+ "sentences": {
+  "LUMINARY": {
+   "1": "It sees you in its lane and brakes for the board.",
+   "2": "Its mirrors now watch the pavements on both sides.",
+   "3": "It sees you jump or drop onto its road.",
+   "4": "Street cameras tip it off where you hide.",
+   "5": "It stops for cones now, instead of swerving round them.",
+   "6": "It logs every crash spot and slows there next time.",
+   "7": "It stops and shines its lamp where it lost you."
+  },
+  "VANGUARD": {
+   "1": "It brakes when it sees you in its lane.",
+   "2": "It watches both pavements as it passes.",
+   "3": "It catches you jumping or dropping onto the road.",
+   "4": "Every street camera reports you. It knows where you hide.",
+   "5": "It stops for cones instead of swerving round them.",
+   "6": "It keeps a record of every crash spot and slows there.",
+   "7": "It sweeps its spotlight where it last saw you."
+  },
+  "GENESIS": {
+   "1": "It sees you on its line and brakes.",
+   "2": "It knows when you are alongside, on either side.",
+   "3": "It sees you jump or drop onto the track.",
+   "4": "The pit wall reads the street cameras: it knows where you hide.",
+   "5": "It slows for cones and debris. No swerving.",
+   "6": "It notes every crash spot and brakes there next lap.",
+   "7": "It slows and searches where it lost you."
+  }
+ },
+ "risks": [
+  "Untested: the browser was not available in round 1, so no render or syntax run was made. Round 2 must confirm the module loads and every class draws.",
+  "VANGUARD in level: the black top #3A4252 and faces #2C3240 sit close to road2 #272C38. The car reads through its white roof, light bar and cyan rim. Check the in-level crop; if it sinks, lift the top to #4A5468.",
+  "livery() keeps a pixel when b−r>40 (head, rims, crown blue) or r−g>100 (warn). Every other light pixel is mapped by lightness k: ≥0.93 roof, ≥0.80 top, ≥0.53 side, ≥0.445 line, else side2. fleetSide and fleetLine are now recoloured too, unlike redSprite, so the rear face matches the livery.",
+  "Slot moves on GENESIS: rung 4 sits on the engine cover (the car has no rear roof); rung 5 sits on the splitter lip ahead of the nose (row Y0−2); the R01 plate sits on the wing, because the rear face is only 6 rows deep.",
+  "GENESIS roof is 16 rows. Rung 7 (rows 41–45) and rung 3 (rows 47–55) share ink row 46; rung 1's ink row 40 touches rung 7's. The parts themselves do not overlap.",
+  "Part-name width: RACING LINE, YELLOW FLAG, AIR SUPPORT, INSIDER TIP and AUDIT TRAIL are 11 characters, roughly 360 px at 48 px Nunito 900. Check them against the 380-px text column.",
+  "1-px features below the 3x read threshold: the VANGUARD and GENESIS whips, the REC dot, the mirror spec pixels.",
+  "VANGUARD chequer rows (24–25, 76–77) run the full width and touch the rim; check for buzz at 1x.",
+  "Light-bar and strobe blinking run on o.t at 2 Hz. If the host pins t for screenshots, every capture shows one phase."
+ ]
+}

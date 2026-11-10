@@ -3,7 +3,7 @@
  "map": {
   "id": "monument",
   "title": "MAP 1 · MONUMENT",
-  "intro": "Dummy Corporation welcomes you off the factory floor. The cars are your colleagues; the red one learns. Certification is your goal.",
+  "intro": "Dummy Corporation welcomes you off the factory floor. The cars are your colleagues; the Luminary™ learns. Certification is your goal.",
   "order": [
    "A1",
    "B1",
@@ -22,7 +22,9 @@
    "tag": "S01",
    "callsign": "Ambassador",
    "role": "The CEO car",
-   "source": "NOX car classes (Lawrence, 9 Nov); model ID, line, callsign and job from engine/p9/fleet.json (Style Guide V2 rule V7). Map 2: VANGUARD™ POL-01-001; Map 3: ENIGMA™ VAN-01-001 (Edit 120)"
+   "source": "NOX car classes (Lawrence, 9 Nov); liveries and the Map 3 class (Lawrence, 10 Nov); model ID, line, callsign and job from engine/p9/fleet.json (Style Guide V2 rule V7). Map 2: VANGUARD™ POL-01-001, white and black; Map 3: GENESIS™ SPT-01-001, red (Edit 121)",
+   "livery": "grey metallic",
+   "prose": "the Luminary™"
   }
  },
  "hintPasses": 2,
@@ -47,7 +49,7 @@
    "tile": "A1",
    "name": "First Contact",
    "built": true,
-   "new": "The red car. It is blind.",
+   "new": "The Luminary™. It is blind.",
    "stage": "10.2",
    "startRung": 0,
    "topRung": 1,
@@ -60,7 +62,7 @@
    "objective": {
     "kind": "hits",
     "count": 1,
-    "label": "GET HIT BY THE RED CAR"
+    "label": "GET HIT BY THE LUMINARY™"
    },
    "layout": {
     "drop": [
@@ -96,7 +98,7 @@
    "objective": {
     "kind": "hits",
     "count": 1,
-    "label": "GET HIT BY THE RED CAR"
+    "label": "GET HIT BY THE LUMINARY™"
    },
    "layout": {
     "drop": [
@@ -132,7 +134,7 @@
    "objective": {
     "kind": "hits",
     "count": 1,
-    "label": "GET HIT BY THE RED CAR"
+    "label": "GET HIT BY THE LUMINARY™"
    },
    "layout": {
     "drop": [
@@ -170,7 +172,7 @@
    "objective": {
     "kind": "hits",
     "count": 1,
-    "label": "GET HIT BY THE RED CAR"
+    "label": "GET HIT BY THE LUMINARY™"
    },
    "layout": {
     "drop": [
@@ -216,7 +218,7 @@
    "objective": {
     "kind": "hits",
     "count": 1,
-    "label": "GET HIT BY THE RED CAR"
+    "label": "GET HIT BY THE LUMINARY™"
    },
    "layout": {
     "drop": [
@@ -266,7 +268,7 @@
    "objective": {
     "kind": "hits",
     "count": 1,
-    "label": "GET HIT BY THE RED CAR"
+    "label": "GET HIT BY THE LUMINARY™"
    },
    "layout": {
     "drop": [
@@ -323,7 +325,7 @@
    "objective": {
     "kind": "hits",
     "count": 1,
-    "label": "GET HIT BY THE RED CAR"
+    "label": "GET HIT BY THE LUMINARY™"
    },
    "layout": {
     "drop": [
@@ -383,7 +385,7 @@
    "objective": {
     "kind": "hits",
     "count": 1,
-    "label": "GET HIT BY THE RED CAR"
+    "label": "GET HIT BY THE LUMINARY™"
    },
    "layout": {
     "drop": [
@@ -494,7 +496,7 @@
  ],
  "map2": {
   "district": "Parkland",
-  "learner": "VANGUARD™ POL-01-001 (police and security; callsign Marshal), New",
+  "learner": "VANGUARD™ POL-01-001 (the police and security car, white and black; callsign Marshal), New",
   "elements": [
    "traffic-light switch (A1 junction)",
    "clients on a crossing",
@@ -504,7 +506,7 @@
  },
  "map3": {
   "district": "Waterfront",
-  "learner": "ENIGMA™ VAN-01-001 (delivery; callsign Concierge), New",
-  "source": "Edit 120"
+  "learner": "GENESIS™ SPT-01-001 (the racing car, red; callsign Aurum), New",
+  "source": "Edit 121 (was ENIGMA™ VAN-01-001, Edit 120)"
  }
 }

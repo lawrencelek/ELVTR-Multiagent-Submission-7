@@ -54,8 +54,8 @@ def context():
                     walk(v)
         walk(fleet)
     roster = []
-    for cls, mid, role in [('LUMINARY™', 'SED-01-001', 'the CEO car, Map 1 (Monument): built now'), ('VANGUARD™', 'POL-01-001', 'police and security, Map 2 (Parkland): designed now, built later'),
-                           ('ENIGMA™', 'VAN-01-001', 'delivery, Map 3 (Waterfront): designed now, built later'), ('GENESIS™', 'SPT-01-001', 'the sports car: named, no map yet; do not design')]:
+    for cls, mid, role in [('LUMINARY™', 'SED-01-001', 'the CEO car, grey metallic. Map 1 (Monument): built now'), ('VANGUARD™', 'POL-01-001', 'the police and security car, white and black. Map 2 (Parkland): designed now, built later'),
+                           ('GENESIS™', 'SPT-01-001', 'the racing car, red. Map 3 (Waterfront): designed now, built later'), ('ENIGMA™', 'VAN-01-001', 'the delivery van: dropped (Lawrence, 10 Nov); do not design')]:
         m = models.get(mid, {})
         roster.append(f"| {cls} | {mid} | {m.get('class', '')} | {m.get('tag', '')} | {m.get('line', '')} | {m.get('callsign', '')} | {m.get('job', '')} | {role} |")
     pal = (ROOT / 'engine' / 'p9' / 'pixel.js').read_text()
@@ -83,6 +83,7 @@ def main():
     ap.add_argument('--model', default='opus')
     ap.add_argument('--ref', default='', help='reuse reference shots from this folder')
     ap.add_argument('--resume', default='', help='continue a run folder: the next round reviews engine/hero_cars.js, rendered afresh')
+    ap.add_argument('--start-from', default='', help='a redesign: round 1 gets this run folder\'s spec and the current engine/hero_cars.js to rework')
     a = ap.parse_args()
     run = llm.Run(Path(a.resume) if a.resume else ROOT / 'pipeline' / 'runs' / (time.strftime('%Y%m%d-%H%M%S') + '-car-design'))
     ref = run.dir / 'ref'
@@ -114,8 +115,15 @@ def main():
         rd = run.dir / f'round_{r}'
         rd.mkdir(exist_ok=True)
         if r == 1:
-            msg = '\n\n'.join(['# Round 1: design\n\nDesign the hero cars and write the module (round 1 output).', '# The brief (the user, verbatim)\n\n' + (a.brief or '(none)'), ctx,
-                               '# Screenshots (Read every one)\n\n' + '\n'.join(ref_lines)])
+            prior = []
+            if a.start_from:  # a redesign: the design as it stands, to rework
+                sf = Path(a.start_from)
+                prior = ['# The current design (to rework: keep what works, change what the brief changes)\n\nIts spec (round 1 of `' + sf.name + '`):\n\n```json\n' + (sf / 'round_1' / 'reply.json').read_text() + '\n```',
+                         '# The current module (`engine/hero_cars.js`, after its last review)\n\n```js\n' + MOD.read_text() + '\n```']
+                pv = sorted((p for p in (sf / 'round_4' / 'shots').glob('prev_sheet_*.png')), key=str) if (sf / 'round_4' / 'shots').exists() else []
+                if pv: prior.append('# Renders of the current module (Read them)\n\n' + '\n'.join(f'- `{p}` · the current {p.stem[11:]}' for p in pv))
+            msg = '\n\n'.join(['# Round 1: design\n\nDesign the hero cars and write the module (round 1 output).', '# The brief (the user, verbatim)\n\n' + (a.brief or '(none)')] + prior + [ctx,
+                               '# Screenshots of the level (Read every one)\n\n' + '\n'.join(ref_lines)])
         else:
             pm = json.loads((rd.parent / f'round_{r - 1}' / 'shots' / 'shots.json').read_text())
             lines = [f"- `{rd.parent / f'round_{r - 1}' / 'shots' / (m['shot'] + '.png')}` · {m['note']}" for m in pm['shots']]

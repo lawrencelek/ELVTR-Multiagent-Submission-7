@@ -1,0 +1,60 @@
+{
+ "verdict": "Round 2 fixed the livery and the metallic finish. LUMINARY now reads gunmetal in level, clearly darker than the white fleet; VANGUARD reads panda; GENESIS reads race red. The remaining faults are part layout: on two cars the fitted parts stack into one touching column, one lamp is too small, and the plate font misreads.",
+ "findings": [
+  {
+   "id": "D1",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_LUMINARY",
+    "prev_upgrade_C2_1_15",
+    "prev_upgrade_C2_3"
+   ],
+   "what": "At rung 7 the LUMINARY centre column is one dark chain from ty 37 to 71. It runs OUTLOOK (ink 37–41), then LIMELIGHT (ink 44–52), OVERSIGHT (ink 53–63) and the INSIDER TIP fin (ink 63–71). The dome and fin share ink row 63, and the lamp's ink row 52 touches the dome's row 53. On the sheet at 3x the four parts read as one totem: a red cross over a violet ring over a black spade. GENESIS had the same fault in round 2 (its D4).",
+   "fix": "Move LIMELIGHT off the centre line to the roof's kerb side at (cx+12, ty 48): it covers v 9–15 and its ink v 8–16, inside the crease at v=17 and clear of the sunroof (v≤7). Move the OVERSIGHT dome up to ty 57 (ink 52–62). Move the fin down to ty 65–71 (ink 64–72). This leaves a body row at ty 63 between dome and fin."
+  },
+  {
+   "id": "D2",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_GENESIS"
+   ],
+   "what": "The rung-7 GENESIS rally lamp at ty 9 has its ink at rows 5–13. Row 5 touches the grille (rows 0–4) and row 13 touches PACE NOTES (ink 14–20). The nose reads as grille, red cross and red-lamp tablet fused into one black block between the louvres.",
+   "fix": "Move the lamp to ty 10 (ink 6–14), which leaves row 5 as body below the grille. Move PACE NOTES to the cowl, behind the louvres (they end at row 21): a 13×4 carbon tablet at ty 23–26 with a chromeD bottom row and three 3×2 lamps. Its ink runs rows 22–27 and v≤7; row 28 stays body before the deep cowl line at 29."
+  },
+  {
+   "id": "D3",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_VANGUARD"
+   ],
+   "what": "MANHUNT is an r2 disc with a 3-px lens at (cx−19, ty 37). On the sheet it is the smallest part, a red dot under the left mirror pod, much weaker than the other rung-7 lamps (r3 with a 5-px lens).",
+   "fix": "Use the shared spotLamp (r3 housing, r2 lens) at (cx−18, ty 36). Ink spans rows 32–40 and v 14–22: clear of the light bar (41+), the dash-cam ink (v≤5) and the mirror pod's ink column v=23."
+  },
+  {
+   "id": "D4",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_LUMINARY",
+    "prev_upgrade_A1_3"
+   ],
+   "what": "The 3×5 S glyph (111/100/111/001/111) is the 5 glyph, so the plate reads '501' instead of S01.",
+   "fix": "Change the S glyph to 011/100/010/001/110."
+  },
+  {
+   "id": "D5",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_GENESIS"
+   ],
+   "what": "The BLIMP airbox's ink row (ty 56) lies on the rear glass's top row (56). The airbox and the glass merge into one black mass behind the cockpit.",
+   "fix": "Move the airbox up 1 row: ty 46–54, ring at ty 51, ink 45–55. Its ink still clears the camera (ink ends at 40), and row 55 stays roof."
+  }
+ ],
+ "fixed": [
+  "D1",
+  "D2",
+  "D3",
+  "D4",
+  "D5"
+ ]
+}

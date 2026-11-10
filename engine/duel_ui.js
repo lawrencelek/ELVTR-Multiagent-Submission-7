@@ -31,8 +31,24 @@
 
   // ---------- the red car's paint: Prototype 9's sedan, recoloured
   const redArt = new Map();
+  function liveryOf() { // Prototype 11.5 (Edit 121): the learner's class livery from the car design agent's module, in P11
+    const HC = root.HERO_CARS, P = root.P11, cls = P && P.LEARNER && P.LEARNER.cls, C0 = HC && HC.classes && cls && HC.classes[cls];
+    return C0 && typeof C0.livery === 'function' ? C0 : null;
+  }
+  function liverySprite(S, C0) { // a fleet sprite in a class's livery: glass, tyres and dark pixels kept; the rest through livery(hex, k)
+    const d = new Uint32Array(S.d.length), memo = new Map();
+    for (let i = 0; i < d.length; i++) {
+      const c = S.d[i]; if (!c) { d[i] = 0; continue; }
+      const r = c & 255, g = (c >>> 8) & 255, b = (c >>> 16) & 255, a = c >>> 24, l = 0.3 * r + 0.59 * g + 0.11 * b;
+      if (l < 70 || (b > r + 25 && b > g)) { d[i] = c; continue; }
+      let v = memo.get(c); if (v == null) { let h = null; try { h = C0.livery('#' + [r, g, b].map((q) => q.toString(16).padStart(2, '0')).join(''), l / 255); } catch (e) { h = null; } const n = h ? parseInt(String(h).slice(1, 7), 16) : NaN; v = isNaN(n) ? c : (((a << 24) | ((n & 255) << 16) | (n & 0xFF00) | ((n >> 16) & 255)) >>> 0); memo.set(c, v); }
+      d[i] = v;
+    }
+    return Object.assign(Object.create(Object.getPrototypeOf(S)), S, { d });
+  }
   function redSprite(S) {
     if (redArt.has(S)) return redArt.get(S);
+    const LV = liveryOf(); if (LV) { const R0 = liverySprite(S, LV); redArt.set(S, R0); return R0; }
     const d = new Uint32Array(S.d.length);
     for (let i = 0; i < d.length; i++) {
       const c = S.d[i]; if (!c) { d[i] = 0; continue; }
@@ -388,11 +404,11 @@
     ctx = cx; s = sim; T = sim && sim.duelT; const d = sim && sim.duelDef;
     if (!T || !d || sim.phase === 'brief' || sim.phase === 'lesson' || sim.duelDone) return;
     const RU = root.DUEL_RULES || { parts: {} }, earnPt = d.earns && d.earns !== 'car' ? RU.parts[d.earns] : null, ri = T.rungInfo(), top = Math.round(T.DP['duel.topRung'] || 0), nxt = T.rung < top ? DUELR()[T.rung + 1] : null, o = d.objective, n = Math.min(sim.duelProgress(), o.count);
-    const lines = [[(s && s.p11 ? learner().name : 'RED-01') + ' · RUNG ' + T.rung + ' · ' + (ri ? ri.name.toUpperCase() : '') + '   ◎ ' + n + ' / ' + o.count, C.red, 15], [earnPt ? 'CLEAR THE TILE: YOU EARN ' + earnPt.name.toUpperCase() + ' (' + earnPt.verb + ')' : nxt && sim.p11 ? (o.count > 1 ? 'YOUR NEXT HIT TEACHES IT ' : 'YOUR HIT TEACHES IT ') + nxt.name.toUpperCase() : nxt ? 'CLEAR THE TILE: IT LEARNS ' + nxt.name.toUpperCase() + ' FROM THE LAST HIT' : T.rung >= 1 ? 'ALL IT CAN LEARN: OUTWIT IT' : 'IT SENSES NOTHING YET', earnPt ? C.dummy : C.dim, 12]].concat(sim.duelDuck ? [[(sim.p11 ? (root.__p11Crouch && root.__p11Crouch.mode === 'hold' ? 'HOLD B' : 'PRESS B') + ' (KEYS: C) · CROUCH BEHIND LOW COVER' : 'HOLD C · DUCK BEHIND LOW COVER'), C.dim, 11]] : []);
+    const lines = [[(s && s.p11 ? learner().name : 'RED-01') + ' · RUNG ' + T.rung + ' · ' + (ri ? ri.name.toUpperCase() : '') + '   ◎ ' + n + ' / ' + o.count, (s && s.p11 && learnerAccent()) || C.red, 15], [earnPt ? 'CLEAR THE TILE: YOU EARN ' + earnPt.name.toUpperCase() + ' (' + earnPt.verb + ')' : nxt && sim.p11 ? (o.count > 1 ? 'YOUR NEXT HIT TEACHES IT ' : 'YOUR HIT TEACHES IT ') + nxt.name.toUpperCase() : nxt ? 'CLEAR THE TILE: IT LEARNS ' + nxt.name.toUpperCase() + ' FROM THE LAST HIT' : T.rung >= 1 ? 'ALL IT CAN LEARN: OUTWIT IT' : 'IT SENSES NOTHING YET', earnPt ? C.dummy : C.dim, 12]].concat(sim.duelDuck ? [[(sim.p11 ? (root.__p11Crouch && root.__p11Crouch.mode === 'hold' ? 'HOLD B' : 'PRESS B') + ' (KEYS: C) · CROUCH BEHIND LOW COVER' : 'HOLD C · DUCK BEHIND LOW COVER'), C.dim, 11]] : []);
     ctx.save(); ctx.font = '700 19px B612, system-ui, sans-serif';
     const w = Math.max(...lines.map(([t, , z]) => { ctx.font = `700 ${z}px B612, system-ui, sans-serif`; return ctx.measureText(t).width; })) + 24, h = 16 + lines.length * 19, x = G.FX + 10, y = G.FY + 10;
     if (sim.p11 && underHud(sim, G, x, y, w, h)) ctx.globalAlpha = 0.3; // Prototype 11.2: the car or you under it: the panel steps back
-    rect(x, y, w, h, C.panel); ctx.strokeStyle = C.red; ctx.lineWidth = 1.5; ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
+    rect(x, y, w, h, C.panel); ctx.strokeStyle = (s && s.p11 && learnerAccent()) || C.red; ctx.lineWidth = 1.5; ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
     lines.forEach(([t, col, z], i) => text(t, x + 12, y + 23 + i * 19, z, col)); ctx.restore();
   }
   // ---------- the lesson card: the car away being trained; what it now does, what that closes, what stays open
@@ -492,6 +508,7 @@
   let rpCv = null, heroCv = null, pcCv = null, wCv = null, droneCv = null;
   const canvas = (cv, w, h) => { if (!cv) cv = document.createElement('canvas'); if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; } return cv; };
   const learner = () => (root.P11 && root.P11.LEARNER) || { cls: 'LUMINARY', name: 'RED-01', model: 'RED-01' };
+  const learnerAccent = () => { const HC = root.HERO_CARS, C0 = HC && HC.classes && HC.classes[learner().cls]; return C0 && C0.accent; }; // Prototype 11.5
   const heroCache = new Map();
   function heroCached(cls, has, only, t) { const key = cls + '|' + has + '|' + only + '|' + Math.floor(t * 12); let cv = heroCache.get(key); if (!cv) { if (heroCache.size > 48) heroCache.clear(); cv = heroCanvas(cls, { has, t, braking: false }, only || 0); heroCache.set(key, cv); } return cv; } // a frame per 1/12 s
   function upU(L, now) { if (L.pin != null) { L.pinOk = true; return L.pin; } if (L.ui0 == null) L.ui0 = now; return now - L.ui0; }
@@ -548,7 +565,8 @@
     const slotC = (n) => { const r = rectsOf(n); if (!r.length) return { x: cx, y: cy }; let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; for (const [x, y, w, h] of r) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x + w); y1 = Math.max(y1, y + h); } return { x: (x0 + x1) / 2, y: (y0 + y1) / 2 }; };
     ctx.save(); ctx.beginPath(); ctx.rect(hx, hy, hw, hh); ctx.clip();
     const edge = (m0) => Math.max(Z(40), Math.min(Z(145), m0.x - hx - Z(8), hx + hw - m0.x - Z(8), m0.y - hy - Z(8), hy + hh - m0.y - Z(8))); // rays and rings fade out before any edge of the column
-    { const gl = ctx.createRadialGradient(cx, cy, Z(20), cx, cy, Z(145)); gl.addColorStop(0, white1 ? 'rgba(255,61,61,0.30)' : 'rgba(255,61,61,0.22)'); gl.addColorStop(1, 'rgba(255,61,61,0)'); ctx.fillStyle = gl; ctx.fillRect(hx, hy, hw, hh); }
+    const ACC = (HCo && HCo.accent) || C.red; // Prototype 11.5: the class's accent (the agent's), else the learner red
+    { const gl = ctx.createRadialGradient(cx, cy, Z(20), cx, cy, Z(145)); gl.addColorStop(0, hexA(ACC, white1 ? 0.30 : 0.22)); gl.addColorStop(1, hexA(ACC, 0)); ctx.fillStyle = gl; ctx.fillRect(hx, hy, hw, hh); }
     const last = landed(1) && two ? 1 : 0;
     if (landed(0)) { // rays in the newest piece's colour, turning
       const m0 = { x: cx, y: cy }, a = RM ? 0.14 : (white1 ? 0.45 : 0.3) * clamp01((u - lands[0]) / 0.3), rot = RM ? 0.3 : u * 20 * D, N = 12, R = edge(m0), gr = ctx.createRadialGradient(m0.x, m0.y, 0, m0.x, m0.y, R), c0 = col(last);
@@ -597,7 +615,7 @@
         const lt = u - lands[i], n = pair[i]; if (lt < 0 || lt > 0.7) continue;
         if (lt < 0.4 && Math.floor(lt * 14) % 2 === 0) piece(n, 0, 0, 1, true);
         const subs = subC(n); for (const m0 of subs.length > 1 ? subs : [slotC(n)]) { // a part in two places (the pods): a ring pair and a burst on each
-        for (const [d0, c0, wd] of [[0, C.red, 5], [0.05, KITC[n], 3]]) { const q = clamp01((lt - d0 + 0.02) / 0.5); if (q <= 0 || q >= 1) continue; const e = 1 - Math.pow(1 - q, 3); ctx.globalAlpha = 1 - q; ctx.strokeStyle = c0; ctx.lineWidth = wd; ctx.beginPath(); ctx.arc(m0.x, m0.y, Z(20) + (edge(m0) - Z(20)) * e, 0, TAU); ctx.stroke(); }
+        for (const [d0, c0, wd] of [[0, ACC, 5], [0.05, KITC[n], 3]]) { const q = clamp01((lt - d0 + 0.02) / 0.5); if (q <= 0 || q >= 1) continue; const e = 1 - Math.pow(1 - q, 3); ctx.globalAlpha = 1 - q; ctx.strokeStyle = c0; ctx.lineWidth = wd; ctx.beginPath(); ctx.arc(m0.x, m0.y, Z(20) + (edge(m0) - Z(20)) * e, 0, TAU); ctx.stroke(); }
         if (i === 0) { const q = clamp01(lt / 0.45), NS = subs.length > 1 ? 6 : 12; if (q < 1) { const e = 1 - Math.pow(1 - q, 2); ctx.globalAlpha = 1 - q; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 3; ctx.beginPath(); for (let j = 0; j < NS; j++) { const a = j * TAU / NS + 0.2, r0 = Z(40 + 50 * e), r1 = r0 + Z(18 * (1 - e) + 4); ctx.moveTo(m0.x + Math.cos(a) * r0, m0.y + Math.sin(a) * r0); ctx.lineTo(m0.x + Math.cos(a) * r1, m0.y + Math.sin(a) * r1); } ctx.stroke(); } }
         const gq = clamp01((lt - 0.1) / 0.6); if (gq > 0 && gq < 1) { ctx.globalAlpha = 1 - gq; ctx.strokeStyle = C.text; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(m0.x, m0.y, Z(10 + 40 * gq), 0, TAU); ctx.stroke(); } // the glint: the piece switching on
         }
@@ -610,13 +628,13 @@
     rect(X(322), Y(548), Z(256), Z(32), '#0b0f1a');
     for (let i = 0; i < 7; i++) {
       const n = i + 1, x0 = X(330 + i * 36), y0 = Y(556), w = Z(24), h = Z(12), on = n <= has, j = pair.indexOf(n), fresh = j >= 0 && u - lands[j] < 0.15 && u >= lands[j];
-      if (on) { rect(x0, y0, w, h, fresh ? '#ffffff' : KITC[n]); if (n === 1) { ctx.strokeStyle = C.red; ctx.lineWidth = 1; ctx.strokeRect(x0 + 0.5, y0 + 0.5, w - 1, h - 1); } } else { rect(x0, y0, w, h, '#1a2230'); ctx.strokeStyle = C.dim; ctx.lineWidth = 1; ctx.strokeRect(x0 + 0.5, y0 + 0.5, w - 1, h - 1); }
+      if (on) { rect(x0, y0, w, h, fresh ? '#ffffff' : KITC[n]); if (n === 1) { ctx.strokeStyle = ACC; ctx.lineWidth = 1; ctx.strokeRect(x0 + 0.5, y0 + 0.5, w - 1, h - 1); } } else { rect(x0, y0, w, h, '#1a2230'); ctx.strokeStyle = C.dim; ctx.lineWidth = 1; ctx.strokeRect(x0 + 0.5, y0 + 0.5, w - 1, h - 1); }
     }
     // the text column
     const tx = X(600), tw = Z(380), ri = (n) => DUELR()[n] || {};
     const txt = (t, x, y, size, c, al, font) => { ctx.fillStyle = c; ctx.font = font || `700 ${size}px B612, system-ui, sans-serif`; ctx.textAlign = al || 'left'; ctx.fillText(t, x, y); };
     const wrapAt = (t, x, y, mw, lh, font, c) => { ctx.font = font; const ws = String(t).split(' '); let line = '', yy = y; for (const wd of ws) { const tt = line ? line + ' ' + wd : wd; if (ctx.measureText(tt).width > mw && line) { txt(line, x, yy, 0, c, 'left', font); line = wd; yy += lh; } else line = tt; } if (line) txt(line, x, yy, 0, c, 'left', font); return yy; };
-    const nameAt = (n, y, size, t0) => { if (u < t0) return; const nm = String((HCo && ((HC.kit || {})[LN.cls] || {})[n] && HC.kit[LN.cls][n].name) || KIT.name[n] || ri(n).sensor || '').toUpperCase(); let sz = Z(size); ctx.font = `900 ${sz}px Nunito, system-ui, sans-serif`; while (ctx.measureText(nm).width > tw && sz > Z(size === 48 ? 40 : 30)) { sz -= 1; ctx.font = `900 ${sz}px Nunito, system-ui, sans-serif`; } const cap = Math.max(1, Math.min(1.4, Z(392) / Math.max(1, ctx.measureText(nm).width))), pop = RM ? 1 : 1 + (cap - 1) * Math.pow(clamp01(1 - (u - t0) / 0.28), 2); ctx.save(); ctx.beginPath(); ctx.rect(X(596), Y(96), Z(404), Z(200)); ctx.clip(); ctx.globalAlpha = clamp01((u - t0) / 0.12); ctx.translate(tx, y); ctx.scale(pop, pop); txt(nm, 0, 0, 0, C.red, 'left', ctx.font); ctx.restore(); };
+    const nameAt = (n, y, size, t0) => { if (u < t0) return; const nm = String((HCo && ((HC.kit || {})[LN.cls] || {})[n] && HC.kit[LN.cls][n].name) || KIT.name[n] || ri(n).sensor || '').toUpperCase(); let sz = Z(size); ctx.font = `900 ${sz}px Nunito, system-ui, sans-serif`; while (ctx.measureText(nm).width > tw && sz > Z(size === 48 ? 40 : 30)) { sz -= 1; ctx.font = `900 ${sz}px Nunito, system-ui, sans-serif`; } const cap = Math.max(1, Math.min(1.4, Z(392) / Math.max(1, ctx.measureText(nm).width))), pop = RM ? 1 : 1 + (cap - 1) * Math.pow(clamp01(1 - (u - t0) / 0.28), 2); ctx.save(); ctx.beginPath(); ctx.rect(X(596), Y(96), Z(404), Z(200)); ctx.clip(); ctx.globalAlpha = clamp01((u - t0) / 0.12); ctx.translate(tx, y); ctx.scale(pop, pop); txt(nm, 0, 0, 0, ACC, 'left', ctx.font); ctx.restore(); };
     const sayAt = (n, y, size, lh, t0) => { if (u < t0) return; const q = RM ? 1 : clamp01((u - t0) / 0.2); ctx.save(); ctx.globalAlpha = RM ? clamp01((u - t0) / 0.2) : q; wrapAt((HCo && ((HC.sentences || {})[LN.cls] || {})[n]) || SAY[n] || '', tx, y + Z(8 * (1 - q)), tw, Z(lh), `400 ${Z(size)}px B612, system-ui, sans-serif`, C.text); ctx.restore(); };
     { const LN2 = learner(), ml = (HCo && HCo.label) || [LN2.model, LN2.name, LN2.callsign && String(LN2.callsign).toUpperCase()].filter(Boolean).join(' · '); const mlA = RM ? 1 : clamp01((u - (two ? 1.95 : 1.15)) / 0.25); if (LN2.model && mlA > 0) { ctx.save(); ctx.globalAlpha = mlA; let fz = 13; ctx.font = `700 ${Z(fz)}px B612, system-ui, sans-serif`; while (fz > 10 && ctx.measureText(ml).width > Z(272)) { fz -= 0.5; ctx.font = `700 ${Z(fz)}px B612, system-ui, sans-serif`; } txt(ml, X(310), Y(110), Z(fz), '#7fa8bc'); ctx.restore(); } } // after the drone has gone (round 4, F3) // the model line (Edit 120): ID · class · callsign
     if (u < lands[0]) { if (u >= (RM ? 0 : 0.3) && (RM || Math.floor(u * 8) % 4 !== 3)) txt(LN.name + ' · NEW PART INCOMING', tx, Y(112), Z(20), '#3fd0ff'); }
@@ -636,7 +654,7 @@
     rect(bx, by, bw, bh, '#05070c');
     if (rp) {
       ctx.imageSmoothingEnabled = false; ctx.drawImage(rpCv, 0, 0, rp.W, rp.H, bx, by, bw, bh);
-      { const f = L.frame, c = f && f.view.find((q) => q.red && !q.ghost); if (c && underDeck(c)) { const q = bw / rp.cr.w; heroCv = offDraw(canvas(heroCv, 160, 96), () => { kitBody(); kitPieces(L.from, { t: G.t, mem: kitMem() }); }); ctx.save(); ctx.beginPath(); ctx.rect(bx, by, bw, bh); ctx.clip(); ctx.translate(bx + (c.x - rp.cr.x) * q, by + (c.y - rp.cr.y) * q); ctx.rotate(c.h); ctx.scale((c.L || 64) / 64 * q, (c.W || 30) / 30 * q); ctx.drawImage(heroCv, -40, -24, 80, 48); ctx.restore(); } } // under a deck the game dithers the car; the replay shows it solid
+      { const f = L.frame, c = f && f.view.find((q) => q.red && !q.ghost); if (c && underDeck(c)) { const q = bw / rp.cr.w; ctx.save(); ctx.beginPath(); ctx.rect(bx, by, bw, bh); ctx.clip(); ctx.translate(bx + (c.x - rp.cr.x) * q, by + (c.y - rp.cr.y) * q); ctx.rotate(c.h); const hv = HCo && heroCached(LN.cls, L.from, 0, G.t); if (hv) { ctx.rotate(Math.PI / 2); const sc2 = (c.L || 56) * q / HCo.H; ctx.imageSmoothingEnabled = false; ctx.drawImage(hv, -HCo.W * sc2 / 2, -HCo.H * sc2 / 2, HCo.W * sc2, HCo.H * sc2); } else { heroCv = offDraw(canvas(heroCv, 160, 96), () => { kitBody(); kitPieces(L.from, { t: G.t, mem: kitMem() }); }); ctx.scale((c.L || 64) / 64 * q, (c.W || 30) / 30 * q); ctx.drawImage(heroCv, -40, -24, 80, 48); } ctx.restore(); } } // under a deck the game dithers the car; the replay shows it solid
       { const a = upBlack(L, u); if (a > 0) rect(bx, by, bw, bh, 'rgba(5,7,12,' + a.toFixed(2) + ')'); }
       rect(bx, by, bw, bh, 'rgba(159,242,200,0.10)'); if (!RM) for (let y = by; y < by + bh; y += Z(4)) rect(bx, y, bw, Z(1), 'rgba(0,0,0,0.08)');
       const f = L.frame, o = f && f.b; if (o && upHold(L, u)) { const q = bw / rp.cr.w; ctx.strokeStyle = C.dummy; ctx.lineWidth = 2; ctx.strokeRect(bx + (o.x - rp.cr.x - 16) * q, by + (o.y - rp.cr.y - 26) * q, 32 * q, 40 * q); }
@@ -719,5 +737,5 @@
     try { if (only) HC.piece(g, cls, only, o || {}); else { HC.body(g, cls, o || {}); for (let n = 1; n <= ((o && o.has) || 0); n++) HC.piece(g, cls, n, o || {}); } } catch (e) { if (!heroCanvas.err) { heroCanvas.err = String(e && e.message || e); console.error('hero_cars', e); } }
     const cv = document.createElement('canvas'); cv.width = C0.W; cv.height = C0.H; const cx2 = cv.getContext('2d'), id = cx2.createImageData(C0.W, C0.H); new Uint32Array(id.data.buffer).set(g.d); cx2.putImageData(id, 0, 0); return cv;
   }
-  root.DUEL_UI = { field, hud, lesson, lessonKey, replayBegin, replayEnd, redSprite, underHud, heroG, heroCanvas };
+  root.DUEL_UI = { field, hud, lesson, lessonKey, replayBegin, replayEnd, redSprite, underHud, heroG, heroCanvas, liverySprite };
 })(typeof window !== 'undefined' ? window : globalThis);

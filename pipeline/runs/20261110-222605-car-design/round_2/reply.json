@@ -1,0 +1,128 @@
+{
+ "verdict": "All three cars belong to the level's family: 1-px cyan rim, extruded rear face, stepped glass and corner lamps. But the LUMINARY grey is so pale that it reads as a white fleet car in level and as banded trim on the hero. The mirror parts read as tiny 'e' rings. Four parts are 1-row slivers or mushroom stubs. The GENESIS cockpit stacks three parts into one black column.",
+ "findings": [
+  {
+   "id": "D1",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_LUMINARY",
+    "prev_upgrade_A1_3",
+    "prev_upgrade_C2_3"
+   ],
+   "what": "In level, the LUMINARY livery is roof #C8D1DB over top #949FAD. At 4x and in the training clip the sedan reads near-white, the same family as fleet #DDE6EE/#F4F8FB, so the learner does not stand out from the white fleet. The hero uses the same pale ramp, so the CEO car looks like an appliance next to the red GENESIS.",
+   "fix": "Gunmetal ramp, used for hero and level alike: roof #AEB8C5, top #808B9B, shade #687383, crease #58626F, line #3E4756, side #4E5868, side2 #323946. Top lightness drops from ~158 to ~135, and the roof from ~208 to ~182, well under the fleet's 228+."
+  },
+  {
+   "id": "D2",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_LUMINARY",
+    "prev_upgrade_A1_3"
+   ],
+   "what": "Metallic does not read. The 2-row spec bands at ty 11–12, 43–44 and 82–83 run full width and match the chromeL trims at ty 29, 80 and 92. The car shows six parallel white stripes that read as seams, not sheen.",
+   "fix": "Replace each horizontal spec band with a 45° stair-stepped sheen falling from top right to bottom left. It is 3 px wide, with a 1-px parallel line 5 px further right, on the bonnet (from ty 7), roof (from ty 42) and boot (from ty 81). The chrome trims stay horizontal, so sheen and trim now differ in angle. The cowl shade shrinks from ty 23–28 to ty 25–28."
+  },
+  {
+   "id": "D3",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_LUMINARY",
+    "prev_sheet_VANGUARD",
+    "prev_sheet_GENESIS",
+    "prev_upgrade_C2_1_15"
+   ],
+   "what": "Rung 2 is a 2×3 or 3×2 #7fa8bc lens set straight on the mirror cap. Its ink ring eats the cap, so each mirror reads as a black 'e' or 'o' ring with no housing. On LUMINARY the #7fa8bc lens is close to the grey body.",
+   "fix": "Shared mirrorPod: a podBody housing the size of the cap, with a 2-px-wide rung-2 lens inside and a chromeL spec pixel at the lens's top right. LUMINARY: 4×6 with a 2×4 lens. VANGUARD: 5×7 with two 2×2 lenses, fore and aft. GENESIS: 5×4 with a 2×2 lens. LUMINARY W 57→59 and VANGUARD W 59→61 give room for the outer ink and rim, which were clipped at x=0."
+  },
+  {
+   "id": "D4",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_GENESIS"
+   ],
+   "what": "At rung 7 the GENESIS centre line stacks the camera (ty 37–39), the RECON LAP lamp (41–45) and the 9×9 airbox (47–55). The inks touch, so the three read as one black totem over the cockpit.",
+   "fix": "Move rung 7 to the bonnet front as a rally spot lamp: a chromeD housing r3 at ty 9 and a red lens r2, ink rows ty 5–13, clear of the grille (0–4) and PACE NOTES (14–20). The slot change is justified: rally cars carry their search lamps on the bonnet. The cockpit then holds only the camera and the airbox."
+  },
+  {
+   "id": "D5",
+   "severity": "major",
+   "shots": [
+    "prev_sheet_LUMINARY",
+    "prev_sheet_VANGUARD",
+    "prev_sheet_GENESIS"
+   ],
+   "what": "Rung 5 is a 1-row strip on all three cars (LUMINARY 19×1 at ty 1, VANGUARD 17×1 at ty −4, GENESIS 25×1 at ty −2). At 3x it reads as a dashed orange hairline, the weakest part on every car.",
+   "fix": "Make it 2 rows. LUMINARY: a 21×2 podBody strip at ty 0–1 with four 3×2 orange lamps. VANGUARD: 21×2 on the push bar, rows −4 and −3, with podBody gaps every 5 px. GENESIS: 27×2 over the splitter, rows −2 and −1, with gaps every 5 px."
+  },
+  {
+   "id": "D6",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_VANGUARD",
+    "prev_sheet_GENESIS"
+   ],
+   "what": "Rung 4 on VANGUARD and GENESIS is a 7×3 base with a 1×2 chromeL whip trailing behind it. The whip is invisible on the white roof, and the whole shape reads as a downward arrow or mushroom with a stray tail.",
+   "fix": "Drop the whip. A 7×4 podBody base with a 5×2 mint link lamp."
+  },
+  {
+   "id": "D7",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_LUMINARY",
+    "prev_upgrade_C2_3"
+   ],
+   "what": "The LUMINARY shark fin is 5×4 (ty 66–69). At 3x it reads as a dark spade, and its 1-px mint column is lost.",
+   "fix": "A 7-wide, 7-tall stepped fin (rows 1/3/5/5/7/7/7 px) at ty 64–70. Mint 1×2 up the spine and a 3×2 mint block at its base."
+  },
+  {
+   "id": "D8",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_LUMINARY"
+   ],
+   "what": "The LIMELIGHT lamp is a chromeD r2 disc with a 5-px lens. It sits on the sunroof's glint and reads as a dot, not the CEO car's showpiece.",
+   "fix": "A chromeD housing r3 (lim 10) with a lens r2 (lim 4) and an ink glint at (+1, −1). Still at ty 48. Its ink row 52 clears the OVERSIGHT ink row 53."
+  },
+  {
+   "id": "D9",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_GENESIS"
+   ],
+   "what": "The GENESIS tail lights, #7A2424 on #D8262C, merge into the shade at the bottom corners and read as dirt, not lamps.",
+   "fix": "Frame each tail block with a podBody top row and inner column, so it reads as a lamp housing on red. Braking still swaps to warn."
+  },
+  {
+   "id": "D10",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_VANGUARD"
+   ],
+   "what": "In level, the VANGUARD top #3A4252 against road2 #272C38 holds only by its rim at 1x.",
+   "fix": "Lift the in-level top to #424B5E. The hero stays as it is."
+  },
+  {
+   "id": "D11",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_LUMINARY",
+    "prev_sheet_GENESIS"
+   ],
+   "what": "Two names miss the brief. WINGMEN is dating and aviation slang, not a chauffeur's word. ROLL HOOP names where the part sits, not what it does.",
+   "fix": "LUMINARY 2: ENTOURAGE (a CEO's people flank them on both sides). GENESIS 3: BLIMP (race TV gets the overhead view from the blimp; this part sees from above). Both are unique across classes and under 14 characters."
+  }
+ ],
+ "fixed": [
+  "D1",
+  "D2",
+  "D3",
+  "D4",
+  "D5",
+  "D6",
+  "D7",
+  "D8",
+  "D9",
+  "D10",
+  "D11"
+ ]
+}

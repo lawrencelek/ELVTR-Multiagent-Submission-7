@@ -1,0 +1,51 @@
+{
+ "verdict": "Round 3 fixed the D1 to D5 stacks that were reported. Two parts still sit with their ink rows on dark glass, so they merge with it: on LUMINARY the sunroof fuses with the OVERSIGHT dome and touches LIMELIGHT, and the INSIDER TIP fin merges with the rear glass; on GENESIS the BLIMP airbox merges with the rear glass. The LUMINARY roof also breaks into two tones behind the dome.",
+ "findings": [
+  {
+   "id": "D1",
+   "severity": "major",
+   "shots": [
+    "prev_upgrade_C2_3",
+    "prev_upgrade_C2_1_15",
+    "prev_sheet_LUMINARY"
+   ],
+   "what": "The LUMINARY sunroof is glass #0E3A4F at ty 45–51, v≤7. The OVERSIGHT dome's ink starts at ty 52, directly under the last glass row. In C2_3 the sunroof slab, dome ink and violet ring read as one dark block under the lens bar. At rung 7 the LIMELIGHT ink sits at v=8, so it touches the sunroof's right edge at ty 45–51. On the sheet the red lamp looks stuck to the glass.",
+   "fix": "Shrink the sunroof and move it forward: ty 43–48, v≤6, glint from ty 43. Move the dome up to ty 56 (ring rows 52–60, ink 51–61). Body rows 49–50 now separate the sunroof from the dome ink, and column v=7 separates it from the LIMELIGHT ink (v 8–16)."
+  },
+  {
+   "id": "D2",
+   "severity": "minor",
+   "shots": [
+    "prev_upgrade_C2_3",
+    "prev_sheet_LUMINARY"
+   ],
+   "what": "The INSIDER TIP fin spans ty 65–71, so its bottom ink row is ty 72, the first row of the rear glass. The fin's base dissolves into the glass, and at 3x the black spade looks like it grows out of the rear window.",
+   "fix": "Move the fin up 1 row: ty 64–70 (ink 63–71). Row 62 stays body between the dome ink (to 61) and the fin ink. Row 71 stays body above the glass."
+  },
+  {
+   "id": "D3",
+   "severity": "minor",
+   "shots": [
+    "prev_sheet_GENESIS"
+   ],
+   "what": "The BLIMP airbox spans ty 46–54, so its ink at ty 55 sits on the last roof row, against the rear glass at ty 56. At rung 3 and rung 7 the airbox's bottom and the rear glass join into one black band behind the cockpit. The fix for last round's D5 moved the box up 1 row, which was not enough.",
+   "fix": "Shorten the airbox to 8 rows: ty 46–53, intake slot 1 row at ty 46, lidar ring centred at ty 50 (rows 47–53). Its ink runs ty 45–54, which leaves ty 55 as red roof above the glass."
+  },
+  {
+   "id": "D4",
+   "severity": "minor",
+   "shots": [
+    "prev_upgrade_C2_3",
+    "prev_sheet_LUMINARY"
+   ],
+   "what": "The LUMINARY roof centre (v≤16) switches from roof #AEB8C5 to top #808B9B at ty 64. The rear 8 roof rows read as a second dark panel, a band behind the dome that looks like a separate sunroof shadow. The sheen also stops at ty 63, which makes a hard horizontal cut.",
+   "fix": "Keep the roof tone to ty 69 with the sheen running to there. Use the cool shade #687383 only on ty 70–71 as the roof's rear drop, a 2-row edge that matches the shaded bonnet rear (ty 25–28)."
+  }
+ ],
+ "fixed": [
+  "D1",
+  "D2",
+  "D3",
+  "D4"
+ ]
+}

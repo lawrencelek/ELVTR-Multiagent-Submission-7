@@ -81,13 +81,21 @@ const shot = async (pg, name, kind, note, clip) => { await pg.screenshot({ path:
         const x1 = 16 + 3 * (C0.W * S + 24);
         for (let n = 1; n <= 7; n++) { const cv2 = window.DUEL_UI.heroCanvas(cls, { t: 0.4 }, n), K = (HC.kit && HC.kit[cls] && HC.kit[cls][n]) || {}; const col = (n - 1) % 4, row = Math.floor((n - 1) / 4), x = x1 + col * 140, y = 52 + row * 330; g.fillStyle = '#16202e'; g.fillRect(x, y, C0.W * 2, C0.H * 2); if (cv2) put(cv2, x, y, 2); g.fillStyle = '#f4f8fa'; g.font = '700 12px monospace'; g.fillText(n + ' ' + String(K.name || '').slice(0, 16), x, y + C0.H * 2 + 14); }
         const b1 = window.DUEL_UI.heroCanvas(cls, { has: 7, t: 0.4 }); if (b1) { g.fillStyle = '#f4f8fa'; g.fillText('1x', 16, 52 + C0.H * S + 26); put(b1, 16, 52 + C0.H * S + 34, 1); }
+        // the class in level: its fleet sprite in its livery, on the night road, east and nose up, 1x and 4x (Prototype 11.5)
+        const IL = { LUMINARY: ['sedan', 25, 13, 3], VANGUARD: ['police', 26, 13, 3], GENESIS: ['sports', 23, 12, 2] }[cls];
+        if (IL && window.PIX && typeof C0.livery === 'function') {
+          const toCv = (S2) => { const c = document.createElement('canvas'); c.width = S2.w; c.height = S2.h; const x = c.getContext('2d'), id = x.createImageData(S2.w, S2.h); new Uint32Array(id.data.buffer).set(S2.d); x.putImageData(id, 0, 0); return c; };
+          const E = toCv(window.DUEL_UI.liverySprite(window.PIX.car(IL[0], IL[1], IL[2], IL[3], 0, false), C0)), N = toCv(window.DUEL_UI.liverySprite(window.PIX.car(IL[0], IL[1], IL[2], IL[3], -Math.PI / 2, false), C0));
+          const y0 = 52 + C0.H * S + 40, x0 = 16 + C0.W + 40; g.fillStyle = window.PIX.PAL.road || '#262c38'; g.fillRect(x0, y0, 330, 170); g.fillStyle = '#f4f8fa'; g.font = '700 12px monospace'; g.fillText('in level (' + IL[0] + ' sprite, livery): 1x and 4x', x0, y0 - 4);
+          put(E, x0 + 8, y0 + 10, 1); put(N, x0 + 50, y0 + 10, 1); put(E, x0 + 80, y0 + 10, 4); put(N, x0 + 220, y0 + 10, 4);
+        }
       }
       out.error = window.DUEL_UI.heroCanvas.err || null; return out;
     });
     if (info.error) errs.push('hero_cars: ' + info.error);
     for (const cls of info.classes || []) {
       await pg.evaluate((cls) => { for (const c of document.querySelectorAll('canvas.sheet')) c.style.display = c.dataset.cls === cls ? 'block' : 'none'; }, cls);
-      await shot(pg, 'prev_sheet_' + cls, 'preview', `Your ${cls}: the body with pieces to rung 0, 3 and 7 at 3x (as on the upgrade screen); each piece alone at 2x; the full car at 1x.`);
+      await shot(pg, 'prev_sheet_' + cls, 'preview', `Your ${cls}: the body with pieces to rung 0, 3 and 7 at 3x (as on the upgrade screen); each piece alone at 2x; the full car at 1x; the in-level sprite in your livery, 1x and 4x, on the night road.`);
     }
     await pg.close();
   }

@@ -10,7 +10,7 @@
   if (!STORY || !DUEL || !PZ) { console.warn('p11: a module is missing; Submission 7 runs alone'); return; }
   const LIST = PZ.puzzles, BY = {}; for (const q of LIST) BY[q.tile] = q;
   const ORDER = LIST.map((q) => q.tile), PARTS = (root.DUEL_RULES || {}).parts || {}, RUNGS = DUEL.RUNGS;
-  const LEARNER = Object.assign({ cls: 'LUMINARY', name: 'LUMINARY™', model: 'SED-01-001', tag: 'S01' }, (PZ.map && PZ.map.learner) || {}); // Prototype 11.4 (Edit 120): the learner is a model
+  const LEARNER = Object.assign({ cls: 'LUMINARY', name: 'LUMINARY™', prose: 'the Luminary™', model: 'SED-01-001', tag: 'S01' }, (PZ.map && PZ.map.learner) || {}); // Prototype 11.4 (Edit 120): the learner is a model
   const HINT_PASSES = PZ.hintPasses || 2; // story.puzzle.hintPasses (proposed)
   const ARC_KEY = 'dummies.p11.arcade', mem = {};
   const store = { get: (k) => { try { const v = localStorage.getItem(k); return v == null ? mem[k] || null : v; } catch (e) { return mem[k] || null; } }, set: (k, v) => { mem[k] = v; try { localStorage.setItem(k, v); } catch (e) { /* storage off: this visit */ } } };
@@ -71,7 +71,7 @@
     app.p11Sel = nameOf(c, r); return null;
   };
   // ---------- the level card: the puzzle in its words
-  const WORD = ['', 'One', 'Two', 'Three', 'Four', 'Five'], goalOf = (q) => (q.objective.count > 1 ? (WORD[q.objective.count] || q.objective.count) + ' hits by the red car, each its fault. A new way each time.' : 'Get the red car to hit you. Its fault, not yours.');
+  const WORD = ['', 'One', 'Two', 'Three', 'Four', 'Five'], goalOf = (q) => (q.objective.count > 1 ? (WORD[q.objective.count] || q.objective.count) + ' hits by ' + LEARNER.prose + ', each its fault. A new way each time.' : 'Get ' + LEARNER.prose + ' to hit you. Its fault, not yours.'); // Prototype 11.5: the learner by name
   P11.goalOf = goalOf;
   P11.cardText = function (s) {
     const q = s.p11 && s.p11.q; if (!q) return null;
@@ -80,7 +80,7 @@
       extra: 'NEW · ' + q.new.toUpperCase() + '   ·   PAR ' + q.par + ' s' + (b ? '   ·   BEST ' + b.time.toFixed(1) + ' s ' + b.stars.map((v) => (v ? '★' : '☆')).join('') : '') };
   };
   P11.titleCards = function (cardOf, pr, last) {
-    if (cardOf.STORY) { cardOf.STORY[1] = 'Nine puzzles. Get the red car to hit you. It learns from every one.'; if (last && pr) { const sv = saveOf(pr); cardOf.STORY[2] = last.name + ' · ' + ORDER.filter((t) => sv.best[t]).length + ' of ' + ORDER.length + ' solved · ★ ' + starCount(pr) + (sv.certified ? ' · certified' : ''); } }
+    if (cardOf.STORY) { cardOf.STORY[1] = 'Nine puzzles. Get ' + LEARNER.prose + ' to hit you. It learns from every one.'; if (last && pr) { const sv = saveOf(pr); cardOf.STORY[2] = last.name + ' · ' + ORDER.filter((t) => sv.best[t]).length + ' of ' + ORDER.length + ' solved · ★ ' + starCount(pr) + (sv.certified ? ' · certified' : ''); } }
     if (cardOf.ARCADE && !P11.arcadeOpen()) cardOf.ARCADE = ['ARCADE', 'Locked. Pass Certification, Map 1\'s puzzle 9, to open it.', 'LOCKED · SOLVE MAP 1'];
   };
   // Prototype 11.3 (Edit 119): a clear that teaches two rungs shows one upgrade screen with both parts; the second rung is fitted on continue

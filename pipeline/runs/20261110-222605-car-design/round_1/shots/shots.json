@@ -1,0 +1,50 @@
+{
+ "shots": [
+  {
+   "shot": "prev_upgrade_A1_0_6",
+   "kind": "preview",
+   "note": "The car upgrade screen after puzzle A1 at 0.6 s (pinned), with your hero car."
+  },
+  {
+   "shot": "prev_upgrade_A1_1_15",
+   "kind": "preview",
+   "note": "The car upgrade screen after puzzle A1 at 1.15 s (pinned), with your hero car."
+  },
+  {
+   "shot": "prev_upgrade_A1_3",
+   "kind": "preview",
+   "note": "The car upgrade screen after puzzle A1 at 3 s (pinned), with your hero car."
+  },
+  {
+   "shot": "prev_upgrade_C2_0_6",
+   "kind": "preview",
+   "note": "The car upgrade screen after puzzle C2 at 0.6 s (pinned), with your hero car."
+  },
+  {
+   "shot": "prev_upgrade_C2_1_15",
+   "kind": "preview",
+   "note": "The car upgrade screen after puzzle C2 at 1.15 s (pinned), with your hero car."
+  },
+  {
+   "shot": "prev_upgrade_C2_3",
+   "kind": "preview",
+   "note": "The car upgrade screen after puzzle C2 at 3 s (pinned), with your hero car."
+  },
+  {
+   "shot": "prev_sheet_LUMINARY",
+   "kind": "preview",
+   "note": "Your LUMINARY: the body with pieces to rung 0, 3 and 7 at 3x (as on the upgrade screen); each piece alone at 2x; the full car at 1x; the in-level sprite in your livery, 1x and 4x, on the night road."
+  },
+  {
+   "shot": "prev_sheet_VANGUARD",
+   "kind": "preview",
+   "note": "Your VANGUARD: the body with pieces to rung 0, 3 and 7 at 3x (as on the upgrade screen); each piece alone at 2x; the full car at 1x; the in-level sprite in your livery, 1x and 4x, on the night road."
+  },
+  {
+   "shot": "prev_sheet_GENESIS",
+   "kind": "preview",
+   "note": "Your GENESIS: the body with pieces to rung 0, 3 and 7 at 3x (as on the upgrade screen); each piece alone at 2x; the full car at 1x; the in-level sprite in your livery, 1x and 4x, on the night road."
+  }
+ ],
+ "errors": []
+}

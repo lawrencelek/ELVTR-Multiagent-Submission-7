@@ -1,0 +1,35 @@
+{
+ "shots": [
+  {
+   "shot": "ref_sprites",
+   "kind": "reference",
+   "note": "Every in-level car sprite from pixel.js carSprite: east and nose up at 1x (top row) and 4x; the learner (sedan recoloured red, redSprite) nose up at 4x and 6x, and braking at 4x; the dummy, a cone, the drone. Art px: 1 px = 2 world units in play."
+  },
+  {
+   "shot": "ref_play",
+   "kind": "reference",
+   "note": "Play, puzzle 1 (A1): the learner in its lane, the dummy, the tile art and the HUD. The field is 800 x 640 screen px at 1280 x 720."
+  },
+  {
+   "shot": "ref_play_crop",
+   "kind": "reference",
+   "note": "A 120 x 90 crop round the learner in play, as rendered (upscale it in your head: this is 1 screen px per pixel)."
+  },
+  {
+   "shot": "ref_gift",
+   "kind": "reference",
+   "note": "The Dummy Chassis gift screen, settled: the doll is 4x pixel art (64 x 108 art px). The family the car upgrade screen belongs to."
+  },
+  {
+   "shot": "ref_upgrade_A1_3",
+   "kind": "reference",
+   "note": "The car upgrade screen after puzzle A1 at 3 s (pinned) as built in P11.3: the vector kit sedan (kitBody) pixel-scaled."
+  },
+  {
+   "shot": "ref_upgrade_C2_3",
+   "kind": "reference",
+   "note": "The car upgrade screen after puzzle C2 at 3 s (pinned) as built in P11.3: the vector kit sedan (kitBody) pixel-scaled."
+  }
+ ],
+ "errors": []
+}
