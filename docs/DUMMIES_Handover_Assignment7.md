@@ -160,7 +160,7 @@ The file carries its provenance: run id, models, validator result, cost. Per-til
 - **Where it came from:** the filter alone cut the Opus designer by 77% ($1.3757 to $0.3205). The Sonnet swap cut reviewer and refiner by 84%.
 - **Quality held:** v2 passed the same validator, after one repair. v3b, with Prototype 9's tiles and measured facts, cost $0.66 and needed no repair.
 
-### E. Beyond the submission: Prototype 11.5
+### E. Beyond the submission: Shipping V1
 
 The puzzle version of Map 1: https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11/. Its puzzle data is written by hand. Agent output inside it:
 
@@ -180,9 +180,9 @@ The puzzle version of Map 1: https://lawrencelek.github.io/ELVTR-Multiagent-Subm
 
 ## Sources
 
-- [Playable build](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/) · [Prototype 11.5, puzzles](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11/)
+- [Playable build](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/) · [Shipping V1, puzzles](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11/)
 - [Repository](https://github.com/lawrencelek/ELVTR-Multiagent-Submission-7) · [README](../README.md)
-- [Pipeline-run video](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) · [Prototype 11.5 runthrough video (Appendix E)](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/p11_runthrough.mp4)
+- [Pipeline-run video](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) · [Shipping V1 runthrough video (Appendix E)](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/p11_runthrough.mp4)
 - [The plan, `content/story_map1.json`](../content/story_map1.json) · [run folders, `pipeline/runs/`](../pipeline/runs/)
 - [Pipeline audit, `docs/02_Pipeline_Audit.md`](02_Pipeline_Audit.md) · [Prototype 9 × 10 integration analysis](01_P9_P10_Integration_Analysis.md)
 - GDD: [Edit 111, Submission 7 integration](DUMMIES_GDD_Edit111_Submission7_Integration.md) · [Edit 118, QA agent](DUMMIES_GDD_Edit118_Prototype_11_2_QA_Runthrough.md) · [Edit 121, car design agent](DUMMIES_GDD_Edit121_Prototype_11_5_Liveries_Genesis_Part_Names.md)

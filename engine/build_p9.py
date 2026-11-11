@@ -232,7 +232,7 @@ def main(p11=False):
     scripts += js(E / 'lore.js')
     cr = cues['credits']
     credit = ['Music by ' + cr['music'].replace(' on itch.io', ''), 'Sound effects by ' + cr['sfx'].replace(' on itch.io', '')]
-    scripts += (f"<script>\nwindow.DUMMIES_LORE.build = '{'P11.5 · PUZZLES' if p11 else 'P9 × P10'}';\n"
+    scripts += (f"<script>\nwindow.DUMMIES_LORE.build = '{'SHIPPING V1 · PUZZLES' if p11 else 'P9 × P10'}';\n"
                 f"window.DUMMIES_CREDITS.lines = window.DUMMIES_CREDITS.lines.concat({json.dumps(credit, ensure_ascii=False)});\n</script>\n")
     # Prototype 9's values (prototypes/p9/build.py, Edits 97-100), then the integration's
     sim = dict({'arcade.grades': 1, 'ui.introScreen': 1, 'ui.levelCard': 1, 'world.droneDropIn': 1, 'ui.storySplash': 1},
