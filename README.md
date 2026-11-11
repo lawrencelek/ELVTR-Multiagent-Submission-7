@@ -10,6 +10,7 @@
 | **Handover (all deliverables)** | [`docs/DUMMIES_Handover_Assignment7.md`](docs/DUMMIES_Handover_Assignment7.md) |
 | **One-page audit** | [`docs/02_Pipeline_Audit.md`](docs/02_Pipeline_Audit.md) |
 | **P9 × P10 integration** | [`docs/01_P9_P10_Integration_Analysis.md`](docs/01_P9_P10_Integration_Analysis.md) · GDD [Edit 111](docs/DUMMIES_GDD_Edit111_Submission7_Integration.md) |
+| **FINAL V2 (puzzles, cleaned screens)** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/final_v2/** · GDD [Edit 123](docs/DUMMIES_GDD_Edit123_FINAL_V2_UI_Cleanup.md): an adversarial UI cleanup agent (`python3 pipeline/ui_cleanup.py`); one grammar for being seen; camera cones; two hits on puzzles 1–2 · [runthrough video](docs/final_v2_runthrough.mp4) |
 | **Shipping V1 (puzzles; was Prototype 11.5)** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11/** · GDD [Edit 113](docs/DUMMIES_GDD_Edit113_Prototype_11_Architecture.md), [Edit 116](docs/DUMMIES_GDD_Edit116_Prototype_11_1_Kit.md), [Edit 117](docs/DUMMIES_GDD_Edit117_Prototype_11_2_Sensor_Feedback.md), [Edit 119](docs/DUMMIES_GDD_Edit119_Prototype_11_3_Snake_Pad_Upgrade.md), [Edit 120](docs/DUMMIES_GDD_Edit120_Prototype_11_4_Crouch_Luminary_Hero_Car.md), [Edit 121](docs/DUMMIES_GDD_Edit121_Prototype_11_5_Liveries_Genesis_Part_Names.md) · frozen: [P11.0](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_0/), [P11.1](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_1/), [P11.2](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_2/), [P11.3](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_3/), [P11.4](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_4/) |
 | **Target engine** | Phaser 3 (next). Today: Prototype 9's HTML5 Canvas engine, with Prototype 10's driver |
 
@@ -144,5 +145,5 @@ engine/     build_p9.py duel.js duel_ui.js affordances.js p9_tiles_test.js p9_pl
 content/    story_map1.json   (pipeline output) · puzzles_map1.json (Prototype 11, by hand)
 audio/      Prototype 9's music and effects
 docs/       01 analysis · 02 audit · GDD Edit 111 · pipeline_run.mp4
-index.html  the playable build · junction.html  the test-road build · p11/index.html  Shipping V1 (was Prototype 11.5), the puzzles · p11_0/ to p11_4/  Prototypes 11.0 to 11.4, frozen
+index.html  the playable build · junction.html  the test-road build · final_v2/index.html  FINAL V2, the puzzles · p11/index.html  Shipping V1 (was Prototype 11.5), frozen · p11_0/ to p11_4/  Prototypes 11.0 to 11.4, frozen
 ```

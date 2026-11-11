@@ -22,7 +22,7 @@
     const sv = P11.saveOf(pr), sel = app.p11Sel || sv.cur || P11.ORDER.find((t) => P11.stateOf(pr, t) === 'open') || 'A1';
     const x = G.FX + 16, y = G.FY + 14, w = G.FW - 32, h = G.FH - 28; U.panel(x, y, w, h);
     const solved = P11.ORDER.filter((t) => sv.best[t]).length;
-    U.txt('MAP 1 · MONUMENT · NINE PUZZLES', x + 24, y + 40, '700 18px ' + U.F_UI, FT.accent);
+    U.txt('MONUMENT', x + 24, y + 40, '700 18px ' + U.F_UI, FT.accent);
     U.txt('★ ' + P11.starCount(pr) + ' / ' + P11.ORDER.length * 3 + '   ·   SOLVED ' + solved + ' / ' + P11.ORDER.length, x + w - 24, y + 40, '700 18px ' + U.F_UI, FT.text, 'right');
     const top = y + 62, gh = h - 62 - 96, g = 10, ch = Math.floor((gh - 2 * g) / 3), cw = Math.min(Math.floor(((w - 72) * 0.6 - 2 * g) / 3), Math.floor(ch * 1.5)), gx = x + 24;
     for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
@@ -43,14 +43,14 @@
     // the puzzle under the cursor
     const q = P11.BY[sel], st = P11.stateOf(pr, sel), b = sv.best[sel], ix = gx + 3 * cw + 2 * g + 24, iw = x + w - 24 - ix, iy = top;
     U.rr(ix, iy, iw, gh, 12); ctx.fillStyle = FT.item; ctx.fill(); ctx.strokeStyle = FT.itemEdge; ctx.lineWidth = 1; ctx.stroke();
-    U.txt('PUZZLE ' + q.n + ' OF ' + P11.ORDER.length + ' · ' + sel, ix + 18, iy + 30, '700 15px ' + U.F_UI, FT.accent);
+    U.txt('PUZZLE ' + q.n, ix + 18, iy + 30, '700 15px ' + U.F_UI, FT.accent);
     U.txt(q.name, ix + 18, iy + 66, '900 32px ' + BRAND, FT.text);
     let yy = iy + 100;
-    yy += 24 * U.wrapText('NEW · ' + q.new, ix + 18, yy, iw - 36, 24, '700 17px ' + U.F_UI, YEL, 2) + 8;
-    yy += 24 * U.wrapText(P11.goalOf(q), ix + 18, yy, iw - 36, 24, '400 17px ' + U.F_UI, FT.text, 3) + 10;
-    U.txt('PAR ' + q.par + ' s' + (q.steps > 1 ? '   ·   ' + q.steps + ' STEPS' : ''), ix + 18, yy, '700 16px ' + U.F_UI, FT.dim); yy += 34;
+    yy += 24 * U.wrapText('NEW · ' + P11.keys(q.newLine || q.new).toUpperCase(), ix + 18, yy, iw - 36, 24, '700 17px ' + U.F_UI, YEL, 2) + 8; // FINAL V2: the card's words, one source
+    yy += 24 * U.wrapText(P11.cardGoal(q), ix + 18, yy, iw - 36, 24, '400 17px ' + U.F_UI, FT.text, 3) + 10;
+    U.txt('PAR ' + q.par + ' s', ix + 18, yy, '700 16px ' + U.F_UI, FT.dim); yy += 34;
     if (b) { U.txt('BEST ' + fmt(b.time), ix + 18, yy, '700 18px ' + U.F_UI, FT.text); stars(ix + 160, yy - 7, 11, b.stars, 28); }
-    else U.txt(st === 'open' ? 'NOT YET SOLVED' : st === 'build' ? 'IN BUILD · EDIT 112, DAY 2' : 'LOCKED · SOLVE THE PUZZLE BEFORE IT', ix + 18, yy, '700 15px ' + U.F_UI, st === 'open' ? YEL : FT.off);
+    else U.txt(st === 'open' ? '' : st === 'build' ? 'IN BUILD' : 'LOCKED', ix + 18, yy, '700 15px ' + U.F_UI, st === 'open' ? YEL : FT.off);
     const deny = app.p11Deny && app.p11Deny.t === sel && G.t - app.p11Deny.at < 1.6;
     const ok = st === 'open' || st === 'solved', bt = ok ? (st === 'solved' ? 'PLAY AGAIN · ' : 'PLAY · ') + 'PUZZLE ' + q.n + ' · ' + q.name.toUpperCase() : deny ? (st === 'build' ? 'PUZZLE ' + q.n + ' IS STILL IN BUILD' : 'SOLVE THE PUZZLE BEFORE IT FIRST') : 'PICK AN OPEN PUZZLE';
     U.rr(x + 24, y + h - 78, w - 48, 44, 12); ctx.fillStyle = ok ? FT.sel : FT.item; ctx.fill(); ctx.strokeStyle = deny ? RED : FT.accent; ctx.lineWidth = 1.5; ctx.stroke();
@@ -67,9 +67,9 @@
     rect(G.FX, G.FY, G.FW, G.FH, 'rgba(5,7,15,0.72)');
     const w = Math.min(G.FW - 80, 880), h = Math.min(G.FH - 60, 470), x = G.FX + (G.FW - w) / 2, y = G.FY + (G.FH - h) / 2;
     U.panel(x, y, w, h); G.hit(x, y, w, h, 'p11:result', () => G.push('ok'));
-    U.txt('PUZZLE ' + q.n + ' · ' + q.tile + (rec.certified && q.tile === P11.ORDER[P11.ORDER.length - 1] ? ' · CERTIFIED' : ' · SOLVED'), x + 32, y + 44, '700 17px ' + U.F_UI, FT.accent);
+    U.txt('PUZZLE ' + q.n + (rec.certified && q.tile === P11.ORDER[P11.ORDER.length - 1] ? ' · CERTIFIED' : ' · SOLVED'), x + 32, y + 44, '700 17px ' + U.F_UI, FT.accent);
     U.txt(q.name, x + 32, y + 92, '900 44px ' + BRAND, FT.text);
-    const labels = ['CLEAR', 'UNTOUCHED', 'PAR ' + q.par + ' s'], why = [q.objective.label, res.stars[1] ? 'No white car, no fault' : 'Touched: a white car or your fault', fmt(res.attempt) + (res.stars[2] ? ' · under par' : ' · over par')];
+    const labels = ['CLEAR', 'UNTOUCHED', 'PAR ' + q.par + ' s'], why = ['', '', '']; // FINAL V2 (Edit 123, review r2): no sentences under the stars
     const sw = (w - 64) / 3;
     for (let i = 0; i < 3; i++) {
       const k = Math.max(0, Math.min(1, (t - 0.15 - i * 0.28) / 0.22)), cxs = x + 32 + sw * i + sw / 2, cys = y + 170, on = !!res.stars[i];
@@ -78,11 +78,11 @@
       U.fitText(why[i], cxs - sw / 2 + 12, cys + 92, sw - 24, 14, 10, FT.dim);
     }
     let yy = y + 300;
-    U.txt('TIME ' + fmt(res.attempt) + '   ·   PUZZLE CLOCK ' + fmt(res.clock) + '   ·   RESTARTS ' + res.restarts + '   ·   PASSES ' + res.passes, x + 32, yy, '700 16px ' + U.F_UI, FT.text); yy += 30;
-    if (best) { U.txt('BEST ' + fmt(best.time), x + 32, yy, '700 16px ' + U.F_UI, FT.dim); stars(x + 150, yy - 6, 8, best.stars, 20); if (rec.newTime && best.plays > 1) U.txt('NEW BEST', x + 230, yy, '700 16px ' + U.F_UI, YEL); yy += 30; }
+    U.txt(fmt(res.attempt), x + 32, yy, '700 20px ' + U.F_UI, FT.text); yy += 30; // FINAL V2: the time; no counters
+    if (best && (best.plays > 1 || Math.abs(best.time - res.attempt) > 0.05)) { U.txt('BEST ' + fmt(best.time), x + 32, yy, '700 16px ' + U.F_UI, FT.dim); stars(x + 150, yy - 6, 8, best.stars, 20); if (rec.newTime && best.plays > 1) U.txt('NEW BEST', x + 230, yy, '700 16px ' + U.F_UI, YEL); yy += 30; }
     const nx = rec.next && P11.BY[rec.next];
-    U.fitText(nx ? 'NEXT · PUZZLE ' + nx.n + ' · ' + nx.name.toUpperCase() + ' · NEW: ' + nx.new.toUpperCase() : rec.certified ? 'MAP 1 CERTIFIED · ARCADE IS OPEN ON THE TITLE SCREEN' : 'BACK TO THE PUZZLE GRID', x + 32, yy, w - 64, 17, 12, nx ? FT.accent : YEL);
-    if (t > 0.6 && Math.floor(G.t * 2) % 2 === 0) U.txt(G.touch ? 'TAP · ON' : 'ENTER · ON     R · AGAIN     SHIFT · GRID', x + w - 32, y + h - 24, '700 17px ' + U.F_UI, YEL, 'right');
+    U.fitText(nx ? 'NEXT · ' + nx.name.toUpperCase() : rec.certified ? 'CERTIFIED · ARCADE IS OPEN' : 'BACK TO THE PUZZLE GRID', x + 32, yy, w - 64, 17, 12, nx ? FT.accent : YEL);
+    if (t > 0.6) U.txt(G.touch ? 'TAP · NEXT' : 'SPACE · NEXT     R · AGAIN     SHIFT · GRID', x + w - 32, y + h - 24, '700 17px ' + U.F_UI, YEL, 'right');
   }
 
   // ---------- over the field: the clock and stars strip, the hint, flashes, broken camera posts
@@ -90,27 +90,20 @@
   let seenEv = new WeakMap();
   function strip(cx, s, G) {
     ctx = cx; const p = s && s.p11; if (!p || s.phase === 'brief' || s.phase === 'lesson' || s.phase === 'report' || s.duelDone) return;
-    const q = p.q, under = p.attempt <= q.par, w = 300, h = 84, x = G.FX + G.FW - w - 10, y = G.FY + 10;
-    ctx.save(); if (root.DUEL_UI && root.DUEL_UI.underHud && root.DUEL_UI.underHud(s, G, x, y, w, h)) ctx.globalAlpha = 0.3; // Prototype 11.2: the car or you under it: the strip steps back
-    rect(x, y, w, h, 'rgba(10,12,18,0.86)'); ctx.strokeStyle = YEL; ctx.lineWidth = 1.5; ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
-    text('⏱ ' + fmt(p.attempt), x + 12, y + 26, 18, under ? YEL : '#9fb8c8'); text('PAR ' + q.par + ' s', x + w - 12, y + 26, 14, '#9fb8c8', 'right');
-    const at = [1, p.untouched ? 1 : 0, under ? 1 : 0], lab = ['CLEAR', 'UNTOUCHED', 'PAR'], cw = (w - 16) / 3;
-    for (let i = 0; i < 3; i++) { const sx = x + 18 + i * cw; star(sx, y + 47, 7, true, at[i] ? YEL : 'rgba(110,120,130,0.8)'); text(lab[i], sx + 12, y + 52, 11, at[i] ? '#F4F8FA' : '#6e7882'); }
-    text('PASS ' + p.passes + '  ·  RESTARTS ' + p.restarts + '  ·  R RESTART', x + 12, y + 74, 12, '#9fb8c8');
-    ctx.restore();
+    // FINAL V2 (Edit 123): no attempt panel in the field. Time, par and stars sit top right; R RESTART in the keys
     const hint = s.p11Hint && s.p11Hint();
     if (hint) { ctx.save(); ctx.font = '700 18px B612, system-ui, sans-serif'; const tw = ctx.measureText('HINT · ' + hint).width + 32, hx = G.FX + (G.FW - tw) / 2, hy = G.FY + G.FH - 64;
       rect(hx, hy, tw, 36, 'rgba(10,12,18,0.9)'); ctx.strokeStyle = YEL; ctx.lineWidth = 2; ctx.strokeRect(hx + 1, hy + 1, tw - 2, 34); text('HINT · ' + hint, hx + 16, hy + 25, 18, YEL); ctx.restore(); }
     // flashes: a restart, a broken camera
     let i = seenEv.get(s) || 0; const ev = s.events; if (i > ev.length) i = 0;
     for (; i < ev.length; i++) { const e = ev[i];
-      if (e.type === 'p11-restart') flashes.push({ t: 1.1, n: 'RESTART · ATTEMPT ' + (e.restarts + 1), c: YEL });
-      else if (e.type === 'camera-broken') flashes.push({ t: 1.6, n: 'CAMERA BROKEN · IT REPORTS NO MORE', c: CAM });
+      if (e.type === 'p11-restart') flashes.push({ t: 1.1, n: 'RESTART', c: YEL });
+      else if (e.type === 'camera-broken') flashes.push({ t: 1.6, n: 'CAMERA BROKEN', c: CAM });
       else if (e.type === 'p11-hint') flashes.push({ t: 1.6, n: 'HINT', c: YEL }); }
     seenEv.set(s, i);
     for (let k = flashes.length - 1; k >= 0; k--) { const f = flashes[k]; f.t -= 1 / 60; if (f.t <= 0) { flashes.splice(k, 1); continue; }
-      ctx.save(); ctx.globalAlpha = Math.min(1, f.t * 3); ctx.font = '900 30px ' + BRAND; const tw = ctx.measureText(f.n).width + 40, fx = G.FX + (G.FW - tw) / 2, fy = G.FY + G.FH * 0.32;
-      rect(fx, fy, tw, 48, 'rgba(10,12,18,0.85)'); text(f.n, G.FX + G.FW / 2, fy + 35, 30, f.c, 'center', 900, BRAND); ctx.restore(); }
+      ctx.save(); ctx.globalAlpha = Math.min(1, f.t * 3); ctx.font = '900 22px ' + BRAND; const tw = ctx.measureText(f.n).width + 32, fx = G.FX + (G.FW - tw) / 2, fy = G.FY + G.FH * 0.32;
+      rect(fx, fy, tw, 38, 'rgba(10,12,18,0.85)'); text(f.n, G.FX + G.FW / 2, fy + 27, 22, f.c, 'center', 900, BRAND); ctx.restore(); }
   }
   function broken(cx, s, G) { // in world units, under the field's transform: a broken post, its cone gone
     const p = s && s.p11, T = s && s.duelT; if (!p || !p.broken.length || !T || s.sc !== T.duelSc || s.phase === 'lesson') return;

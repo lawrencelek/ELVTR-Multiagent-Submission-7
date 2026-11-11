@@ -61,7 +61,7 @@
    "steps": 1,
    "objective": {
     "kind": "hits",
-    "count": 1,
+    "count": 2,
     "label": "GET HIT BY THE LUMINARY™"
    },
    "layout": {
@@ -71,14 +71,15 @@
     ],
     "cones": []
    },
-   "tale": "Fresh off the factory floor. Your first colleague is red, keen and blind. Walk out and meet it.",
+   "tale": "Fresh off the factory floor. Your first colleague is keen and blind.",
    "twist": "Walk into its side and the fault is yours: no points.",
    "hints": [
     "It cannot see you. Be where it is going, and wait."
    ],
    "solution": "Stand in its lane; let it come.",
-   "par": 10,
-   "target": 30
+   "par": 25,
+   "target": 30,
+   "newLine": "The Luminary™ · blind"
   },
   {
    "n": 2,
@@ -97,7 +98,7 @@
    "steps": 1,
    "objective": {
     "kind": "hits",
-    "count": 1,
+    "count": 2,
     "label": "GET HIT BY THE LUMINARY™"
    },
    "layout": {
@@ -107,14 +108,15 @@
     ],
     "cones": []
    },
-   "tale": "The Luminary™ now has eyes on its bonnet. It brakes for anything in its lane. Anything it sees in time.",
+   "tale": "Now it has eyes on its bonnet. It brakes for what it sees in time.",
    "twist": "Stand in its lane: it stops at its line.",
    "hints": [
     "It stops for what it sees in its lane. Step in when it can no longer stop."
    ],
    "solution": "Wait at the kerb; step in inside its stop line.",
-   "par": 15,
-   "target": 40
+   "par": 18,
+   "target": 40,
+   "newLine": "Forward camera · sees its lane"
   },
   {
    "n": 3,
@@ -143,14 +145,15 @@
     ],
     "cones": []
    },
-   "tale": "The Luminary™ now watches both kerbs. The high road above it has a gap in its parapet. Gravity is company policy.",
+   "tale": "Now it watches both kerbs. The high road has a gap. Gravity is company policy.",
    "twist": "Wait at the kerb: it sees you and stops short.",
    "hints": [
     "It watches the kerbs, not the sky."
    ],
    "solution": "Escalator up to the high road; drop through the parapet gap as it passes under.",
    "par": 20,
-   "target": 60
+   "target": 60,
+   "newLine": "Side sensors · see both kerbs"
   },
   {
    "n": 4,
@@ -189,14 +192,15 @@
      }
     ]
    },
-   "tale": "The road runs through the portal tower at the sixth floor. Its sensors cannot see through the kiosk. You can dash.",
+   "tale": "The road runs through the portal tower. It cannot see through the kiosk.",
    "twist": "From the open kerb: it sees you and stops short.",
    "hints": [
     "Hide where its sensors cannot see. Step out just ahead of its nose."
    ],
    "solution": "Hide behind the kiosk; step out just ahead of its nose.",
    "par": 20,
-   "target": 60
+   "target": 60,
+   "newLine": "Dash · {A}"
   },
   {
    "n": 5,
@@ -235,7 +239,7 @@
      }
     ]
    },
-   "tale": "The plaque reads ZERO ACCIDENTS. The street cameras read the island, and they report.",
+   "tale": "The plaque reads ZERO ACCIDENTS. The street cameras watch the island.",
    "twist": "Hide behind the cabinet: the camera tells the car.",
    "hints": [
     "A dash breaks a camera post. Break it while the car is away."
@@ -246,6 +250,12 @@
    "breakableCameras": true,
    "camera": {
     "watch": "cabinet"
+   },
+   "newLine": "Street cameras · a dash breaks a post",
+   "params": {
+    "perception.streetCameraFov": 90,
+    "perception.streetCameraPanArc": 0,
+    "perception.streetCameraRange": 180
    }
   },
   {
@@ -294,7 +304,7 @@
      }
     ]
    },
-   "tale": "The neon shops sell nothing, but the traffic reads them. Today you test with Hands 1 alone. It swerves round cones.",
+   "tale": "The neon shops sell nothing. Today, cones only. It swerves round them.",
    "twist": "No dash: it sees you at the kerb and stops short.",
    "hints": [
     "A cone in its lane: it swerves. Be where the swerve goes."
@@ -302,7 +312,8 @@
    "solution": "Carry a cone into its lane; hide behind the kiosk; step into the other lane as it swerves.",
    "par": 30,
    "target": 80,
-   "breakableCameras": false
+   "breakableCameras": false,
+   "newLine": "Cones · {Y} · no dash today"
   },
   {
    "n": 7,
@@ -351,7 +362,7 @@
      }
     ]
    },
-   "tale": "The stacked cubes rose one budget at a time. The Luminary™ now stops for anything left in the road.",
+   "tale": "The cubes rose one budget at a time. Now it stops for cones.",
    "twist": "A cone in its lane: it stops now.",
    "hints": [
     "Cones stop it. Cameras still break."
@@ -362,6 +373,11 @@
    "breakableCameras": true,
    "camera": {
     "watch": "kiosk"
+   },
+   "newLine": "Road items · stops for cones",
+   "params": {
+    "perception.streetCameraFov": 90,
+    "perception.streetCameraPanArc": 0
    }
   },
   {
@@ -408,7 +424,7 @@
      }
     ]
    },
-   "tale": "Two screens advertise to each other all night. Low hedges line the canyon. Your new knees fold. B crouches.",
+   "tale": "Two screens advertise all night. Low hedges line the canyon. Crouch behind them.",
    "twist": "Hide behind the hedge standing: it sees you over it.",
    "hints": [
     "Low cover hides you only if you are lower. Press B."
@@ -416,7 +432,8 @@
    "solution": "Crouch behind the hedge (B); dash out as it passes.",
    "par": 25,
    "target": 70,
-   "breakableCameras": false
+   "breakableCameras": false,
+   "newLine": "Super Knees · {B} crouches"
   },
   {
    "n": 9,
@@ -478,7 +495,7 @@
      ]
     ]
    },
-   "tale": "Certification. The Luminary™ has learned from every dummy so far. It will learn from you three more times.",
+   "tale": "It has learned from every dummy so far. Three more lessons.",
    "twist": "The same move twice: it remembers.",
    "hints": [
     "A street camera tells it what it sees. Hide where the camera cannot look.",
@@ -491,7 +508,9 @@
    "breakableCameras": true,
    "camera": {
     "watch": "kiosk"
-   }
+   },
+   "newLine": "Boss · learns between hits",
+   "boss": true
   }
  ],
  "map2": {

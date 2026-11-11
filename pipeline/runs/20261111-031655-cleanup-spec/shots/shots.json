@@ -1,0 +1,5688 @@
+{
+ "build": "p11",
+ "shots": [
+  {
+   "shot": "01_title",
+   "what": "title screen",
+   "texts": [
+    {
+     "t": "DUMMIES",
+     "x": 640,
+     "y": 128,
+     "font": "900 112px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Self-driving cars are designed never to hit anyone. Your training: get",
+     "x": 640,
+     "y": 626,
+     "font": "bold 26px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "hit, in combos, and earn your parts.",
+     "x": 640,
+     "y": 660,
+     "font": "bold 26px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "5",
+     "x": 1220,
+     "y": 31,
+     "font": "bold 15px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "02_modes",
+   "what": "mode select",
+   "texts": [
+    {
+     "t": "DUMMY CORPORATION",
+     "x": 24,
+     "y": 32,
+     "font": "900 19px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "SELECT A MODE",
+     "x": 640,
+     "y": 28,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "STORY",
+     "x": 320,
+     "y": 235,
+     "font": "900 34px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "Nine puzzles. Get the",
+     "x": 320,
+     "y": 273,
+     "font": "19px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "Luminary™ to hit you. It learns",
+     "x": 320,
+     "y": 300,
+     "font": "19px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "from every one.",
+     "x": 320,
+     "y": 327,
+     "font": "19px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "3 save slots · a new game begins in Monument A1",
+     "x": 320,
+     "y": 413,
+     "font": "bold 12px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "ARCADE",
+     "x": 672,
+     "y": 235,
+     "font": "900 34px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "Locked. Pass Certification, Map",
+     "x": 672,
+     "y": 273,
+     "font": "19px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "1's puzzle 9, to open it.",
+     "x": 672,
+     "y": 300,
+     "font": "19px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LOCKED · SOLVE MAP 1",
+     "x": 672,
+     "y": 413,
+     "font": "bold 17px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "HIGH SCORES",
+     "x": 520,
+     "y": 481,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "CREDITS",
+     "x": 760,
+     "y": 481,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "ARROWS CHOOSE · SPACE SELECT",
+     "x": 640,
+     "y": 636,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "5",
+     "x": 1220,
+     "y": 31,
+     "font": "bold 15px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "03_saves",
+   "what": "save slots",
+   "texts": [
+    {
+     "t": "DUMMY CORPORATION",
+     "x": 24,
+     "y": 32,
+     "font": "900 19px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "STORY · SAVE GAMES",
+     "x": 640,
+     "y": 28,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SAVE GAMES",
+     "x": 280,
+     "y": 94,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "SAVED IN THIS BROWSER",
+     "x": 1000,
+     "y": 94,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NEW GAME",
+     "x": 300,
+     "y": 143,
+     "font": "900 24px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "Monument A1 · into slot 1",
+     "x": 980,
+     "y": 141,
+     "font": "bold 16px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "1",
+     "x": 318,
+     "y": 216,
+     "font": "900 28px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "EMPTY",
+     "x": 356,
+     "y": 212,
+     "font": "900 28px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#5e7080",
+     "a": 1
+    },
+    {
+     "t": "No story saved here.",
+     "x": 356,
+     "y": 242,
+     "font": "16px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "2",
+     "x": 318,
+     "y": 373,
+     "font": "900 28px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "EMPTY",
+     "x": 356,
+     "y": 369,
+     "font": "900 28px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#5e7080",
+     "a": 1
+    },
+    {
+     "t": "No story saved here.",
+     "x": 356,
+     "y": 399,
+     "font": "16px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "3",
+     "x": 318,
+     "y": 530,
+     "font": "900 28px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "EMPTY",
+     "x": 356,
+     "y": 526,
+     "font": "900 28px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#5e7080",
+     "a": 1
+    },
+    {
+     "t": "No story saved here.",
+     "x": 356,
+     "y": 556,
+     "font": "16px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "ARROWS CHOOSE · SPACE SELECT · SHIFT BACK",
+     "x": 640,
+     "y": 654,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_A1_card",
+   "what": "A1: the puzzle card",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "500",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NOT FITTED",
+     "x": 210,
+     "y": 160,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · A1",
+     "x": 30,
+     "y": 258,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 1 · A1 · FIRST CONTACT",
+     "x": 246,
+     "y": 24,
+     "font": "bold 19px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 561,
+     "y": 24,
+     "font": "19px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 1 · FIRST CONTACT",
+     "x": 96,
+     "y": 150,
+     "font": "900 64px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Tile A1. Puzzle 1 of 9.",
+     "x": 98,
+     "y": 196,
+     "font": "bold 28px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "Fresh off the factory floor. Your first colleague is",
+     "x": 96,
+     "y": 270,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "red, keen and blind. Walk out and meet it.",
+     "x": 96,
+     "y": 312,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": ">>>",
+     "x": 96,
+     "y": 380,
+     "font": "900 31px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Get the Luminary™ to hit you. Its fault, not",
+     "x": 170,
+     "y": 380,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "yours.",
+     "x": 170,
+     "y": 422,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "NEW · THE LUMINARY™. IT IS BLIND.   ·   PAR 10 s",
+     "x": 170,
+     "y": 470,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_A1_drop",
+   "what": "A1: the drone drops the dummy in",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "500",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NOT FITTED",
+     "x": 210,
+     "y": 160,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · A1 · DRONE",
+     "x": 30,
+     "y": 258,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1106,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1155,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "OBJECTIVE · A1",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "Write off a body. Last hit: get hit by the luminary™ (0 of 1).",
+     "x": 430,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 0 · PROTOTYPE   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "YOUR HIT TEACHES IT FORWARD CAMERA",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 0.0 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 10 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_A1_play",
+   "what": "A1: play",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "500",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NOT FITTED",
+     "x": 210,
+     "y": 160,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · A1",
+     "x": 30,
+     "y": 258,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1106,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1155,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 1 · A1 · FIRST CONTACT",
+     "x": 246,
+     "y": 24,
+     "font": "bold 19px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 561,
+     "y": 24,
+     "font": "19px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 0 · PROTOTYPE   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "YOUR HIT TEACHES IT FORWARD CAMERA",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 3.3 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 10 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_B1_card",
+   "what": "B1: the puzzle card",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "500",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NOT FITTED",
+     "x": 210,
+     "y": 160,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · B1",
+     "x": 30,
+     "y": 258,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 2 · B1 · STOP LINE",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 535,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 2 · STOP LINE",
+     "x": 96,
+     "y": 150,
+     "font": "900 64px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Tile B1. Puzzle 2 of 9.",
+     "x": 98,
+     "y": 196,
+     "font": "bold 28px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "The Luminary™ now has eyes on its bonnet. It",
+     "x": 96,
+     "y": 270,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "brakes for anything in its lane. Anything it sees in",
+     "x": 96,
+     "y": 312,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "time.",
+     "x": 96,
+     "y": 354,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": ">>>",
+     "x": 96,
+     "y": 422,
+     "font": "900 31px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Get the Luminary™ to hit you. Its fault, not",
+     "x": 170,
+     "y": 422,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "yours.",
+     "x": 170,
+     "y": 464,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "NEW · ITS FORWARD CAMERA. IT STOPS FOR YOU IN ITS LANE.   ·   PAR 15 s",
+     "x": 170,
+     "y": 512,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_B1_drop",
+   "what": "B1: the drone drops the dummy in",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "500",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NOT FITTED",
+     "x": 210,
+     "y": 160,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · B1 · DRONE",
+     "x": 30,
+     "y": 258,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1106,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1155,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "OBJECTIVE · B1",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "Write off a body. Last hit: get hit by the luminary™ (0 of 1).",
+     "x": 429,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 1 · FORWARD CAMERA   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "YOUR HIT TEACHES IT SIDE SENSORS",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 0.0 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 15 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_B1_play",
+   "what": "B1: play",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "500",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NOT FITTED",
+     "x": 210,
+     "y": 160,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · B1",
+     "x": 30,
+     "y": 258,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1106,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1155,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 2 · B1 · STOP LINE",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 535,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 1 · FORWARD CAMERA   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "YOUR HIT TEACHES IT SIDE SENSORS",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 3.4 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 15 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_B1_seen_ahead",
+   "what": "B1: seen ahead",
+   "texts": [
+    {
+     "t": "IT BRAKES FOR YOU",
+     "x": 640,
+     "y": 572,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "500",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NOT FITTED",
+     "x": 210,
+     "y": 160,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · B1",
+     "x": 30,
+     "y": 258,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1106,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1155,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 2 · B1 · STOP LINE",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 535,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 1 · FORWARD CAMERA   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "YOUR HIT TEACHES IT SIDE SENSORS",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 4.2 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 15 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_C1_card",
+   "what": "C1: the puzzle card",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "500",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NOT FITTED",
+     "x": 210,
+     "y": 160,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · C1",
+     "x": 30,
+     "y": 258,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 3 · C1 · HIGH ROAD",
+     "x": 246,
+     "y": 24,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 533,
+     "y": 24,
+     "font": "20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 3 · HIGH ROAD",
+     "x": 96,
+     "y": 150,
+     "font": "900 64px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Tile C1. Puzzle 3 of 9.",
+     "x": 98,
+     "y": 196,
+     "font": "bold 28px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "The Luminary™ now watches both kerbs. The high",
+     "x": 96,
+     "y": 270,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "road above it has a gap in its parapet. Gravity is",
+     "x": 96,
+     "y": 312,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "company policy.",
+     "x": 96,
+     "y": 354,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": ">>>",
+     "x": 96,
+     "y": 422,
+     "font": "900 31px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Get the Luminary™ to hit you. Its fault, not",
+     "x": 170,
+     "y": 422,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "yours.",
+     "x": 170,
+     "y": 464,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "NEW · ITS SIDE SENSORS. IT SEES THE KERB.   ·   PAR 20 s",
+     "x": 170,
+     "y": 512,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_C1_drop",
+   "what": "C1: the drone drops the dummy in",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "500",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NOT FITTED",
+     "x": 210,
+     "y": 160,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · C1 · DRONE",
+     "x": 30,
+     "y": 258,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1106,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1155,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "OBJECTIVE · C1",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "Write off a body. Last hit: get hit by the luminary™ (0 of 1).",
+     "x": 431,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 2 · SIDE SENSORS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "CLEAR THE TILE: YOU EARN BATTERY 1 (DASH)",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#ffd400",
+     "a": 1
+    },
+    {
+     "t": "⏱ 0.0 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 20 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_C1_play",
+   "what": "C1: play",
+   "texts": [
+    {
+     "t": "?",
+     "x": 661,
+     "y": 354,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "500",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NOT FITTED",
+     "x": 210,
+     "y": 160,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · C1",
+     "x": 30,
+     "y": 258,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1106,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1155,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 3 · C1 · HIGH ROAD",
+     "x": 246,
+     "y": 24,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 533,
+     "y": 24,
+     "font": "20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 2 · SIDE SENSORS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "CLEAR THE TILE: YOU EARN BATTERY 1 (DASH)",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#ffd400",
+     "a": 1
+    },
+    {
+     "t": "⏱ 3.4 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 20 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_C1_seen_side",
+   "what": "C1: seen side",
+   "texts": [
+    {
+     "t": "STOPS HERE",
+     "x": 743,
+     "y": 423,
+     "font": "bold 8px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "!",
+     "x": 742,
+     "y": 354,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "ITS SIDE SENSORS HAVE YOU",
+     "x": 640,
+     "y": 572,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#7fa8bc",
+     "a": 1
+    },
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "500",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "NOT FITTED",
+     "x": 210,
+     "y": 160,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · C1",
+     "x": 30,
+     "y": 258,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1106,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1155,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 3 · C1 · HIGH ROAD",
+     "x": 246,
+     "y": 24,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 533,
+     "y": 24,
+     "font": "20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 2 · SIDE SENSORS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "CLEAR THE TILE: YOU EARN BATTERY 1 (DASH)",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#ffd400",
+     "a": 1
+    },
+    {
+     "t": "⏱ 4.2 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 20 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_C2_card",
+   "what": "C2: the puzzle card",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · C2",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 4 · C2 · PORTAL",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 517,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 4 · PORTAL",
+     "x": 96,
+     "y": 150,
+     "font": "900 64px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Tile C2. Puzzle 4 of 9.",
+     "x": 98,
+     "y": 196,
+     "font": "bold 28px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "The road runs through the portal tower at the sixth",
+     "x": 96,
+     "y": 270,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "floor. Its sensors cannot see through the kiosk. You",
+     "x": 96,
+     "y": 312,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "can dash.",
+     "x": 96,
+     "y": 354,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": ">>>",
+     "x": 96,
+     "y": 422,
+     "font": "900 31px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Get the Luminary™ to hit you. Its fault, not",
+     "x": 170,
+     "y": 422,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "yours.",
+     "x": 170,
+     "y": 464,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "NEW · BATTERY 1: THE DASH.   ·   PAR 20 s",
+     "x": 170,
+     "y": 512,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_C2_drop",
+   "what": "C2: the drone drops the dummy in",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · C2 · DRONE",
+     "x": 30,
+     "y": 258,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "OBJECTIVE · C2",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "Write off a body. Last hit: get hit by the luminary™ (0 of 1).",
+     "x": 435,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 2 · SIDE SENSORS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "YOUR HIT TEACHES IT ROOF LIDAR",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 0.0 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 20 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_C2_play",
+   "what": "C2: play",
+   "texts": [
+    {
+     "t": "!",
+     "x": 827,
+     "y": 268,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "ITS SIDE SENSORS HAVE YOU",
+     "x": 640,
+     "y": 572,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#7fa8bc",
+     "a": 1
+    },
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · C2",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 4 · C2 · PORTAL",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 517,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 2 · SIDE SENSORS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "YOUR HIT TEACHES IT ROOF LIDAR",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 3.4 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 20 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_B2_card",
+   "what": "B2: the puzzle card",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · B2",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 5 · B2 · CCTV",
+     "x": 246,
+     "y": 25,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 502,
+     "y": 25,
+     "font": "22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 5 · CCTV",
+     "x": 96,
+     "y": 150,
+     "font": "900 64px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Tile B2. Puzzle 5 of 9.",
+     "x": 98,
+     "y": 196,
+     "font": "bold 28px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "The plaque reads ZERO ACCIDENTS. The street",
+     "x": 96,
+     "y": 270,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "cameras read the island, and they report.",
+     "x": 96,
+     "y": 312,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": ">>>",
+     "x": 96,
+     "y": 380,
+     "font": "900 31px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Get the Luminary™ to hit you. Its fault, not",
+     "x": 170,
+     "y": 380,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "yours.",
+     "x": 170,
+     "y": 422,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "NEW · STREET CAMERAS. A DASH BREAKS A POST.   ·   PAR 30 s",
+     "x": 170,
+     "y": 470,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_B2_drop",
+   "what": "B2: the drone drops the dummy in",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · B2 · DRONE",
+     "x": 30,
+     "y": 258,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "OBJECTIVE · B2",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "Write off a body. Last hit: get hit by the luminary™ (0 of 1).",
+     "x": 433,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 4 · STREET CAMERAS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "CLEAR THE TILE: YOU EARN HANDS 1 (CONES)",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#ffd400",
+     "a": 1
+    },
+    {
+     "t": "⏱ 0.0 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 30 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_B2_play",
+   "what": "B2: play",
+   "texts": [
+    {
+     "t": "LINKED",
+     "x": 656,
+     "y": 514,
+     "font": "bold 9px B612, system-ui, sans-serif",
+     "fill": "#9ff2c8",
+     "a": 1
+    },
+    {
+     "t": "STOPS HERE",
+     "x": 448,
+     "y": 495,
+     "font": "bold 8px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "!",
+     "x": 446,
+     "y": 414,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "ITS SIDE SENSORS HAVE YOU",
+     "x": 640,
+     "y": 572,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#7fa8bc",
+     "a": 1
+    },
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · B2",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 5 · B2 · CCTV",
+     "x": 246,
+     "y": 25,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 502,
+     "y": 25,
+     "font": "22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 4 · STREET CAMERAS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "CLEAR THE TILE: YOU EARN HANDS 1 (CONES)",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#ffd400",
+     "a": 1
+    },
+    {
+     "t": "⏱ 3.4 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 30 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_B2_seen_camera",
+   "what": "B2: seen camera",
+   "texts": [
+    {
+     "t": "!",
+     "x": 448,
+     "y": 414,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "ITS SIDE SENSORS HAVE YOU",
+     "x": 640,
+     "y": 572,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#7fa8bc",
+     "a": 0.9
+    },
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · B2",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 5 · B2 · CCTV",
+     "x": 246,
+     "y": 25,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 502,
+     "y": 25,
+     "font": "22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 4 · STREET CAMERAS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "CLEAR THE TILE: YOU EARN HANDS 1 (CONES)",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#ffd400",
+     "a": 1
+    },
+    {
+     "t": "⏱ 4.4 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 30 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_A3_card",
+   "what": "A3: the puzzle card",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · A3",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 7 · A3 · THE STACKS",
+     "x": 246,
+     "y": 24,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 550,
+     "y": 24,
+     "font": "20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 7 · THE STACKS",
+     "x": 96,
+     "y": 150,
+     "font": "900 64px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Tile A3. Puzzle 7 of 9.",
+     "x": 98,
+     "y": 196,
+     "font": "bold 28px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "The stacked cubes rose one budget at a time. The",
+     "x": 96,
+     "y": 270,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "Luminary™ now stops for anything left in the road.",
+     "x": 96,
+     "y": 312,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": ">>>",
+     "x": 96,
+     "y": 380,
+     "font": "900 31px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Get the Luminary™ to hit you. Its fault, not",
+     "x": 170,
+     "y": 380,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "yours.",
+     "x": 170,
+     "y": 422,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "NEW · ROAD ITEMS. IT STOPS FOR CONES.   ·   PAR 30 s",
+     "x": 170,
+     "y": 470,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_A3_drop",
+   "what": "A3: the drone drops the dummy in",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · A3 · DRONE",
+     "x": 30,
+     "y": 258,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 575,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 575,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "E",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "GRAB",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "OBJECTIVE · A3",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "Write off a body. Last hit: get hit by the luminary™ (0 of 1).",
+     "x": 435,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 5 · ROAD ITEMS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "CLEAR THE TILE: YOU EARN SUPER KNEES (CROUCH)",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#ffd400",
+     "a": 1
+    },
+    {
+     "t": "⏱ 0.0 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 30 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_A3_play",
+   "what": "A3: play",
+   "texts": [
+    {
+     "t": "!",
+     "x": 496,
+     "y": 258,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · A3",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 575,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 575,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "E",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "GRAB",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 7 · A3 · THE STACKS",
+     "x": 246,
+     "y": 24,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 550,
+     "y": 24,
+     "font": "20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 5 · ROAD ITEMS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "CLEAR THE TILE: YOU EARN SUPER KNEES (CROUCH)",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#ffd400",
+     "a": 1
+    },
+    {
+     "t": "⏱ 4.4 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 30 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_B3_card",
+   "what": "B3: the puzzle card",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · B3",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 8 · B3 · LED CANYON",
+     "x": 246,
+     "y": 24,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 555,
+     "y": 24,
+     "font": "20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 8 · LED CANYON",
+     "x": 96,
+     "y": 150,
+     "font": "900 64px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Tile B3. Puzzle 8 of 9.",
+     "x": 98,
+     "y": 196,
+     "font": "bold 28px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "Two screens advertise to each other all night. Low",
+     "x": 96,
+     "y": 270,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "hedges line the canyon. Your new knees fold. B",
+     "x": 96,
+     "y": 312,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "crouches.",
+     "x": 96,
+     "y": 354,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": ">>>",
+     "x": 96,
+     "y": 422,
+     "font": "900 31px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Get the Luminary™ to hit you. Its fault, not",
+     "x": 170,
+     "y": 422,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "yours.",
+     "x": 170,
+     "y": 464,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "NEW · SUPER KNEES: B CROUCHES (KEYS: C). PRESS AGAIN TO STAND.   ·   PAR 25 s",
+     "x": 170,
+     "y": 512,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_B3_drop",
+   "what": "B3: the drone drops the dummy in",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · B3 · DRONE",
+     "x": 30,
+     "y": 258,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 575,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 575,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "C",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "CROUCH",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "OBJECTIVE · B3",
+     "x": 246,
+     "y": 25,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "Write off a body. Last hit: get hit by the luminary™ (0 of 1).",
+     "x": 433,
+     "y": 25,
+     "font": "21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 5 · ROAD ITEMS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "ALL IT CAN LEARN: OUTWIT IT",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PRESS B (KEYS: C) · CROUCH BEHIND LOW COVER",
+     "x": 262,
+     "y": 111,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 0.0 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 25 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_B3_play",
+   "what": "B3: play",
+   "texts": [
+    {
+     "t": "?",
+     "x": 719,
+     "y": 422,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · B3",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 575,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 575,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "C",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "CROUCH",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 8 · B3 · LED CANYON",
+     "x": 246,
+     "y": 24,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "GET HIT BY THE LUMINARY™ (0 of 1). R restarts.",
+     "x": 555,
+     "y": 24,
+     "font": "20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 5 · ROAD ITEMS   ◎ 0 / 1",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "ALL IT CAN LEARN: OUTWIT IT",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PRESS B (KEYS: C) · CROUCH BEHIND LOW COVER",
+     "x": 262,
+     "y": 111,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 3.4 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 25 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_C3_card",
+   "what": "C3: the puzzle card",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · C3",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 9 · C3 · CERTIFICATION",
+     "x": 246,
+     "y": 23,
+     "font": "bold 18px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "THREE HITS · A NEW WAY EACH (0 of 3). R restarts.",
+     "x": 548,
+     "y": 23,
+     "font": "18px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 9 · CERTIFICATION",
+     "x": 96,
+     "y": 150,
+     "font": "900 64px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Tile C3. Puzzle 9 of 9.",
+     "x": 98,
+     "y": 196,
+     "font": "bold 28px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#3fd0ff",
+     "a": 1
+    },
+    {
+     "t": "Certification. The Luminary™ has learned from",
+     "x": 96,
+     "y": 270,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "every dummy so far. It will learn from you three",
+     "x": 96,
+     "y": 312,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "more times.",
+     "x": 96,
+     "y": 354,
+     "font": "31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": ">>>",
+     "x": 96,
+     "y": 422,
+     "font": "900 31px Nunito, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "Three hits by the Luminary™, each its fault. A",
+     "x": 170,
+     "y": 422,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "new way each time.",
+     "x": 170,
+     "y": 464,
+     "font": "bold 31px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#ffffff",
+     "a": 1
+    },
+    {
+     "t": "NEW · A BOSS. IT LEARNS BETWEEN YOUR HITS.   ·   PAR 60 s",
+     "x": 170,
+     "y": 512,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_C3_drop",
+   "what": "C3: the drone drops the dummy in",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · C3 · DRONE",
+     "x": 30,
+     "y": 258,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 535,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 535,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 575,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 575,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "C",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "CROUCH",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "E",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "GRAB",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "OBJECTIVE · C3",
+     "x": 246,
+     "y": 24,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "Write off a body. Last hit: three hits · a new way each (0 of 1).",
+     "x": 427,
+     "y": 24,
+     "font": "20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 5 · ROAD ITEMS   ◎ 0 / 3",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "YOUR NEXT HIT TEACHES IT CRASH MEMORY",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PRESS B (KEYS: C) · CROUCH BEHIND LOW COVER",
+     "x": 262,
+     "y": 111,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 0.0 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 60 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_C3_play",
+   "what": "C3: play",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · C3",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 535,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 535,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 575,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 575,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "C",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "CROUCH",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "E",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "GRAB",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 9 · C3 · CERTIFICATION",
+     "x": 246,
+     "y": 23,
+     "font": "bold 18px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "THREE HITS · A NEW WAY EACH (0 of 3). R restarts.",
+     "x": 548,
+     "y": 23,
+     "font": "18px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 5 · ROAD ITEMS   ◎ 0 / 3",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "YOUR NEXT HIT TEACHES IT CRASH MEMORY",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PRESS B (KEYS: C) · CROUCH BEHIND LOW COVER",
+     "x": 262,
+     "y": 111,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 4.4 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 60 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  },
+  {
+   "shot": "p_C3_seen_camera",
+   "what": "C3: seen camera",
+   "texts": [
+    {
+     "t": "BODY",
+     "x": 30,
+     "y": 70,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "800",
+     "x": 210,
+     "y": 74,
+     "font": "bold 36px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 30,
+     "y": 160,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "MONUMENT · C3",
+     "x": 30,
+     "y": 258,
+     "font": "bold 21px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "0",
+     "x": 1264,
+     "y": 28,
+     "font": "bold 20px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "POINTS",
+     "x": 1244,
+     "y": 27,
+     "font": "bold 14px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CHASSIS 01",
+     "x": 1070,
+     "y": 64,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "LAST HIT",
+     "x": 1070,
+     "y": 320,
+     "font": "bold 15px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "—",
+     "x": 1250,
+     "y": 320,
+     "font": "bold 20px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "WASD",
+     "x": 1113,
+     "y": 535,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "MOVE",
+     "x": 1168,
+     "y": 535,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "SPACE",
+     "x": 1113,
+     "y": 575,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "DASH",
+     "x": 1168,
+     "y": 575,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "C",
+     "x": 1113,
+     "y": 615,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "CROUCH",
+     "x": 1168,
+     "y": 615,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "E",
+     "x": 1113,
+     "y": 655,
+     "font": "bold 22px \"B612 Mono\", ui-monospace, Menlo, monospace",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "GRAB",
+     "x": 1168,
+     "y": 655,
+     "font": "bold 22px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PUZZLE 9 · C3 · CERTIFICATION",
+     "x": 246,
+     "y": 23,
+     "font": "bold 18px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#101417",
+     "a": 1
+    },
+    {
+     "t": "THREE HITS · A NEW WAY EACH (0 of 3). R restarts.",
+     "x": 548,
+     "y": 23,
+     "font": "18px B612, \"Segoe UI\", system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "LUMINARY™ · RUNG 5 · ROAD ITEMS   ◎ 0 / 3",
+     "x": 262,
+     "y": 73,
+     "font": "bold 15px B612, system-ui, sans-serif",
+     "fill": "#e8c67e",
+     "a": 1
+    },
+    {
+     "t": "YOUR NEXT HIT TEACHES IT CRASH MEMORY",
+     "x": 262,
+     "y": 92,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "PRESS B (KEYS: C) · CROUCH BEHIND LOW COVER",
+     "x": 262,
+     "y": 111,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "⏱ 5.3 s",
+     "x": 742,
+     "y": 76,
+     "font": "bold 18px B612, system-ui, sans-serif",
+     "fill": "#f5c542",
+     "a": 1
+    },
+    {
+     "t": "PAR 60 s",
+     "x": 1018,
+     "y": 76,
+     "font": "bold 14px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    },
+    {
+     "t": "CLEAR",
+     "x": 760,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "UNTOUCHED",
+     "x": 855,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PAR",
+     "x": 949,
+     "y": 102,
+     "font": "bold 11px B612, system-ui, sans-serif",
+     "fill": "#f4f8fa",
+     "a": 1
+    },
+    {
+     "t": "PASS 1  ·  RESTARTS 0  ·  R RESTART",
+     "x": 742,
+     "y": 124,
+     "font": "bold 12px B612, system-ui, sans-serif",
+     "fill": "#9fb8c8",
+     "a": 1
+    }
+   ]
+  }
+ ],
+ "errors": []
+}

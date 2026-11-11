@@ -15,7 +15,7 @@ const steps = [], fail = (m) => { steps.push('FAIL ' + m); };
   const br = await chromium.launch();
   const pg = await br.newPage({ viewport: { width: 1280, height: 720 } }), errs = [];
   pg.on('pageerror', (e) => errs.push(e.message));
-  await pg.goto('file://' + path.join(ROOT, 'p11', 'index.html'));
+  await pg.goto('file://' + path.join(ROOT, process.env.P11_DIR || 'final_v2', 'index.html'));
   await pg.evaluate(() => { try { localStorage.clear(); } catch (e) { /* none */ } });
   await pg.reload(); await pg.waitForTimeout(1200);
   const shot = async (n) => { if (SHOTS) { fs.mkdirSync(path.resolve(ROOT, SHOTS), { recursive: true }); await pg.screenshot({ path: path.resolve(ROOT, SHOTS, n + '.png') }); } };

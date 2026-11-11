@@ -128,8 +128,9 @@
   function plateMarks(c, st) { // under Prototype 9's roof plate (game.js tagRect): seven squares filled to the rung; ? or ! beside the plate, white
     const U = (Gk && Gk.U) || 2, top = Math.round(c.y / U) - 12 - (c._lift || 0), y0 = (top - 2) * U, n = kitTop(), sq = 6, w = n * sq - 2, x0 = c.x - w / 2;
     rect(x0 - 2, y0 - 1, w + 4, 7, 'rgba(12,14,20,0.75)'); for (let i = 0; i < n; i++) rect(x0 + i * sq, y0, 4, 5, i < T.rung ? C.red : 'rgba(255,255,255,0.28)');
-    if (st) { const g = st >= 3 ? '!' : '?'; label(g, c.x + 24, y0 - 6, st >= 3 ? 14 : 12, C.text); }
-    if (c.lkp && !c.lkp.found) label('?', c.x + 24, y0 - 6, 12, SCAN.mem);
+    const wv = V2.best && V2.best.car === c ? V2.best : null; // FINAL V2: the plate says what the dummy's mark says
+    if (wv) label(wv.state === 'seen' ? '!' : '?', c.x + 24, y0 - 6, 16, wv.col);
+    else if (c.lkp && !c.lkp.found) label('?', c.x + 24, y0 - 6, 16, SCAN.mem);
   }
   function kitTag(tag, x, y) { // the tag carries the rung: a square a rung, filled to the car's
     const top = kitTop(), sq = 6; ctx.font = '700 10px B612, system-ui, sans-serif'; const tw = ctx.measureText(tag).width, w = tw + 14 + top * sq, x0 = x - w / 2;
@@ -197,9 +198,8 @@
   function scanField(g, c, gm, st, b) { // the ground fields, drawn on the offscreen layer, then shaded
     const hot = !!((c.hz && c.hz.inPath) || (c.det && c.det.fwd)), seenF = c.hz && c.hz.cone === 'forward', seenS = c.hz && c.hz.cone === 'side';
     // forward camera: a ribbon along its lane, the too-late zone brighter; pulses run out along it
-    if (ribbon(g, c, gm, 0, gm.reach)) { g.fillStyle = `rgba(${fwdRGB},${hot ? 0.18 : 0.08})`; g.fill(); g.strokeStyle = `rgba(${fwdRGB},${hot ? 0.8 : 0.45})`; g.lineWidth = 1.2; g.stroke(); }
-    if (ribbon(g, c, gm, 0, gm.late)) { g.fillStyle = `rgba(${fwdRGB},0.17)`; g.fill(); } // too late to stop: step in here and it hits you
-    for (let k = 0; k < 2; k++) { const ph = (T.t / SCAN.fwdPulse + k / 2) % 1, [p, q] = crossAt(c, gm, gm.reach * ph); g.strokeStyle = `rgba(${fwdRGB},${((1 - ph) * (hot ? 0.85 : 0.5)).toFixed(3)})`; g.lineWidth = 2; g.beginPath(); g.moveTo(...p); g.lineTo(...q); g.stroke(); }
+    if (ribbon(g, c, gm, 0, gm.reach)) { g.fillStyle = `rgba(${fwdRGB},${hot ? 0.25 : 0.1})`; g.fill(); g.strokeStyle = `rgba(${fwdRGB},${hot ? 0.6 : 0.35})`; g.lineWidth = 1.2; g.setLineDash(hot ? [] : [6, 5]); g.stroke(); g.setLineDash([]); } // FINAL V2 (Edit 123): idle, seen
+    if (ribbon(g, c, gm, 0, gm.late)) { g.fillStyle = `rgba(${fwdRGB},0.15)`; g.fill(); } // too late to stop: step in here and it hits you
     if (!gm.prop) return;
     g.save(); g.translate(c.x, c.y); g.rotate(c.h);
     { const a0 = gm.lk - gm.A, a1 = gm.lk + gm.A, R = gm.Rf, x = R / gm.Gf; // the forward cone: an outline and its grade ticks
@@ -211,9 +211,9 @@
     for (const sg of [-1, 1]) { // side sensors: steel-blue fans from the pods, rings at the grades it acts on, pings out
       const a0 = sg > 0 ? gm.e0 : -gm.e1, a1 = sg > 0 ? gm.e1 : -gm.e0, has = mine === sg, k = has ? 1 : 0;
       g.save(); g.beginPath(); g.rect(-4000, -4000, 8000, 8000); g.moveTo(gm.Fa, 0); g.arc(gm.Fa, 0, 4000, gm.lk - gm.A, gm.lk + gm.A); g.closePath(); g.clip('evenodd');
-      g.beginPath(); g.moveTo(gm.O, 0); g.arc(gm.O, 0, gm.Rs, a0, a1); g.closePath(); g.fillStyle = `rgba(${sideRGB},${has ? 0.3 : 0.12})`; g.fill();
-      g.strokeStyle = `rgba(${sideRGB},${has ? 0.9 : 0.45})`; g.lineWidth = 1.2; g.setLineDash([3, 5]); g.stroke(); for (let i = 1; i < gm.Gs; i++) { g.beginPath(); g.arc(gm.O, 0, x * i, a0, a1); g.stroke(); } g.setLineDash([]);
-      const per = has ? SCAN.sidePing / 2 : SCAN.sidePing; for (let j = 0; j < 2; j++) { const ph = (T.t / per + j / 2) % 1; g.strokeStyle = `rgba(${sideRGB},${((1 - ph) * (has ? 1 : 0.6)).toFixed(3)})`; g.lineWidth = 2; g.beginPath(); g.arc(gm.O, 0, Math.max(c.W / 2 + 4, gm.Rs * ph), a0, a1); g.stroke(); }
+      const sen = has && !c.noticed; // sensing: the notice timer runs
+      g.beginPath(); g.moveTo(gm.O, 0); g.arc(gm.O, 0, gm.Rs, a0, a1); g.closePath(); g.fillStyle = `rgba(${sideRGB},${has ? (sen ? 0.2 : 0.25) : 0.1})`; g.fill();
+      g.strokeStyle = `rgba(${sideRGB},${has && !sen ? 0.9 : 0.6})`; g.lineWidth = 1.5; g.stroke(); void x; // FINAL V2: no grade rings, no pings; solid steel-blue edges (review r3)
       g.restore(); void k;
     }
     g.restore();
@@ -226,8 +226,8 @@
       for (const q of blockers(c, null)) if (q.deck) { const [x, y, w, h] = q.deck; edge(x, y, w, h, 12); for (const r of q.gaps) edge(...r, 7); }
       lidarPts.set(T.level, pts); }
     ctx.save(); ctx.fillStyle = SCAN.lidar; let nDraw = 0, nIn = 0; // its own colour (the second review, F2)
-    for (const [x, y] of pts) { const dx = x - wx, dy = y - wy; if (dx * dx + dy * dy > R * R) continue; const d = ((a - (Math.atan2(dy, dx) - c.h)) % TAU + TAU) % TAU; nIn++; if (d > fade) continue; nDraw++; ctx.globalAlpha = 0.95 * (1 - d / fade); ctx.fillRect(x - 1.7, y - 1.7, 3.4, 3.4); }
-    if (b && T.meets(c)) { const dx = b.x - wx, dy = b.y - wy; if (dx * dx + dy * dy < R * R) { const d = ((a - (Math.atan2(dy, dx) - c.h)) % TAU + TAU) % TAU; if (d < fade) { ctx.globalAlpha = 1 - d / fade; for (const [ox, oy] of [[-6, -4], [5, -7], [7, 3], [-3, 6], [0, -1]]) ctx.fillRect(b.x + ox - 1.7, b.y + oy - 1.7, 3.4, 3.4); } } }
+    for (const [x, y] of pts) { const dx = x - wx, dy = y - wy; if (dx * dx + dy * dy > R * R) continue; const d = ((a - (Math.atan2(dy, dx) - c.h)) % TAU + TAU) % TAU; nIn++; if (d > fade) continue; nDraw++; ctx.globalAlpha = (s.p11 ? 0.5 : 0.95) * (1 - d / fade); ctx.fillRect(x - 1.7, y - 1.7, 3.4, 3.4); }
+    if (b && T.meets(c) && (b.level || 0) > 0) { const dx = b.x - wx, dy = b.y - wy; if (dx * dx + dy * dy < R * R) { const d = ((a - (Math.atan2(dy, dx) - c.h)) % TAU + TAU) % TAU; if (d < 0.35) c.v2LidarT = T.t; } } // FINAL V2: the sweep crossing you on a deck: brackets, held ui.seenHoldSeconds
     ctx.translate(wx, wy); ctx.globalAlpha = 0.35; ctx.strokeStyle = SCAN.lidar; ctx.lineWidth = 1; ctx.setLineDash([1.5, 6]); ctx.beginPath(); ctx.arc(0, 0, R, 0, TAU); ctx.stroke(); ctx.setLineDash([]); // its reach
     ctx.rotate(c.h + a); ctx.globalAlpha = 0.5; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(R, 0); ctx.stroke();
     ctx.restore();
@@ -259,7 +259,49 @@
     ctx.save(); ctx.scale(1 / k, 1 / k); ctx.drawImage(off, 0, 0); ctx.restore(); // the layer, at the field's origin
     if (T.rung >= 3) scanLidar(c, gm, b);
     if (T.rung >= 5) scanItems(c, gm);
-    scanCaught(c, gm, st, b); scanNotice(c, b);
+    if (s.p11) { const w = v2Who(c, b); if (w && (!V2.best || w.rank > V2.best.rank)) V2.best = w; } else { scanCaught(c, gm, st, b); scanNotice(c, b); }
+  }
+  // ---------- FINAL V2 (Edit 123, the UI cleanup agent): one grammar for being seen. Every sensor: idle, sensing, seen. Its field
+  // in its rung's colour; on the dummy an arc that fills while it is sensing, four corner brackets once it has you; on the car's
+  // plate ? then !, the same colour. Several at once: the highest rung marks the dummy; the lower fields only brighten.
+  const RUNGCOL = ['#9fb8c8', '#f4f8fa', '#7fa8bc', '#c3a6ff', '#9ff2c8', '#ff8a1f', '#ff5a5a', '#ff5a5a'];
+  const V2 = { best: null, once: new WeakMap(), holdS: 0.6 }; // ui.seenHoldSeconds 0.6 (proposed)
+  const SENSOR = { fwd: ['FORWARD CAMERA', 1], side: ['SIDE SENSORS', 2], lidar: ['ROOF LIDAR', 3], cam: ['STREET CAMERA', 4], search: ['SEARCH', 7] };
+  function v2Who(c, b) { // which sensor has the dummy now, and how far: seen, or sensing (u: the notice filling)
+    if (!b || !b.alive) return null; const hz = c.hz, mk = (k, state, u) => ({ k, name: SENSOR[k][0], rank: SENSOR[k][1] + (state === 'seen' ? 10 : 0), col: RUNGCOL[SENSOR[k][1]], state, u, car: c });
+    if (c.lkp && c.lkp.found && T.rung >= 7) return mk('search', 'seen');
+    if (hz && hz.cone === 'link') return mk('cam', 'seen');
+    if (T.rung >= 3 && c.v2LidarT != null && T.t - c.v2LidarT < V2.holdS) return mk('lidar', 'seen');
+    if (hz && (hz.cone === 'side' || hz.cone === 'track')) { const nT = T.P['perception.sideNoticeSeconds'] || 0; if (c.noticed || hz.cone === 'track') return mk('side', 'seen'); return mk('side', 'sensing', nT > 0 ? Math.min(1, (c.fieldT || 0) / (nT * (b.duck ? (T.P['perception.duckNoticeFactor'] || 1) : 1))) : 0); }
+    if (hz && (hz.inPath || hz.cone === 'forward')) return mk('fwd', 'seen');
+    return null;
+  }
+  function v2Mark(b) { // the one mark on the dummy, and the caption the first time each sensor has you in an attempt
+    const w = V2.best; if (!w || !b) return; const r = T.P['body.radius'] || 12;
+    ctx.save(); ctx.strokeStyle = w.col; ctx.lineWidth = 2;
+    if (w.state === 'sensing') { ctx.beginPath(); ctx.arc(b.x, b.y, r + 6, -Math.PI / 2, -Math.PI / 2 + TAU * Math.max(0.04, w.u || 0)); ctx.stroke(); }
+    else bracket(b.x, b.y, 14, w.col, 2);
+    ctx.restore();
+    if (w.state !== 'seen' || !s.p11) return; const key = (s.p11.restarts || 0) + ':' + w.k, seen = V2.once.get(s.p11) || new Set(); V2.once.set(s.p11, seen);
+    if (!seen.has(key)) { seen.add(key); flashes.push({ t: 1.5, n: 'SEEN · ' + w.name, c: w.col }); }
+  }
+  function v2Gaps(b) { // the parapet gaps: yellow end caps; a faint arrow down while you are on that deck, near the gap
+    const P = T.P, HALF = (P['world.deckWidth'] || 160) / 2, on = b && b.alive && (b.level || 0) > 0, pulse = 0.4 + 0.3 * (0.5 + 0.5 * Math.sin(T.t * TAU / 1.5));
+    for (const l of (T.duelSc && T.duelSc.layers) || []) { const dk = l.dk; if (!dk || !dk.gaps) continue;
+      for (const [g0, g1, side] of dk.gaps) for (const sd of side ? [side] : [-1, 1]) { // the open side (world6: the gap's sign), else both
+        const at = (u, v) => (dk.hz ? [u, dk.off + sd * v] : [dk.off + sd * v, u]), gc = (g0 + g1) / 2;
+        ctx.fillStyle = '#ffd400'; for (const u of [g0, g1]) { const [x, y] = at(u, HALF); if (dk.hz) ctx.fillRect(x - 2, y - 5, 4, 10); else ctx.fillRect(x - 5, y - 2, 10, 4); } // review r3: 4 × 10, full
+        { const [x0, y0] = at(g0, HALF), [x1, y1] = at(g1, HALF); ctx.save(); ctx.strokeStyle = 'rgba(255,212,0,0.3)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke(); ctx.restore(); }
+        const [ax, ay] = at(gc, HALF + 16); if (!on || Math.hypot(b.x - ax, b.y - ay) > 120 + HALF) continue;
+        const dx = dk.hz ? 0 : sd, dy = dk.hz ? sd : 0, px = -dy, py = dx; ctx.save(); ctx.globalAlpha = pulse + 0.2; ctx.strokeStyle = '#ffd400'; ctx.lineWidth = 3; ctx.lineJoin = 'round'; // the way down, out over the parapet
+        for (const o of [0, 9]) { ctx.beginPath(); ctx.moveTo(ax + dx * (o - 5) + px * 9, ay + dy * (o - 5) + py * 9); ctx.lineTo(ax + dx * (o + 4), ay + dy * (o + 4)); ctx.lineTo(ax + dx * (o - 5) - px * 9, ay + dy * (o - 5) - py * 9); ctx.stroke(); } ctx.restore(); } }
+  }
+  function v2Car(sim, G) { // the car block in the right column: its name, its top sensor in that sensor's colour, seven pips
+    const app = root.__dummies, ch = app && app.hud && app.hud.chassis, X = G.FX + G.FW + 16, W = G.VW - X - 16, y = ch ? ch.y + ch.h + 10 : G.FY + 250, h = 84;
+    if (root.__dummiesPanel) root.__dummiesPanel(X, y, W, h); else rect(X, y, W, h, C.panel);
+    const ri = T.rungInfo(), col = RUNGCOL[Math.min(7, T.rung)] || C.text, acc = learnerAccent() || C.red;
+    text(learner().name, X + 14, y + 26, 13, acc); text(T.rung >= 1 && ri ? ri.name.toUpperCase() : 'BLIND', X + 14, y + 52, 15, col);
+    for (let i = 1; i <= 7; i++) rect(X + 14 + (i - 1) * 16, y + 64, 12, 7, i <= T.rung ? RUNGCOL[i] : 'rgba(255,255,255,0.16)');
   }
   function drawTag(c) {
     const ri = T.rungInfo(), st = T.sideStage(c), FW = T.P['world.width'];
@@ -280,7 +322,7 @@
     const col = s && s.p11 ? C.text : c.cause === 'search' ? C.search : T.expected() ? C.mem : C.text, half = c.W / 2 + 6, nx = -Math.sin(sp.h), ny = Math.cos(sp.h); // Prototype 11.2: the stop line is the forward camera's, white
     ctx.save(); ctx.strokeStyle = col; ctx.lineWidth = 3; ctx.globalAlpha = sp.arrived ? 0.9 : 0.75; ctx.setLineDash(sp.arrived ? [] : [5, 4]);
     ctx.beginPath(); ctx.moveTo(sp.x + nx * half, sp.y + ny * half); ctx.lineTo(sp.x - nx * half, sp.y - ny * half); ctx.stroke(); ctx.restore();
-    if (!sp.arrived) label('STOPS HERE', sp.x + nx * (half + 12), sp.y + ny * (half + 12) + 4, 8, col);
+    if (!sp.arrived && !s.p11) label('STOPS HERE', sp.x + nx * (half + 12), sp.y + ny * (half + 12) + 4, 8, col);
   }
   function drawGhost(c) { // rung 7: where it last saw the dummy, the ring it searches, its time left
     const g = c.lkp; if (!g) return;
@@ -290,7 +332,7 @@
     ctx.strokeStyle = near ? C.search : C.searchDim; ctx.lineWidth = near ? 2 : 1.5; ctx.setLineDash(near ? [] : [6, 5]); ctx.beginPath(); ctx.arc(g.x, g.y, R, 0, TAU); ctx.stroke(); ctx.setLineDash([]);
     ctx.strokeStyle = C.search; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(g.x, g.y, R + 5, -Math.PI / 2, -Math.PI / 2 + TAU * left); ctx.stroke();
     ctx.strokeStyle = C.searchDim; ctx.lineWidth = 1; ctx.setLineDash([2, 4]); ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.lineTo(g.x, g.y); ctx.stroke(); ctx.restore();
-    label('LAST SEEN', g.x, g.y - R - 8, 9, C.search);
+    label('LAST SEEN', g.x, g.y - R - 8, s.p11 ? 11 : 9, C.search);
   }
   function searchlight(c, g) { const p = local(c, g.x, g.y), an = Math.atan2(p.y, p.x) + Math.sin(T.t * 3) * 0.25, d = Math.hypot(p.x, p.y) + 30;
     ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.h); ctx.fillStyle = 'rgba(255,90,90,0.16)'; ctx.beginPath(); ctx.moveTo(0, -7 * c.W / 30); ctx.arc(0, -7 * c.W / 30, d, an - 0.2, an + 0.2); ctx.closePath(); ctx.fill(); ctx.restore(); }
@@ -308,12 +350,12 @@
       const kept = mem.includes(cr), n = cr.n;
       ctx.globalAlpha = T.rung >= 6 && !kept ? 0.5 : 1;
       chalk(cr.x, cr.y, cr.h + Math.PI / 2 + (hash(n, 7) - 0.5) * 1.2, n, C.chalk);
-      const tx = cr.x + 16, ty = cr.y - 18; ctx.fillStyle = s.p11 ? SCAN.mem : C.tent; ctx.beginPath(); ctx.moveTo(tx - 7, ty + 6); ctx.lineTo(tx, ty - 7); ctx.lineTo(tx + 7, ty + 6); ctx.closePath(); ctx.fill(); text(String(n), tx, ty + 5, 8, C.joint, 'center');
+      const tx = cr.x + 16, ty = cr.y - 18; if (!s.p11) { ctx.fillStyle = C.tent; ctx.beginPath(); ctx.moveTo(tx - 7, ty + 6); ctx.lineTo(tx, ty - 7); ctx.lineTo(tx + 7, ty + 6); ctx.closePath(); ctx.fill(); text(String(n), tx, ty + 5, 8, C.joint, 'center'); } // FINAL V2: no numbers
       ctx.globalAlpha = 1;
       if (!kept) continue;
       const near = s.p11 && reds().some((c) => Math.hypot(c.x - cr.ox, c.y - cr.oy) < 220), hot = checked.has(n) || near; ctx.save(); ctx.strokeStyle = hot ? C.mem : C.memDim; ctx.lineWidth = hot ? 2.5 : 1.8; ctx.setLineDash(hot ? [] : [6, 5]); // Prototype 11.2: it brightens as the car nears
       ctx.beginPath(); ctx.arc(cr.ox, cr.oy, R, 0, TAU); ctx.stroke(); ctx.setLineDash([2, 4]); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cr.ox, cr.oy); ctx.lineTo(cr.x, cr.y); ctx.stroke(); ctx.restore();
-      label('#' + n, cr.ox, cr.oy - R - 4, 9, C.mem);
+      if (!s.p11) label('#' + n, cr.ox, cr.oy - R - 4, 9, C.mem);
     }
     for (const c of reds()) for (const m of c.checks || []) { ctx.save(); ctx.strokeStyle = C.mem; ctx.lineWidth = 1.5; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.lineTo(m.ox, m.oy); ctx.stroke(); ctx.restore(); }
   }
@@ -322,12 +364,14 @@
     const P = T.P, R = P['perception.streetCameraRange'] || 0, F = P['perception.streetCameraFov'] || 360, b = T.body;
     for (const cam of cams) { const [x, y] = cam, aim = T.cameraAim(cam);
       if (R > 0) { ctx.save(); ctx.strokeStyle = C.camDim; ctx.lineWidth = 1; ctx.setLineDash([2, 6]); ctx.beginPath();
-        if (F < 360 && aim != null) { ctx.moveTo(x, y); ctx.arc(x, y, R, (aim - F / 2) * D, (aim + F / 2) * D); ctx.closePath(); ctx.fillStyle = s.p11 ? 'rgba(159,242,200,0.2)' : C.camCone; ctx.fill(); if (s.p11) { ctx.setLineDash([]); ctx.strokeStyle = 'rgba(159,242,200,0.5)'; ctx.lineWidth = 1.3; } } else ctx.arc(x, y, R, 0, TAU); // Prototype 11.2: the pan cone shows while idle
+        const sees = s.p11 && b && b.alive && T.seeingCamera() === cam; // FINAL V2: the cone brightens while it sees you
+        if (F < 360 && aim != null) { ctx.moveTo(x, y); ctx.arc(x, y, R, (aim - F / 2) * D, (aim + F / 2) * D); ctx.closePath(); ctx.fillStyle = s.p11 ? `rgba(159,242,200,${sees ? 0.28 : 0.14})` : C.camCone; ctx.fill(); if (s.p11) { ctx.setLineDash([]); ctx.strokeStyle = `rgba(159,242,200,${sees ? 0.75 : 0.5})`; ctx.lineWidth = 1.4; } } else ctx.arc(x, y, R, 0, TAU); // Prototype 11.2: the pan cone shows while idle
         ctx.stroke(); ctx.restore(); }
       if (!root.WORLD6 || !root.WORLD6.paintPost) { rect(x - 1.5, y - 14, 3, 14, C.joint); rect(x - 6, y - 20, 12, 7, C.joint); } ctx.fillStyle = C.cam; ctx.beginPath(); ctx.arc(x + (aim != null ? Math.cos(aim * D) * 4 : 3), y - 16.5, s.p11 ? 4 : 2, 0, TAU); ctx.fill(); if (s.p11) { ctx.strokeStyle = 'rgba(8,10,14,0.9)'; ctx.lineWidth = 1; ctx.stroke(); } }
-    const cam = T.seeingCamera(), hid = reds().filter((c) => c.hidden && (c.noticed || (c.hz && c.hz.inPath)));
+    const cam = T.seeingCamera(), hid = reds().filter((c) => (s.p11 ? c.hz && c.hz.cone === 'link' : c.hidden && (c.noticed || (c.hz && c.hz.inPath)))); // FINAL V2: the car the camera tells
     if (!cam || !hid.length || !b || !b.alive) return;
     ctx.save(); ctx.strokeStyle = C.cam; ctx.lineWidth = 1.5; ctx.setLineDash([5, 5]);
+    if (s.p11) { ctx.strokeStyle = 'rgba(159,242,200,0.85)'; for (const c of hid) { ctx.setLineDash([5, 5]); ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(cam[0], cam[1] - 16); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(cam[0], cam[1] - 16); ctx.lineTo(c.x, c.y); ctx.stroke(); } ctx.restore(); return; } // FINAL V2: it sees you, it tells the car
     for (const c of hid) { ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(cam[0], cam[1] - 16); ctx.lineTo(c.x, c.y); ctx.stroke(); }
     ctx.setLineDash([]); ctx.strokeRect(b.x - 16, b.y - 16, 32, 32); ctx.restore(); label('LINKED', b.x, b.y - 22, 9, C.cam);
   }
@@ -335,14 +379,16 @@
   function drawPlanters() { if (root.WORLD6 && root.WORLD6.paintPlanter) return; for (const q of T.level.statics) if (q.kind === 'planter' && q.duel) { rect(q.x - 1, q.y + 2, q.w + 2, q.h, 'rgba(0,0,0,0.35)'); rect(q.x, q.y, q.w, q.h, '#5b6270'); rect(q.x + 2, q.y + 2, q.w - 4, q.h - 4, C.planter); for (let i = 0; i < 5; i++) { const cx = q.x + (q.w > q.h ? q.w * (i + 0.5) / 5 : q.w / 2), cy = q.y + (q.w > q.h ? q.h / 2 : q.h * (i + 0.5) / 5); ctx.fillStyle = C.planterTop; ctx.beginPath(); ctx.arc(cx, cy, Math.min(q.w, q.h) * 0.42, 0, TAU); ctx.fill(); } } }
   function drawLungeGuide() { // row 732: where a dash pressed now would land; yellow when the red car will be there
     const b = s.body; if (!s.lungePreview || !b || !b.alive || b.mode === 'lunge' || b.mode === 'recover' || b.lifted || !s.dashFitted() || (b.level || 0) > 0) return;
+    if (s.p11 && (s.phase !== 'play' || s.rescue || T.lift || !['move', 'idle', 'coast', undefined].includes(b.mode))) return; // FINAL V2: only on the ground, never on the drone
     if (!reds().some((c) => Math.hypot(c.x - b.x, c.y - b.y) < 2.6 * s.reach())) return;
     const cm = s.lastCmd || {}, g = s.lungePreview(cm.mx, cm.my); if (!g) return;
+    if (s.p11 && !g.ready) return; // FINAL V2: only when it can dash now
     const red = !!(g.hit && g.hit.red), hot = red && g.hit.fault === 'car', mine = red && !hot; // HIT: it will drive into you. YOUR FAULT: you would run into it
     const y11 = s.p11, col = !g.ready ? (y11 ? 'rgba(255,212,0,0.3)' : 'rgba(255,255,255,0.3)') : hot ? C.dummy : mine ? C.dim : y11 ? 'rgba(255,212,0,0.6)' : 'rgba(255,255,255,0.7)', ex = red ? g.hit.x : g.x1, ey = red ? g.hit.y : g.y1, r = T.P['body.radius']; // Prototype 11.2: the guide is yours, yellow
     ctx.save(); ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.setLineDash([2, 5]); ctx.beginPath(); ctx.moveTo(g.x0, g.y0); ctx.lineTo(ex, ey); ctx.stroke(); ctx.setLineDash([]);
-    ctx.lineWidth = hot ? 3 : 2; ctx.beginPath(); ctx.arc(ex, ey, r, 0, TAU); ctx.stroke();
-    if (hot && g.ready) { ctx.globalAlpha = 0.25; ctx.fillStyle = C.dummy; ctx.beginPath(); ctx.arc(ex, ey, r, 0, TAU); ctx.fill(); ctx.globalAlpha = 1; text('HIT', ex + r + 8, ey + 4, 11, C.dummy); }
-    else if (mine && g.ready) text('YOUR FAULT', ex + r + 8, ey + 4, 10, C.dim);
+    const rr2 = y11 ? 9 : r; if (y11) ctx.globalAlpha = 0.7; ctx.lineWidth = y11 ? 1.5 : hot ? 3 : 2; ctx.beginPath(); ctx.arc(ex, ey, rr2, 0, TAU); ctx.stroke(); ctx.globalAlpha = 1; // FINAL V2: r 9, 1.5 px, 70%
+    if (hot && g.ready) { ctx.globalAlpha = 0.25; ctx.fillStyle = C.dummy; ctx.beginPath(); ctx.arc(ex, ey, rr2, 0, TAU); ctx.fill(); ctx.globalAlpha = 1; text('HIT', ex + rr2 + 8, ey + 4, 11, C.dummy); }
+    else if (mine && g.ready) text(y11 ? 'FAULT' : 'YOUR FAULT', ex + rr2 + 8, ey + 4, y11 ? 11 : 10, y11 ? C.dummy : C.dim);
     ctx.restore();
   }
   function drawDrone(x, y, load) { for (const [dx, dy] of [[-9, -9], [9, -9], [-9, 9], [9, 9]]) { ctx.fillStyle = 'rgba(200,214,230,0.6)'; ctx.beginPath(); ctx.arc(x + dx, y + dy, 6, 0, TAU); ctx.fill(); } rect(x - 7, y - 5, 14, 10, '#20242e'); if (load) rect(x - 5, y + 7, 10, 8, C.dummy); }
@@ -350,7 +396,7 @@
     const b = T.body; if (!b || !b.alive) return;
     const L = T.lift; if (L) drawDrone(L.x, L.y - (b.lifted ? 26 : 0), false);
     const Xs = T.P['duel.blockSeconds'] || 0, hs = T.P['proto.honkSeconds'] || 0;
-    if (Xs > 0 && !L && T.blockT >= Math.min(hs, Xs - 3)) label('MOVE ALONG · DRONE IN ' + Math.ceil(Xs - T.blockT - 1e-9), b.x, b.y - 34, 10, C.dummy);
+    if (Xs > 0 && !L && T.blockT >= Math.min(hs, Xs - 3)) label((s.p11 ? 'DRONE IN ' : 'MOVE ALONG · DRONE IN ') + Math.ceil(Xs - T.blockT - 1e-9), b.x, b.y - 34, s.p11 ? 11 : 10, C.dummy);
     if (s.p11) return; // Prototype 11.2: no DUCKED or EXPECTED text; the fields' shadows and the boxes show it
     const unseen = b.duck && !reds().some((c) => c.hz);
     if (b.duck) { ctx.save(); ctx.strokeStyle = unseen ? C.dim : C.dummy; ctx.lineWidth = 1.5; ctx.setLineDash(unseen ? [3, 4] : []); ctx.beginPath(); ctx.arc(b.x, b.y, 19, 0, TAU); ctx.stroke(); ctx.restore(); label(unseen ? 'DUCKED · HIDDEN' : 'DUCKED · SEEN', b.x, b.y - 24, 9, unseen ? C.dim : C.dummy); }
@@ -359,6 +405,7 @@
   function readEvents() { // flashes from the duel's events and the story's
     const feed = s.duelFeed || [];
     for (const e of feed) {
+      if (s.p11) { if (e.type === 'search-found') flashes.push({ t: 1.5, n: 'SEEN · SEARCH', c: SCAN.mem }); continue; } // FINAL V2: SEEN captions come from the marks (v2Mark)
       if (e.type === 'crash' && e.grade && (T.P['scoring.stealthUnseen'] || 0) > 0) flashes.push({ x: T.body.x, y: T.body.y + 46, t: 1.2, n: GRADE[e.grade] + ' ×' + (e.mult || 0) + ' +' + (e.points || 0), c: GRADE_C[e.grade] });
       else if (e.type === 'search-found') flashes.push({ x: e.x, y: e.y - 30, t: 1, n: 'FOUND', c: C.search });
       else if (e.type === 'first-brake') flashes.push({ car: e.car, t: 2.2, n: 'IT BRAKES FOR YOU', c: C.text });
@@ -369,14 +416,14 @@
     }
     feed.length = 0;
     let i = seen.get(s) || 0;
-    for (; i < s.events.length; i++) { const e = s.events[i]; if (e.type === 'touch' && e.standstill) flashes.push({ x: s.body.x, y: s.body.y - 34, t: 1.2, n: 'STANDSTILL · NO DAMAGE', c: C.dim });
-      else if (e.type === 'fault') flashes.push({ x: s.body.x, y: s.body.y - 34, t: 1.6, n: 'YOU HIT IT · YOUR FAULT · NO POINTS', c: C.dim }); }
+    for (; i < s.events.length; i++) { const e = s.events[i]; if (e.type === 'touch' && e.standstill) flashes.push({ x: s.body.x, y: s.body.y - 34, t: 1.2, n: s.p11 ? 'IT STOPPED' : 'STANDSTILL · NO DAMAGE', c: C.dim });
+      else if (e.type === 'fault') flashes.push({ x: s.body.x, y: s.body.y - 34, t: 1.6, n: s.p11 ? 'YOUR FAULT' : 'YOU HIT IT · YOUR FAULT · NO POINTS', c: s.p11 ? C.dummy : C.dim }); }
     seen.set(s, s.events.length > 4000 ? 0 : i);
   }
   const DUELR = () => (root.DUEL && root.DUEL.RUNGS) || [];
   function drawFlashes() {
     if (s.p11 && Gk) { const k = Gk.RA / Gk.U, W = Gk.FW / k, y = (Gk.FH - 108) / k; for (let i = flashes.length - 1; i >= 0; i--) { flashes[i].t -= 1 / 60; if (flashes[i].t <= 0) flashes.splice(i, 1); }
-      const f = flashes[flashes.length - 1]; if (f) { ctx.globalAlpha = Math.min(1, f.t * 3); label(f.n, W / 2, y, 14, f.n.startsWith('ITS SIDE') ? SCAN.side : f.c === C.red ? SCAN.mem : f.c); ctx.globalAlpha = 1; } return; } // Prototype 11.2: a caption band, one at a time
+      const f = flashes[flashes.length - 1]; if (f) { ctx.globalAlpha = Math.min(1, f.t * 3); label(f.n, W / 2, y, 14, f.c === C.red ? SCAN.mem : f.c); ctx.globalAlpha = 1; } return; } // Prototype 11.2: a caption band, one at a time
     for (let i = flashes.length - 1; i >= 0; i--) { const f = flashes[i]; f.t -= 1 / 60; if (f.t <= 0) { flashes.splice(i, 1); continue; }
       let x = f.x, y = f.y; if (f.car) { const c = T.cars.find((q) => q.id === f.car); if (!c) { flashes.splice(i, 1); continue; } x = c.x; y = c.y + 46; }
       ctx.globalAlpha = Math.min(1, f.t * 3); label(f.n, x, y, 12, f.c); ctx.globalAlpha = 1; }
@@ -388,13 +435,20 @@
     const k = G.RA / G.U;
     ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip(); ctx.translate(G.FX, G.FY); ctx.scale(k, k);
     readEvents();
-    drawCrashes(); drawPlanters(); drawCameras();
-    for (const c of reds()) if (s.p11) drawScan(c, G); else drawField(c); // Prototype 11.2: sensor feedback replaces the static cones
+    drawCrashes(); drawPlanters(); if (!s.p11) drawCameras();
+    V2.best = null; for (const c of reds()) if (s.p11) drawScan(c, G); else drawField(c); // Prototype 11.2: sensor feedback replaces the static cones
+    if (!(s.p11 && s.phase === 'play' && !s.rescue)) V2.best = null;
     for (const c of reds()) { if (s.p11) drawKit(c); else drawHalo(c); drawStopLine(c); drawGhost(c); } // Prototype 11.1: the kit replaces the halo
     drawLungeGuide(); drawBody();
     for (const c of reds()) drawTag(c);
     drawWhites();
-    drawFlashes();
+    if (!s.p11) drawFlashes();
+    ctx.restore();
+  }
+  function v2Late(G) { // FINAL V2 (review r2): above the decks and the monument: the cameras' cones, the parapet gaps, the dummy's mark, the caption
+    const k = G.RA / G.U, b = T.body && T.body.alive ? T.body : null;
+    ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip(); ctx.translate(G.FX, G.FY); ctx.scale(k, k);
+    drawCameras(); v2Gaps(b); if (s.phase === 'play' && !s.rescue) v2Mark(b); Gk = G; drawFlashes();
     ctx.restore();
   }
   // ---------- the panel: the red car's rung, what it learns next, the objective
@@ -403,6 +457,7 @@
   function hud(cx, sim, G) {
     ctx = cx; s = sim; T = sim && sim.duelT; const d = sim && sim.duelDef;
     if (!T || !d || sim.phase === 'brief' || sim.phase === 'lesson' || sim.duelDone) return;
+    if (sim.p11) { if (sim.phase === 'play' && sim.sc === T.duelSc && Gk) v2Late(Object.assign({}, Gk, G)); return v2Car(sim, G); } // FINAL V2: no panel in the field
     const RU = root.DUEL_RULES || { parts: {} }, earnPt = d.earns && d.earns !== 'car' ? RU.parts[d.earns] : null, ri = T.rungInfo(), top = Math.round(T.DP['duel.topRung'] || 0), nxt = T.rung < top ? DUELR()[T.rung + 1] : null, o = d.objective, n = Math.min(sim.duelProgress(), o.count);
     const lines = [[(s && s.p11 ? learner().name : 'RED-01') + ' · RUNG ' + T.rung + ' · ' + (ri ? ri.name.toUpperCase() : '') + '   ◎ ' + n + ' / ' + o.count, (s && s.p11 && learnerAccent()) || C.red, 15], [earnPt ? 'CLEAR THE TILE: YOU EARN ' + earnPt.name.toUpperCase() + ' (' + earnPt.verb + ')' : nxt && sim.p11 ? (o.count > 1 ? 'YOUR NEXT HIT TEACHES IT ' : 'YOUR HIT TEACHES IT ') + nxt.name.toUpperCase() : nxt ? 'CLEAR THE TILE: IT LEARNS ' + nxt.name.toUpperCase() + ' FROM THE LAST HIT' : T.rung >= 1 ? 'ALL IT CAN LEARN: OUTWIT IT' : 'IT SENSES NOTHING YET', earnPt ? C.dummy : C.dim, 12]].concat(sim.duelDuck ? [[(sim.p11 ? (root.__p11Crouch && root.__p11Crouch.mode === 'hold' ? 'HOLD B' : 'PRESS B') + ' (KEYS: C) · CROUCH BEHIND LOW COVER' : 'HOLD C · DUCK BEHIND LOW COVER'), C.dim, 11]] : []);
     ctx.save(); ctx.font = '700 19px B612, system-ui, sans-serif';
@@ -649,7 +704,7 @@
       nameAt(pair[1], Y(252), 34, RM ? 0.6 : lands[1]); sayAt(pair[1], Y(282), 21, 26, RM ? 0.75 : lands[1] + 0.2);
     }
     // the replay: YOUR HIT, the car's training clip, in a box
-    if (u >= 0.2 || RM) { txt('YOUR HIT', tx, Y(352), Z(16), C.dummy); ctx.font = `700 ${Z(16)}px B612, system-ui, sans-serif`; txt(' · ITS TRAINING CLIP', tx + ctx.measureText('YOUR HIT').width, Y(352), Z(16), CAM); }
+    if (u >= 0.2 || RM) { txt('YOUR HIT', tx, Y(352), Z(16), C.dummy); ctx.font = `700 ${Z(16)}px B612, system-ui, sans-serif`; if (!(s && s.p11)) txt(' · ITS TRAINING CLIP', tx + ctx.measureText('YOUR HIT').width, Y(352), Z(16), CAM); }
     const bx = X(600), by = Y(360), bw = Z(380), bh = Z(228);
     rect(bx, by, bw, bh, '#05070c');
     if (rp) {

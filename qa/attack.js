@@ -6,7 +6,7 @@
 const path = require('path'), fs = require('fs'); const { chromium } = require('playwright');
 const ROOT = path.resolve(__dirname, '..'), go = require(path.join(ROOT, 'engine', 'p11_goto.js'));
 const geoMode = process.argv[2] === '--geo', A = process.argv;
-const PLANS = geoMode ? null : JSON.parse(fs.readFileSync(A[2], 'utf8')), OUT = path.resolve(A[3]), DIR = A[4] || 'p11', PAR = +(A[5] || 3);
+const PLANS = geoMode ? null : JSON.parse(fs.readFileSync(A[2], 'utf8')), OUT = path.resolve(A[3]), DIR = A[4] || 'final_v2', PAR = +(A[5] || 3);
 process.env.P11_DIR = DIR;
 async function open(br, tile) {
   const ctx = await br.newContext({ viewport: { width: 1280, height: 720 } }), pg = await ctx.newPage(), errs = [];

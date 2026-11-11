@@ -73,15 +73,25 @@
   // ---------- the level card: the puzzle in its words
   const WORD = ['', 'One', 'Two', 'Three', 'Four', 'Five'], goalOf = (q) => (q.objective.count > 1 ? (WORD[q.objective.count] || q.objective.count) + ' hits by ' + LEARNER.prose + ', each its fault. A new way each time.' : 'Get ' + LEARNER.prose + ' to hit you. Its fault, not yours.'); // Prototype 11.5: the learner by name
   P11.goalOf = goalOf;
+  // FINAL V2 (Edit 123, the UI cleanup agent): fewer words; keys for the device in use ({A} {B} {Y}: P11.key)
+  P11.goalLine = (q) => (q.boss ? q.objective.count + ' HITS · NEW WAY EACH' : 'GET HIT · ITS FAULT');
+  const V2GOAL = (q) => (q.boss ? 'Get hit ' + (q.objective.count === 3 ? 'three times' : q.objective.count + ' times') + '. A new way each time.' : q.objective.count === 2 ? 'Get hit twice. Its fault, not yours.' : 'Get hit. Its fault, not yours.');
+  const KEYS = { A: { kb: 'SPACE', pad: 'A', touch: 'A' }, B: { kb: 'C', pad: 'B', touch: 'B' }, Y: { kb: 'E', pad: 'Y', touch: 'Y' }, X: { kb: 'J', pad: 'X', touch: 'X' } };
+  P11.device = 'kb';
+  P11.key = (k) => (KEYS[k] || {})[P11.device] || k;
+  P11.cardGoal = (q) => V2GOAL(q);
+  P11.keys = (t) => String(t || '').replace(/\{([ABXY])\}/g, (m, k) => P11.key(k));
   P11.cardText = function (s) {
     const q = s.p11 && s.p11.q; if (!q) return null;
     const b = P11.real ? saveOf(P11.real).best[q.tile] : null;
-    return { head: 'PUZZLE ' + q.n + ' · ' + q.name.toUpperCase(), sub: 'Tile ' + q.tile + '. Puzzle ' + q.n + ' of ' + LIST.length + '.', story: q.tale, goal: goalOf(q),
-      extra: 'NEW · ' + q.new.toUpperCase() + '   ·   PAR ' + q.par + ' s' + (b ? '   ·   BEST ' + b.time.toFixed(1) + ' s ' + b.stars.map((v) => (v ? '★' : '☆')).join('') : '') };
+    const pt = q.earns && q.earns !== 'car' ? PARTS[q.earns] : null;
+    return { head: 'PUZZLE ' + q.n + ' · ' + q.name.toUpperCase(), sub: '', story: q.tale, goal: V2GOAL(q),
+      extra: ['NEW · ' + P11.keys(q.newLine || q.new).toUpperCase()].concat(pt ? ['EARN · ' + String(pt.name).toUpperCase() + ' · ' + String(pt.verb || '').toUpperCase()] : [],
+        ['PAR ' + q.par + ' s' + (b ? '   ·   BEST ' + b.time.toFixed(1) + ' s ' + b.stars.map((v) => (v ? '★' : '☆')).join('') : '')]) };
   };
   P11.titleCards = function (cardOf, pr, last) {
-    if (cardOf.STORY) { cardOf.STORY[1] = 'Nine puzzles. Get ' + LEARNER.prose + ' to hit you. It learns from every one.'; if (last && pr) { const sv = saveOf(pr); cardOf.STORY[2] = last.name + ' · ' + ORDER.filter((t) => sv.best[t]).length + ' of ' + ORDER.length + ' solved · ★ ' + starCount(pr) + (sv.certified ? ' · certified' : ''); } }
-    if (cardOf.ARCADE && !P11.arcadeOpen()) cardOf.ARCADE = ['ARCADE', 'Locked. Pass Certification, Map 1\'s puzzle 9, to open it.', 'LOCKED · SOLVE MAP 1'];
+    if (cardOf.STORY) { cardOf.STORY[1] = 'Nine puzzles. It learns from every hit.'; if (last && pr) { const sv = saveOf(pr); cardOf.STORY[2] = last.name + ' · ' + ORDER.filter((t) => sv.best[t]).length + ' of ' + ORDER.length + ' solved · ★ ' + starCount(pr) + (sv.certified ? ' · certified' : ''); } }
+    if (cardOf.ARCADE && !P11.arcadeOpen()) cardOf.ARCADE = ['ARCADE', 'Clear puzzle 9 to open it.', 'LOCKED · CLEAR PUZZLE 9'];
   };
   // Prototype 11.3 (Edit 119): a clear that teaches two rungs shows one upgrade screen with both parts; the second rung is fitted on continue
   P11.lessonPair = function (s) {
@@ -101,7 +111,7 @@
   P11.giftInfo = function (s) {
     const L = s && s.p11 && s.p11.partGift; if (!L) return null;
     const pt = PARTS[L.part] || {}, g = GIFT[L.part] || {};
-    return { part: L.part, node: g.art, button: g.button || 'A', name: pt.name || L.part, verb: pt.verb || '', desc: pt.text || '', next: P11.lessonNext(s) };
+    return { part: L.part, node: g.art, button: P11.key(g.button || 'A'), name: pt.name || L.part, verb: pt.verb || '', desc: P11.keys(pt.v2 || pt.text || ''), next: '' };
   };
 
   // ---------- the puzzle's sim
@@ -151,8 +161,8 @@
     }
     duelObjective() {
       const p = this.p11; if (!p) return super.duelObjective();
-      const q = p.q, n = Math.min(this.duelHits || 0, q.objective.count), hint = this.p11Hint();
-      return ['PUZZLE ' + q.n + ' · ' + q.tile + ' · ' + q.name.toUpperCase(), q.objective.label + ' (' + n + ' of ' + q.objective.count + ').' + (hint ? ' HINT: ' + hint : ' R restarts.')];
+      const q = p.q, n = Math.min(this.duelHits || 0, q.objective.count);
+      return ['PUZZLE ' + q.n + ' · ' + q.name.toUpperCase(), P11.goalLine(q) + '  ' + n + ' / ' + q.objective.count]; // FINAL V2 (Edit 123): the count once; the hint has its own band
     }
     p11Hint() { const p = this.p11; if (!p || p.failedPhase < HINT_PASSES) return null; const h = p.q.hints || []; return h[Math.min(p.phase, h.length - 1)] || null; }
     step(cmd) {
@@ -226,7 +236,7 @@
       const p = this.p11; if (!p || this.duelHits === h0 || this.duelPending || this.duelDone) return;
       const T = this.duelT, top = Math.round(T.DP['duel.topRung'] || 0), next = RUNGS[T.rung + 1];
       p.phase++; p.failedPhase = 0;
-      if (T.rung >= top || T.lesson || !next) return;
+      if (T.rung >= top || T.lesson || !next || !p.q.boss) return; // FINAL V2: only the boss teaches between hits
       this.recordClip(true);
       T.lesson = { state: 'due', mid: true, from: T.rung, to: T.rung + 1, name: next.name, sensor: next.sensor, model: c.model, car: c.id, zone: e.zone, kind: e.kind, hitT: e.t, lost: e.lost, origin: e.origin || null, seenAt: e.seenAt || null,
         clip: { frames: (this.clipRing || []).slice(), hitT: this.t, zone: e.zone } };

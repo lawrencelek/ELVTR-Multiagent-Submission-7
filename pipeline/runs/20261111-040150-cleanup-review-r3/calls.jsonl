@@ -1,0 +1,1 @@
+{"label": "a_cleanup_review", "role": "ui_cleaner", "model": "opus", "seconds": 172.8, "cost_usd": 1.1570337999999998, "input_tokens": 16, "cache_write_tokens": 87503, "cache_read_tokens": 500429, "output_tokens": 17843, "prompt_chars": 57821, "models": ["claude-opus-5-5"], "at": "2026-11-11 04:06:42"}

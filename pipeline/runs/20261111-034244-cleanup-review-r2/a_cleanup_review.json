@@ -1,0 +1,389 @@
+{
+ "verdict": "The play HUD is now clean: no panels inside the field, the goal and count appear once, keys appear only for fitted parts, the two-hit goal works (p_A1_lesson_clip reaches 2 / 2 in 20.4 s), the dash guide is off during drops, and the stairs are quiet. The user's CCTV request still fails on the CCTV puzzle itself, because B2 draws no cone. The plate '!' is still white for every sensor, the deck gaps are unmarked, and the pause cue key, grid screen and lesson screen keep old wording that contradicts the new grammar.",
+ "meets": [
+  {
+   "check": "No HUD panel inside the field",
+   "pass": true,
+   "shots": [
+    "p_A1_play",
+    "p_B2_play",
+    "p_C3_play"
+   ],
+   "note": "The attempt panel and car panel are gone. The field holds only world marks and one caption."
+  },
+  {
+   "check": "Top bar 'PUZZLE n · <NAME>', no tile id or OBJECTIVE, same in drop and play",
+   "pass": true,
+   "shots": [
+    "p_A1_drop",
+    "p_A1_play",
+    "p_C3_drop",
+    "p_C3_play"
+   ],
+   "note": ""
+  },
+  {
+   "check": "Objective line 0 / 2 on A1 and B1, 0 / 1 on C1–B3, '3 HITS · NEW WAY EACH  0 / 3' on C3, and the count shown nowhere else",
+   "pass": true,
+   "shots": [
+    "p_A1_play",
+    "p_B1_play",
+    "p_C1_play",
+    "p_C3_play"
+   ],
+   "note": "In the grid screen the A1 detail panel restates the goal wrongly (see R5)."
+  },
+  {
+   "check": "Top bar right shows 'n.n / PAR s' and three pips, with no POINTS",
+   "pass": true,
+   "shots": [
+    "p_A1_play",
+    "p_B2_seen_camera"
+   ],
+   "note": "It is covered by the volume widget in p_pause (R10)."
+  },
+  {
+   "check": "No RUNG, PASS, RESTARTS, CHASSIS, DRONE, TEACHES, EARN, 'KEYS:', OUTWIT or 'R restarts' in play",
+   "pass": true,
+   "shots": [
+    "p_A1_play",
+    "p_B3_play",
+    "p_C3_play"
+   ],
+   "note": ""
+  },
+  {
+   "check": "'R  RESTART' appears exactly once in play",
+   "pass": true,
+   "shots": [
+    "p_A1_play",
+    "p_C1_play",
+    "p_C3_play"
+   ],
+   "note": ""
+  },
+  {
+   "check": "Key panel lists fitted parts only, WASD only on A1 and B1, CROUCH fits",
+   "pass": true,
+   "shots": [
+    "p_A1_play",
+    "p_C1_play",
+    "p_C2_play",
+    "p_B3_play",
+    "p_C3_play"
+   ],
+   "note": "The pause Controls list breaks this: 'Crouch: toggle' shows on B1 (R9)."
+  },
+  {
+   "check": "DASH panel absent on A1, B1, C1; LAST HIT absent before the first hit",
+   "pass": true,
+   "shots": [
+    "p_A1_play",
+    "p_B1_play",
+    "p_C1_play"
+   ],
+   "note": ""
+  },
+  {
+   "check": "Car block shows LUMINARY™, sensor name in rung colour, seven pips",
+   "pass": true,
+   "shots": [
+    "p_A1_play",
+    "p_C1_play",
+    "p_B2_play",
+    "p_A3_play"
+   ],
+   "note": ""
+  },
+  {
+   "check": "No world label under 11px; STOPS HERE, LINKED and #n absent",
+   "pass": true,
+   "shots": [
+    "p_B1_seen_ahead",
+    "p_B2_seen_camera"
+   ],
+   "note": ""
+  },
+  {
+   "check": "B2 camera caption reads 'SEEN · STREET CAMERA' in mint",
+   "pass": true,
+   "shots": [
+    "p_B2_seen_camera"
+   ],
+   "note": ""
+  },
+  {
+   "check": "B2 and A3 draw a filled 90° mint cone with no 360° circle; C3 draws a 60° cone",
+   "pass": false,
+   "shots": [
+    "p_B2_drop",
+    "p_B2_play",
+    "p_B2_seen_camera",
+    "p_A3_play",
+    "p_C3_seen_camera"
+   ],
+   "note": "A3 and C3 pass. B2 shows no cone in any shot, which is the user's CCTV request failing on the CCTV puzzle (R1)."
+  },
+  {
+   "check": "Seen shots show four corner brackets and a plate '!' in the sensor's colour",
+   "pass": false,
+   "shots": [
+    "p_C1_seen_side",
+    "p_C2_play",
+    "p_B2_seen_camera",
+    "p_B1_seen_ahead"
+   ],
+   "note": "The brackets are coloured correctly, but the inventory has '!' at #f4f8fa for side sensors and camera. In p_B1_seen_ahead the dummy shows a ring, not clear brackets. There is no lidar seen shot (R2)."
+  },
+  {
+   "check": "Side-sensor sensing shows a steel-blue arc and a steel-blue '?'",
+   "pass": true,
+   "shots": [
+    "p_C1_play"
+   ],
+   "note": ""
+  },
+  {
+   "check": "Dash guide absent in drops and while recharging",
+   "pass": true,
+   "shots": [
+    "p_C2_drop",
+    "p_B2_drop",
+    "p_A3_drop",
+    "p_B3_drop",
+    "p_C3_drop"
+   ],
+   "note": "The guide shows on the ground in p_B2_play, p_A3_play and p_B3_play. No shot covers the recharge state."
+  },
+  {
+   "check": "Stair marks are #5e7080 chevrons with no cyan boxes",
+   "pass": true,
+   "shots": [
+    "p_A1_play",
+    "p_C1_play",
+    "p_B2_play"
+   ],
+   "note": ""
+  },
+  {
+   "check": "C1 and C2 deck gaps show yellow end caps; down-chevron near the gap",
+   "pass": false,
+   "shots": [
+    "p_C1_drop",
+    "p_C1_play",
+    "p_C2_drop",
+    "p_C2_play"
+   ],
+   "note": "No end caps are drawn. The caps are meant to be always on, so they should appear here. The user's 'gaps need to be more clear' request is unmet (R3)."
+  },
+  {
+   "check": "Every card shows 'SPACE · START', a tale of 2 lines or fewer, and no 'Tile X' line",
+   "pass": false,
+   "shots": [
+    "p_A1_card",
+    "p_C2_card",
+    "p_A3_card",
+    "p_B3_card",
+    "p_B1_card"
+   ],
+   "note": "Tales and tile lines pass. The prompt is missing in four of eight cards (the blink reaches 0 alpha). Where it shows, it reads 'SPACE  START' in #f5c542, not 'SPACE · START' in #3fd0ff (R6)."
+  },
+  {
+   "check": "Result, pause and controls free of debug",
+   "pass": false,
+   "shots": [
+    "p_A1_result",
+    "p_pause",
+    "p_A1_lesson_fit",
+    "p_C3_midlesson_1"
+   ],
+   "note": "The result screen has no PUZZLE CLOCK, RESTARTS or PASSES. But 'SED-01-001 · LUMINARY™ · AMBASSADOR' is still on both upgrade screens, and the pause footer shows 'FINAL V2 · PUZZLES' (R7)."
+  },
+  {
+   "check": "Dummy facing arrow is yellow",
+   "pass": true,
+   "shots": [
+    "p_A1_play",
+    "p_B1_play",
+    "p_C1_seen_side",
+    "p_A3_play"
+   ],
+   "note": ""
+  }
+ ],
+ "findings": [
+  {
+   "id": "R1",
+   "severity": "blocker",
+   "shots": [
+    "p_B2_drop",
+    "p_B2_play",
+    "p_B2_seen_camera"
+   ],
+   "what": "Puzzle 5 · CCTV draws no camera cone in any shot. In p_B2_seen_camera the dummy gets mint brackets with no visible field, so the player cannot tell where the camera looks. This is the exact complaint in the brief. The report line runs grey-lilac from the field's left edge (x≈260, y≈378) to the car, not mint dummy→post→car.",
+   "fix": "At stage 10.5, set perception.streetCameraFov 90 and perception.streetCameraPanArc 0 (proposed), the same as A3. Draw the cone the way p_A3_play does: mint #9ff2c8 fill 10% idle / 25% seen, 1px edges at 35%, range arc at perception.streetCameraRange 180. Draw the report as a dashed mint line from dummy to post, then a solid mint line from post to car."
+  },
+  {
+   "id": "R2",
+   "severity": "major",
+   "shots": [
+    "p_C1_seen_side",
+    "p_C2_play",
+    "p_B2_seen_camera",
+    "p_B1_seen_ahead"
+   ],
+   "what": "The plate '!' is #f4f8fa for every sensor, so a side-sensor or camera sighting reads as forward camera. The '?' in p_C1_play is correctly #7fa8bc, so the code path exists but is not used for '!'. In p_B1_seen_ahead the dummy shows a ring with an arc, not four brackets.",
+   "fix": "Draw the '!' at 16px in the colour of the highest-rung sensor that has you (#7fa8bc side, #9ff2c8 camera, #c3a6ff lidar, #ff5a5a search). Seen = four corner brackets in a 28×28 box with 6px arms at 2px, for every sensor including the forward camera. Remove the ring once the state is seen. Add a lidar seen shot (A3 or B3) to the capture set."
+  },
+  {
+   "id": "R3",
+   "severity": "major",
+   "shots": [
+    "p_C1_play",
+    "p_C2_drop",
+    "p_C2_play"
+   ],
+   "what": "Parapet gaps look the same as before: no end caps and no lighter deck edge. No shot shows the jump-down chevron. The brief asks for clearer gaps and a subtle arrow.",
+   "fix": "At each gap end, draw a 3×8px cap #ffd400 at 80%, and draw the deck edge inside the gap 2px lighter. Add the 8px down-chevron #ffd400, pulsing 40→70% every 1.5 s, 12px past the gap centre, shown when the dummy is on that deck within ui.gapHintRadius 120 (proposed). Add a capture 'p_C2_deck_gap' with the dummy on the deck within 120px of the gap."
+  },
+  {
+   "id": "R4",
+   "severity": "major",
+   "shots": [
+    "p_A1_play",
+    "p_B1_play",
+    "p_B2_play",
+    "p_B3_play",
+    "p_C3_play"
+   ],
+   "what": "A pale ring circles the dummy when no sensor is sensing. It even appears on the blind car in p_A1_play. It looks like the sensing arc, so the player learns that the ring means nothing.",
+   "fix": "Remove the idle ring. The dummy has no mark unless a sensor is sensing (open arc) or has seen it (brackets). If the ring is the dash-guide origin, draw it only when the dash guide shows."
+  },
+  {
+   "id": "R5",
+   "severity": "major",
+   "shots": [
+    "p_grid"
+   ],
+   "what": "The A1 detail panel states the boss rule: 'Two hits by the Luminary™, each its fault. A new way each time.' It also shows the tile id ('PUZZLE 1 OF 9 · A1') and a mixed-case NEW line that differs from the card.",
+   "fix": "Replace the detail panel with 'PUZZLE 1' / 'First Contact' / 'NEW · THE LUMINARY™ · BLIND' / 'Get hit twice. Its fault, not yours.' / 'PAR 25 s'. Take each puzzle's lines from its card strings, one source. Cut the header 'MAP 1 · MONUMENT · NINE PUZZLES' to 'MONUMENT'."
+  },
+  {
+   "id": "R6",
+   "severity": "major",
+   "shots": [
+    "p_A1_card",
+    "p_C2_card",
+    "p_A3_card",
+    "p_B3_card",
+    "p_A3_gift"
+   ],
+   "what": "Half the card shots have no visible way forward, because the prompt blinks to 0 alpha. Its style also differs from 'SPACE · CONTINUE' on the gift and upgrade screens. The p_A3_gift shot has no continue prompt at all.",
+   "fix": "Draw 'SPACE · START' at 22px #3fd0ff, bottom right. Pulse alpha 60→100%, never lower. Apply the same rule to 'SPACE · CONTINUE' on gift, upgrade and result screens."
+  },
+  {
+   "id": "R7",
+   "severity": "major",
+   "shots": [
+    "p_A1_lesson_clip",
+    "p_A1_lesson_fit",
+    "p_C3_midlesson_1"
+   ],
+   "what": "'SED-01-001 · LUMINARY™ · AMBASSADOR' is still drawn, although the spec cut it. The heading stack 'LUMINARY™ LEARNED / OUTLOOK / ● FORWARD CAMERA' is three titles for one fact. 'brakes for the board' is jargon.",
+   "fix": "Cut the serial line. Heading: 'IT LEARNED' (17px #3fd0ff), then the sensor name 52px in its rung colour ('FORWARD CAMERA' #f4f8fa). Cut the part name 'OUTLOOK' / 'AUDIT TRAIL'. Body text: 'It sees you in its lane and brakes.' / 'It remembers crash spots and slows there.'"
+  },
+  {
+   "id": "R8",
+   "severity": "major",
+   "shots": [
+    "p_pause"
+   ],
+   "what": "The cue key still teaches the old grammar. A blue '!' means 'Blocked, warning you', which collides with '!' = seen. 'Has noticed you', 'Route fixed' and 'Already hit you' are not the three states.",
+   "fix": "Replace the rows with: '◜ arc  SENSING YOU' / '[ ] brackets  SEEN' / '?  ON CAR · SENSING' / '!  ON CAR · SEEN' / 'colour  WHICH SENSOR'. Remove the blue '!' row, or redraw the blocked warning without '!' (e.g. a hazard bar)."
+  },
+  {
+   "id": "R9",
+   "severity": "minor",
+   "shots": [
+    "p_pause_controls"
+   ],
+   "what": "'Crouch: toggle' shows on puzzle 2 before Super Knees is fitted. The gamepad note is a full sentence.",
+   "fix": "Hide the 'Crouch: toggle' option until Super Knees is fitted. Change the note to 'PRESS A PAD BUTTON FOR PAD KEYS'."
+  },
+  {
+   "id": "R10",
+   "severity": "minor",
+   "shots": [
+    "p_pause",
+    "p_pause_controls"
+   ],
+   "what": "The volume widget (x 1000–1265, y 5–45) covers the time and star pips. The footer 'FINAL V2 · PUZZLES' is a build tag.",
+   "fix": "Move the volume widget into the pause Options list. Cut the footer text."
+  },
+  {
+   "id": "R11",
+   "severity": "minor",
+   "shots": [
+    "p_C1_gift"
+   ],
+   "what": "The 'SPACE' key glyph spills out of its 48px circle and runs into 'DASH' ('SPACEDASH').",
+   "fix": "Draw the key as the same auto-width rounded chip used in the key panel ('SPACE' chip, 12px gap, then 'DASH')."
+  },
+  {
+   "id": "R12",
+   "severity": "minor",
+   "shots": [
+    "p_A1_result"
+   ],
+   "what": "The time is drawn four times: the top bar '20.4 / 25 s', the PAR subline '20.4 s', '20.4 s', and 'BEST 20.4 s'. 'No white car, no fault' is a sentence under a star. There is no continue prompt.",
+   "fix": "Cut both star sublines. Keep '20.4 s' and 'BEST 20.4 s ★★★'. Add 'SPACE · CONTINUE' at bottom right, #3fd0ff 22px."
+  },
+  {
+   "id": "R13",
+   "severity": "minor",
+   "shots": [
+    "p_C3_play",
+    "p_C3_seen_camera"
+   ],
+   "what": "Three 'S01' plates are on screen at once in p_C3_play (x≈328, y 455 and 512, plus the Luminary at x≈740). A bare 'S01' tag sits on the field edge at x≈260, y≈455 in p_C3_seen_camera. One car should have one plate.",
+   "fix": "Draw the 'S01' plate only on the live Luminary. Ghost or memory cars draw no plate, and the plate is hidden while the car is off-field."
+  },
+  {
+   "id": "R14",
+   "severity": "minor",
+   "shots": [
+    "p_B1_card",
+    "p_A1_card"
+   ],
+   "what": "B1 needs two hits against a sighted car but has PAR 18 s, lower than A1's 25 s against a blind car. A1 took 20.4 s for two hits (p_A1_result). PAR on B1 is likely out of reach.",
+   "fix": "Set puzzle.B1.par 30 (proposed) unless a measured two-hit B1 clear under 18 s exists. Capture p_B1_result to prove it."
+  },
+  {
+   "id": "R15",
+   "severity": "minor",
+   "shots": [
+    "p_A1_lesson_clip",
+    "p_A1_result"
+   ],
+   "what": "BODY reads 0 while LAST HIT reads 'R ARM −100' after starting at 500, so the numbers do not add up for the player.",
+   "fix": "On the clearing hit, set LAST HIT to 'WRITTEN OFF' (#ff5a5a), or keep BODY at 500 − damage until the result screen."
+  }
+ ],
+ "priority": [
+  "R1",
+  "R2",
+  "R3",
+  "R4",
+  "R8",
+  "R5",
+  "R6",
+  "R7",
+  "R13",
+  "R14",
+  "R11",
+  "R12",
+  "R9",
+  "R10",
+  "R15"
+ ]
+}

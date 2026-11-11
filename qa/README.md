@@ -20,7 +20,7 @@ The agent: `python3 pipeline/qa_attack.py` (prompt `pipeline/agents/qa_adversary
 Runs go to `pipeline/runs/<stamp>-qa/`.
 
 **Last results (9 Nov):**
-- Runthrough (Shipping V1, Edit 122: parts land on the gift screen; the red car enters at cruise): pass, nine puzzles on the first try, 5 min 59 s ([video](../docs/p11_runthrough.mp4)).
+- Runthrough (FINAL V2, Edit 123: cleaned screens, two hits on A1 and B1): pass, nine puzzles on the first try, 5 min 27 s ([video](../docs/final_v2_runthrough.mp4)). Default build: `final_v2`.
 - Click everywhere: 1,653 actions, clean.
 - The agent: 87 plans and 15 reported bugs, checked in GDD Edit 118 §118.3.
 

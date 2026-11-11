@@ -1,0 +1,185 @@
+# FINAL V2: the UI cleanup spec
+
+**Today:** Every play shot carries 13 to 16 text blocks across five panels. Two of those panels sit inside the field and hide the map, and debug counters, gamepad and keyboard keys mixed together, and one-off narration repeat the same goal and key up to three times. Each sensor marks 'seen' its own way. The CCTV at B2 shows a range circle, not a view, and its caption names the wrong sensor.
+
+## Principles
+
+- Keep no HUD panel inside the field. The field holds only world marks and one caption band.
+- Show each fact once: goal and count in the top bar, time and stars at top bar right, keys in the right panel, the car in the right panel.
+- In play, labels are 2–5 words. Sentences appear only on cards, upgrade, gift and result screens.
+- Draw in-world labels at 11px or larger, or cut them.
+- Show only the active device's keys. Never write 'B (KEYS: C)'.
+- Show no internal names in play: RUNG, CHASSIS 01, PASS, RESTARTS, DRONE, SED-01-001, registry.
+- Every sensor uses one grammar: idle, sensing, seen. Only colour and field shape differ.
+- Draw what the sim does. A cone only where the FOV is under 360.
+- Colour budget: yellow #ffd400/#f5c542 is the dummy and player aids. #f4f8fa is the forward camera only. Rung colours are fixed. Scenery wayfinding uses #5e7080.
+- Draw a player aid only when its action is available now.
+
+## Regions
+
+| Region | Now | Decision | After | Why |
+|---|---|---|---|---|
+| Top bar, left tag | Yellow chip. 'OBJECTIVE · A1' in the drop, 'PUZZLE 1 · A1 · FIRST CONTACT' in play | keep | 'PUZZLE 1 · FIRST CONTACT' in drop and play alike | The map already shows the tile id. The drop state needs no different tag. |
+| Top bar, objective line | 'GET HIT BY THE LUMINARY™ (0 of 1). R restarts.'; drop: 'Write off a body. Last hit: … (0 of 1)' | keep | 'GET HIT · ITS FAULT  0 / 2'. The count is the only place hits are shown. | This is the single home for goal and progress. R moves to the key panel. The drop line is jargon, and on C3 it shows the wrong count (0 of 1 vs 0 of 3). |
+| Top bar, right | POINTS 0 | merge | Story: '3.3 / 10 s' (18px #f5c542; turns #9fb8c8 past par) and three 12px star pips. Arcade keeps POINTS. | In Story, stars and par drive play and points never do. This takes over the attempt panel's job. |
+| Field: attempt panel (x≈730–1030, y≈50–133) | Timer, PAR, three stars with words, 'PASS 1 · RESTARTS 0 · R RESTART' | cut |  | It covers the world: billboards at B1 and C1, the stair at A1. Its content moves to top bar right and the key panel. PASS and RESTARTS are debug. |
+| Field: car panel (x≈250–640, y≈50–123) | 'LUMINARY™ · RUNG n · SENSOR ◎ n/n' plus up to two lines of narration and keys | move | Right panel block at x 1056–1264, y 350–440. Line 1: 'LUMINARY™' 13px #e8c67e. Line 2: current top sensor name 15px in its rung colour, or 'BLIND' at rung 0. Line 3: seven 10×6px pips in rung colours, lit up to the current rung. | It covers the A1 stairs (p_A1_play x 615–720) and the C1 stair head. The count moves to the top bar. The narration goes to cards. |
+| Field: caption band | Seven caption types, some stale or wrong. p_B2_play and p_B2_seen_camera say 'ITS SIDE SENSORS HAVE YOU' during a camera link. | shrink | One caption, 14px, centred at y≈566. Shown 1.5 s, in the colour of the sensor that caused it. Grammar: 'SEEN · <SENSOR>', first sighting per sensor per attempt, plus four outcome captions (see texts). | One teaching moment per sensor. It must name the sensor that actually has you. |
+| Field: in-world labels | STOPS HERE 8px, LINKED 9px, #n, LAST SEEN, HIT/YOUR FAULT, MOVE ALONG · DRONE IN n | shrink | Only LAST SEEN, HIT / FAULT and DRONE IN n survive, all at 11px. | 8–9px labels are unreadable at play size (p_C1_seen_side x 712–772, y 416). The marks already carry the meaning. |
+| Left panel: BODY | 'BODY' and 500 at 36px, plus a bar | shrink | 'BODY' 15px #9fb8c8, number 22px, bar unchanged | Health matters, but a 36px number outweighs the goal. |
+| Left panel: DASH | 'DASH  NOT FITTED' and an empty bar (A1–C1) | cut | Hidden until Battery 1 is fitted. Then 'DASH' plus the charge bar. | A part you do not own is not actionable. |
+| Left panel: district map | 'MONUMENT · A1' or 'MONUMENT · A1 · DRONE' plus the grid | keep | 'MONUMENT' 15px plus the grid. The yellow tile frame shows where you are. | The tile id is visible on the grid. 'DRONE' is a state flag. |
+| Right panel: doll | 'CHASSIS 01', doll, 'LAST HIT —' | shrink | Doll scaled to y 40–250. No label. 'LAST HIT  R ARM −100' appears only after the first hit. | CHASSIS 01 is an internal name. The '—' placeholder says nothing. This frees y 350–440 for the car block. |
+| Right panel: key hints | WASD MOVE, SPACE DASH, E GRAB, C CROUCH. 'CROUCH' clips the panel edge at x≈1264 (p_B3_play). | keep | Rows for fitted parts only, plus 'R  RESTART' as the last row. 'WASD MOVE' only on puzzles 1–2. Panel widened so 'CROUCH' fits. | This is the one home for keys. R restart was shown twice before. |
+| Cards (puzzle, upgrade, gift, result) | Title, 'Tile A1. Puzzle 1 of 9.', 3-line tale, goal, 'NEW · … · PAR n s'. No 'SPACE START' visible in any card shot. | shrink | Title, a tale of 2 lines or fewer, goal, 'NEW · …', 'PAR n s', and 'SPACE · START' at bottom right in #3fd0ff | Sentences live here, but short ones. The card has no visible way forward today. |
+
+## Texts
+
+| Now | Where | Decision | After | When | Why |
+|---|---|---|---|---|---|
+| PUZZLE n · <TILE> · <NAME> | top bar chip | rewrite | PUZZLE 1 · FIRST CONTACT | drop and play | The tile id lives on the map. |
+| OBJECTIVE · <TILE> | top bar chip, drop | merge | PUZZLE 1 · FIRST CONTACT | drop | The puzzle does not change identity when the drone lands. |
+| GET HIT BY THE LUMINARY™ (n of N). R restarts. | top bar | rewrite | GET HIT · ITS FAULT  0 / 2  (puzzles 1–2); GET HIT · ITS FAULT  0 / 1  (3–8) | drop and play | Fewest words. The count appears once. R moves to the key panel. |
+| THREE HITS · A NEW WAY EACH (0 of 3). R restarts. | top bar | rewrite | 3 HITS · NEW WAY EACH  0 / 3 | C3 drop and play | Same pattern as the other puzzles. |
+| Write off a body. Last hit: <goal> (0 of 1). | top bar, drop | cut |  |  | Jargon. On C3 it states 0 of 1 for a 3-hit goal. Lowercase 'luminary™' is a casing bug. |
+| POINTS / 0 | top bar right | cut |  | Story mode | Not used to act in Story. Arcade keeps it. |
+| ⏱ n.n s / PAR n s | attempt panel | merge | 3.3 / 10 s | drop and play, top bar right | One reading gives both time and par. |
+| CLEAR / UNTOUCHED / PAR (star words, 11px) | attempt panel | cut |  |  | Three pips remain, dimmed (#5e7080) once a star is lost. The words are on the result screen. |
+| PASS 1  ·  RESTARTS 0  ·  R RESTART | attempt panel | rewrite | R  RESTART | key panel, last row, always | The counters are debug. The key belongs with the keys. |
+| LUMINARY™ · RUNG n · <SENSOR>   ◎ n / N | field top-left | rewrite | LUMINARY™ / <SENSOR> / seven pips (e.g. 'SIDE SENSORS' in #7fa8bc; rung 0: 'BLIND' in #9fb8c8) | right panel, always in play | RUNG is an internal word. The pips show the ladder. The count lives in the top bar. |
+| YOUR HIT TEACHES IT <SENSOR> / YOUR NEXT HIT TEACHES IT <SENSOR> | car panel line 2 | cut |  |  | Narration. The upgrade screen tells it with a replay. |
+| CLEAR THE TILE: YOU EARN <PART> (<VERB>) | car panel line 2 | rewrite | EARN · BATTERY 1 · DASH | puzzle card only, under the NEW line | It motivates before play. It is not needed during play. |
+| ALL IT CAN LEARN: OUTWIT IT | car panel, B3 | cut |  |  | Narration with no action. |
+| PRESS B (KEYS: C) · CROUCH BEHIND LOW COVER | car panel line 3 | cut |  |  | It repeats the 'C CROUCH' key row and mixes devices. The cover hint goes on the B3 card tale. |
+| IT BRAKES FOR YOU | caption | rewrite | SEEN · FORWARD CAMERA | first forward-camera sighting per attempt, 1.5 s, #f4f8fa | One grammar. |
+| ITS SIDE SENSORS HAVE YOU | caption | rewrite | SEEN · SIDE SENSORS | first side-sensor sighting per attempt, 1.5 s, #7fa8bc | One grammar. It must never show while the camera is the source (wrong in p_B2_play and p_B2_seen_camera). |
+| (none today) lidar / camera / search sightings | caption | rewrite | SEEN · ROOF LIDAR (#c3a6ff) / SEEN · STREET CAMERA (#9ff2c8) / SEEN · SEARCH (#ff5a5a) | first sighting per sensor per attempt | Every sensor follows the same rule. |
+| FOUND | caption | merge | SEEN · SEARCH | search re-acquires you | One grammar. |
+| LESSON DUE… | caption | cut |  |  | A state flag. The upgrade screen follows anyway. |
+| MOVE ALONG / MOVE ALONG · DRONE IN n | caption and world label | rewrite | DRONE IN 3 | standstill pickup countdown, 11px yellow, above the dummy | One place, three words. |
+| STANDSTILL · NO DAMAGE | caption | rewrite | IT STOPPED | car halts short of you | Says what happened, in fewer words. |
+| YOU HIT IT · YOUR FAULT · NO POINTS | caption | rewrite | YOUR FAULT | dummy strikes the car | The UNTOUCHED pip dims alongside it, so 'NO POINTS' is redundant. |
+| STOPS HERE | world, car stop bar, 8px | cut |  |  | Unreadable. The white stop bar is the mark. |
+| LINKED | world, camera link, 9px | cut |  |  | The mint link line says it. |
+| #n | world, crash memory | cut |  |  | The order of crashes does not change play. The ring and chalk outline remain. |
+| LAST SEEN | world, search | keep | LAST SEEN | lost state, 11px #ff5a5a | This is the one belief the player must outwit. |
+| HIT / YOUR FAULT | world, dash guide | rewrite | HIT / FAULT | dash guide visible, 11px #ffd400 | Fewest words. It is a player aid, so it stays yellow. |
+| ? / ! | car plate, 12px / 14px #f4f8fa | rewrite | ? (sensing) / ! (seen), 16px, in the rung colour of the sensor that has you | sensing / seen | White here meant the forward camera even when the side sensors had you (p_C1_seen_side). |
+| BODY / 500 / 800 | left panel | keep | BODY 15px; number 22px | always | Health matters. The type is smaller. |
+| DASH / NOT FITTED | left panel | rewrite | DASH (charge bar only) | only once Battery 1 is fitted | A part you do not own is not actionable. |
+| MONUMENT · <TILE> / MONUMENT · <TILE> · DRONE | left panel map | rewrite | MONUMENT | always | The grid shows the tile. DRONE is a debug flag. |
+| CHASSIS 01 | right panel | cut |  |  | Internal name. |
+| LAST HIT / — | right panel | rewrite | LAST HIT  R ARM −100 | only after the first hit of the run | The empty placeholder is noise. |
+| WASD MOVE | key panel | keep | WASD  MOVE | puzzles 1–2 only | Learned by puzzle 3. |
+| SPACE DASH / E GRAB / C CROUCH | key panel | keep | SPACE  DASH / E  GRAB / C  CROUCH | once the part is fitted. Gamepad glyphs replace keys when a pad is active. | One home for keys. Widen the panel so 'CROUCH' does not clip at x 1264. |
+| Tile <X>. Puzzle n of 9. | card | cut |  |  | The title already holds the number. The tile is on the map. |
+| Get the Luminary™ to hit you. Its fault, not yours. | card goal (8 cards) | rewrite | Get hit twice. Its fault, not yours. (puzzles 1–2) / Get hit. Its fault, not yours. (3–8) | card | Shorter, and it states the new count. |
+| Three hits by the Luminary™, each its fault. A new way each time. | C3 card goal | rewrite | Get hit three times. A new way each time. | card | Shorter. |
+| NEW · <thing>.   ·   PAR n s | card | rewrite | A1 'NEW · THE LUMINARY™ · BLIND'; B1 'NEW · FORWARD CAMERA · SEES ITS LANE'; C1 'NEW · SIDE SENSORS · SEE BOTH KERBS'; C2 'NEW · DASH · SPACE'; B2 'NEW · STREET CAMERAS · A DASH BREAKS A POST'; A3 'NEW · ROAD ITEMS · STOPS FOR CONES'; B3 'NEW · SUPER KNEES · C CROUCHES'; C3 'NEW · BOSS · LEARNS BETWEEN HITS'. PAR on its own line: 'PAR 20 s'. | card | Removes mixed-device keys ('B … (KEYS: C)'), and par becomes its own fact. |
+| Card tales (3 lines) | card | rewrite | A1 'Fresh off the factory floor. Your first colleague is red, keen and blind.' B1 'Now it has eyes on its bonnet. It brakes for what it sees in time.' C1 'Now it watches both kerbs. The high road has a gap. Gravity is company policy.' C2 'The road runs through the portal tower. It cannot see through the kiosk.' B2 'The plaque reads ZERO ACCIDENTS. The street cameras watch the island.' A3 'The cubes rose one budget at a time. Now it stops for cones.' B3 'Two screens advertise all night. Low hedges line the canyon. Crouch behind them.' C3 'It has learned from every dummy so far. Three more lessons.' | card | At most 2 lines at 31px. |
+| (missing) SPACE START | card | rewrite | SPACE · START | card, bottom right, #3fd0ff | No card shot shows how to proceed. |
+| SED-01-001 · LUMINARY™ · AMBASSADOR | upgrade screen | cut |  |  | Internal serial. |
+| YOUR HIT · ITS TRAINING CLIP | upgrade screen | rewrite | YOUR HIT | upgrade screen | Fewest words. |
+| SPACE CONTINUE / SPACE · CONTINUE | gift / upgrade | rewrite | SPACE · CONTINUE | all cards | One form. |
+| Dash: A (keys: Space). Reach a car's path from cover set back from the road. | gift screen | rewrite | SPACE dashes. Reach the road from far cover. | gift | Active device only. Shorter. |
+| NEXT PUZZLE / Puzzle 4: Portal. New: Battery 1: the dash. | gift screen | cut |  |  | The next card says it. |
+| TIME 2.6 s · PUZZLE CLOCK 2.6 s · RESTARTS 0 · PASSES 1 | result | rewrite | 2.6 s | result | Debug counters. |
+| GET HIT BY THE LUMINARY™ / 2.6 s · under par | result star sublines | rewrite | (cut) / 2.6 s | result | Repeats the goal and the time. |
+| NEXT · PUZZLE 2 · STOP LINE · NEW: ITS FORWARD CAMERA. IT STOPS FOR YOU IN ITS LANE. | result | rewrite | NEXT · STOP LINE | result | The next card teaches it. |
+| Show trace / SHIPPING V1 · PUZZLES · registry / T TUNING | pause, controls | cut |  |  | Debug in a shipping build. |
+| ??? / A Corporation drone brings / Super Knees fits it / J ??? | controls | cut |  |  | List fitted keys only. |
+| Self-driving cars are designed never to hit anyone. Your training: get hit, in combos, and earn your parts. | title | rewrite | Self-driving cars never hit anyone. Your job: get hit. | title | 'In combos' is arcade language and untrue in Story. |
+| Nine puzzles. Get the Luminary™ to hit you. It learns from every one. | modes, STORY | rewrite | Nine puzzles. It learns from every hit. | modes | Shorter. |
+| 3 save slots · a new game begins in Monument A1 | modes | cut |  |  | The next screen shows it. |
+| Locked. Pass Certification, Map 1's puzzle 9, to open it. / LOCKED · SOLVE MAP 1 | modes, ARCADE | merge | LOCKED · CLEAR PUZZLE 9 | modes | Two texts for one fact. |
+| ARROWS CHOOSE · SPACE SELECT (22px #3fd0ff) / … · SHIFT BACK (15px #9fb8c8) | modes, saves | rewrite | ARROWS CHOOSE · SPACE SELECT · SHIFT BACK, 15px #9fb8c8 on both | menus | One style. |
+| STORY · SAVE GAMES / SAVE GAMES / SAVED IN THIS BROWSER | saves | merge | Top: STORY; header: SAVE GAMES | saves | The same title twice. The storage note is not actionable. |
+| Monument A1 · into slot 1 / No story saved here. | saves | rewrite | SLOT 1 / (cut) | saves | EMPTY already says it. |
+| DUMMIES / DUMMY CORPORATION / SELECT A MODE / STORY / ARCADE / HIGH SCORES / CREDITS / NEW GAME / EMPTY / 1 2 3 / 5 / >>> | menus, cards | keep | unchanged | as now | Short and functional. |
+
+## Being seen: one grammar
+
+- Every sensor has three states: idle, sensing, seen. Two edge states: hidden (cover cuts the field) and lost (search only).
+- The field is drawn in the sensor's rung colour. Idle: fill 10%, edge 35%, dashed. Sensing: fill 20% where the dummy is. Seen: fill 25%, solid edge.
+- One dummy mark per state. Sensing: an open arc round the dummy, r 18px, 2px, filling clockwise. Seen: four corner brackets, 28×28 box, 6px arms, 2px. Both in the sensor's colour.
+- Car plate: '?' while sensing, '!' when seen, 16px, in the same colour.
+- If several sensors have you, the highest rung draws the dummy mark and plate mark. Lower fields only brighten.
+- Sensors without a notice timer skip sensing and go straight from idle to seen.
+- Words: 'SEEN · <SENSOR>' once per sensor per attempt. No other seen text.
+- The steel-blue fill ring, mint square and lilac dots on the dummy are removed. The arc and brackets replace them.
+- The dummy's facing arrow is drawn #ffd400, not white. White belongs to the forward camera.
+
+| State | Field | On the dummy | On the car | Words |
+|---|---|---|---|---|
+| idle | Fill 10%, dashed edge 35%, sensor colour | none | plate blank |  |
+| sensing | Fill 20% in the field section that holds the dummy | Open arc r 18px filling clockwise over the notice time (side sensors: perception.sideNoticeSeconds) | '?' 16px in sensor colour |  |
+| seen | Fill 25%, solid edge 60% | Four corner brackets 28×28, 2px, sensor colour | '!' 16px in sensor colour | SEEN · <SENSOR> (first time per attempt, 1.5 s) |
+| hidden | Field clipped at the cover. The occluded wedge has no fill. Cover edge ticked in sensor colour. | none | plate blank |  |
+| lost | Red search wedge sweeps. Dashed red ring r 22px at the last seen position. | Brackets fade out over 0.5 s | '?' red | LAST SEEN (at ring, 11px) |
+
+| Sensor | Colour | Field | Idle | Seen | Params |
+|---|---|---|---|---|---|
+| forward camera | #f4f8fa | Ribbon along its lane to perception.forwardLength. Brighter too-late zone at the nose. White stop bar. | Ribbon 10%, no pulses | Ribbon 25%, white brackets on dummy, white '!' | perception.forwardLength, perception.forwardConeAngle |
+| side sensors | #7fa8bc | Two fans either side, dashed edge. Grade rings and pings cut. | Both fans 10% | That side's fan 25% plus brackets. Sensing arc fills over perception.sideNoticeSeconds before this. | perception.sideNoticeSeconds |
+| roof lidar | #c3a6ff | Sweep line round the roof plus dotted reach circle. Ticks on cover edges. | Sweep line 35%, circle 10% | Brackets when the sweep crosses the dummy, held for ui.seenHoldSeconds 0.6 (proposed) | ui.seenHoldSeconds (proposed) |
+| street camera | #9ff2c8 | Filled cone from the post, angle perception.streetCameraFov, radius perception.streetCameraRange | Cone 10%, edges 35% | Cone 25%, brackets, dashed mint line dummy→post, solid line post→car | perception.streetCameraFov, perception.streetCameraRange, perception.streetCameraPanArc, perception.streetCameraPanSeconds |
+| road items | #ff8a1f | Uses the forward ribbon. The subject is the cone, not the dummy. | No mark on cones | Brackets on each cone inside the ribbon | perception.forwardLength |
+| crash memory | #ff5a5a | Red chalk outline plus ring at each remembered spot. Numbers cut. | Ring dashed 35% | Ring solid 60% while the car is approaching it. No dummy mark: this is belief, not sight. |  |
+| search | #ff5a5a | Red searchlight wedge plus LAST SEEN ring plus timer arc on the ring | Wedge 10% | Wedge 25%, red brackets, red '!', caption 'SEEN · SEARCH' |  |
+
+## cctv
+
+- **fov_deg:** 90
+- **pan:** B2 and A3: fixed (perception.streetCameraPanArc 0 at stages 10.5–10.6, proposed), aimed by p11Camera at the cover it watches. C3: unchanged, perception.streetCameraFov 60, pan perception.streetCameraPanArc 60 over perception.streetCameraPanSeconds.
+- **idle:** Mint #9ff2c8 cone fill 10%, edge lines 1px at 35%, range arc at perception.streetCameraRange 180. The post has a 6px lens tick along the aim. The dashed 360° range circle is removed.
+- **seen:** Cone fill 25%, solid edges. Mint brackets on the dummy. Dashed mint line dummy→post, then solid post→car (the report). Car plate '!' in mint. Caption 'SEEN · STREET CAMERA'. Once the post is broken by a dash, the cone is not drawn.
+- **params:** ['perception.streetCameraFov 360→90 at 10.5–10.6 (value change)', 'perception.streetCameraPanArc 0 at 10.5–10.6 (proposed)', 'perception.streetCameraRange 180', 'perception.streetCameraPanSeconds']
+- **why:** The user wants a cone. Today's sim sees 360° at B2 and A3, so drawing a cone over it would lie. The fix is to make the sim a cone: a registry change, not a new mechanic. C3 already draws a true 60° cone (p_C3_drop), so the camera then looks the same everywhere. The link line stays because it shows the report to the car.
+
+## dash_guide
+
+- **show_when:** All of: Battery 1 fitted, dash fully charged, dummy on the ground and free to act (not drone-carried, not in drop, not mid-dash, not falling, not on a card or lesson), and the game unpaused.
+- **hide_when:** Any of: drone carrying or dropping the dummy (today visible in p_B2_drop, p_A3_drop, p_C3_drop), dash recharging (no dimmed draw), airborne or dropping from a parapet, mid-dash, a card or screen open, dash not fitted.
+- **look:** #ffd400 dotted line, 2px dots every 5px, from the dummy to the landing point at dash.distance (proposed id if absent). Landing circle r 9px, 1.5px, 70% alpha. 'HIT' or 'FAULT' 11px #ffd400 beside the circle only when it applies. No other text.
+
+## stairs_and_gaps
+
+- **stair_arrows:** Remove the cyan bracket boxes and the bright '<<'/'>>'/'^^' (every play shot, e.g. p_B2_play shows four). Draw one 2-chevron mark, 8px, #5e7080 at 60%, on the apron pointing into the flight. Brighten it to 100% only when the dummy is within ui.stairHintRadius 48px (proposed).
+- **parapet_gaps:** At each gap end, draw a 3×8px end cap in #ffd400 at 80% so the break reads as a deliberate opening. Shift the deck edge inside the gap 2px lighter. Parapet art is otherwise unchanged.
+- **jump_down_arrow:** One 8px down-chevron #ffd400 at 40%, drawn on the road 12px below the gap centre, pointing away from the deck. It pulses 40→70% every 1.5 s, only while the dummy is on that deck within ui.gapHintRadius 120px (proposed). Hidden while airborne.
+
+## Acceptance
+
+1. No play or drop shot has a HUD panel inside the field (x 240–1040, y 40–680). Only world marks and at most one caption appear there.
+2. The top bar shows 'PUZZLE n · <NAME>' with no tile id and no 'OBJECTIVE'. The drop and play shots of each puzzle have identical top-bar text.
+3. The objective line reads 'GET HIT · ITS FAULT  0 / 2' on A1 and B1, '… 0 / 1' on C1–B3, and '3 HITS · NEW WAY EACH  0 / 3' on C3. The hit count appears nowhere else.
+4. Top bar right shows 'n.n / PAR s' and three star pips with no star words. POINTS is absent in Story.
+5. No in-play shot contains RUNG, PASS, RESTARTS, CHASSIS, DRONE, TEACHES, EARN, 'KEYS:', 'OUTWIT' or 'R restarts'.
+6. 'R  RESTART' appears exactly once in play, in the key panel.
+7. The key panel lists only fitted parts. WASD appears only on A1 and B1. 'CROUCH' fits inside the panel.
+8. The DASH panel is absent on A1, B1 and C1. LAST HIT is absent before the first hit.
+9. The car block in the right panel shows 'LUMINARY™', the sensor name in its rung colour, and seven pips.
+10. No world label below 11px. STOPS HERE, LINKED and #n are absent.
+11. p_B2_seen_camera equivalent: the caption reads 'SEEN · STREET CAMERA' in mint, never 'SIDE SENSORS'.
+12. B2 and A3 cameras draw a filled 90° mint cone, with no 360° dashed circle. C3 draws a 60° cone.
+13. Seen shots for the forward camera, side sensors, lidar and camera each show four corner brackets on the dummy in that sensor's colour, and a plate '!' in the same colour.
+14. The side-sensor sensing shot shows an open steel-blue arc round the dummy and a steel-blue '?' on the plate.
+15. The dash guide (yellow dotted line and circle) is absent in every drop shot and while the dash recharges.
+16. Stair marks are #5e7080 chevrons with no cyan bracket boxes.
+17. C1 and C2 deck gaps show yellow end caps. A faint yellow down-chevron appears below the gap only when the dummy is on the deck nearby.
+18. Every card shows 'SPACE · START', a tale of 2 lines or fewer, and no 'Tile X. Puzzle n of 9.' line.
+19. The result screen shows no 'PUZZLE CLOCK', 'RESTARTS' or 'PASSES'. Pause shows no 'Show trace' or 'registry'. Controls show no 'T TUNING' or '???'.
+20. The dummy's facing arrow is yellow, not white, in all play shots.
+
+## Risks
+
+- Two hits on A1/B1 (puzzle.A1.hitsNeeded 2, puzzle.B1.hitsNeeded 2, proposed) reuse C3's multi-hit flow. The mid-puzzle lesson must stay off there (puzzle.<id>.midLesson false, proposed), or puzzle 1 shows a boss beat. Hit 1 must not write off the body; that rule exists only for the boss today.
+- Par must rise with the hit count, or PAR becomes impossible: puzzle.A1.par 10→20, puzzle.B1.par 15→30 (proposed, to tune). A1 today clears in 2.6 s, so the brief is right that it is too easy, but a second identical hit in a blind-car puzzle can feel like repetition. The B1 second hit should need the other side of the stop line.
+- perception.streetCameraFov 90 with a fixed aim at B2/A3 changes what the camera covers. Re-run both solve routes and confirm the watched cover still sits inside the cone.
+- Removing the attempt panel and moving the car block shifts the right panel. The doll must shrink, and gamepad glyph rows must still fit at 1280×720.
+- Hiding WASD after puzzle 2 and showing fitted parts only depends on the save state knowing what is fitted. A wrong state hides a key the player needs.
+- Highest rung wins the dummy mark. A player seen by both side sensors and camera sees only mint, and may not learn that the side sensors also had them. The lower field still brightens to cover this.
+- '!' on the cue key today also means 'Blocked, warning you' (blue). The cue key rows must be redrawn to the new grammar, or '!' carries two meanings.
+- Shortening card tales removes some lore. The writer of record should approve the rewritten lines.
+
+Cost: $1.38

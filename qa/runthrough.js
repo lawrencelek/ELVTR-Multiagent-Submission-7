@@ -6,7 +6,7 @@
 // Each puzzle plays its script from qa/solutions/<tile>.json through the pad (the boss: engine/p9_play_test.js's cut-in bot).
 //   node qa/runthrough.js OUTDIR [page dir: p11]      → OUTDIR/runthrough.json, steps.log, shots/, runthrough.webm (.mp4)
 const path = require('path'), fs = require('fs'), { execFileSync } = require('child_process'); const { chromium } = require('playwright');
-const ROOT = path.resolve(__dirname, '..'), OUT = path.resolve(process.argv[2] || 'qa/runs/runthrough'), DIR = process.argv[3] || 'p11';
+const ROOT = path.resolve(__dirname, '..'), OUT = path.resolve(process.argv[2] || 'qa/runs/runthrough'), DIR = process.argv[3] || 'final_v2';
 const SOL = (t) => JSON.parse(fs.readFileSync(path.join(__dirname, 'solutions', t + '.json'), 'utf8'));
 fs.mkdirSync(path.join(OUT, 'shots'), { recursive: true });
 const log = [], T0 = Date.now(), say = (ok, step, detail) => { const e = { t: +((Date.now() - T0) / 1000).toFixed(1), ok, step, detail: detail || '' }; log.push(e); console.log((ok ? 'ok   ' : 'FAIL ') + e.t + 's ' + step + (detail ? ' · ' + (typeof detail === 'string' ? detail : JSON.stringify(detail)) : '')); return ok; };

@@ -150,6 +150,99 @@ def p11_game_js(g):
     ], 'game.js (P11)')
 
 
+def v2_game_js(g):
+    """FINAL V2 (GDD Edit 123): the screens after the UI cleanup agent (pipeline/runs/*-cleanup-spec). Puzzle build only."""
+    g = g.replace("    txt('SAVED IN THIS BROWSER', x + w - 24, y + 40, '700 15px ' + F_UI, FT.dim, 'right');",
+                  "    if (!window.P11) txt('SAVED IN THIS BROWSER', x + w - 24, y + 40, '700 15px ' + F_UI, FT.dim, 'right'); // FINAL V2: not actionable")
+    return patch(g, [
+        # the top right: time / par and three star pips (the in-field attempt panel is gone)
+        ("  function drawScore(s) {",
+         "  function v2Star(x, y, R, col) { ctx.beginPath(); for (let i = 0; i < 10; i++) { const r = i % 2 ? R * 0.45 : R, a = -Math.PI / 2 + i * Math.PI / 5; ctx.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r); } ctx.closePath(); ctx.fillStyle = col; ctx.fill(); }\n"
+         "  function v2Score(s) { // FINAL V2 (Edit 123): '3.3 / 10 s' and three pips, dimmed once a star is lost\n"
+         "    const p = s.p11, q = p.q, R = VW - 16, under = p.attempt <= q.par, on = [1, p.untouched ? 1 : 0, under ? 1 : 0];\n"
+         "    for (let i = 0; i < 3; i++) v2Star(R - 8 - (2 - i) * 20, TOPY - 7, 8, on[i] ? C.dummy : '#5e7080');\n"
+         "    txt(p.attempt.toFixed(1) + ' / ' + q.par + ' s', R - 70, TOPY + 1, '700 18px ' + F_MONO, under ? C.dummy : '#9fb8c8', 'right');\n"
+         "    if (app.hud) app.hud.score = { x: R - 220, y: 0, w: 220, h: FY - 6, rows: 'TIME PAR STARS' };\n"
+         "  }\n"
+         "  function drawScore(s) { if (s.p11 && s.p11.q) return v2Score(s);"),
+        # keys: fitted parts only; WASD on puzzles 1-2; R restarts (keyboard)
+        ("if (s.has('carry')) keys.push([pd ? 'Y' : 'E', b.held ? 'DROP' : 'GRAB']); return keys; }",
+         "if (s.has('carry')) keys.push([pd ? 'Y' : 'E', b.held ? 'DROP' : 'GRAB']); if (s.p11 && s.p11.q && !['A1', 'B1'].includes(s.p11.q.tile)) keys.shift(); if (!pd) keys.push(['R', 'RESTART']); return keys; } // FINAL V2"),
+        ("      txt(a, X + 14 + kw + 12, ky + kh / 2 + 8, fLab, FT.dim);",
+         "      fitText(a, X + 14 + kw + 12, ky + kh / 2 + 8, W - kw - 38, 17, 11, FT.dim); // FINAL V2: CROUCH fits"),
+        # left: BODY smaller; no DASH box before Battery 1; the map names the district only
+        ("  function drawHUD(s) {\n", "  function drawHUD(s) {\n    if (window.P11) window.P11.device = TOUCH.on ? 'touch' : app.device === 'pad' ? 'pad' : 'kb'; // FINAL V2: texts name the device's keys\n"),
+        ("txt(num(hp), X + W - 14, BY + 40, '700 36px ' + F_MONO,", "txt(num(hp), X + W - 14, BY + 40, '700 ' + (s.p11 ? 24 : 36) + 'px ' + F_MONO,"),
+        ("    panel(X, DY, W, 86);\n    txt('DASH', TX, DY + 30, fLab, FT.dim);\n    if (s.dashFitted && !s.dashFitted()) {",
+         "    const noDash = !!(s.p11 && s.dashFitted && !s.dashFitted()); // FINAL V2: no DASH box before Battery 1\n    if (!noDash) { panel(X, DY, W, 86); txt('DASH', TX, DY + 30, fLab, FT.dim); }\n    if (!noDash && s.dashFitted && !s.dashFitted()) {"),
+        ("    if (STORY) { const t = INFO(s.levelId).name.toUpperCase() + ' · ' + s.screenName() + whereOf(s);",
+         "    if (STORY) { const t = s.p11 ? INFO(s.levelId).name.toUpperCase() : INFO(s.levelId).name.toUpperCase() + ' · ' + s.screenName() + whereOf(s);"),
+        # right: no CHASSIS 01; LAST HIT after the first hit
+        ("    txt('CHASSIS ' + String(b.chassis).padStart(2, '0'), X + 14, Y + 30, fLab, FT.dim);",
+         "    if (!s.p11) txt('CHASSIS ' + String(b.chassis).padStart(2, '0'), X + 14, Y + 30, fLab, FT.dim);"),
+        ("    txt('LAST HIT', X + 14, yHit, STORY ? '700 15px ' + F_UI : fTxt, FT.dim);\n    if (STORY) fitTextR(",
+         "    if (!s.p11 || lp) txt('LAST HIT', X + 14, yHit, STORY ? '700 15px ' + F_UI : fTxt, FT.dim);\n    if (s.p11 && !lp) { /* FINAL V2: nothing before the first hit */ } else if (STORY) fitTextR("),
+        # the objective: the same in the drop as in play
+        ("if (o && !s.rescue) return o; }", "if (o && (!s.rescue || s.p11)) return o; }"),
+        # the card: lines of extra; START steady
+        ("    if (extra) txt(extra, x + 74, yy + 6, '700 20px ' + F_UI, FT.dim);",
+         "    if (extra) (Array.isArray(extra) ? extra : [extra]).forEach((e, i) => txt(e, x + 74, yy + 6 + i * 30, '700 20px ' + F_UI, i === 0 && s.p11 ? C.dummy : FT.dim)); // FINAL V2: NEW, EARN, PAR"),
+        ("    if (t > 0.35 && (RM || Math.floor(app.realT * 2) % 2 === 0)) txt(startPrompt('START'),",
+         "    if (t > 0.35 && (RM || s.p11 || Math.floor(app.realT * 2) % 2 === 0)) txt(startPrompt('START'),"),
+        # the gift: no next line; one form of continue
+        ("      if (GI) { txt('NEXT PUZZLE', tx, yy + 26, fLab, FT.accent); wrapText(GI.next || '', tx, yy + 58, tw, 26, '400 19px ' + F_UI, FT.dim, 3); }",
+         "      if (GI) { if (GI.next) { txt('NEXT PUZZLE', tx, yy + 26, fLab, FT.accent); wrapText(GI.next, tx, yy + 58, tw, 26, '400 19px ' + F_UI, FT.dim, 3); } }"),
+        ("txt((TOUCH.on ? 'TAP · ' : pd ? 'A  ' : 'SPACE  ') + (rs && rs.ferry", "txt((TOUCH.on ? 'TAP · ' : pd ? 'A · ' : 'SPACE · ') + (rs && rs.ferry"),
+        # pause, controls: no debug
+        ("'Options', 'Controls', 'Show trace', 'Quit to title']; // Prototype 11\n", "'Options', 'Controls', 'Quit to title']; // Prototype 11. FINAL V2: no trace\n"),
+        ("  function appStatus() { return BUILD + ' · ' + (app.tuned ? 'TUNED RUN' : 'registry values'); }",
+         "  function appStatus() { return window.P11 ? BUILD : BUILD + ' · ' + (app.tuned ? 'TUNED RUN' : 'registry values'); }"),
+        ("    if (d === 'keys') rows.push(['TUNING', 'T', ''], ['GAMEPAD SETUP', 'G', '']);",
+         "    if (window.P11) { for (let i = rows.length - 1; i >= 0; i--) if (rows[i][0] === '???') rows.splice(i, 1); if (d === 'keys') rows.push(['RESTART', 'R', ''], ['GAMEPAD SETUP', 'G', '']); } // FINAL V2: fitted keys only\n"
+         "    else if (d === 'keys') rows.push(['TUNING', 'T', ''], ['GAMEPAD SETUP', 'G', '']);"),
+        # menus
+        ("'Monument A1 · into slot ' + (free + 1)", "(window.P11 ? 'SLOT ' : 'Monument A1 · into slot ') + (free + 1)"),
+        ("        wrapText('No story saved here.',", "        if (!window.P11) wrapText('No story saved here.',"),
+        ("const sub = !last ? slotCount() + ' save slots · a new game begins in Monument A1'", "const sub = !last ? (window.P11 ? '' : slotCount() + ' save slots · a new game begins in Monument A1')"),
+        # the dummy's facing arrow: yellow (white is the forward camera's)
+        ("    for (const [x, y] of pts) FB.put(x, y, K.nose);\n", "    for (const [x, y] of pts) FB.put(x, y, s.p11 ? V2_NOSE : K.nose); // FINAL V2: yellow\n"),
+        ("  function drawNose(s) {\n", "  const V2_NOSE = PIX.c32('#ffd400');\n  function drawNose(s) {\n"),
+        # review r2 (R4): no charge ring or reach tick round the dummy (the DASH box and the dash guide carry it)
+        ("    } else {\n      const e = reachEnd(s), nx = -Math.sin(b.facing), ny = Math.cos(b.facing);", "    } else if (!s.p11) {\n      const e = reachEnd(s), nx = -Math.sin(b.facing), ny = Math.cos(b.facing);"),
+        ("    const cap = P['battery.capacity'], seg = TAU / cap, gap = 0.28;\n    for (const [x, y, a] of PIX.circle(10)) {", "    const cap = P['battery.capacity'], seg = TAU / cap, gap = 0.28;\n    if (!s.p11) for (const [x, y, a] of PIX.circle(10)) {"),
+        # (R2) no honk '!' on the plate: '!' means seen; (R13) no plate on a ghost
+        ("      if (Math.floor(app.realT * 5) % 2 === 0) {\n        FB.rect(rx, y0, rx + 4, y0 + h - 1, K.tagBorder);", "      if (!s.p11 && Math.floor(app.realT * 5) % 2 === 0) {\n        FB.rect(rx, y0, rx + 4, y0 + h - 1, K.tagBorder);"),
+        ("  function drawTag(s, c) {\n", "  function drawTag(s, c) {\n    if (s.p11 && (!c.red || c.ghost || c.gone)) return; // FINAL V2: one plate, the learner's\n"),
+        # (R8) the cue key teaches the one grammar
+        ("  function drawCueKey(x, y, w, h) {\n    panel(x, y, w, h);\n",
+         "  function v2CueKey(x, y, w, h) { // FINAL V2 (Edit 123): being seen, one grammar\n"
+         "    txt('BEING SEEN', x + 22, y + 40, fLab, FT.accent); const ox = x + 60, cols = [['#f4f8fa', 'FORWARD CAMERA'], ['#7fa8bc', 'SIDE SENSORS'], ['#c3a6ff', 'ROOF LIDAR'], ['#9ff2c8', 'STREET CAMERA'], ['#ff8a1f', 'ROAD ITEMS'], ['#ff5a5a', 'MEMORY · SEARCH']];\n"
+         "    let yy = y + 82; ctx.save(); ctx.lineWidth = 2.5; ctx.strokeStyle = '#7fa8bc'; ctx.beginPath(); ctx.arc(ox, yy - 6, 13, -Math.PI / 2, Math.PI * 0.8); ctx.stroke(); txt('SENSING YOU', x + 116, yy, fLab, FT.text);\n"
+         "    yy += 48; for (const [sx, sy] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) { ctx.beginPath(); ctx.moveTo(ox + sx * 14, yy - 6 + sy * 8); ctx.lineTo(ox + sx * 14, yy - 6 + sy * 14); ctx.lineTo(ox + sx * 8, yy - 6 + sy * 14); ctx.stroke(); } txt('SEEN', x + 116, yy, fLab, FT.text);\n"
+         "    yy += 48; txt('?', ox, yy + 2, '900 26px ' + F_BRAND, '#f4f8fa', 'center'); txt('ON THE CAR · SENSING', x + 116, yy, fLab, FT.text);\n"
+         "    yy += 48; txt('!', ox, yy + 2, '900 26px ' + F_BRAND, '#f4f8fa', 'center'); txt('ON THE CAR · SEEN', x + 116, yy, fLab, FT.text);\n"
+         "    yy += 44; txt('THE COLOUR · WHICH SENSOR', x + 22, yy, fLab, FT.dim); yy += 10;\n"
+         "    cols.forEach(([c, n], i) => { const cx = x + 22 + (i % 2) * Math.floor((w - 44) / 2), cy = yy + Math.floor(i / 2) * 30; ctx.fillStyle = c; ctx.fillRect(cx, cy + 8, 16, 10); txt(n, cx + 26, cy + 19, '700 14px ' + F_UI, FT.text); });\n"
+         "    ctx.restore();\n  }\n"
+         "  function drawCueKey(x, y, w, h) {\n    panel(x, y, w, h);\n    if (window.P11) return v2CueKey(x, y, w, h);\n"),
+        # (R6) one prompt form; the gift's prompt steady
+        ("    if (t > 0.35 && (RM || s.p11 || Math.floor(app.realT * 2) % 2 === 0)) txt(startPrompt('START'),", "    if (t > 0.35 && (RM || s.p11 || Math.floor(app.realT * 2) % 2 === 0)) txt(s.p11 ? startPrompt('START').replace(/\\s{2,}/, ' · ') : startPrompt('START'),"),
+        (": startPrompt('START'), VW - 60, VH - 48, '900 28px ' + F_BRAND, C.dummy, 'right');", ": startPrompt('START'), VW - 60, VH - 48, '900 28px ' + F_BRAND, s.p11 ? FT.accent : C.dummy, 'right');"),
+        ("    if (giftReady() && Math.floor(app.realT * 2.5) % 3)", "    if (giftReady() && (s.p11 || Math.floor(app.realT * 2.5) % 3))"),
+        # (R11) the gift's key: a chip when it is a word (SPACE)
+        ("txt(GI ? GI.button : tr.button, bx, by + 9, '700 26px ' + F_MONO, FT.text, 'center'); txt(GI ? GI.verb : tr.verb, bx + br + 16,",
+         "if (GI && String(GI.button).length > 1) { ctx.font = '700 22px ' + F_MONO; const kw2 = ctx.measureText(GI.button).width + 24; rr(tx, by - 20, kw2, 40, 8); ctx.fillStyle = FT.keyTop; ctx.fill(); ctx.strokeStyle = C.dummy; ctx.lineWidth = 3; ctx.stroke(); txt(GI.button, tx + kw2 / 2, by + 8, '700 22px ' + F_MONO, FT.text, 'center'); txt(GI.verb, tx + kw2 + 16, by + 12, '900 34px ' + F_BRAND, FT.text); } else { txt(GI ? GI.button : tr.button, bx, by + 9, '700 26px ' + F_MONO, FT.text, 'center'); } if (!(GI && String(GI.button).length > 1)) txt(GI ? GI.verb : tr.verb, bx + br + 16,"),
+        ("ctx.beginPath(); ctx.arc(bx, by, br, 0, TAU); ctx.fillStyle = FT.keyTop; ctx.fill(); ctx.strokeStyle = BADGE[GI ? GI.button : tr.button]; ctx.lineWidth = 3; ctx.stroke();",
+         "if (!(GI && String(GI.button).length > 1)) { ctx.beginPath(); ctx.arc(bx, by, br, 0, TAU); ctx.fillStyle = FT.keyTop; ctx.fill(); ctx.strokeStyle = BADGE[GI ? GI.button : tr.button] || C.dummy; ctx.lineWidth = 3; ctx.stroke(); }"),
+        # (R9) the crouch option once Super Knees is fitted; (R10) no build tag, no time under the pause's volume
+        ("  const controlItems = () => (window.P11 ? ['Crouch: ' + CROUCH.mode] : [])", "  const controlItems = () => (window.P11 && app.sim && app.sim.duelDuck ? ['Crouch: ' + CROUCH.mode] : [])"),
+        ("  function appStatus() { return window.P11 ? BUILD :", "  function appStatus() { return window.P11 ? '' :"),
+        ("  function drawScore(s) { if (s.p11 && s.p11.q) return v2Score(s);", "  function drawScore(s) { if (s.p11 && s.p11.q) return app.paused ? null : v2Score(s);"),
+        # the panel helper, for the duel layer's car block
+        ("  window.__dummies = app;\n", "  window.__dummies = app;\n  window.__dummiesPanel = (x, y, w, h) => panel(x, y, w, h); // FINAL V2: the car block in the right column\n"),
+    ], 'game.js (V2)')
+
+
 def p11_plan(pz):
     """content/puzzles_map1.json as the duel's plan (window.STORY_MAP1): one tile a puzzle, its rungs and lane as params."""
     tiles = []
@@ -163,8 +256,14 @@ def p11_plan(pz):
     return {'map': pz['map'], 'tiles': tiles, 'provenance': {'run': 'content/puzzles_map1.json (set by hand, Edit 113)'}}
 
 
-def world6_js():
+def world6_js(v2=False):
     w = (E / 'world6.js').read_text(encoding='utf-8')
+    if v2:  # FINAL V2 (Edit 123, the UI cleanup agent): the stair aprons' marks are wayfinding, not signals: no cyan boxes, faint chevrons
+        w = patch(w, [("x1 = Math.round((a.x + a.w) / U) - 1, y1 = Math.round((a.y + a.h) / U) - 1, br = mixK(CON.l, N.cyan, 0.55);",
+                       "x1 = Math.round((a.x + a.w) / U) - 1, y1 = Math.round((a.y + a.h) / U) - 1, br = null, chev = mixK(CON.m, CON.l, 0.6);"),
+                      ("for (let i = 0; i < 4; i++) { B.put(cx + sx * i, cy, br); B.put(cx, cy + sy * i, br); }", "if (br) for (let i = 0; i < 4; i++) { B.put(cx + sx * i, cy, br); B.put(cx, cy + sy * i, br); }"),
+                      ("for (const t of [0.33, 0.66]) { const tip", "for (const t of [0.5]) { const tip"),
+                      ("if (ay) B.put(la, al, N.cyan); else B.put(al, la, N.cyan); } }", "if (ay) B.put(la, al, chev); else B.put(al, la, chev); } }")], 'world6.js (V2)')
     return patch(w, [
         ("  const api = { P6SIM, DISTRICTS,",
          "  // Submission 7: the duel's low planters and street-camera posts, painted into the tile's ground art as Prototype 9 paints its own\n"
@@ -229,6 +328,8 @@ def main(p11=False):
                      'legs1': dict(key='X (keys: J)', text='Jump: X (keys: J). A running jump clears a K-rail.'),
                      'knees1': dict(verb='CROUCH', key='B (keys: C)', text='Crouch: B (keys: C). Press to crouch, again to stand. Low cover hides you from its sensors.'),
                      'hands1': dict(key='Y (keys: E)', text='Cones: Y picks one up. Y with none in reach puts one down.')}
+        for k, t in {'battery1': '{A} dashes. Reach the road from far cover.', 'hands1': '{Y} picks up a cone. {Y} again puts it down.', 'knees1': 'Press again to stand. Low cover hides you.', 'legs1': '{X} jumps. A running jump clears a K-rail.'}.items():
+            P11_PARTS[k] = dict(P11_PARTS.get(k, {}), v2=t)  # FINAL V2: the gift screen's words, keys of the device in use
         rules = dict(rules, parts={k: dict(v, **P11_PARTS.get(k, {})) for k, v in RULES['parts'].items()})
     stages = json.loads((V / 'sim_flags.json').read_text(encoding='utf-8'))['stages']
     reg = json.loads((ROOT / 'pipeline' / 'inputs' / 'tuning.parameters.json').read_text(encoding='utf-8'))
@@ -239,14 +340,15 @@ def main(p11=False):
     cues['params']['audio.settings.master'] = 5  # Lawrence (7 Nov): the volume starts at 5 of 10 (a saved setting still wins)
     js = lambda p: f'<script>\n{p.read_text(encoding="utf-8")}\n</script>\n'
     scripts = js(E / 'jump.js') + ''.join(js(E / f) for f in ('sim.js', 'pixel.js', 'lab.js', 'circus_valley.js'))
-    scripts += f'<script>\n{world6_js()}\n</script>\n' + js(E / 'content.js')
+    scripts += f'<script>\n{world6_js(p11)}\n</script>\n' + js(E / 'content.js')
     scripts += f'<script>\nwindow.FLEET_DB = {(E / "fleet.json").read_text(encoding="utf-8")};\n</script>\n'
     scripts += f'<script>\nwindow.DUMMIES_STORY = {json.dumps(story_json(plan, not p11), ensure_ascii=False)}; // story_v2.json; Map 1 from content/story_map1.json\n</script>\n'
     scripts += js(E / 'lore.js')
     cr = cues['credits']
     credit = ['Music by ' + cr['music'].replace(' on itch.io', ''), 'Sound effects by ' + cr['sfx'].replace(' on itch.io', '')]
-    scripts += (f"<script>\nwindow.DUMMIES_LORE.build = '{'SHIPPING V1 · PUZZLES' if p11 else 'P9 × P10'}';\n"
-                f"window.DUMMIES_CREDITS.lines = window.DUMMIES_CREDITS.lines.concat({json.dumps(credit, ensure_ascii=False)});\n</script>\n")
+    scripts += (f"<script>\nwindow.DUMMIES_LORE.build = '{'FINAL V2 · PUZZLES' if p11 else 'P9 × P10'}';\n"
+                + ("window.DUMMIES_LORE.notices.n36 = 'Self-driving cars never hit anyone. Your job: get hit.';\n" if p11 else '')
+                + f"window.DUMMIES_CREDITS.lines = window.DUMMIES_CREDITS.lines.concat({json.dumps(credit, ensure_ascii=False)});\n</script>\n")
     # Prototype 9's values (prototypes/p9/build.py, Edits 97-100), then the integration's
     sim = dict({'arcade.grades': 1, 'ui.introScreen': 1, 'ui.levelCard': 1, 'world.droneDropIn': 1, 'ui.storySplash': 1},
                **{k: byid[k]['default'] for k in ('arcade.grade.healthStep', 'arcade.grade.densityStep', 'arcade.grade.max', 'highscore.tableSize', 'ui.intro.loopSeconds', 'ui.splash.cycleSeconds')})
@@ -276,12 +378,12 @@ def main(p11=False):
     if p11:
         scripts += f'<script>\nwindow.P11_PUZZLES = {json.dumps(pz, ensure_ascii=False)}; // content/puzzles_map1.json\n</script>\n'
         scripts += (js(ROOT / 'engine' / 'hero_cars.js') if (ROOT / 'engine' / 'hero_cars.js').exists() else '') + js(ROOT / 'engine' / 'p11.js') + js(ROOT / 'engine' / 'p11_ui.js')  # Prototype 11.4: the hero cars (the car design agent)
-    scripts += f'<script>\n{p11_game_js(game_js()) if p11 else game_js()}\n</script>\n'
+    scripts += f'<script>\n{v2_game_js(p11_game_js(game_js())) if p11 else game_js()}\n</script>\n'
     shell = (E / 'shell.html').read_text(encoding='utf-8')
-    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · Shipping V1</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
+    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · FINAL V2</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
     cache = ROOT / 'engine' / '.cache'; cache.mkdir(exist_ok=True)  # for headless checks (node): the same values the page gets
     (cache / ('runtime_p11.json' if p11 else 'runtime.json')).write_text(json.dumps({'sim': sim, 'story': story_json(plan, not p11), 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': rules, 'puzzles': pz}), encoding='utf-8')
-    out = ROOT / 'p11' / 'index.html' if p11 else ROOT / 'index.html'
+    out = ROOT / 'final_v2' / 'index.html' if p11 else ROOT / 'index.html'  # FINAL V2 (Edit 123); Shipping V1 stays frozen in p11/
     if '--out' in sys.argv:  # a trial build elsewhere (the page's audio stays at ../audio/)
         out = Path(sys.argv[sys.argv.index('--out') + 1]).resolve()
         out.parent.mkdir(parents=True, exist_ok=True)
