@@ -113,7 +113,7 @@
       if (s0 == null) return; // its lane's run-in is full: next tick
       const keep = P['perception.forwardLength']; P['perception.forwardLength'] = this.beamFor();
       let c; try { c = this.newCar('red' + (k + 1), 'sedan', ln.i, ln.path, s0, 0); } finally { P['perception.forwardLength'] = keep; }
-      c.red = true; c.rung = this.rung; c.model = this.learner || 'RED-01'; // Prototype 11.4: P11 names the learner's model (T.learner) c.cruise = P['vehicles.sedan.cruiseSpeed']; c.v = c.cruise;
+      c.red = true; c.rung = this.rung; c.model = this.learner || 'RED-01'; c.cruise = P['vehicles.sedan.cruiseSpeed']; c.v = c.cruise; // Prototype 11.4: P11 names the learner's model (T.learner)
       if (this.rung >= 1) c.standoff = this.envelope(0);
       this.pose(c); this.cars.push(c); this.redSeq = k + 1;
       if (this.rung >= 1) { const v = this.spawnSpeed(c); if (v < c.v) c.v = v; }

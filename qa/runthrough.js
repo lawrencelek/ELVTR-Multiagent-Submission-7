@@ -74,9 +74,10 @@ const log = [], T0 = Date.now(), say = (ok, step, detail) => { const e = { t: +(
     rec.result = z && z.result; say(rec.ok, tile + ' cleared', { attempts: rec.attempts, secs: rec.secs, result: rec.result });
     // result → lesson → the next card (or the grid after the boss)
     await key('Enter');
-    z = await until((w) => w.phase === 'lesson' || w.phase === 'brief' || w.screen === 'storymap', 8000);
+    z = await until((w) => w.phase === 'lesson' || w.phase === 'gift' || w.phase === 'brief' || w.screen === 'storymap', 8000);
     if (z && z.phase === 'lesson') { await pg.waitForTimeout(1500); await shot(`p_${tile}_lesson_clip`); await pg.waitForTimeout(2600); await shot(`p_${tile}_lesson_fit`); }
-    z = await until((w) => w.phase === 'brief' || w.screen === 'storymap', 20000, async (w) => { if (w.phase === 'lesson') await key('Enter'); });
+    if (z && z.phase === 'gift') { await pg.waitForTimeout(400); await shot(`p_${tile}_gift_drone`); await pg.waitForTimeout(1300); await shot(`p_${tile}_gift_landed`); await pg.waitForTimeout(1200); await shot(`p_${tile}_gift`); rec.gift = true; } // Shipping V1: a part's gift screen
+    z = await until((w) => w.phase === 'brief' || w.screen === 'storymap', 20000, async (w) => { if (w.phase === 'lesson' || w.phase === 'gift') await key('Enter'); });
     say(!!z, tile + ' lesson → ' + (z ? (z.screen === 'storymap' ? 'grid' : 'card ' + z.tile) : '?'));
     return rec;
   };

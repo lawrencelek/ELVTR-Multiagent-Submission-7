@@ -134,6 +134,19 @@ def p11_game_js(g):
         ("      if (s.phase === 'next' && app.mode === 'story') { saveStory(); startLevel(LEVEL_LIST.indexOf(app.story.district)); }",
          "      if (s.p11Go) { const go = s.p11Go; s.p11Go = null; saveStory(); if (go === 'map') toStoryMap(); else startStory(); } // Prototype 11: the next puzzle, the same again, or the grid\n"
          "      else if (s.phase === 'next' && app.mode === 'story') { saveStory(); startLevel(LEVEL_LIST.indexOf(app.story.district)); }"),
+        # Shipping V1 (11 Nov): a part earned at a clear shows the gift screen; its texts in the P11 pad layout (engine/p11.js P11.giftInfo)
+        ("    const tx = dx + DW + 44, tw = x + w - 30 - tx, pd = TOUCH.on || app.device === 'pad', rs = s.rescue;",
+         "    const tx = dx + DW + 44, tw = x + w - 30 - tx, pd = TOUCH.on || app.device === 'pad', rs = s.rescue, GI = s.p11 && window.P11 && window.P11.giftInfo ? window.P11.giftInfo(s) : null;"),
+        ("txt(nd.name.toUpperCase(), 0, 0, '900 64px ' + F_BRAND, C.dummy);",
+         "const NM = (GI ? GI.name : nd.name).toUpperCase(); ctx.font = '900 64px ' + F_BRAND; const NW = ctx.measureText(NM).width, FS = NW > tw ? Math.floor(64 * tw / NW) : 64; txt(NM, 0, 0, '900 ' + FS + 'px ' + F_BRAND, C.dummy);"),  # a long name fits the panel
+        ("ctx.strokeStyle = BADGE[tr.button]; ctx.lineWidth = 3; ctx.stroke();", "ctx.strokeStyle = BADGE[GI ? GI.button : tr.button]; ctx.lineWidth = 3; ctx.stroke();"),
+        ("txt(tr.button, bx, by + 9, '700 26px ' + F_MONO, FT.text, 'center'); txt(tr.verb, bx + br + 16,",
+         "txt(GI ? GI.button : tr.button, bx, by + 9, '700 26px ' + F_MONO, FT.text, 'center'); txt(GI ? GI.verb : tr.verb, bx + br + 16,"),
+        ("yy += 30 * wrapText(nd.desc, tx, yy, tw, 30,", "yy += 30 * wrapText(GI ? GI.desc : nd.desc, tx, yy, tw, 30,"),
+        ("const ng = s.story ? STORY.nextGift(s.story) : null;", "const ng = GI ? null : s.story ? STORY.nextGift(s.story) : null;"),
+        ("      if (ng) { txt(LT('n12', 'NEXT FROM FARSIGHT'),",
+         "      if (GI) { txt('NEXT PUZZLE', tx, yy + 26, fLab, FT.accent); wrapText(GI.next || '', tx, yy + 58, tw, 26, '400 19px ' + F_UI, FT.dim, 3); }\n"
+         "      else if (ng) { txt(LT('n12', 'NEXT FROM FARSIGHT'),"),
     ], 'game.js (P11)')
 
 
@@ -214,7 +227,7 @@ def main(p11=False):
     if p11:  # Prototype 11.3 (Edit 119): the parts in the P11 pad layout (A dash, B crouch, X jump, Y interact); Submission 7 keeps its own
         P11_PARTS = {'battery1': dict(key='A (keys: Space)', text="Dash: A (keys: Space). Reach a car's path from cover set back from the road."),
                      'legs1': dict(key='X (keys: J)', text='Jump: X (keys: J). A running jump clears a K-rail.'),
-                     'knees1': dict(verb='CROUCH', key='hold B (keys: C)', text='Crouch: B (keys: C). Press to crouch, again to stand. Low cover hides you from its sensors.'),
+                     'knees1': dict(verb='CROUCH', key='B (keys: C)', text='Crouch: B (keys: C). Press to crouch, again to stand. Low cover hides you from its sensors.'),
                      'hands1': dict(key='Y (keys: E)', text='Cones: Y picks one up. Y with none in reach puts one down.')}
         rules = dict(rules, parts={k: dict(v, **P11_PARTS.get(k, {})) for k, v in RULES['parts'].items()})
     stages = json.loads((V / 'sim_flags.json').read_text(encoding='utf-8'))['stages']
@@ -265,7 +278,7 @@ def main(p11=False):
         scripts += (js(ROOT / 'engine' / 'hero_cars.js') if (ROOT / 'engine' / 'hero_cars.js').exists() else '') + js(ROOT / 'engine' / 'p11.js') + js(ROOT / 'engine' / 'p11_ui.js')  # Prototype 11.4: the hero cars (the car design agent)
     scripts += f'<script>\n{p11_game_js(game_js()) if p11 else game_js()}\n</script>\n'
     shell = (E / 'shell.html').read_text(encoding='utf-8')
-    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · Puzzles (Prototype 11.5)</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
+    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · Shipping V1</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
     cache = ROOT / 'engine' / '.cache'; cache.mkdir(exist_ok=True)  # for headless checks (node): the same values the page gets
     (cache / ('runtime_p11.json' if p11 else 'runtime.json')).write_text(json.dumps({'sim': sim, 'story': story_json(plan, not p11), 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': rules, 'puzzles': pz}), encoding='utf-8')
     out = ROOT / 'p11' / 'index.html' if p11 else ROOT / 'index.html'

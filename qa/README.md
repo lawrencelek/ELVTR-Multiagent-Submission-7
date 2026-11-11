@@ -20,7 +20,7 @@ The agent: `python3 pipeline/qa_attack.py` (prompt `pipeline/agents/qa_adversary
 Runs go to `pipeline/runs/<stamp>-qa/`.
 
 **Last results (9 Nov):**
-- Runthrough (P11.5: the grey-metallic LUMINARY™, part names in its trade): pass, nine puzzles on the first try, 5 min 52 s ([video](../docs/p11_runthrough.mp4)).
+- Runthrough (Shipping V1, Edit 122: parts land on the gift screen; the red car enters at cruise): pass, nine puzzles on the first try, 5 min 59 s ([video](../docs/p11_runthrough.mp4)).
 - Click everywhere: 1,653 actions, clean.
 - The agent: 87 plans and 15 reported bugs, checked in GDD Edit 118 §118.3.
 

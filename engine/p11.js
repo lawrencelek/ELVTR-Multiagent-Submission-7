@@ -95,6 +95,15 @@
     const nx = nextOf(p.q.tile), q = nx && BY[nx]; return q ? 'Puzzle ' + q.n + ': ' + q.name + '. New: ' + q.new : 'Certification. Arcade is open.';
   };
 
+  // Shipping V1 (11 Nov): a part earned at a clear shows Prototype 9's gift screen (the chassis, the drone, the module landing,
+  // the fanfare), not a text card. Super Knees has no Prototype 9 module: it lands as the legs' module. Texts in the P11 pad layout.
+  const GIFT = { battery1: { art: 'battery1', button: 'A' }, hands1: { art: 'hands1', button: 'Y' }, knees1: { art: 'legs1', button: 'B' }, legs1: { art: 'legs1', button: 'X' } };
+  P11.giftInfo = function (s) {
+    const L = s && s.p11 && s.p11.partGift; if (!L) return null;
+    const pt = PARTS[L.part] || {}, g = GIFT[L.part] || {};
+    return { part: L.part, node: g.art, button: g.button || 'A', name: pt.name || L.part, verb: pt.verb || '', desc: pt.text || '', next: P11.lessonNext(s) };
+  };
+
   // ---------- the puzzle's sim
   const Base = STORY.StorySim;
   class PuzzleSim extends Base {
@@ -150,6 +159,11 @@
       const p = this.p11; if (!p) return super.step(cmd);
       if (this.phase === 'report' && !p.result) { if (!p.went) { p.went = true; this.p11Go = 'replay'; } return; } // a write-off that cleared nothing: the puzzle again
       if (this.phase === 'report' && this.clearLesson && !p.resultSeen) return; // the stars first; then the lesson
+      if (this.phase === 'report' && this.clearLesson && this.clearLesson.part && GIFT[this.clearLesson.part]) { // a part: the gift screen
+        p.partGift = this.clearLesson; this.clearLesson = null; this.phase = 'gift';
+        this.emit('gift', { node: GIFT[p.partGift.part].art, tile: p.q.tile, part: p.partGift.part });
+        return;
+      }
       if (this.phase === 'report' && p.resultSeen && !this.clearLesson) { if (!p.went) { p.went = true; this.p11Go = p.after || 'map'; } return; }
       super.step(cmd);
       if (this.phase === 'play' && !this.rescue && !this.duelDone && !this.duelPending) { const dt = 1 / this.P['simulation.tickRate']; p.clock += dt; p.attempt += dt; }
@@ -217,6 +231,10 @@
       T.lesson = { state: 'due', mid: true, from: T.rung, to: T.rung + 1, name: next.name, sensor: next.sensor, model: c.model, car: c.id, zone: e.zone, kind: e.kind, hitT: e.t, lost: e.lost, origin: e.origin || null, seenAt: e.seenAt || null,
         clip: { frames: (this.clipRing || []).slice(), hitT: this.t, zone: e.zone } };
       T.emit('lesson-due', { model: c.model, from: T.rung, to: T.rung + 1, zone: e.zone, car: c.id, mid: true });
+    }
+    continueGift() {
+      const p = this.p11; if (!p || !p.partGift) return super.continueGift();
+      const part = p.partGift.part; p.partGift = null; this.phase = 'report'; this.emit('earned', { part }); // then the next puzzle
     }
     continueLesson() {
       const T = this.duelT, L = T && T.lesson, mid = L && L.mid, atClear = L && L.atClear && !L.part;
