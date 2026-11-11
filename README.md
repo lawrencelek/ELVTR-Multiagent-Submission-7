@@ -7,6 +7,7 @@
 | **Playable link** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/** |
 | **Repository** | https://github.com/lawrencelek/ELVTR-Multiagent-Submission-7 |
 | **Pipeline-run video** | [`docs/pipeline_run.mp4`](docs/pipeline_run.mp4) (2 min 48 s) · [play in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/pipeline_run.mp4) |
+| **Handover (all deliverables)** | [`docs/DUMMIES_Handover_Assignment7.md`](docs/DUMMIES_Handover_Assignment7.md) |
 | **One-page audit** | [`docs/02_Pipeline_Audit.md`](docs/02_Pipeline_Audit.md) |
 | **P9 × P10 integration** | [`docs/01_P9_P10_Integration_Analysis.md`](docs/01_P9_P10_Integration_Analysis.md) · GDD [Edit 111](docs/DUMMIES_GDD_Edit111_Submission7_Integration.md) |
 | **Prototype 11.5 (puzzles)** | **https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11/** · GDD [Edit 113](docs/DUMMIES_GDD_Edit113_Prototype_11_Architecture.md), [Edit 116](docs/DUMMIES_GDD_Edit116_Prototype_11_1_Kit.md), [Edit 117](docs/DUMMIES_GDD_Edit117_Prototype_11_2_Sensor_Feedback.md), [Edit 119](docs/DUMMIES_GDD_Edit119_Prototype_11_3_Snake_Pad_Upgrade.md), [Edit 120](docs/DUMMIES_GDD_Edit120_Prototype_11_4_Crouch_Luminary_Hero_Car.md), [Edit 121](docs/DUMMIES_GDD_Edit121_Prototype_11_5_Liveries_Genesis_Part_Names.md) · frozen: [P11.0](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_0/), [P11.1](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_1/), [P11.2](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_2/), [P11.3](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_3/), [P11.4](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/p11_4/) |
@@ -33,7 +34,7 @@
    - The save screen: **NEW GAME** (name your chassis, Enter), or **CONTINUE** a save. Saves stay in this browser.
    - The story map opens on Monument; press **Enter**.
 2. The tile card shows the tale and the objective. Press **Enter** or **Space**. A drone drops you in.
-3. Move with **arrows or WASD**. Walk into the red car's path and let it hit you: two hits clear tile 1, in about a minute.
+3. Move with **arrows or WASD**. Walk into the red car's path and let it hit you: one hit clears tile 1, in about a minute.
 4. Only a car that hits you scores. Get into its path, too late for it to stop. Run or dash into a car and you take damage for nothing (YOUR FAULT).
 5. The dummy walks and runs at 70% of Prototype 9's speed: ambush the car, don't chase it. Later tiles bring more keys:
    - **Space** dashes (Battery 1, tile 2).

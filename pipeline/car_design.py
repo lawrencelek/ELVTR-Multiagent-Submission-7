@@ -169,7 +169,8 @@ def main():
         rep += ['', f"## Round {h['round']} review", '', f"**Verdict:** {d.get('verdict', '')}", '', '| Id | Severity | Shots | What | Fix |', '|---|---|---|---|---|']
         rep += [f"| {f.get('id')} | {f.get('severity')} | {', '.join(f.get('shots', []))} | {f.get('what', '')} | {f.get('fix', '')} |" for f in d.get('findings', [])]
     cost = sum((c.get('cost_usd') or 0) for c in run.calls)
-    rep += ['', f'Cost: ${cost:.2f}']
+    total = sum((c.get('cost_usd') or 0) for c in run.ledger())
+    rep += ['', f'Cost: ${cost:.2f} this session · ${total:.2f} this run folder (calls.jsonl)']
     run.save('report.md', '\n'.join(rep) + '\n')
     print(run.dir)
 

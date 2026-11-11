@@ -22,6 +22,18 @@ class Run:
         self.dir.mkdir(parents=True, exist_ok=True)
         self.calls = []
 
+    def record(self, rec):
+        """One call's usage: kept in memory (this session) and appended to calls.jsonl (the run folder's ledger), so a
+        resumed run keeps the costs of its earlier sessions."""
+        self.calls.append(rec)
+        with open(self.dir / 'calls.jsonl', 'a', encoding='utf-8') as f:
+            f.write(json.dumps(rec, ensure_ascii=False) + '\n')
+
+    def ledger(self):
+        """Every call this run folder has recorded, across sessions."""
+        p = self.dir / 'calls.jsonl'
+        return [json.loads(l) for l in p.read_text(encoding='utf-8').splitlines() if l.strip()] if p.exists() else list(self.calls)
+
     def save(self, name, obj):
         (self.dir / name).write_text(obj if isinstance(obj, str) else json.dumps(obj, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
 
@@ -44,7 +56,7 @@ def call(run, role, model, message, label, tools=''):
     if replay and (Path(replay) / f'{label}_output_raw.txt').exists():
         text = (Path(replay) / f'{label}_output_raw.txt').read_text(encoding='utf-8')
         run.save(f'{label}_output_raw.txt', text)
-        run.calls.append({'label': label, 'role': role, 'model': model, 'replayed': True, 'cost_usd': 0})
+        run.record({'label': label, 'role': role, 'model': model, 'replayed': True, 'cost_usd': 0})
         return text
     cmd = [CLAUDE, '-p', '--system-prompt', system, '--tools', tools, '--output-format', 'json', '--no-session-persistence', '--model', model]
     if tools:
@@ -64,8 +76,8 @@ def call(run, role, model, message, label, tools=''):
     rec = {'label': label, 'role': role, 'model': model, 'seconds': round(time.time() - t0, 1), 'cost_usd': env.get('total_cost_usd'),
            'input_tokens': u.get('input_tokens'), 'cache_write_tokens': u.get('cache_creation_input_tokens'),
            'cache_read_tokens': u.get('cache_read_input_tokens'), 'output_tokens': u.get('output_tokens'),
-           'prompt_chars': len(system) + len(message), 'models': sorted((env.get('modelUsage') or {}).keys())}
-    run.calls.append(rec)
+           'prompt_chars': len(system) + len(message), 'models': sorted((env.get('modelUsage') or {}).keys()), 'at': time.strftime('%Y-%m-%d %H:%M:%S')}
+    run.record(rec)
     return text
 
 
