@@ -68,7 +68,36 @@
      380
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.62,
+      "side": "S",
+      "gap": 18,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.78,
+      "side": "S",
+      "gap": 18,
+      "street": true
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.18,
+      "side": "S",
+      "gap": 18,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.74,
+      "side": "N",
+      "gap": 18,
+      "street": true
+     }
+    ]
    },
    "tale": "Parkland's patrol car. Police spec: it sees ahead and to the sides from day one.",
    "new": "The Vanguard™: forward camera and side sensors from the start.",
@@ -164,6 +193,34 @@
       "at": 0.3,
       "side": "E",
       "gap": 4
+     },
+     {
+      "kind": "hedge",
+      "at": 0.62,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.86,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "planter",
+      "at": 0.66,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.1,
+      "side": "N",
+      "gap": 2,
+      "street": true
      }
     ]
    },
@@ -207,7 +264,36 @@
      330
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "hedge",
+      "at": 0.18,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.78,
+      "side": "N",
+      "gap": 18,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.18,
+      "side": "S",
+      "gap": 18,
+      "street": true
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.86,
+      "side": "S",
+      "gap": 18,
+      "street": true
+     }
+    ]
    },
    "tale": "The highway roofs the road. Its roof lidar sees you up on the deck.",
    "new": "Watchtower: its lidar sees you on the deck.",
@@ -249,7 +335,36 @@
      450
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.22,
+      "side": "S",
+      "gap": 18,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.86,
+      "side": "N",
+      "gap": 18,
+      "street": true
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.86,
+      "side": "S",
+      "gap": 18,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.22,
+      "side": "N",
+      "gap": 18,
+      "street": true
+     }
+    ]
    },
    "senior": {
     "lane": 1,
@@ -296,7 +411,36 @@
      300
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "hedge",
+      "at": 0.78,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.1,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "planter",
+      "at": 0.82,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.1,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     }
+    ]
    },
    "senior": {
     "lane": 1,
@@ -343,7 +487,36 @@
      600
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "hedge",
+      "at": 0.66,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.86,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "planter",
+      "at": 0.62,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.3,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     }
+    ]
    },
    "tale": "The wide bend under the belvedere. Out of the turn the Vanguard™ picks up speed along the garden.",
    "new": "Out of the bend: it is fast and has eyes on its line.",
@@ -386,7 +559,29 @@
      600
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "hedge",
+      "at": 0.14,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.1,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.9,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     }
+    ]
    },
    "senior": {
     "lane": 2,
@@ -434,7 +629,22 @@
      320
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "hedge",
+      "at": 0.42,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.62,
+      "side": "N",
+      "gap": 18,
+      "street": true
+     }
+    ]
    },
    "tale": "The street roundabout where the garden street meets the boulevard. Three hits certify the Vanguard™.",
    "new": "A boss. It learns once, after your first hit.",

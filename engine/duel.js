@@ -339,7 +339,7 @@
     duelStop() { this.clipRing = []; this.clearLesson = null; if (this.duelT) leave(this.duelT, this.W6.sims); this.duelT = null; this.duelDef = null; this.duelSc = null; if (this.body) { this.body.duck = false; this.body.lifted = false; } }
     duelProgress() { const d = this.duelDef, T = this.duelT; if (!d) return 0; return d.objective.kind === 'stealth' ? (T ? T.stealth.points : 0) : d.objective.kind === 'incidents' ? (T && this.duelMovedAt != null ? (T.run.incidents || 0) - this.duelInc0 : 0) : this.duelHits; } // an Incident counts once the dummy has moved: it made the car brake
     duelObjective() {
-      if (this.p11Finale) return ['CERTIFIED · THE SEND-OFF', 'Three models pass. A Corporation drone takes you to the ship at B3.']; // FINAL V2.1 (Edit 126): the send-off's line
+      if (this.p11Finale) return ['CERTIFIED · THE SEND-OFF', globalThis.P11_V3 && !(this.unveil && this.unveil.done) ? 'Three models pass. A Corporation drone takes you to your statue at the Circus.' : 'Three models pass. A Corporation drone takes you to the ship at B3.']; // FINAL V2.1 (Edit 126): the send-off's line; FINAL V3 (Edit 127): the statue first
       const d = this.duelDef;
       if (!d || !this.duelT || this.duelDone) { // between tiles: the next tile's objective in the plan's words, never Prototype 9's write-offs
         const MP = mapOf(this.levelId), act = this.story && MP ? STORY.activeTile(this.story, this.levelId) : null, nx = act ? MP.tiles.find((q) => q.tile === act) : null;

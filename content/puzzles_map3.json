@@ -116,7 +116,15 @@
      372
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.62,
+      "side": "E",
+      "gap": 2,
+      "street": true
+     }
+    ]
    },
    "tale": "The valley road leaves the tunnel at the cove head. It comes out of the dark fast.",
    "new": "The tunnel: you see it only as it leaves the portal.",
@@ -211,7 +219,36 @@
      560
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.1,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "planter",
+      "at": 0.14,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.3,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "billboard",
+      "at": 0.66,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     }
+    ]
    },
    "tale": "The avenue under the east bridge and the cliff-top walkway. Beach on one side, cliff on the other.",
    "new": "Pit Wall: a street camera watches the beach. The bridge above hides you.",
@@ -271,7 +308,22 @@
      590
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.7,
+      "side": "S",
+      "gap": 18,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.34,
+      "side": "S",
+      "gap": 18,
+      "street": true
+     }
+    ]
    },
    "tale": "The circus: the tunnel road, the avenue and the beach road meet at the roundabout.",
    "new": "Yellow Flag: cones stop it now. It gives way at the ring.",
@@ -316,7 +368,36 @@
      560
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.1,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "planter",
+      "at": 0.14,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.3,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "billboard",
+      "at": 0.66,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     }
+    ]
    },
    "tale": "Cliff, avenue, beach: the west end. A walkway leaves the cliff top over the road.",
    "new": "Two hits. The Vanguard™ drives the other way and reports.",
@@ -366,7 +447,29 @@
      100
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.82,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "planter",
+      "at": 0.7,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.1,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     }
+    ]
    },
    "tale": "The drive on the seawall, under the west bridge. It remembers where it crashed.",
    "new": "Pace Notes: it brakes where it crashed. The seawall: sand to the north, river to the south.",
@@ -412,7 +515,36 @@
      120
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "kiosk",
+      "at": 0.66,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "planter",
+      "at": 0.7,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "cabinet",
+      "at": 0.1,
+      "side": "N",
+      "gap": 18,
+      "street": true
+     },
+     {
+      "kind": "billboard",
+      "at": 0.82,
+      "side": "N",
+      "gap": 18,
+      "street": true
+     }
+    ]
    },
    "tale": "The beach road meets the drive by the stilt houses. The ship that takes certified models to market is moored here.",
    "new": "Pace Notes: it remembers every crash and brakes there. Two hits.",
@@ -458,7 +590,22 @@
      80
     ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "planter",
+      "at": 0.26,
+      "side": "S",
+      "gap": 2,
+      "street": true
+     },
+     {
+      "kind": "kiosk",
+      "at": 0.86,
+      "side": "N",
+      "gap": 2,
+      "street": true
+     }
+    ]
    },
    "tale": "The drive swings inland under the east bridge. Three hits certify the Genesis™, the last model. The ship is waiting.",
    "new": "A boss. It learns once, after your first hit.",

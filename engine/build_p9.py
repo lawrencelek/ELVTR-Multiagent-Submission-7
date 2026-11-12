@@ -328,7 +328,13 @@ def p11_plan(pz):
     return {'map': pz['map'], 'tiles': tiles, 'district': pz['map'].get('district', pz['map'].get('id', 'monument')), 'provenance': {'run': 'content/puzzles_map1.json (set by hand, Edit 113)'}}
 
 
-def world6_js(v2=False):
+def v3_game_js(g, v3):  # FINAL V3 (Edit 127): the send-off flies to the statue first; the drone's line says so
+    if not v3: return g
+    return patch(g, [("      if (rs && rs.voyage) return [LT('n06', 'FARSIGHT DRONE'), 'Carrying the certified model to the ship at ' + rs.tile + '.'];",
+                      "      if (rs && rs.voyage) return [LT('n06', 'FARSIGHT DRONE'), rs.statue ? 'Carrying the certified model to its statue at the Circus.' : 'Carrying the certified model to the ship at ' + rs.tile + '.']; // FINAL V3 (Edit 127)")], 'game.js (V3)')
+
+
+def world6_js(v2=False, v3=False):
     w = (E / 'world6.js').read_text(encoding='utf-8')
     if v2:  # FINAL V2 (Edit 123, the UI cleanup agent): the stair aprons' marks are wayfinding, not signals: no cyan boxes, faint chevrons
         w = patch(w, [("x1 = Math.round((a.x + a.w) / U) - 1, y1 = Math.round((a.y + a.h) / U) - 1, br = mixK(CON.l, N.cyan, 0.55);",
@@ -352,6 +358,27 @@ def world6_js(v2=False):
         # (tile: 'B1'): no other tile draws it, so no seam
         w = patch(w, [("roads: [{ id: 'boulevard', pts: [[40, -200], [2360, 2120]] }, { id: 'loop', pts: fil(", "roads: [{ id: 'boulevard', pts: [[40, -200], [2360, 2120]] }, { id: 'drive', tile: 'B1', pts: fil([[1350, -200], [1350, 214], [1520, 214], [1520, -200]], [0, 84, 84, 0]) }, { id: 'loop', pts: fil("),
                       ("    for (const r of D.roads) { const run = clipRun(", "    for (const r of D.roads) { if (r.tile && r.tile !== name) continue; const run = clipRun(")], 'world6.js (V2.1 B1)')
+    if v3:  # FINAL V3 (Edit 127, Lawrence's playtest, 12 Nov): "I can't jump down from the ledges"; "the opening is placed diagonally"
+        # 1. The V2.1 gap guard (Edit 124) is for a deck's parapet gaps only. Walkways, the ring's open edge and hills drop at once again.
+        #    A deck's gap drops a push that points out of it: 60% of the step across the parapet (world.gapDropShare, proposed), as V2.1.
+        #    V2.1's held push (0.35 s) never completed (it reset on every push-back) and is cut. A shallower push slides past the gap;
+        #    the gap's far corner no longer traps it: a body held there steps back inside the parapet line and slides on
+        w = patch(w, [("      if (f.has(b.x, b.y)) { b.gapT = 0; return; }\n      const block = () =>", "      if (f.has(b.x, b.y)) return;\n      const block = () =>"),
+                      ("      if (b.mode === 'lunge' || b.mode === 'jump' || !globalThis.P11) return true; const dk = f && f.layer && f.layer.dk, vx = b.x - b.px, vy = b.y - b.py, v = Math.hypot(vx, vy);\n"
+                       "      if (dk && v > 1e-6 && Math.abs(dk.hz ? vy : vx) / v >= 0.6) return true; b.gapT = (b.gapT || 0) + 1 / (this.P['simulation.tickRate'] || 60); return b.gapT >= 0.35; }",
+                       "      if (b.mode === 'lunge' || b.mode === 'jump' || !globalThis.P11) return true; const dk = f && f.layer && f.layer.dk; if (!dk) return true; // FINAL V3 (Edit 127): decks only\n"
+                       "      const vx = b.x - b.px, vy = b.y - b.py, v = Math.hypot(vx, vy); if (v > 1e-6 && Math.abs(dk.hz ? vy : vx) / v >= 0.6) return true;\n"
+                       "      b.gapSlide = dk; return false; }"),
+                      ("      if (f.has(b.px, b.y)) { b.x = b.px; b.vx = 0; } else if (f.has(b.x, b.py)) { b.y = b.py; b.vy = 0; } else { b.x = b.px; b.y = b.py; b.vx = 0; b.vy = 0; }\n",
+                       "      if (f.has(b.px, b.y)) { b.x = b.px; b.vx = 0; } else if (f.has(b.x, b.py)) { b.y = b.py; b.vy = 0; } else { b.x = b.px; b.y = b.py; b.vx = 0; b.vy = 0; }\n"
+                       "      if (b.gapSlide) { const dk = b.gapSlide, s = ((dk.hz ? b.y : b.x) < dk.off) ? 1 : -1; b.gapSlide = null; if (dk.hz ? f.has(b.x, b.y + s) : f.has(b.x + s, b.y)) { if (dk.hz) b.y += s; else b.x += s; } } // FINAL V3 (Edit 127): out of a gap's corner, back inside the parapet line\n")], 'world6.js (V3 gaps)')
+        # 2. A walkway's opening sits on a straight, square run of its spine, still over the road; never across a diagonal or a corner
+        w = patch(w, [("          c += best;\n          if (c <= T || c >= path.length - T || gaps.some(([a0, a1]) => c > a0 - T && c < a1 + T)) continue;",
+                       "          c += best;\n"
+                       "          { const sq = (a) => { const q0 = X.pathAt(path, a - 1), q1 = X.pathAt(path, a + 1), dx = Math.abs(q1.x - q0.x), dy = Math.abs(q1.y - q0.y); return Math.min(dx, dy) <= 0.05 * (hyp(dx, dy) || 1); };\n"
+                       "            const ok = (cc) => { if (cc <= T || cc >= path.length - T) return false; for (let a = cc - T / 2 - 4; a <= cc + T / 2 + 4; a += 2) if (!sq(a)) return false; const q = X.pathAt(path, cc); return roadC(q.x, q.y) < LW * 0.9; };\n"
+                       "            if (!ok(c)) { let to = null; for (let d = 2; d <= LW + T && to == null; d += 2) for (const cc of [c - d, c + d]) if (to == null && ok(cc)) to = cc; if (to == null) continue; c = to; } } // FINAL V3 (Edit 127): no diagonal openings\n"
+                       "          if (c <= T || c >= path.length - T || gaps.some(([a0, a1]) => c > a0 - T && c < a1 + T)) continue;")], 'world6.js (V3 openings)')
     return patch(w, [
         ("  const api = { P6SIM, DISTRICTS,",
          "  // Submission 7: the duel's low planters and street-camera posts, painted into the tile's ground art as Prototype 9 paints its own\n"
@@ -418,7 +445,7 @@ def story_json(plan, gifts=True, more=()):
     return d
 
 
-def main(p11=False):
+def main(p11=False, v3=False):
     pz = json.loads((ROOT / 'content' / 'puzzles_map1.json').read_text(encoding='utf-8')) if p11 else None
     plan = p11_plan(pz) if p11 else json.loads((ROOT / 'content' / 'story_map1.json').read_text(encoding='utf-8'))
     pzs = [json.loads((ROOT / 'content' / f'puzzles_map{k}.json').read_text(encoding='utf-8')) for k in (2, 3) if (ROOT / 'content' / f'puzzles_map{k}.json').exists()] if p11 else []  # FINAL V2.1: Map 2, Parkland (Edit 125); Map 3, Waterfront (Edit 126)
@@ -448,7 +475,7 @@ def main(p11=False):
     cues['params']['audio.settings.master'] = 5  # Lawrence (7 Nov): the volume starts at 5 of 10 (a saved setting still wins)
     js = lambda p: f'<script>\n{p.read_text(encoding="utf-8")}\n</script>\n'
     scripts = js(E / 'jump.js') + ''.join(js(E / f) for f in ('sim.js', 'pixel.js', 'lab.js', 'circus_valley.js'))
-    w6 = world6_js(p11)
+    w6 = world6_js(p11, v3)
     if p11: (ROOT / 'engine' / '.cache').mkdir(exist_ok=True); (ROOT / 'engine' / '.cache' / 'world6_p11.js').write_text(w6, encoding='utf-8')  # Edit 126: headless runs the page's world (qa/headless.js)
     scripts += f'<script>\n{w6}\n</script>\n' + js(E / 'content.js')
     scripts += f'<script>\nwindow.FLEET_DB = {(E / "fleet.json").read_text(encoding="utf-8")};\n</script>\n'
@@ -494,14 +521,15 @@ def main(p11=False):
     scripts += f'<script>\nwindow.DUEL_RULES = {json.dumps(rules, ensure_ascii=False)}; // engine/progression.json\n</script>\n'
     scripts += js(ROOT / 'engine' / 'duel.js') + js(ROOT / 'engine' / 'duel_ui.js')
     if p11:
-        scripts += f'<script>\nwindow.P11_PUZZLES = {json.dumps(pz, ensure_ascii=False)}; // content/puzzles_map1.json\nwindow.P11_MAPS = [window.P11_PUZZLES{''.join(', ' + json.dumps(z, ensure_ascii=False) for z in pzs)}]; // + content/puzzles_map2.json (Edit 125), puzzles_map3.json (Edit 126)\n</script>\n'
+        v3flag = 'window.P11_V3 = true; // FINAL V3 (Edit 127): the send-off flies to the statue\n' if v3 else ''
+        scripts += f'<script>\nwindow.P11_PUZZLES = {json.dumps(pz, ensure_ascii=False)}; // content/puzzles_map1.json\nwindow.P11_MAPS = [window.P11_PUZZLES{''.join(', ' + json.dumps(z, ensure_ascii=False) for z in pzs)}]; // + content/puzzles_map2.json (Edit 125), puzzles_map3.json (Edit 126)\n{v3flag}</script>\n'
         scripts += (js(ROOT / 'engine' / 'hero_cars.js') if (ROOT / 'engine' / 'hero_cars.js').exists() else '') + js(ROOT / 'engine' / 'p11.js') + js(ROOT / 'engine' / 'p11_ui.js')  # Prototype 11.4: the hero cars (the car design agent)
-    scripts += f'<script>\n{v21_game_js(v2_game_js(p11_game_js(game_js()))) if p11 else game_js()}\n</script>\n'
+    scripts += f'<script>\n{v3_game_js(v21_game_js(v2_game_js(p11_game_js(game_js()))), v3) if p11 else game_js()}\n</script>\n'
     shell = (E / 'shell.html').read_text(encoding='utf-8')
-    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · FINAL V2</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
+    shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · FINAL V3</title>' if v3 else '<title>DUMMIES · FINAL V2</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
     cache = ROOT / 'engine' / '.cache'; cache.mkdir(exist_ok=True)  # for headless checks (node): the same values the page gets
     (cache / ('runtime_p11.json' if p11 else 'runtime.json')).write_text(json.dumps({'sim': sim, 'story': story_json(plan, not p11, more), 'plan2': plan2, 'puzzles2': pz2, 'plans': plans, 'pzs': pzs, 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': rules, 'puzzles': pz}), encoding='utf-8')
-    out = ROOT / 'final_v2' / 'index.html' if p11 else ROOT / 'index.html'  # FINAL V2 (Edit 123); Shipping V1 stays frozen in p11/
+    out = ROOT / ('final_v3' if v3 else 'final_v2') / 'index.html' if p11 else ROOT / 'index.html'  # FINAL V2 (Edit 123), FINAL V3 (Edit 127); Shipping V1 frozen in p11/, FINAL V2 in final_v2/
     if '--out' in sys.argv:  # a trial build elsewhere (the page's audio stays at ../audio/)
         out = Path(sys.argv[sys.argv.index('--out') + 1]).resolve()
         out.parent.mkdir(parents=True, exist_ok=True)
@@ -514,4 +542,4 @@ def main(p11=False):
 
 if __name__ == '__main__':
     import sys
-    main('--p11' in sys.argv)
+    main('--p11' in sys.argv or '--v3' in sys.argv, '--v3' in sys.argv)

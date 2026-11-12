@@ -313,7 +313,38 @@
       const plaque = { p11: true, puzzles: MAPS.reduce((a, m) => a + live(m).filter((t) => best(m, t)).length, 0), of: MAPS.reduce((a, m) => a + live(m).length, 0), stars: starsAll(pr),
         models: MAPS.map((m) => m.LEARNER.name), t: MAPS.reduce((a, m) => a + live(m).reduce((x, t) => x + (best(m, t) ? best(m, t).time : 0), 0), 0) };
       plaque.starsOf = plaque.of * 3; this.p11 = null; this.p11Finale = true; this.duelStop();
-      this.unveil = { plaque, done: false }; this.phase = 'unveil'; this.emit('unveil', plaque); this.emit('p11-sendoff', plaque);
+      this.unveil = { plaque, done: false }; this.emit('p11-sendoff', plaque);
+      if (root.P11_V3 && this.p11Tour()) return; // FINAL V3 (Edit 127): first to the statue
+      this.phase = 'unveil'; this.emit('unveil', plaque);
+    }
+    // FINAL V3 (Edit 127): the statue. A Corporation drone carries the dummy from the last puzzle to the dummy monument at the Circus
+    // (Waterfront B2), a tile at a time; it sets it down in front of the cloth; the cloth lifts; the plaque; then on to the ship.
+    p11Tour() {
+      let at = null; for (let r = 0; r < 3 && !at; r++) for (let c = 0; c < 3 && !at; c++) { const sc = this.W6.at(c, r); if (sc && sc.dummyMonument) at = [c, r]; }
+      if (!at || typeof this.startVoyage !== 'function') return false;
+      const legs = [], cur = this.district.cur.slice();
+      while (cur[1] !== at[1]) { const sd = at[1] < cur[1] ? 'N' : 'S'; cur[1] += sd === 'N' ? -1 : 1; legs.push([sd, cur.slice()]); }
+      while (cur[0] !== at[0]) { const sd = at[0] < cur[0] ? 'W' : 'E'; cur[0] += sd === 'W' ? -1 : 1; legs.push([sd, cur.slice()]); }
+      this.startVoyage(); const rs = this.rescue; if (!rs || !rs.voyage) return false;
+      rs.statue = legs; this.p11Next(rs);
+      return true;
+    }
+    p11Next(rs) { const leg = rs.statue.shift(); if (leg) { rs.side = leg[0]; rs.cell = leg[1]; } else rs.side = null; } // (rs.tile stays the ship's: B3)
+    p11StatueSpot() { const dm = this.sc && this.sc.dummyMonument; return dm ? { x: dm.cx, y: dm.cy + 40 } : this.shipPoint(); } // on the paving, in front of the plinth
+    stepVoyage(dt) {
+      const rs = this.rescue; if (!rs || !rs.statue) return super.stepVoyage(dt);
+      const d = rs.drone, into = () => { rs.to = this.p11StatueSpot(); rs.phase = 'in'; rs.k = 0; d.state = 'in'; this.p11Landing = true; };
+      if (rs.phase === 'carry' && !rs.side) into(); // (already on the statue's tile)
+      const was = this.district.cur.join(); super.stepVoyage(dt);
+      if (this.rescue === rs && rs.phase === 'in' && this.district.cur.join() !== was && !this.p11Landing) { if (rs.statue.length) { this.p11Next(rs); rs.phase = 'carry'; rs.k = 0; d.state = 'carry'; } else { rs.side = null; into(); } }
+    }
+    end(kind) { // the voyage's landing at the statue: the unveiling, not the ending
+      if (this.p11Landing && kind === 'Certified') { this.p11Landing = false; this.body.facing = -Math.PI / 2; this.phase = 'unveil'; this.emit('unveil', this.unveil && this.unveil.plaque); return; }
+      return super.end(kind);
+    }
+    monumentShrouded() { // FINAL V3 (Edit 127): the cloth stays on through all three maps, until the send-off's unveiling
+      if (!root.P11_V3 || !this.storyMode) return super.monumentShrouded ? super.monumentShrouded() : false;
+      const P = this.P; return !!(P['world.monumentShroud'] && P['world.dummyMonument'] && !(this.unveil && (this.phase === 'unveil' || this.unveil.done)));
     }
     checkTerminal() { // FINAL V2.1 (Edit 126): the last district's clear is not Prototype 9's finale (its monument, its plaque): the send-off follows Map 3's certification
       const r = super.checkTerminal();
