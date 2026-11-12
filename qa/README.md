@@ -21,7 +21,7 @@ The agent: `python3 pipeline/qa_attack.py` (prompt `pipeline/agents/qa_adversary
 Runs go to `pipeline/runs/<stamp>-qa/`.
 
 **Last results (12 Nov):**
-- FINAL V2.1 (Edit 126): <!--RT126-->. Every Map 2 and Map 3 script clears headless and through the pad in the browser. Bosses: Map 2 scripted (`parkland_C3.json`), Map 3 by the cut-in bot (`node qa/bot.js waterfront:C3 200`).
+- FINAL V2.1 (Edit 126): Maps 2 and 3 in order in the browser, then the send-off: pass ([video](../docs/final_v21_map3_sendoff.mp4)). Map 1's nine first try in each full run. Map 2's C1 and B3 scripts were the flaky ones under the recorder; fixed (a take-off point; two spots). Every Map 2 and Map 3 script clears headless and through the pad in the browser. Bosses: Map 2 scripted (`parkland_C3.json`), Map 3 by the cut-in bot (`node qa/bot.js waterfront:C3 200`).
 - FINAL V2.1 (Edits 124-125): runthrough pass, nine Map 1 puzzles first try, 6 min 24 s ([video](../docs/final_v21_runthrough.mp4)). Map 2's six built puzzles: `qa/solutions/parkland_*.json`, all ★★★ headless, all clear in the browser (`node qa/headless.js parkland:A1 qa/solutions/parkland_A1.json`).
 
 **Earlier (9 Nov):**

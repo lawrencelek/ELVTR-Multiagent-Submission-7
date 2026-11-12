@@ -101,7 +101,9 @@
 | Map 3 in order in the browser, then the send-off (real inputs from a save with Maps 1–2 certified) | Pass: nine puzzles first try, three gift screens, three lessons, the plaque, the voyage to B3, CERTIFIED, the grid's celebration. 5 min 41 s; no page errors |
 | Map 2 C1 K-Rail, browser | The timed run-up failed in long runs (the pad's clock is real time). The script now jumps at a take-off point (x 275): window nose 215–245; 4 of 4 browser runs clear |
 | Bug found and fixed | Clearing any Map 3 puzzle played Prototype 9's own finale (the last district's last tile). `PuzzleSim.checkTerminal` cancels it; only Map 3's certification plays the send-off |
-| Full runthrough, 27 puzzles and the send-off (`qa/runthrough.js --all`) | <!--RT--> |
+| Map 2 in order in the browser (real inputs from a save with Map 1 certified) | Pass: nine puzzles, the boss first try (57 s ★★★), the celebration. B3's script took three attempts. 11 min 53 s; no page errors |
+| Full runthrough (`qa/runthrough.js --all`), three runs | Map 1: nine puzzles first try, every run. Run 1 found the finale bug (Map 3 A1); runs 2–3 stopped on Map 2 scripts (C1, then B3) that miss under the recorder's load. Both scripts fixed above; the run in order (rows above) passes |
+| Map 2 B3, browser | The same spot twice missed often (it remembers the crash and slows there). Now two spots, x 640 then x 240, as a pair that repeats: 3 of 4 runs clear alone |
 
 ## 126.8 Files
 
