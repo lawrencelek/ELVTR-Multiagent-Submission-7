@@ -6,8 +6,8 @@
 // Each puzzle plays its script from qa/solutions/<tile>.json through the pad (the boss: engine/p9_play_test.js's cut-in bot).
 //   node qa/runthrough.js OUTDIR [page dir: p11]      → OUTDIR/runthrough.json, steps.log, shots/, runthrough.webm (.mp4)
 const path = require('path'), fs = require('fs'), { execFileSync } = require('child_process'); const { chromium } = require('playwright');
-const ROOT = path.resolve(__dirname, '..'), OUT = path.resolve(process.argv[2] || 'qa/runs/runthrough'), DIR = process.argv[3] || 'final_v2';
-const SOL = (t) => JSON.parse(fs.readFileSync(path.join(__dirname, 'solutions', t + '.json'), 'utf8'));
+const ROOT = path.resolve(__dirname, '..'), OUT = path.resolve(process.argv[2] || 'qa/runs/runthrough'), DIR = process.argv[3] || 'final_v2', ALL = process.argv.includes('--all'); // Edit 126: --all plays Maps 2 and 3 and the send-off too
+let MAPID = 'monument'; const SOL = (t) => JSON.parse(fs.readFileSync(path.join(__dirname, 'solutions', (MAPID === 'monument' ? '' : MAPID + '_') + t + '.json'), 'utf8')); // Edit 126: Map 2 and 3 scripts are parkland_A1.json …
 fs.mkdirSync(path.join(OUT, 'shots'), { recursive: true });
 const log = [], T0 = Date.now(), say = (ok, step, detail) => { const e = { t: +((Date.now() - T0) / 1000).toFixed(1), ok, step, detail: detail || '' }; log.push(e); console.log((ok ? 'ok   ' : 'FAIL ') + e.t + 's ' + step + (detail ? ' · ' + (typeof detail === 'string' ? detail : JSON.stringify(detail)) : '')); return ok; };
 (async () => {
@@ -74,7 +74,8 @@ const log = [], T0 = Date.now(), say = (ok, step, detail) => { const e = { t: +(
     rec.result = z && z.result; say(rec.ok, tile + ' cleared', { attempts: rec.attempts, secs: rec.secs, result: rec.result });
     // result → lesson → the next card (or the grid after the boss)
     await key('Enter');
-    z = await until((w) => w.phase === 'lesson' || w.phase === 'gift' || w.phase === 'brief' || w.screen === 'storymap', 8000);
+    z = await until((w) => w.phase === 'lesson' || w.phase === 'gift' || w.phase === 'brief' || w.phase === 'unveil' || w.screen === 'storymap', 8000);
+    if (z && z.phase === 'unveil') { rec.sendoff = true; say(true, tile + ' result → the send-off'); return rec; } // Edit 126: the last map's certification
     if (z && z.phase === 'lesson') { await pg.waitForTimeout(1500); await shot(`p_${tile}_lesson_clip`); await pg.waitForTimeout(2600); await shot(`p_${tile}_lesson_fit`); }
     if (z && z.phase === 'gift') { await pg.waitForTimeout(400); await shot(`p_${tile}_gift_drone`); await pg.waitForTimeout(1300); await shot(`p_${tile}_gift_landed`); await pg.waitForTimeout(1200); await shot(`p_${tile}_gift`); rec.gift = true; } // Shipping V1: a part's gift screen
     z = await until((w) => w.phase === 'brief' || w.screen === 'storymap', 20000, async (w) => { if (w.phase === 'lesson' || w.phase === 'gift') await key('Enter'); });
@@ -102,6 +103,22 @@ const log = [], T0 = Date.now(), say = (ok, step, detail) => { const e = { t: +(
   for (const tile of ORDER.slice(3)) { const r = await playPuzzle(tile); puzzles.push(r); if (!r.ok) break; }
   // ---------- certified
   q = await until((z) => z.screen === 'storymap', 10000); await pg.waitForTimeout(600); await shot('12_grid_certified');
+  if (ALL) { // Edit 126: the celebration opens Map 2; then Map 3; the last certification plays the send-off (plaque, voyage, CERTIFIED)
+    for (const mi of [1, 2]) {
+      await pg.waitForTimeout(1600); await shot(`m${mi}_celebration`); await key('Space');
+      const M = await pg.evaluate((i) => ({ id: window.P11.MAPS[i].id, order: window.P11.MAPS[i].ORDER }), mi);
+      let on = false; for (let k = 0; k < 40 && !on; k++) { on = (await pg.evaluate(() => window.P11.mapId())) === M.id; if (!on) { await pg.waitForTimeout(200); if (k === 15) await key('Space'); } } say(on, 'celebration → map ' + (mi + 1) + ' · ' + M.id);
+      MAPID = M.id; await pg.waitForTimeout(600); await shot(`m${mi}_grid`);
+      for (const tile of M.order) { const r = await playPuzzle(tile); r.tile = M.id + ':' + tile; puzzles.push(r); if (!r.ok || r.sendoff) break; }
+      if (mi === 1) { q = await until((z) => z.screen === 'storymap', 10000); say(!!q, 'map 2 certified → the grid'); }
+    }
+    const last = puzzles[puzzles.length - 1]; say(!!(last && last.sendoff), 'map 3 certified → the send-off');
+    q = await until((z) => z.phase === 'unveil', 8000); await pg.waitForTimeout(4200); await shot('s1_plaque');
+    await key('Space'); q = await until((z) => z.phase === 'voyage', 5000); say(!!q, 'plaque → voyage'); await pg.waitForTimeout(2600); await shot('s2_voyage');
+    q = await until((z) => z.phase === 'ending' || z.screen !== 'game', 30000); say(!!q && q.tile === 'B3', 'voyage → the ship at B3 → ending', q && { phase: q.phase, tile: q.tile }); await pg.waitForTimeout(2500); await shot('s3_certified');
+    for (let i = 0; i < 6 && (await st()).screen === 'game'; i++) { await key('ArrowDown'); await pg.waitForTimeout(200); await key('Enter'); await pg.waitForTimeout(900); } // Story map
+    q = await until((z) => z.screen === 'storymap', 8000); await pg.waitForTimeout(1600); await shot('s4_grid_after'); say(!!q, 'ending → the grid', q && q.screen);
+  }
   const arc = await pg.evaluate(() => window.P11.arcadeOpen()); say(arc, 'certified: Arcade open');
   const done = await pg.evaluate(() => { try { return JSON.parse(localStorage.getItem('dummies.p11.save1')).progress.p11; } catch (e) { return null; } });
   say(!!done && done.certified, 'save: certified', done && { certified: done.certified, solved: Object.keys(done.best || {}).length });
@@ -110,7 +127,7 @@ const log = [], T0 = Date.now(), say = (ok, step, detail) => { const e = { t: +(
   await tap('title:ARCADE'); q = await until((z) => z.screen !== 'title', 5000); say(!!q && q.screen !== 'title', 'Arcade opens', q && q.screen); await pg.waitForTimeout(800); await shot('14_arcade');
   for (let i = 0; i < 4 && (await st()).screen !== 'title'; i++) { await key('Escape'); await pg.waitForTimeout(500); }
   const mon = await pg.evaluate(() => ({ findings: window.__qa.findings, errors: window.__qa.errors, screens: window.__qa.screens }));
-  const ok = log.every((e) => e.ok) && !errs.length && puzzles.length === ORDER.length && puzzles.every((p) => p.ok);
+  const ok = log.every((e) => e.ok) && !errs.length && puzzles.length === (ALL ? 27 : ORDER.length) && puzzles.every((p) => p.ok);
   const out = { ok, page: DIR, secs: Math.round((Date.now() - T0) / 1000), puzzles, steps: log, pageErrors: errs.slice(0, 20), monitor: mon };
   fs.writeFileSync(path.join(OUT, 'runthrough.json'), JSON.stringify(out, null, 1));
   const vid = await pg.video().path(); await ctx.close(); await br.close();

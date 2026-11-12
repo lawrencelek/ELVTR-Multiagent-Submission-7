@@ -315,6 +315,11 @@
       plaque.starsOf = plaque.of * 3; this.p11 = null; this.p11Finale = true; this.duelStop();
       this.unveil = { plaque, done: false }; this.phase = 'unveil'; this.emit('unveil', plaque); this.emit('p11-sendoff', plaque);
     }
+    checkTerminal() { // FINAL V2.1 (Edit 126): the last district's clear is not Prototype 9's finale (its monument, its plaque): the send-off follows Map 3's certification
+      const r = super.checkTerminal();
+      if (this.p11 && this.unveil && !this.p11Finale) { this.unveil = null; if (this.pendingPhase === 'unveil') this.pendingPhase = 'report'; if (this.story) this.story.complete = false; }
+      return r;
+    }
     // the result card's keys: Enter on (the lesson, then the next puzzle); R the same puzzle again; Shift the grid
     resultKey(m, now) {
       const p = this.p11; if (!p || !p.result || p.resultSeen) return;

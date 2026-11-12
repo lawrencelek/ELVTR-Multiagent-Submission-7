@@ -112,8 +112,8 @@
    "par": 25,
    "layout": {
     "drop": [
-     560,
-     560
+     300,
+     372
     ],
     "cones": [],
     "cover": []
@@ -122,9 +122,9 @@
    "new": "The tunnel: you see it only as it leaves the portal.",
    "newLine": "The tunnel · it comes out of the dark",
    "hints": [
-    "Wait by the cove wall. Dash in as it comes out of the tunnel."
+    "The cove is narrow: dash on the slant, ahead of it. Go as it clears the portal."
    ],
-   "solution": "On the cove floor 150 west of its lane; dash east as its nose comes level."
+   "solution": "On the cove floor north of the west stair, 110 off its lane; dash south-east (47°) as its nose comes within 80, landing in its lane ahead of it."
   },
   {
    "n": 3,
@@ -165,8 +165,8 @@
     "cover": []
    },
    "tale": "The east end of the ridge. The Vanguard™ you certified patrols up here now, and it reports.",
-   "new": "The Vanguard™ reports you to the Genesis™.",
-   "newLine": "Vanguard™ · reports what it sees",
+   "new": "Pit Wall: the Vanguard™ you certified reports you to the Genesis™.",
+   "newLine": "Pit Wall · the Vanguard™ reports you",
    "hints": [
     "The Vanguard™ reports what it sees. Wait in the alley; let it pass. Dash as the Genesis™ comes level."
    ],
@@ -214,8 +214,8 @@
     "cover": []
    },
    "tale": "The avenue under the east bridge and the cliff-top walkway. Beach on one side, cliff on the other.",
-   "new": "Cover from above: the bridge hides you from the cameras.",
-   "newLine": "The bridge · cover from above",
+   "new": "Pit Wall: a street camera watches the beach. The bridge above hides you.",
+   "newLine": "Pit Wall · a camera; the bridge hides you",
    "hints": [
     "The camera watches the beach. Under the bridge it cannot see you. Dash as its nose comes level."
    ],
@@ -274,8 +274,8 @@
     "cover": []
    },
    "tale": "The circus: the tunnel road, the avenue and the beach road meet at the roundabout.",
-   "new": "Cones stop it. It gives way at the ring.",
-   "newLine": "Cones stop it",
+   "new": "Yellow Flag: cones stop it now. It gives way at the ring.",
+   "newLine": "Yellow Flag · cones stop it",
    "hints": [
     "Catch it on the avenue before the ring. Dash as its nose comes level."
    ],
@@ -369,7 +369,7 @@
     "cover": []
    },
    "tale": "The drive on the seawall, under the west bridge. It remembers where it crashed.",
-   "new": "The seawall: sand to the north, the river to the south.",
+   "new": "Pace Notes: it brakes where it crashed. The seawall: sand to the north, river to the south.",
    "newLine": "The seawall · sand or river",
    "hints": [
     "North of the drive, on the sand. Dash as its nose comes level."
@@ -415,8 +415,8 @@
     "cover": []
    },
    "tale": "The beach road meets the drive by the stilt houses. The ship that takes certified models to market is moored here.",
-   "new": "Two hits; it remembers both spots.",
-   "newLine": "Two hits · it remembers both",
+   "new": "Pace Notes: it remembers every crash and brakes there. Two hits.",
+   "newLine": "Pace Notes · two hits, two places",
    "hints": [
     "Two hits, either side of the beach road. Dash as its nose comes level."
    ],

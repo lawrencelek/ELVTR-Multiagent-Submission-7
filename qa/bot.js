@@ -36,7 +36,7 @@ function bot(tile, secs, opts) {
         }
         if (plan.x == null) steer(0, 0, 1);
         else { const gap = plan.Ls - nose, m = Math.hypot(plan.x - b.x, plan.y - b.y);
-          if (m < 12 && cool <= 0 && gap > c.v * 0.2 && gap <= c.v * 0.5 + 12) { duck = false; held = { mx: plan.dx, my: plan.dy }; press.aPress = true; cool = 1.5; dashes++; }
+          if (m < 12 && cool <= 0 && gap > c.v * 0.2 && gap <= c.v * 0.5 + 12) { duck = false; held = { mx: plan.dx, my: plan.dy }; press.aPress = true; cool = 1.5; dashes++; if (o.trace) console.log(t.toFixed(1), 'dash from', Math.round(b.x), Math.round(b.y), 'dir', plan.dx.toFixed(2), plan.dy.toFixed(2), 'to', Math.round(plan.lx), Math.round(plan.ly), 'gap', Math.round(gap)); }
           else if (cool > 1.2) { /* mid-dash: hold */ }
           else if (m >= 8) { duck = false; steer(plan.x - b.x, plan.y - b.y, 4); } else { steer(0, 0, 1); duck = !!s.duelDuck; } }
       }
