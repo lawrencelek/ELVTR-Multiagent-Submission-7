@@ -194,15 +194,26 @@
     for (let sv = s0; ; sv += 8) { const sx = Math.min(sv, s1), p = X.pathAt(c.path, sx); L.push([p.x + p.nx * (d - hw), p.y + p.ny * (d - hw)]); R.push([p.x + p.nx * (d + hw), p.y + p.ny * (d + hw)]); if (sx >= s1) break; }
     g.beginPath(); g.moveTo(...L[0]); for (const q of L.slice(1)) g.lineTo(...q); for (const q of R.reverse()) g.lineTo(...q); g.closePath(); return { L, R: R.reverse() };
   }
-  function crossAt(c, gm, ds) { const X = root.DUMMIES, p = X.pathAt(c.path, Math.min(c.path.length, c.s + c.L / 2 + ds)), hw = c.W / 2 + gm.br + 4, d = c.d || 0; return [[p.x + p.nx * (d - hw), p.y + p.ny * (d - hw)], [p.x + p.nx * (d + hw), p.y + p.ny * (d + hw)]]; }
+  function beam(g, c, gm, from, to) { // FINAL V2.1 (Edit 124): straight ahead from the nose, as the sim's forward beam (proto.sensorStraight); no bend with the road
+    const hw = c.W / 2 + gm.br, ca = Math.cos(c.h), sa = Math.sin(c.h), x0 = c.L / 2 + from, x1 = c.L / 2 + Math.min(to, 4000); if (x1 <= x0) return false;
+    const P = (u, v) => [c.x + ca * u - sa * v, c.y + sa * u + ca * v];
+    g.beginPath(); g.moveTo(...P(x0, -hw)); g.lineTo(...P(x1, -hw)); g.lineTo(...P(x1, hw)); g.lineTo(...P(x0, hw)); g.closePath(); return true;
+  }
+  function crossStraight(c, gm, ds) { const hw = c.W / 2 + gm.br + 4, ca = Math.cos(c.h), sa = Math.sin(c.h), u = c.L / 2 + ds; return [[c.x + ca * u + sa * hw, c.y + sa * u - ca * hw], [c.x + ca * u - sa * hw, c.y + sa * u + ca * hw]]; }
+  function crossAt(c, gm, ds) { if (s && s.p11) return crossStraight(c, gm, ds); const X = root.DUMMIES, p = X.pathAt(c.path, Math.min(c.path.length, c.s + c.L / 2 + ds)), hw = c.W / 2 + gm.br + 4, d = c.d || 0; return [[p.x + p.nx * (d - hw), p.y + p.ny * (d - hw)], [p.x + p.nx * (d + hw), p.y + p.ny * (d + hw)]]; }
   function scanField(g, c, gm, st, b) { // the ground fields, drawn on the offscreen layer, then shaded
     const hot = !!((c.hz && c.hz.inPath) || (c.det && c.det.fwd)), seenF = c.hz && c.hz.cone === 'forward', seenS = c.hz && c.hz.cone === 'side';
     // forward camera: a ribbon along its lane, the too-late zone brighter; pulses run out along it
-    if (ribbon(g, c, gm, 0, gm.reach)) { g.fillStyle = `rgba(${fwdRGB},${hot ? 0.25 : 0.1})`; g.fill(); g.strokeStyle = `rgba(${fwdRGB},${hot ? 0.6 : 0.35})`; g.lineWidth = 1.2; g.setLineDash(hot ? [] : [6, 5]); g.stroke(); g.setLineDash([]); } // FINAL V2 (Edit 123): idle, seen
-    if (ribbon(g, c, gm, 0, gm.late)) { g.fillStyle = `rgba(${fwdRGB},0.15)`; g.fill(); } // too late to stop: step in here and it hits you
+    const band = s && s.p11 ? beam : ribbon; // FINAL V2.1: straight, as it sees
+    if (s && s.p11) { // FINAL V2.1 (Edit 124): one forward field: its cone (or, before the cone, its beam), in the field grammar; no lane band
+      if (!gm.prop && beam(g, c, gm, 0, gm.reach)) { g.fillStyle = `rgba(${fwdRGB},${hot ? 0.25 : 0.1})`; g.fill(); g.strokeStyle = `rgba(${fwdRGB},${hot ? 0.6 : 0.35})`; g.lineWidth = 1.2; g.setLineDash(hot ? [] : [6, 5]); g.stroke(); g.setLineDash([]); }
+      if (gm.prop) { const on = hot || seenF, a0 = gm.lk - gm.A, a1 = gm.lk + gm.A; g.save(); g.translate(c.x, c.y); g.rotate(c.h); g.beginPath(); g.rect(c.L / 2, -4000, 4000, 8000); g.clip();
+        g.beginPath(); g.moveTo(gm.Fa, 0); g.arc(gm.Fa, 0, gm.Rf, a0, a1); g.closePath(); g.fillStyle = `rgba(${fwdRGB},${on ? 0.2 : 0.08})`; g.fill(); g.strokeStyle = `rgba(${fwdRGB},${on ? 0.6 : 0.3})`; g.lineWidth = 1.2; g.setLineDash(on ? [] : [6, 5]); g.stroke(); g.setLineDash([]); g.restore(); }
+    } else if (band(g, c, gm, 0, gm.reach)) { g.fillStyle = `rgba(${fwdRGB},${hot ? 0.25 : 0.1})`; g.fill(); g.strokeStyle = `rgba(${fwdRGB},${hot ? 0.6 : 0.35})`; g.lineWidth = 1.2; g.setLineDash(hot ? [] : [6, 5]); g.stroke(); g.setLineDash([]); } // FINAL V2 (Edit 123): idle, seen
+    if (!(s && s.p11) && band(g, c, gm, 0, gm.late)) { g.fillStyle = `rgba(${fwdRGB},0.15)`; g.fill(); } // too late to stop: step in here and it hits you
     if (!gm.prop) return;
     g.save(); g.translate(c.x, c.y); g.rotate(c.h);
-    { const a0 = gm.lk - gm.A, a1 = gm.lk + gm.A, R = gm.Rf, x = R / gm.Gf; // the forward cone: an outline and its grade ticks
+    if (!s.p11) { const a0 = gm.lk - gm.A, a1 = gm.lk + gm.A, R = gm.Rf, x = R / gm.Gf; // the forward cone: an outline and its grade ticks
       g.save(); g.beginPath(); g.rect(c.L / 2, -4000, 4000, 8000); g.clip();
       g.strokeStyle = `rgba(${fwdRGB},${seenF ? 0.6 : 0.16})`; g.lineWidth = 1; g.beginPath(); for (const an of [a0, a1]) { g.moveTo(gm.Fa, 0); g.lineTo(gm.Fa + Math.cos(an) * R, Math.sin(an) * R); } g.stroke();
       if (seenF) { g.beginPath(); g.moveTo(gm.Fa, 0); g.arc(gm.Fa, 0, R, a0, a1); g.closePath(); g.fillStyle = `rgba(${fwdRGB},0.08)`; g.fill(); }
@@ -212,8 +223,12 @@
       const a0 = sg > 0 ? gm.e0 : -gm.e1, a1 = sg > 0 ? gm.e1 : -gm.e0, has = mine === sg, k = has ? 1 : 0;
       g.save(); g.beginPath(); g.rect(-4000, -4000, 8000, 8000); g.moveTo(gm.Fa, 0); g.arc(gm.Fa, 0, 4000, gm.lk - gm.A, gm.lk + gm.A); g.closePath(); g.clip('evenodd');
       const sen = has && !c.noticed; // sensing: the notice timer runs
-      g.beginPath(); g.moveTo(gm.O, 0); g.arc(gm.O, 0, gm.Rs, a0, a1); g.closePath(); g.fillStyle = `rgba(${sideRGB},${has ? (sen ? 0.2 : 0.25) : 0.1})`; g.fill();
-      g.strokeStyle = `rgba(${sideRGB},${has && !sen ? 0.9 : 0.6})`; g.lineWidth = 1.5; g.stroke(); void x; // FINAL V2: no grade rings, no pings; solid steel-blue edges (review r3)
+      g.beginPath(); g.moveTo(gm.O, 0); g.arc(gm.O, 0, gm.Rs, a0, a1); g.closePath(); g.fillStyle = `rgba(${sideRGB},${has ? (sen ? 0.14 : 0.18) : 0.06})`; g.fill();
+      g.strokeStyle = `rgba(${sideRGB},${has && !sen ? 0.9 : 0.6})`; g.lineWidth = 1.5; g.stroke(); // FINAL V2: no pings; solid steel-blue edges (review r3)
+      if (s && s.p11 && gm.Gs > 1) { // FINAL V2.1 (Edit 124): its two zones, as the sim grades them: CLOSE (the inner grade: it notices fast, slows hard), FAR
+        const rc = x, inC = has && b && Math.hypot(local(c, b.x, b.y).x - gm.O, yb) <= rc;
+        g.beginPath(); g.moveTo(gm.O, 0); g.arc(gm.O, 0, rc, a0, a1); g.closePath(); g.fillStyle = `rgba(${sideRGB},${inC ? (sen ? 0.22 : 0.3) : 0.13})`; g.fill();
+        g.beginPath(); g.arc(gm.O, 0, rc, a0, a1); g.strokeStyle = `rgba(${sideRGB},${inC ? 0.9 : 0.55})`; g.lineWidth = 1.2; g.setLineDash([4, 4]); g.stroke(); g.setLineDash([]); }
       g.restore(); void k;
     }
     g.restore();
@@ -349,7 +364,7 @@
     for (const cr of T.crashes) {
       const kept = mem.includes(cr), n = cr.n;
       ctx.globalAlpha = T.rung >= 6 && !kept ? 0.5 : 1;
-      chalk(cr.x, cr.y, cr.h + Math.PI / 2 + (hash(n, 7) - 0.5) * 1.2, n, C.chalk);
+      if (!s.p11) chalk(cr.x, cr.y, cr.h + Math.PI / 2 + (hash(n, 7) - 0.5) * 1.2, n, C.chalk); // FINAL V2.1: the chalk is in the ground's pixels (game.js), under buildings
       const tx = cr.x + 16, ty = cr.y - 18; if (!s.p11) { ctx.fillStyle = C.tent; ctx.beginPath(); ctx.moveTo(tx - 7, ty + 6); ctx.lineTo(tx, ty - 7); ctx.lineTo(tx + 7, ty + 6); ctx.closePath(); ctx.fill(); text(String(n), tx, ty + 5, 8, C.joint, 'center'); } // FINAL V2: no numbers
       ctx.globalAlpha = 1;
       if (!kept) continue;
@@ -359,11 +374,23 @@
     }
     for (const c of reds()) for (const m of c.checks || []) { ctx.save(); ctx.strokeStyle = C.mem; ctx.lineWidth = 1.5; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.lineTo(m.ox, m.oy); ctx.stroke(); ctx.restore(); }
   }
+  function camField(cams, b) { // FINAL V2.1 (Edit 124): a camera's cone in the cars' field language: idle 10% and a dashed edge; seen 25% and solid. Buildings, the plinth and deck tops cut it (the sim's sightline)
+    const P = T.P, R = P['perception.streetCameraRange'] || 0, F = P['perception.streetCameraFov'] || 360, G = Gk, k = G.RA / G.U, sees = b && b.alive ? T.seeingCamera() : null;
+    if (!off) { off = document.createElement('canvas'); offG = off.getContext('2d'); }
+    if (off.width !== Math.ceil(G.FW) || off.height !== Math.ceil(G.FH)) { off.width = Math.ceil(G.FW); off.height = Math.ceil(G.FH); }
+    for (const cam of cams) { const [x, y] = cam, aim = T.cameraAim(cam), on = sees === cam, Rr = R > 0 ? R : 260;
+      offG.setTransform(1, 0, 0, 1, 0, 0); offG.clearRect(0, 0, off.width, off.height); offG.setTransform(k, 0, 0, k, 0, 0);
+      offG.beginPath(); if (F < 360 && aim != null) { offG.moveTo(x, y); offG.arc(x, y, Rr, (aim - F / 2) * D, (aim + F / 2) * D); offG.closePath(); } else offG.arc(x, y, Rr, 0, TAU);
+      offG.fillStyle = `rgba(159,242,200,${on ? 0.25 : 0.1})`; offG.fill(); offG.strokeStyle = `rgba(159,242,200,${on ? 0.7 : 0.4})`; offG.lineWidth = 1.2; offG.setLineDash(on ? [] : [6, 5]); offG.stroke(); offG.setLineDash([]);
+      shade(offG, x, y, blockers({ layer: 0 }, null)); // tall statics and deck tops; low cover is under a camera's eye
+      ctx.save(); ctx.scale(1 / k, 1 / k); ctx.drawImage(off, 0, 0); ctx.restore(); }
+  }
   function drawCameras() { // rung 4: the street cameras, their cones as they pan, and the link when one gives the dummy away
     const cams = T.level.cameras || []; if (T.rung < 4 || !cams.length) return;
+    if (s.p11 && Gk) camField(cams, T.body);
     const P = T.P, R = P['perception.streetCameraRange'] || 0, F = P['perception.streetCameraFov'] || 360, b = T.body;
     for (const cam of cams) { const [x, y] = cam, aim = T.cameraAim(cam);
-      if (R > 0) { ctx.save(); ctx.strokeStyle = C.camDim; ctx.lineWidth = 1; ctx.setLineDash([2, 6]); ctx.beginPath();
+      if (R > 0 && !s.p11) { ctx.save(); ctx.strokeStyle = C.camDim; ctx.lineWidth = 1; ctx.setLineDash([2, 6]); ctx.beginPath();
         const sees = s.p11 && b && b.alive && T.seeingCamera() === cam; // FINAL V2: the cone brightens while it sees you
         if (F < 360 && aim != null) { ctx.moveTo(x, y); ctx.arc(x, y, R, (aim - F / 2) * D, (aim + F / 2) * D); ctx.closePath(); ctx.fillStyle = s.p11 ? `rgba(159,242,200,${sees ? 0.28 : 0.14})` : C.camCone; ctx.fill(); if (s.p11) { ctx.setLineDash([]); ctx.strokeStyle = `rgba(159,242,200,${sees ? 0.75 : 0.5})`; ctx.lineWidth = 1.4; } } else ctx.arc(x, y, R, 0, TAU); // Prototype 11.2: the pan cone shows while idle
         ctx.stroke(); ctx.restore(); }
@@ -392,9 +419,15 @@
     ctx.restore();
   }
   function drawDrone(x, y, load) { for (const [dx, dy] of [[-9, -9], [9, -9], [-9, 9], [9, 9]]) { ctx.fillStyle = 'rgba(200,214,230,0.6)'; ctx.beginPath(); ctx.arc(x + dx, y + dy, 6, 0, TAU); ctx.fill(); } rect(x - 7, y - 5, 14, 10, '#20242e'); if (load) rect(x - 5, y + 7, 10, 8, C.dummy); }
+  function liftDrone(x, y, lifted) { // FINAL V2.1 (Edit 124): the block lift flies the rescue drone of the drop-in, in pixels, on a cable
+    const dr = droneSprite(), D = root.PIX.DRONE, U = (Gk && Gk.U) || 2.5, top = y - 52 - (lifted ? 10 : 0), ox = D.ox != null ? D.ox : D.w / 2, oy = D.oy != null ? D.oy : D.h / 2;
+    ctx.save(); ctx.strokeStyle = 'rgba(232,238,245,0.75)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x, top + 6); ctx.lineTo(x, y - 30); ctx.stroke();
+    ctx.imageSmoothingEnabled = false; ctx.drawImage(dr, Math.round(x - ox * U), Math.round(top - oy * U), D.w * U, D.h * U);
+    ctx.fillStyle = Math.floor(T.t * 4) % 2 ? '#ff5a5a' : '#ffd400'; ctx.fillRect(x - 1.5, top - oy * U - 2, 3, 3); ctx.restore();
+  }
   function drawBody() { // the dummy's state for the red car: ducked and hidden, expected, the block lift's countdown
     const b = T.body; if (!b || !b.alive) return;
-    const L = T.lift; if (L) drawDrone(L.x, L.y - (b.lifted ? 26 : 0), false);
+    const L = T.lift; if (L) { if (s.p11 && droneSprite()) liftDrone(L.x, L.y, b.lifted); else drawDrone(L.x, L.y - (b.lifted ? 26 : 0), false); }
     const Xs = T.P['duel.blockSeconds'] || 0, hs = T.P['proto.honkSeconds'] || 0;
     if (Xs > 0 && !L && T.blockT >= Math.min(hs, Xs - 3)) label((s.p11 ? 'DRONE IN ' : 'MOVE ALONG · DRONE IN ') + Math.ceil(Xs - T.blockT - 1e-9), b.x, b.y - 34, s.p11 ? 11 : 10, C.dummy);
     if (s.p11) return; // Prototype 11.2: no DUCKED or EXPECTED text; the fields' shadows and the boxes show it
@@ -448,7 +481,7 @@
   function v2Late(G) { // FINAL V2 (review r2): above the decks and the monument: the cameras' cones, the parapet gaps, the dummy's mark, the caption
     const k = G.RA / G.U, b = T.body && T.body.alive ? T.body : null;
     ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip(); ctx.translate(G.FX, G.FY); ctx.scale(k, k);
-    drawCameras(); v2Gaps(b); if (s.phase === 'play' && !s.rescue) v2Mark(b); Gk = G; drawFlashes();
+    Gk = G; drawCameras(); v2Gaps(b); if (s.phase === 'play' && !s.rescue) v2Mark(b); drawFlashes();
     ctx.restore();
   }
   // ---------- the panel: the red car's rung, what it learns next, the objective
@@ -691,7 +724,7 @@
     const wrapAt = (t, x, y, mw, lh, font, c) => { ctx.font = font; const ws = String(t).split(' '); let line = '', yy = y; for (const wd of ws) { const tt = line ? line + ' ' + wd : wd; if (ctx.measureText(tt).width > mw && line) { txt(line, x, yy, 0, c, 'left', font); line = wd; yy += lh; } else line = tt; } if (line) txt(line, x, yy, 0, c, 'left', font); return yy; };
     const nameAt = (n, y, size, t0) => { if (u < t0) return; const nm = String((HCo && ((HC.kit || {})[LN.cls] || {})[n] && HC.kit[LN.cls][n].name) || KIT.name[n] || ri(n).sensor || '').toUpperCase(); let sz = Z(size); ctx.font = `900 ${sz}px Nunito, system-ui, sans-serif`; while (ctx.measureText(nm).width > tw && sz > Z(size === 48 ? 40 : 30)) { sz -= 1; ctx.font = `900 ${sz}px Nunito, system-ui, sans-serif`; } const cap = Math.max(1, Math.min(1.4, Z(392) / Math.max(1, ctx.measureText(nm).width))), pop = RM ? 1 : 1 + (cap - 1) * Math.pow(clamp01(1 - (u - t0) / 0.28), 2); ctx.save(); ctx.beginPath(); ctx.rect(X(596), Y(96), Z(404), Z(200)); ctx.clip(); ctx.globalAlpha = clamp01((u - t0) / 0.12); ctx.translate(tx, y); ctx.scale(pop, pop); txt(nm, 0, 0, 0, ACC, 'left', ctx.font); ctx.restore(); };
     const sayAt = (n, y, size, lh, t0) => { if (u < t0) return; const q = RM ? 1 : clamp01((u - t0) / 0.2); ctx.save(); ctx.globalAlpha = RM ? clamp01((u - t0) / 0.2) : q; wrapAt((HCo && ((HC.sentences || {})[LN.cls] || {})[n]) || SAY[n] || '', tx, y + Z(8 * (1 - q)), tw, Z(lh), `400 ${Z(size)}px B612, system-ui, sans-serif`, C.text); ctx.restore(); };
-    { const LN2 = learner(), ml = (HCo && HCo.label) || [LN2.model, LN2.name, LN2.callsign && String(LN2.callsign).toUpperCase()].filter(Boolean).join(' · '); const mlA = RM ? 1 : clamp01((u - (two ? 1.95 : 1.15)) / 0.25); if (LN2.model && mlA > 0) { ctx.save(); ctx.globalAlpha = mlA; let fz = 13; ctx.font = `700 ${Z(fz)}px B612, system-ui, sans-serif`; while (fz > 10 && ctx.measureText(ml).width > Z(272)) { fz -= 0.5; ctx.font = `700 ${Z(fz)}px B612, system-ui, sans-serif`; } txt(ml, X(310), Y(110), Z(fz), '#7fa8bc'); ctx.restore(); } } // after the drone has gone (round 4, F3) // the model line (Edit 120): ID · class · callsign
+    { const LN2 = learner(), ml = (HCo && HCo.label) || [LN2.model, LN2.name, LN2.callsign && String(LN2.callsign).toUpperCase()].filter(Boolean).join(' · '); const mlA = RM ? 1 : clamp01((u - (two ? 1.95 : 1.15)) / 0.25); if (LN2.model && mlA > 0 && !(s && s.p11)) { ctx.save(); ctx.globalAlpha = mlA; let fz = 13; ctx.font = `700 ${Z(fz)}px B612, system-ui, sans-serif`; while (fz > 10 && ctx.measureText(ml).width > Z(272)) { fz -= 0.5; ctx.font = `700 ${Z(fz)}px B612, system-ui, sans-serif`; } txt(ml, X(310), Y(110), Z(fz), '#7fa8bc'); ctx.restore(); } } // after the drone has gone (round 4, F3) // the model line (Edit 120): ID · class · callsign
     if (u < lands[0]) { if (u >= (RM ? 0 : 0.3) && (RM || Math.floor(u * 8) % 4 !== 3)) txt(LN.name + ' · NEW PART INCOMING', tx, Y(112), Z(20), '#3fd0ff'); }
     else txt(LN.name + (two ? ' LEARNED 2 THINGS' : ' LEARNED'), tx, Y(112), Z(20), '#3fd0ff');
     const tN = RM ? 0.6 : lands[0], tS = RM ? 0.75 : UP.land + 0.2;

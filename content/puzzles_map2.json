@@ -1,0 +1,383 @@
+{
+ "about": "FINAL V2.1 (GDD Edit 125): Story Map 2 as nine puzzles. Parkland. The learner: the VANGUARD™ POL-01-001, a police car (Edit 121). On the road: the certified LUMINARY™ SED-01-001, a white car with every sensor; from the Vanguard's rung 4 it reports what it sees. Set by hand.",
+ "map": {
+  "id": "parkland",
+  "district": "parkland",
+  "name": "Parkland",
+  "title": "MAP 2 · PARKLAND",
+  "order": [
+   "A1",
+   "B1",
+   "C1",
+   "C2",
+   "B2",
+   "A2",
+   "A3",
+   "B3",
+   "C3"
+  ],
+  "intro": "Parkland. The gardens, the reservoir, the ring. The Vanguard™ patrols; the Luminary™ you certified drives here now.",
+  "learner": {
+   "cls": "VANGUARD",
+   "name": "VANGUARD™",
+   "model": "POL-01-001",
+   "tag": "P01",
+   "callsign": "Marshal",
+   "role": "Police and security car",
+   "livery": "white and black",
+   "prose": "the Vanguard™"
+  },
+  "senior": {
+   "cls": "LUMINARY",
+   "name": "LUMINARY™",
+   "model": "SED-01-001",
+   "tag": "S01"
+  }
+ },
+ "hintPasses": 2,
+ "levels": {},
+ "puzzles": [
+  {
+   "n": 1,
+   "tile": "A1",
+   "name": "Draft A1",
+   "built": false,
+   "new": "Draft",
+   "stage": "10.9",
+   "startRung": 2,
+   "topRung": 2,
+   "earns": null,
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE VANGUARD™"
+   },
+   "layout": {
+    "drop": null,
+    "cones": [],
+    "cover": []
+   },
+   "tale": "Draft.",
+   "hints": [
+    "Draft."
+   ],
+   "solution": "",
+   "par": 30,
+   "target": 60,
+   "newLine": "Draft"
+  },
+  {
+   "n": 2,
+   "tile": "B1",
+   "name": "Draft B1",
+   "built": false,
+   "new": "Draft",
+   "stage": "10.9",
+   "startRung": 2,
+   "topRung": 2,
+   "earns": null,
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE VANGUARD™"
+   },
+   "layout": {
+    "drop": null,
+    "cones": [],
+    "cover": []
+   },
+   "tale": "Draft.",
+   "hints": [
+    "Draft."
+   ],
+   "solution": "",
+   "par": 30,
+   "target": 60,
+   "newLine": "Draft"
+  },
+  {
+   "n": 3,
+   "tile": "C1",
+   "name": "Draft C1",
+   "built": false,
+   "new": "Draft",
+   "stage": "10.9",
+   "startRung": 2,
+   "topRung": 2,
+   "earns": null,
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE VANGUARD™"
+   },
+   "layout": {
+    "drop": null,
+    "cones": [],
+    "cover": []
+   },
+   "tale": "Draft.",
+   "hints": [
+    "Draft."
+   ],
+   "solution": "",
+   "par": 30,
+   "target": 60,
+   "newLine": "Draft"
+  },
+  {
+   "n": 4,
+   "tile": "C2",
+   "name": "Draft C2",
+   "built": false,
+   "new": "Draft",
+   "stage": "10.9",
+   "startRung": 2,
+   "topRung": 2,
+   "earns": null,
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE VANGUARD™"
+   },
+   "layout": {
+    "drop": null,
+    "cones": [],
+    "cover": []
+   },
+   "tale": "Draft.",
+   "hints": [
+    "Draft."
+   ],
+   "solution": "",
+   "par": 30,
+   "target": 60,
+   "newLine": "Draft"
+  },
+  {
+   "n": 5,
+   "tile": "B2",
+   "name": "Draft B2",
+   "built": false,
+   "new": "Draft",
+   "stage": "10.9",
+   "startRung": 2,
+   "topRung": 2,
+   "earns": null,
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE VANGUARD™"
+   },
+   "layout": {
+    "drop": null,
+    "cones": [],
+    "cover": []
+   },
+   "tale": "Draft.",
+   "hints": [
+    "Draft."
+   ],
+   "solution": "",
+   "par": 30,
+   "target": 60,
+   "newLine": "Draft"
+  },
+  {
+   "n": 6,
+   "tile": "A2",
+   "name": "Draft A2",
+   "built": false,
+   "new": "Draft",
+   "stage": "10.9",
+   "startRung": 2,
+   "topRung": 2,
+   "earns": null,
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE VANGUARD™"
+   },
+   "layout": {
+    "drop": null,
+    "cones": [],
+    "cover": []
+   },
+   "tale": "Draft.",
+   "hints": [
+    "Draft."
+   ],
+   "solution": "",
+   "par": 30,
+   "target": 60,
+   "newLine": "Draft"
+  },
+  {
+   "n": 7,
+   "tile": "A3",
+   "name": "Draft A3",
+   "built": false,
+   "new": "Draft",
+   "stage": "10.9",
+   "startRung": 2,
+   "topRung": 2,
+   "earns": null,
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE VANGUARD™"
+   },
+   "layout": {
+    "drop": null,
+    "cones": [],
+    "cover": []
+   },
+   "tale": "Draft.",
+   "hints": [
+    "Draft."
+   ],
+   "solution": "",
+   "par": 30,
+   "target": 60,
+   "newLine": "Draft"
+  },
+  {
+   "n": 8,
+   "tile": "B3",
+   "name": "Draft B3",
+   "built": false,
+   "new": "Draft",
+   "stage": "10.9",
+   "startRung": 2,
+   "topRung": 2,
+   "earns": null,
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE VANGUARD™"
+   },
+   "layout": {
+    "drop": null,
+    "cones": [],
+    "cover": []
+   },
+   "tale": "Draft.",
+   "hints": [
+    "Draft."
+   ],
+   "solution": "",
+   "par": 30,
+   "target": 60,
+   "newLine": "Draft"
+  },
+  {
+   "n": 9,
+   "tile": "C3",
+   "name": "Draft C3",
+   "built": false,
+   "new": "Draft",
+   "stage": "10.9",
+   "startRung": 2,
+   "topRung": 2,
+   "earns": null,
+   "level": "open",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1"
+   ],
+   "fleet": 0,
+   "route": 0,
+   "steps": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE VANGUARD™"
+   },
+   "layout": {
+    "drop": null,
+    "cones": [],
+    "cover": []
+   },
+   "tale": "Draft.",
+   "hints": [
+    "Draft."
+   ],
+   "solution": "",
+   "par": 30,
+   "target": 60,
+   "newLine": "Draft"
+  }
+ ]
+}

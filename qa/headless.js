@@ -13,12 +13,14 @@ function boot() {
   X = globalThis.DUMMIES = require(path.join(E, 'sim.js')); globalThis.WORLD6 = require(path.join(E, 'world6.js'));
   STORY = globalThis.STORY = require(path.join(E, 'story7.js')); globalThis.DUMMIES_P10 = require(path.join(ROOT, 'engine', 'vendor', 'testroad.js'));
   Object.assign(globalThis, { DUMMIES_STAGES: R.stages, STORY_MAP1: R.plan, DUEL_RULES: R.rules, P11_PUZZLES: R.puzzles });
+  if (R.plan2) Object.assign(globalThis, { STORY_MAPS: { monument: R.plan, parkland: R.plan2 }, P11_MAPS: [R.puzzles, R.puzzles2] }); // FINAL V2.1 (Edit 125): Map 2 as parkland:A1
   require(path.join(ROOT, 'engine', 'duel.js')); require(path.join(ROOT, 'engine', 'p11.js')); P11 = globalThis.P11;
 }
 function make(tile) {
-  boot(); const q = P11.BY[tile], pr = STORY.newProgress(); pr.done.monument = P11.ORDER.filter((t) => t !== tile);
+  boot(); const [mid, t] = tile.includes(':') ? tile.split(':') : ['monument', tile], M = (P11.MAPS || []).find((m) => m.id === mid) || { BY: P11.BY, ORDER: P11.ORDER };
+  const q = M.BY[t], pr = STORY.newProgress(); for (const m of P11.MAPS || [M]) pr.done[m.id || 'monument'] = m === M ? M.ORDER.filter((u) => u !== t) : m.ORDER.slice(); pr.district = mid;
   for (const k of q.kit || []) { const n = (R.rules.parts[k] || {}).p9; if (n) pr.owned[n] = true; }
-  return new STORY.StorySim('monument', Object.assign({}, R.sim), pr);
+  return new STORY.StorySim(mid, Object.assign({}, R.sim), pr);
 }
 function run(tile, script, secs, opts) {
   const s = make(tile), T = s.duelT, dt = 1 / 60, o = opts || {};

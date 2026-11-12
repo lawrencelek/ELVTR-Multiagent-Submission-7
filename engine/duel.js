@@ -18,6 +18,7 @@
   // earns a part; the tile's level sets its roadside cover. A plan without these fields plays as before.
   const RULES = root.DUEL_RULES || { parts: {}, levels: {}, tricks: {} };
   const rulesPlan = () => MAP.tiles.some((q) => q.earns);
+  const mapOf = (id) => (root.STORY_MAPS && root.STORY_MAPS[id]) || (id === 'monument' ? MAP : null); // FINAL V2.1 (Edit 125): a plan a map
   const hyp = Math.hypot, clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const stageN = (id) => +String(id).split('.')[1] || 0; // '10.6' -> 6
   // the sight field the user designed (10.9: proportional rings at x, 2x, 3x) for every stage that has the side field
@@ -91,13 +92,66 @@
       for (let i = 1; i < n; i++) { const u = i / n, px = x0 + (b.x - x0) * u, py = y0 + (b.y - y0) * u; if (ws.some((o) => X.circleCar(px, py, 1, o))) return true; }
       return false;
     }
+    // FINAL V2.1 (Edit 124, playtest): a street camera's sightline stops at the world: buildings, the plinth (not for a dummy on it),
+    // tall cover, and a deck over a dummy below it. perception.streetCameraOccluded (proposed); 0 keeps Prototype 10's camera.
+    seeingCamera() {
+      if (!this.DP || !this.DP['perception.streetCameraOccluded']) return TP.seeingCamera.call(this);
+      const P = this.P, b = this.body, R = P['perception.streetCameraRange'] || 0, H = P['perception.streetCameraHeight'] || 0, F = P['perception.streetCameraFov'] || 360;
+      if (!b) return null; const sen = this.seniorSees(b); if (sen) return sen; if (this.camUnderDeck(b)) return null;
+      for (const cam of this.level.cameras || []) {
+        const [x, y, aim] = cam;
+        if (R > 0 && hyp(b.x - x, b.y - y) > R) continue;
+        if (F < 360 && aim != null && !this.inCameraCone(cam, b.x, b.y)) continue;
+        if (this.camWall(x, y, b)) continue;
+        if (!this.lowBlocked(x, y - 16, H, b.x, b.y, this.bodyHeight())) return cam;
+      }
+      return null;
+    }
+    camUnderDeck(b) { // on the ground, under a deck's top (not in a parapet gap's opening): out of a street camera's sight
+      if ((b.level || 0) > 0) return false; const W = this.P['world.width'] || 800, Hh = this.P['world.height'] || 640, HALF = (this.P['world.deckWidth'] || 160) / 2;
+      for (const l of (this.duelSc && this.duelSc.layers) || []) { const dk = l.dk; if (!dk) continue; const r = dk.hz ? [0, dk.off - HALF, W, 2 * HALF] : [dk.off - HALF, 0, 2 * HALF, Hh]; if (b.x > r[0] && b.x < r[0] + r[2] && b.y > r[1] && b.y < r[1] + r[3]) return true; }
+      return false;
+    }
+    camWall(x0, y0, b) {
+      const dx = b.x - x0, dy = b.y - y0, st = this.plinth ? this.plinth() : null;
+      for (const q of this.level.statics || []) {
+        if (q.low || q.walk || q.kind === 'bound' || (q === st && b.raised)) continue;
+        let u0 = 0, u1 = 1; const clip = (pp, r) => { if (Math.abs(pp) < 1e-12) return r >= 0; const t = r / pp; if (pp < 0) { if (t > u1) return false; if (t > u0) u0 = t; } else { if (t < u0) return false; if (t < u1) u1 = t; } return true; };
+        if (clip(-dx, x0 - q.x) && clip(dx, q.x + q.w - x0) && clip(-dy, y0 - q.y) && clip(dy, q.y + q.h - y0) && u0 <= u1 && u1 < 0.999) return true; // (a body against the wall still shows)
+      }
+      return false;
+    }
     // Lawrence (7 Nov): the red car sees road items (cones) at every rung, as Prototype 9's cars do; rung 0 is blind to the dummy only
     beamFor() { return this.DP['perception.forwardLength'] || 720; }
     perceive(c) { const r = BP.perceive.call(this, c); if (c && c.red && this.duelOn && this.rung < 1) r.side = false; return r; }
     fieldFor() { const P = this.P, keep = P['proto.driver.cautionZone']; P['proto.driver.cautionZone'] = this.DP['proto.driver.cautionZone'] || keep; try { return TP.fieldFor.call(this); } finally { P['proto.driver.cautionZone'] = keep; } }
     fromAbove(e) { return e.kind === 'drop' || TP.fromAbove.call(this, e); } // Prototype 9's drop off a deck is the hit from above
     emit(type, data) { BP.emit.call(this, type, data); if (this.duelOn && this.duelFeed) this.duelFeed.push(this.events[this.events.length - 1]); }
-    admit() { this.p9call('admit'); if (this.duelOn) this.admitRed(); }
+    admit() { this.p9call('admit'); if (this.duelOn) { this.admitRed(); this.admitSenior(); } }
+    // FINAL V2.1 (Edit 125): Map 2's senior. The certified Luminary™ drives a lane of the tile (duel.senior, proposed: the lane), a
+    // white car with every sensor: it brakes for you. From the learner's rung 4 it reports what it sees, as a street camera does
+    // (duel.seniorFov, duel.seniorRange). One at a time; back duel.seniorReturnSeconds after it leaves; first in at duel.seniorDelay.
+    admitSenior() {
+      const P = this.P, DP = this.DP, rt = DP['duel.senior']; if (rt == null || rt < 0 || this.lesson || !this.redLanes) return;
+      const cur = this.cars.find((c) => c.senior && !c.gone); if (cur) return;
+      if (this.seniorCar) { this.seniorCar = null; this.seniorLeft = this.t; }
+      if (this.t < (DP['duel.seniorDelay'] || 0) || this.t < (this.seniorLeft != null ? this.seniorLeft : -1e9) + (DP['duel.seniorReturnSeconds'] || 3)) return;
+      const ln = this.redLanes.find((q) => q.i === rt); if (!ln) return; const gap = 2 * P['vehicles.sedan.length'] + 30;
+      let s0 = null; for (let s = ln.s0; s <= ln.enterS - P['vehicles.sedan.length']; s += 15) if (!this.cars.some((o) => o.path === ln.path && !o.gone && Math.abs(o.s - s) < gap + (o.L || 0) / 2)) { s0 = s; break; }
+      if (s0 == null) return;
+      const c = this.newCar('lum' + ((this.seniorSeq = (this.seniorSeq || 0) + 1)), 'sedan', ln.i, ln.path, s0, 0);
+      Object.assign(c, { white: true, senior: true, model: 'SED-01-001' }); c.cruise = P['vehicles.sedan.cruiseSpeed'] * (DP['duel.seniorSpeed'] || 1); c.v = c.cruise;
+      this.pose(c); this.cars.push(c); this.seniorCar = c;
+      this.emit('admit', { car: c.id, cls: c.cls, model: c.model, lane: ln.i, senior: true });
+    }
+    seniorSees(b) { // the senior's eye: a cone ahead of its nose, stopped by the world as a camera's is; the same level only
+      if (!b || (b.level || 0) > 0) return null; const R = this.DP['duel.seniorRange'] || 240, F = this.DP['duel.seniorFov'] || 100;
+      for (const c of this.cars) { if (!c.senior || c.gone || c.ghost) continue; const dx = b.x - c.x, dy = b.y - c.y, d = hyp(dx, dy); if (d > R) continue;
+        let a = Math.atan2(dy, dx) - c.h; a = Math.atan2(Math.sin(a), Math.cos(a)); if (Math.abs(a) * 180 / Math.PI > F / 2) continue;
+        if (this.camWall(c.x, c.y, b) || this.lowBlocked(c.x, c.y, this.P['perception.lidarHeight'] || 26, b.x, b.y, this.bodyHeight())) continue;
+        return [c.x, c.y + 16, c.h * 180 / Math.PI, 0, c]; }
+      return null;
+    }
     // the block lift (row 715) for any car the dummy keeps waiting: the red car, the red car that has hit it and stood, the fleet
     blocked() { const r = TP.blocked.call(this); if (r) return r; const b = this.body; if (!b || !b.alive || b.lifted) return null; return this.onRoad().find((q) => !q.ghost && !q.hitStand && q.v < 1 && q.hz && q.hz.inPath && (q.spent || !q.red)) || null; }
     carPassed(c) { return !c || c.gone || (c.spent && c.v >= 1); }
@@ -153,7 +207,7 @@
     planter: { w: 120, d: 16, low: true, h: 14 }, hedge: { w: 96, d: 16, low: true, h: 18 },
     cabinet: { w: 44, d: 22 }, kiosk: { w: 30, d: 20 }, billboard: { w: 64, d: 12 }, krail: { w: 160, d: 12, low: true, h: 16 },
   };
-  const FAMILY = { monument: ['cabinet', 'planter', 'kiosk', 'hedge', 'billboard'] }; // proposed: one family a map (urban, industrial, garden...)
+  const FAMILY = { monument: ['cabinet', 'planter', 'kiosk', 'hedge', 'billboard'], parkland: ['hedge', 'kiosk', 'planter', 'krail', 'cabinet'] }; // proposed: one family a map (urban, industrial, garden...)
   function placeCover(T, sc, P, DP, lanes, family, prof) {
     prof = prof || {}; const gaps = prof.gap || [2, 42];
     const LW = P['world.laneWidth'], W = P['world.width'], H = P['world.height'], kinds = prof.cover || family || FAMILY.monument, out = [];
@@ -209,7 +263,7 @@
       const why = r.x < 8 || r.y < 8 || r.x + r.w > W - 8 || r.y + r.h > H - 8 ? 'edge' : rectHits(r, solid, 2) ? 'solid' : rectHits(r, out, 1) ? 'overlap'
         : (T.level.lanes || []).some((p) => pts.some(([x, y]) => Math.abs(X.pathProject(p, x, y).lat) < LW / 2 + 1)) ? 'lane' : null;
       if (why) { skipped.push(kind + '@' + Math.round(cx) + ',' + Math.round(cy) + ' ' + why); return null; }
-      return Object.assign(r, { kind, low: !!k.low, height: k.low ? (kind === 'planter' ? DP['props.planter.height'] || k.h : k.h) : undefined, id: id || kind + out.length, duel: true });
+      return Object.assign(r, { kind, low: !!k.low, height: k.low ? (kind === 'planter' ? DP['props.planter.height'] || k.h : k.h) : undefined, id: id || kind + out.length, duel: true }, kind === 'krail' ? { jumpable: true, zTop: P['world.jumpableHeight'] || 20 } : {}); // FINAL V2.1 (Edit 125): a laid-out K-rail is jumpable
     };
     for (const c of lay.cover || []) { const r = piece(c.kind, sOf(c.at), c.side, c.gap); if (r) out.push(r); }
     for (const w of lay.rows || []) { const k = COVER[w.kind], step = k.w + (w.space != null ? w.space : 8); for (let s = sOf(w.from); s <= sOf(w.to) + 1e-6; s += step) { const r = piece(w.kind, s, w.side, w.gap, w.kind + 'row' + out.length); if (r) out.push(r); } }
@@ -268,14 +322,14 @@
     arrive(t) { super.arrive(t); this.duelSetup(); }
     duelSetup() {
       if (!this.W6 || !this.storyMode || !this.story) return;
-      const act = STORY.activeTile(this.story, this.levelId), def = this.levelId === 'monument' && act ? MAP.tiles.find((q) => q.tile === act) || null : null;
+      const act = STORY.activeTile(this.story, this.levelId), MP = mapOf(this.levelId), def = MP && act ? MP.tiles.find((q) => q.tile === act) || null : null;
       if (def && this.duelDef === def && this.duelT) return;
       this.duelStop();
       if (!def) return;
       const sc = this.W6.at('ABC'.indexOf(act[0]), +act[1] - 1), T = sc && (sc.main || sc.lab), DP = duelParams(def);
       if (!T || !DP) return;
       this.duelFeed = []; join(T, sc, DP, this.duelFeed, this.P, def);
-      Object.assign(this, { duelT: T, duelSc: sc, duelDef: def, duelDP: DP, duelHits: 0, duelIncidents: 0, duelMovedAt: null, duelInc0: 0, duelPending: false, duelDone: false, duelDuck: !rulesPlan() || MAP.tiles.slice(0, MAP.tiles.indexOf(def)).some((q) => q.earns === 'knees1'), duelT0: this.t }); // DUCK: Super Knees, once earned
+      Object.assign(this, { duelT: T, duelSc: sc, duelDef: def, duelDP: DP, duelHits: 0, duelIncidents: 0, duelMovedAt: null, duelInc0: 0, duelPending: false, duelDone: false, duelDuck: !rulesPlan() || MP !== MAP || MAP.tiles.slice(0, MAP.tiles.indexOf(def)).some((q) => q.earns === 'knees1'), duelT0: this.t }); // DUCK: Super Knees, once earned
       this.emit('duel-start', { tile: def.tile, stage: def.stage, rung: T.rung, top: Math.round(DP['duel.topRung'] || 0), lanes: T.redLanes.length });
     }
     duelStop() { this.clipRing = []; this.clearLesson = null; if (this.duelT) leave(this.duelT, this.W6.sims); this.duelT = null; this.duelDef = null; this.duelSc = null; if (this.body) { this.body.duck = false; this.body.lifted = false; } }
@@ -283,7 +337,7 @@
     duelObjective() {
       const d = this.duelDef;
       if (!d || !this.duelT || this.duelDone) { // between tiles: the next tile's objective in the plan's words, never Prototype 9's write-offs
-        const act = this.story && this.levelId === 'monument' ? STORY.activeTile(this.story, this.levelId) : null, nx = act ? MAP.tiles.find((q) => q.tile === act) : null;
+        const MP = mapOf(this.levelId), act = this.story && MP ? STORY.activeTile(this.story, this.levelId) : null, nx = act ? MP.tiles.find((q) => q.tile === act) : null;
         return nx ? ['OBJECTIVE · ' + nx.tile + ' · ' + String(nx.title).toUpperCase(), 'Next: ' + nx.objective.label + ' (0 of ' + nx.objective.count + '). ' + (nx.hint || '')] : null;
       }
       const o = d.objective, n = Math.min(this.duelProgress(), o.count), here = this.screenName() === d.tile;
@@ -419,7 +473,7 @@
     tileLesson(e, c) {
       const T = this.duelT, from = T.rung, top = Math.round(T.DP['duel.topRung'] || 0), next = RUNGS[from + 1], earn = this.duelDef && this.duelDef.earns;
       if (earn && earn !== 'car') { // the player earns a part: its card at the clear; Prototype 9's drone fits it on the way to the next tile (Super Knees: now)
-        const pt = RULES.parts[earn]; if (!pt) return; const i = MAP.tiles.indexOf(this.duelDef), nx = MAP.tiles[i + 1];
+        const pt = RULES.parts[earn]; if (!pt) return; const MP = mapOf(this.levelId) || MAP, i = MP.tiles.indexOf(this.duelDef), nx = MP.tiles[i + 1];
         this.clearLesson = { state: 'due', atClear: true, part: earn, info: pt, next: nx ? nx.tile : null, from, to: from, model: c.model, car: c.id, zone: e.zone, kind: e.kind, hitT: e.t };
         return;
       }

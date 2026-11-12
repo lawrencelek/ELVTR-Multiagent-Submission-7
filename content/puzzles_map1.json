@@ -249,13 +249,21 @@
    "target": 80,
    "breakableCameras": true,
    "camera": {
-    "watch": "cabinet"
+    "watch": "cabinet",
+    "at": [
+     510,
+     360,
+     165
+    ]
    },
    "newLine": "Street cameras · a dash breaks a post",
    "params": {
     "perception.streetCameraFov": 90,
-    "perception.streetCameraPanArc": 0,
-    "perception.streetCameraRange": 180
+    "perception.streetCameraPanArc": 90,
+    "perception.streetCameraPanSeconds": 3,
+    "perception.streetCameraPanHold": 1,
+    "perception.streetCameraRange": 180,
+    "perception.streetCameraHeight": 60
    }
   },
   {
@@ -372,12 +380,21 @@
    "target": 80,
    "breakableCameras": true,
    "camera": {
-    "watch": "kiosk"
+    "watch": "kiosk",
+    "at": [
+     360,
+     190,
+     0
+    ]
    },
    "newLine": "Road items · stops for cones",
    "params": {
     "perception.streetCameraFov": 90,
-    "perception.streetCameraPanArc": 0
+    "perception.streetCameraPanArc": 90,
+    "perception.streetCameraPanSeconds": 3,
+    "perception.streetCameraPanHold": 1,
+    "perception.streetCameraRange": 180,
+    "perception.streetCameraHeight": 60
    }
   },
   {
@@ -388,7 +405,7 @@
    "new": "Super Knees: B crouches (keys: C). Press again to stand.",
    "stage": "10.6",
    "startRung": 5,
-   "topRung": 5,
+   "topRung": 6,
    "earns": null,
    "level": "open",
    "kit": [
@@ -440,9 +457,9 @@
    "tile": "C3",
    "name": "Certification",
    "built": true,
-   "new": "A boss. It learns between your hits.",
+   "new": "A boss. It learns once, after your first hit.",
    "stage": "10.8",
-   "startRung": 5,
+   "startRung": 6,
    "topRung": 7,
    "earns": null,
    "level": "open",
@@ -495,21 +512,21 @@
      ]
     ]
    },
-   "tale": "It has learned from every dummy so far. Three more lessons.",
+   "tale": "It has learned from every dummy so far. One lesson left.",
    "twist": "The same move twice: it remembers.",
    "hints": [
     "A street camera tells it what it sees. Hide where the camera cannot look.",
     "It remembers where you came from. Use a new spot.",
     "A dash breaks a camera post. Then its cover is yours."
    ],
-   "solution": "Hit 1 from the cabinet. Hit 2 crouched behind the hedge. Hit 3: break the camera, dash from the kiosk.",
+   "solution": "Three hits from three spots (it slows where it crashed before). After hit 1 it learns to search where it last saw you.",
    "par": 60,
    "target": 120,
    "breakableCameras": true,
    "camera": {
     "watch": "kiosk"
    },
-   "newLine": "Boss · learns between hits",
+   "newLine": "Boss · learns after your first hit",
    "boss": true
   }
  ],

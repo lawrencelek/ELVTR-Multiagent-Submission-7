@@ -243,17 +243,77 @@ def v2_game_js(g):
     ], 'game.js (V2)')
 
 
+def v21_game_js(g):
+    """FINAL V2.1 (GDD Edit 124): Lawrence's playtest of FINAL V2 (11-12 Nov). Puzzle build only."""
+    return patch(g, [
+        # no headlight beams on any car: they clash with the sensors' fields (brake glow stays)
+        ("if (!(c.red && window.P11)) PIX.fillPoly(left.concat(right.reverse()), (x, y) => {", "if (!window.P11) PIX.fillPoly(left.concat(right.reverse()), (x, y) => {"),
+        # crouched, the dummy is drawn crouched (legs folded), and the touch B button reads STAND
+        ("  function drawBodySprite(s, ghostOnly, liftPx) {\n",
+         "  const V21_CROUCH = new WeakMap(); // FINAL V2.1 (Edit 124): legs folded to 40%, the rest kept; anchored at the feet\n"
+         "  function v21Crouch(S, on) {\n"
+         "    if (!on || !S) return S; let C = V21_CROUCH.get(S); if (C) return C;\n"
+         "    const neck = Math.round(S.h * 0.38), hip = Math.round(S.h * 0.62), tK = Math.max(2, Math.round((hip - neck) * 0.7)), lK = Math.max(2, Math.round((S.h - hip) * 0.3)), h = neck + tK + lK, W = S.w + 2;\n"
+         "    C = { w: W, h, d: new Uint32Array(W * h), ox: S.ox + 1, oy: S.oy - (S.h - h) };\n"
+         "    for (let y = 0; y < h; y++) { const sy = y < neck ? y : y < neck + tK ? neck + Math.floor((y - neck) * (hip - neck) / tK) : Math.min(S.h - 1, hip + Math.floor((y - neck - tK) * (S.h - hip) / lK));\n"
+         "      for (let x = 0; x < S.w; x++) { const v = S.d[sy * S.w + x]; if (!v) continue; const o = y >= neck + tK ? (x < S.w / 2 ? -1 : 1) : 0; C.d[y * W + x + 1 + o] = v; if (o) C.d[y * W + x + 1] = C.d[y * W + x + 1] || v; } } // knees out\n"
+         "    V21_CROUCH.set(S, C); return C;\n  }\n"
+         "  function drawBodySprite(s, ghostOnly, liftPx) {\n"),
+        ("    const S = PIX.dummy(b.facing, Math.min(5, Math.round(wear * 5)));\n", "    const S = v21Crouch(PIX.dummy(b.facing, Math.min(5, Math.round(wear * 5))), !!(window.P11 && b.duck));\n"),
+        ("    if (f.id === (window.P11 ? 'y' : 'x')) { const b = s.body, room", "    if (window.P11 && f.id === 'b' && s.body && s.body.duck) return { word: 'STAND', live: true }; // FINAL V2.1: the crouch's other press\n    if (f.id === (window.P11 ? 'y' : 'x')) { const b = s.body, room"),
+        # smaller touch keys by default (the pencil still resizes them)
+        ("pv('ui.touch.faceRadius') * css * 1.15", "pv('ui.touch.faceRadius') * css * (window.P11 ? 0.8 : 1.15)"),
+        ("pv('ui.touch.stickRadius') * css * 1.15", "pv('ui.touch.stickRadius') * css * (window.P11 ? 0.9 : 1.15)"),
+        # a hit by the learner: a bigger kick, a white flash, parts flying, a ring
+        ("    const b = s.body;\n    for (const pt of spec.particles || []) {",
+         "    const b = s.body;\n"
+         "    if (window.P11 && e.type === 'impact' && e.red) { kick(16, 0.6); fx.flash = { t0: app.realT, dur: 0.24 }; fx.flinchT0 = app.realT; // FINAL V2.1 (Edit 124): juice\n"
+         "      puff(b.x, b.y, 14, { type: 'debris', speed: 170, life: 0.9, size: 4, role: 'primary' }); puff(b.x, b.y, 20, { type: 'spark', speed: 240, life: 0.45, size: 2, role: 'primary' }); puff(b.x, b.y, 2, { type: 'ring', speed: 280, life: 0.35, size: 3, role: 'primary' }); }\n"
+         "    for (const pt of spec.particles || []) {"),
+        # the crash chalk: in the ground's pixels, under buildings and decks
+        ("  function drawBodyGround(s, lift) {\n",
+         "  const V21_CHALK = new Map(); // FINAL V2.1 (Edit 124): each crash a chalk outline of a lying dummy, painted on the ground\n"
+         "  function v21Chalk(s) {\n"
+         "    const T = s.duelT; if (!T || !T.crashes || !T.crashes.length || s.sc !== T.duelSc) return; const mem = T.memory ? T.memory() : [];\n"
+         "    for (const cr of T.crashes) { const key = cr.n % 2; let pts = V21_CHALK.get(key);\n"
+         "      if (!pts) { const S = PIX.dummy(key ? 0 : Math.PI, 0), at = (x, y) => x >= 0 && y >= 0 && x < S.w && y < S.h && S.d[y * S.w + x] !== 0; pts = [];\n"
+         "        for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (at(x, y) && (!at(x - 1, y) || !at(x + 1, y) || !at(x, y - 1) || !at(x, y + 1))) pts.push([(y - Math.round(S.h / 2)) * (key ? 1 : -1), x - Math.round(S.w / 2)]); // turned a quarter: lying down\n"
+         "        V21_CHALK.set(key, pts); }\n"
+         "      const cx = Math.round(cr.x / U), cy = Math.round(cr.y / U), a = T.rung >= 6 && !mem.includes(cr) ? 0.28 : 0.55; for (const [x, y] of pts) FB.mix(cx + x, cy + y, K.white, a); }\n"
+         "  }\n"
+         "  function drawBodyGround(s, lift) {\n"),
+        ("    if (e0.type === 'impact') x.big = (e0.assessed || 0) >= (pv('proto.hits.big.assessedMin') || 200);", "    if (e0.type === 'impact') x.big = (window.P11 && e0.red) || (e0.assessed || 0) >= (pv('proto.hits.big.assessedMin') || 200); // FINAL V2.1: every hit by the learner sounds big"),
+        # the save screen: STORY / STORY MODE; a slot on one line (map · puzzle · stars); no touch hint
+        ("app.screen === 'saves' ? 'STORY · SAVE GAMES' :", "app.screen === 'saves' ? (window.P11 ? 'STORY' : 'STORY · SAVE GAMES') :"),
+        ("    txt('SAVE GAMES', x + 24, y + 40, fLab, FT.accent);", "    txt(window.P11 ? 'STORY MODE' : 'SAVE GAMES', x + 24, y + 40, fLab, FT.accent);"),
+        ("    txt(TOUCH.on ? 'TAP A SLOT, THEN WHAT TO DO · B BACK' :", "    if (!(window.P11 && TOUCH.on)) txt(TOUCH.on ? 'TAP A SLOT, THEN WHAT TO DO · B BACK' :"),
+        ("  function slotLines(v) {\n", "  function slotLines(v) {\n    if (window.P11 && window.P11.slotLine) return [window.P11.slotLine(v.progress), ''];\n"),
+        # the grid: a solved puzzle's tile, drawn small (built one a frame, kept)
+        ("  const p11G = () => ({", "  const V21_THUMB = new Map(); let v21Built = -1;\n"
+         "  function v21Thumb(dist, t) { const key = dist + t; if (V21_THUMB.has(key)) return V21_THUMB.get(key); if (!W6 || v21Built === app.realT) return null; v21Built = app.realT;\n"
+         "    const D = W6.DISTRICTS.find((q) => q.id === dist); if (!D) return null; const sc = W6.buildScreen(D, 'ABC'.indexOf(t[0]), +t[1] - 1), B = new PIX.Buf(AW, AH), D2 = new PIX.Buf(AW, AH); D2.layer = true; W6.compose(sc, B, D2, {});\n"
+         "    const c2 = document.createElement('canvas'); c2.width = AW; c2.height = AH; const g2 = c2.getContext('2d'), id = g2.createImageData(AW, AH); new Uint32Array(id.data.buffer).set(B.d); g2.putImageData(id, 0, 0); V21_THUMB.set(key, c2); return c2; }\n"
+         "  const p11G = () => ({ thumb: v21Thumb,"),
+        ("      under: () => { drawMarks(); if (lvl === 0) {", "      under: () => { drawMarks(); if (window.P11 && lvl === 0) v21Chalk(s); if (lvl === 0) {"),
+        # the body's number after the clear: what is left of it, not 0
+        ("    const b = s.body, P = s.P, hp = b.alive ? (", "    const b = s.body, P = s.P, hp = b.alive || (window.P11 && s.p11 && s.p11.result) ? ("),
+    ], 'game.js (V2.1)')
+
+
 def p11_plan(pz):
     """content/puzzles_map1.json as the duel's plan (window.STORY_MAP1): one tile a puzzle, its rungs and lane as params."""
     tiles = []
     for q in pz['puzzles']:
-        params = {'duel.startRung': q['startRung'], 'duel.topRung': q['topRung']}
+        params = {'duel.startRung': q['startRung'], 'duel.topRung': q['topRung'], 'perception.streetCameraOccluded': 1, 'movement.duckSpeedFactor': 0.6}  # FINAL V2.1 (Edit 124): cameras see no further than the world lets them; crouch walks at 60%
         if q.get('route') is not None:
             params['duel.route'] = q['route']
+        if q.get('senior') is not None:  # FINAL V2.1 (Edit 125): Map 2's certified Luminary on a lane
+            params['duel.senior'] = q['senior']['lane']
+            params.update({'duel.' + k: v for k, v in q['senior'].items() if k != 'lane'})
         params.update(q.get('params', {}))
         tiles.append({'n': q['n'], 'tile': q['tile'], 'title': q['name'], 'stage': q['stage'], 'earns': q.get('earns'), 'level': q['level'], 'newIdea': q['new'],
                       'objective': q['objective'], 'params': params, 'tale': q['tale'], 'hint': q['hints'][0], 'layout': q.get('layout')})
-    return {'map': pz['map'], 'tiles': tiles, 'provenance': {'run': 'content/puzzles_map1.json (set by hand, Edit 113)'}}
+    return {'map': pz['map'], 'tiles': tiles, 'district': pz['map'].get('district', pz['map'].get('id', 'monument')), 'provenance': {'run': 'content/puzzles_map1.json (set by hand, Edit 113)'}}
 
 
 def world6_js(v2=False):
@@ -264,6 +324,17 @@ def world6_js(v2=False):
                       ("for (let i = 0; i < 4; i++) { B.put(cx + sx * i, cy, br); B.put(cx, cy + sy * i, br); }", "if (br) for (let i = 0; i < 4; i++) { B.put(cx + sx * i, cy, br); B.put(cx, cy + sy * i, br); }"),
                       ("for (const t of [0.33, 0.66]) { const tip", "for (const t of [0.5]) { const tip"),
                       ("if (ay) B.put(la, al, N.cyan); else B.put(al, la, N.cyan); } }", "if (ay) B.put(la, al, chev); else B.put(al, la, chev); } }")], 'world6.js (V2)')
+        # FINAL V2.1 (Edit 124, playtest): the gateway's words read left to right, one a row, stacked down a wider beam
+        w = patch(w, [("yB = Math.round(bot / U), BW = 10, PW = 8;", "yB = Math.round(bot / U), BW = 14, PW = 8;"),
+                      ("L.put(X0 + i, y, edge ? K.bldgOutline : rail ? (y % 2 ? N.cyan : K.white) : Math.abs(i) <= 4 ? c32('#0A0F1E')", "L.put(X0 + i, y, edge ? K.bldgOutline : rail ? (y % 2 ? N.cyan : K.white) : Math.abs(i) <= BW - 2 && Math.abs(y - (Math.round((yT + yB) / 2) - Hh)) <= 18 ? c32('#0A0F1E')"),
+                      ("    vtext(t1, mid - len(t1) - 3, K.white); vtext(t2, mid + 4, N.cyan);",
+                       "    void vtext; void t1; void t2; void len; let wy = mid - 16; for (const [wd, c] of [['THANK', K.white], ['YOU', K.white], ['DRIVE', N.cyan], ['SAFE', N.cyan]]) { PIX.smallText(L, wd, X0 - Math.floor(PIX.smallWidth(wd) / 2), wy, c); wy += PIX.SMALL_H + 1 + (wd === 'YOU' ? 3 : 0); }"),
+                      # a walk through a parapet gap needs a push held 0.35 s (world.gapDropHold, proposed): no drop by brushing past; a dash or a jump goes at once
+                      ("      if (f.has(b.x, b.y)) return;\n      const block = () =>", "      if (f.has(b.x, b.y)) { b.gapT = 0; return; }\n      const block = () =>"),
+                      ("      else if (f.drop || (f.dropAt && f.dropAt(b.x, b.y)) ||", "      else if (f.drop || (f.dropAt && f.dropAt(b.x, b.y) && this.gapCommit(b, f)) ||"),
+                      ("    floorMove() {", "    gapCommit(b, f) { // FINAL V2.1 (Edit 124): straight out through a deck's gap drops at once; brushing along the parapet needs the push held 0.35 s\n"
+                       "      if (b.mode === 'lunge' || b.mode === 'jump' || !globalThis.P11) return true; const dk = f && f.layer && f.layer.dk, vx = b.x - b.px, vy = b.y - b.py, v = Math.hypot(vx, vy);\n"
+                       "      if (dk && v > 1e-6 && Math.abs(dk.hz ? vy : vx) / v >= 0.6) return true; b.gapT = (b.gapT || 0) + 1 / (this.P['simulation.tickRate'] || 60); return b.gapT >= 0.35; }\n    floorMove() {")], 'world6.js (V2.1)')
     return patch(w, [
         ("  const api = { P6SIM, DISTRICTS,",
          "  // Submission 7: the duel's low planters and street-camera posts, painted into the tile's ground art as Prototype 9 paints its own\n"
@@ -292,8 +363,17 @@ def world6_js(v2=False):
 RULES = json.loads((ROOT / 'engine' / 'progression.json').read_text(encoding='utf-8'))  # car, player and level: one thing a tile
 
 
-def story_json(plan, gifts=True):
+def story_json(plan, gifts=True, more=()):
     d = json.loads((E / 'story_v2.json').read_text(encoding='utf-8'))
+    for pl in more:  # FINAL V2.1 (Edit 125): Map 2 and on, puzzles only
+        dist = next(x for x in d['districts'] if x['id'] == pl['district'])
+        dist['order'] = [t['tile'] for t in pl['tiles']]
+        for t in pl['tiles']:
+            o = dist['tiles'][t['tile']]; ob = t['objective']
+            o.update({'title': t['title'], 'tale': t['tale'], 'stage': t['stage'], 'newIdea': t.get('newIdea', ''), 'hint': t.get('hint', ''), 'gift': None,
+                      'task': {'kind': 'red', 'label': ob['label'], 'brief': t.get('hint', ''), 'count': ob['count'], 'objective': ob['kind']}})
+        if pl.get('map', {}).get('intro'):
+            dist['intro'] = pl['map']['intro']
     mon = next(x for x in d['districts'] if x['id'] == 'monument')
     if not gifts:  # Prototype 11: the puzzles' own order (Edit 115)
         mon['order'] = [t['tile'] for t in plan['tiles']]
@@ -322,6 +402,9 @@ def story_json(plan, gifts=True):
 def main(p11=False):
     pz = json.loads((ROOT / 'content' / 'puzzles_map1.json').read_text(encoding='utf-8')) if p11 else None
     plan = p11_plan(pz) if p11 else json.loads((ROOT / 'content' / 'story_map1.json').read_text(encoding='utf-8'))
+    pz2 = json.loads((ROOT / 'content' / 'puzzles_map2.json').read_text(encoding='utf-8')) if p11 else None  # FINAL V2.1 (Edit 125): Map 2, Parkland
+    plan2 = p11_plan(pz2) if p11 else None
+    more = [plan2] if p11 else []
     rules = dict(RULES, levels=dict(RULES['levels'], **pz.get('levels', {}))) if p11 else RULES  # Prototype 11's own level profiles (the boss)
     if p11:  # Prototype 11.3 (Edit 119): the parts in the P11 pad layout (A dash, B crouch, X jump, Y interact); Submission 7 keeps its own
         P11_PARTS = {'battery1': dict(key='A (keys: Space)', text="Dash: A (keys: Space). Reach a car's path from cover set back from the road."),
@@ -342,7 +425,7 @@ def main(p11=False):
     scripts = js(E / 'jump.js') + ''.join(js(E / f) for f in ('sim.js', 'pixel.js', 'lab.js', 'circus_valley.js'))
     scripts += f'<script>\n{world6_js(p11)}\n</script>\n' + js(E / 'content.js')
     scripts += f'<script>\nwindow.FLEET_DB = {(E / "fleet.json").read_text(encoding="utf-8")};\n</script>\n'
-    scripts += f'<script>\nwindow.DUMMIES_STORY = {json.dumps(story_json(plan, not p11), ensure_ascii=False)}; // story_v2.json; Map 1 from content/story_map1.json\n</script>\n'
+    scripts += f'<script>\nwindow.DUMMIES_STORY = {json.dumps(story_json(plan, not p11, more), ensure_ascii=False)}; // story_v2.json; Map 1 from content/story_map1.json\n</script>\n'
     scripts += js(E / 'lore.js')
     cr = cues['credits']
     credit = ['Music by ' + cr['music'].replace(' on itch.io', ''), 'Sound effects by ' + cr['sfx'].replace(' on itch.io', '')]
@@ -363,26 +446,32 @@ def main(p11=False):
         sim[k] = round(byid[k]['default'] * 0.7, 1)
     for t in plan['tiles']:
         sim[f'story.traffic.monument.{t["tile"]}'] = 1.0 if int(t['stage'].split('.')[1]) >= 9 else 0.5
+    if p11:  # FINAL V2.1 (Edit 124, playtest): damage stays for the puzzle; worn legs slow a walk a little, never the dash; crouch walks at 60%; a longer hit-stop
+        sim.update({'proto.parts.legSpeedFloor': 0.8, 'proto.parts.legDashLoss': 0, 'proto.parts.torsoTurnFloor': 0.8, 'feedback.hitStop': 0.14})
     if p11:  # Prototype 11: the puzzle's fleet; 0 keeps the tile clear (engine/p11.js removes white ground cars)
-        for q in pz['puzzles']:
-            sim[f'story.traffic.monument.{q["tile"]}'] = q['fleet'] if q['fleet'] > 0 else 0.25
+        for z in (pz, pz2):
+            for q in z['puzzles']:
+                sim[f'story.traffic.{z["map"].get("district", "monument")}.{q["tile"]}'] = q['fleet'] if q['fleet'] > 0 else 0.25
     assert all(k in byid for k in sim), [k for k in sim if k not in byid]
     scripts += f'<script>\nwindow.DUMMIES_SIM = {json.dumps(sim)}; // Prototype 9 (Edits 97-100) + Submission 7; registry {reg["registryVersion"]}\n</script>\n'
     scripts += js(E / 'story7.js') + js(E / 'pads.js')
     scripts += f'<script>\nwindow.DUMMIES_CUES = {json.dumps(cues, ensure_ascii=False)};\n</script>\n' + js(E / 'audio.js')
     scripts += js(V / 'testroad.js')
     scripts += '<script>\n' + f'window.DUMMIES_STAGES = {json.dumps({k: {"title": v["title"], "flags": v["flags"]} for k, v in stages.items()})};\n'
-    scripts += f'window.STORY_MAP1 = {json.dumps(plan, ensure_ascii=False)}; // content/story_map1.json, written by pipeline/run.py\n</script>\n'
+    scripts += f'window.STORY_MAP1 = {json.dumps(plan, ensure_ascii=False)}; // content/story_map1.json, written by pipeline/run.py\n'
+    if p11:
+        scripts += f'window.STORY_MAPS = {{ monument: window.STORY_MAP1, parkland: {json.dumps(plan2, ensure_ascii=False)} }}; // FINAL V2.1 (Edit 125): content/puzzles_map2.json\n'
+    scripts += '</script>\n'
     scripts += f'<script>\nwindow.DUEL_RULES = {json.dumps(rules, ensure_ascii=False)}; // engine/progression.json\n</script>\n'
     scripts += js(ROOT / 'engine' / 'duel.js') + js(ROOT / 'engine' / 'duel_ui.js')
     if p11:
-        scripts += f'<script>\nwindow.P11_PUZZLES = {json.dumps(pz, ensure_ascii=False)}; // content/puzzles_map1.json\n</script>\n'
+        scripts += f'<script>\nwindow.P11_PUZZLES = {json.dumps(pz, ensure_ascii=False)}; // content/puzzles_map1.json\nwindow.P11_MAPS = [window.P11_PUZZLES, {json.dumps(pz2, ensure_ascii=False)}]; // + content/puzzles_map2.json (Edit 125)\n</script>\n'
         scripts += (js(ROOT / 'engine' / 'hero_cars.js') if (ROOT / 'engine' / 'hero_cars.js').exists() else '') + js(ROOT / 'engine' / 'p11.js') + js(ROOT / 'engine' / 'p11_ui.js')  # Prototype 11.4: the hero cars (the car design agent)
-    scripts += f'<script>\n{v2_game_js(p11_game_js(game_js())) if p11 else game_js()}\n</script>\n'
+    scripts += f'<script>\n{v21_game_js(v2_game_js(p11_game_js(game_js()))) if p11 else game_js()}\n</script>\n'
     shell = (E / 'shell.html').read_text(encoding='utf-8')
     shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · FINAL V2</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
     cache = ROOT / 'engine' / '.cache'; cache.mkdir(exist_ok=True)  # for headless checks (node): the same values the page gets
-    (cache / ('runtime_p11.json' if p11 else 'runtime.json')).write_text(json.dumps({'sim': sim, 'story': story_json(plan, not p11), 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': rules, 'puzzles': pz}), encoding='utf-8')
+    (cache / ('runtime_p11.json' if p11 else 'runtime.json')).write_text(json.dumps({'sim': sim, 'story': story_json(plan, not p11, more), 'plan2': plan2, 'puzzles2': pz2, 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': rules, 'puzzles': pz}), encoding='utf-8')
     out = ROOT / 'final_v2' / 'index.html' if p11 else ROOT / 'index.html'  # FINAL V2 (Edit 123); Shipping V1 stays frozen in p11/
     if '--out' in sys.argv:  # a trial build elsewhere (the page's audio stays at ../audio/)
         out = Path(sys.argv[sys.argv.index('--out') + 1]).resolve()

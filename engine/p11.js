@@ -8,22 +8,29 @@
   'use strict';
   const STORY = root.STORY, DUEL = root.DUEL, PZ = root.P11_PUZZLES;
   if (!STORY || !DUEL || !PZ) { console.warn('p11: a module is missing; Submission 7 runs alone'); return; }
-  const LIST = PZ.puzzles, BY = {}; for (const q of LIST) BY[q.tile] = q;
-  const ORDER = LIST.map((q) => q.tile), PARTS = (root.DUEL_RULES || {}).parts || {}, RUNGS = DUEL.RUNGS;
-  const LEARNER = Object.assign({ cls: 'LUMINARY', name: 'LUMINARY™', prose: 'the Luminary™', model: 'SED-01-001', tag: 'S01' }, (PZ.map && PZ.map.learner) || {}); // Prototype 11.4 (Edit 120): the learner is a model
-  const HINT_PASSES = PZ.hintPasses || 2; // story.puzzle.hintPasses (proposed)
+  const PARTS = (root.DUEL_RULES || {}).parts || {}, RUNGS = DUEL.RUNGS;
+  // FINAL V2.1 (Edit 125): the maps. Map 1 Monument (content/puzzles_map1.json), Map 2 Parkland (puzzles_map2.json). One map is
+  // current at a time: P11.BY, ORDER, LIST, LEARNER are its. Map 2 opens when Map 1 is certified.
+  const MAPS = (root.P11_MAPS || [PZ]).map((pz, i) => { const LIST = pz.puzzles, BY = {}; for (const q of LIST) BY[q.tile] = q;
+    return { i, id: (pz.map && pz.map.district) || 'monument', name: (pz.map && pz.map.name) || 'Monument', pz, LIST, BY, ORDER: LIST.map((q) => q.tile), hint: pz.hintPasses || 2, senior: (pz.map && pz.map.senior) || null,
+      LEARNER: Object.assign({ cls: 'LUMINARY', name: 'LUMINARY™', prose: 'the Luminary™', model: 'SED-01-001', tag: 'S01' }, (pz.map && pz.map.learner) || {}) }; }); // Prototype 11.4 (Edit 120): the learner is a model
+  let M = MAPS[0], LIST = M.LIST, BY = M.BY, ORDER = M.ORDER, LEARNER = M.LEARNER, HINT_PASSES = M.hint; // story.puzzle.hintPasses (proposed)
+  function useMap(id) { const m = MAPS.find((q) => q.id === id) || MAPS[0]; if (m !== M) { M = m; ({ LIST, BY, ORDER, LEARNER } = m); HINT_PASSES = m.hint; if (typeof P11 !== 'undefined') Object.assign(P11, { LIST, BY, ORDER, LEARNER, HINT_PASSES, MAP: M }); } return M; }
   const ARC_KEY = 'dummies.p11.arcade', mem = {};
   const store = { get: (k) => { try { const v = localStorage.getItem(k); return v == null ? mem[k] || null : v; } catch (e) { return mem[k] || null; } }, set: (k, v) => { mem[k] = v; try { localStorage.setItem(k, v); } catch (e) { /* storage off: this visit */ } } };
   const hyp = Math.hypot, clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const nameOf = (c, r) => 'ABC'[c] + (r + 1);
 
   // ---------- the save: progress.p11 in Prototype 9's slot
-  function saveOf(pr) {
+  function rootOf(pr) { if (!pr.p11 || pr.p11.v !== 1) pr.p11 = { v: 1, cur: null, best: {}, certified: false }; pr.p11.maps = pr.p11.maps || {}; return pr.p11; }
+  function recOf(pr, id) { const r = rootOf(pr); return id === MAPS[0].id ? r : (r.maps[id] = r.maps[id] || { cur: null, best: {}, certified: false }); }
+  const mapOpen = (pr, id) => { const i = MAPS.findIndex((q) => q.id === id); return i === 0 || (i > 0 && !!recOf(pr, MAPS[i - 1].id).certified); };
+  function saveOf(pr) { // the current map's record ({ cur, best, certified }); the slot remembers which map is current
     if (!pr) return null;
-    if (!pr.p11 || pr.p11.v !== 1) pr.p11 = { v: 1, cur: null, best: {}, certified: false };
-    pr.district = 'monument'; pr.complete = false;
-    pr.done = pr.done || {}; pr.done.monument = ORDER.filter((t) => pr.p11.best[t]);
-    return pr.p11;
+    const r = rootOf(pr); useMap(r.map && mapOpen(pr, r.map) ? r.map : MAPS[0].id); r.map = M.id;
+    pr.district = M.id; pr.complete = false;
+    pr.done = pr.done || {}; const sv = recOf(pr, M.id); pr.done[M.id] = ORDER.filter((t) => sv.best[t]);
+    return sv;
   }
   const built = (t) => !!(BY[t] && BY[t].built);
   function stateOf(pr, t) { // 'solved' · 'open' · 'locked' · 'build'
@@ -37,14 +44,17 @@
   function nextOf(t) { const i = ORDER.indexOf(t); return ORDER.slice(i + 1).find(built) || null; }
   const starsOf = (pr, t) => { const b = saveOf(pr).best[t]; return b ? b.stars : [0, 0, 0]; };
   const starCount = (pr) => ORDER.reduce((a, t) => a + starsOf(pr, t).reduce((x, y) => x + y, 0), 0);
+  const starsAll = (pr) => MAPS.reduce((a, m) => a + m.ORDER.reduce((x, t) => { const b = recOf(pr, m.id).best[t]; return x + (b ? b.stars.reduce((u, v) => u + v, 0) : 0); }, 0), 0);
 
   // the sim's progress: the other eight tiles marked done, so this puzzle's tile is the one in test; the kit as the parts owned
-  const P11 = { real: null, LIST, BY, ORDER, HINT_PASSES, LEARNER };
+  const P11 = { real: null, LIST, BY, ORDER, HINT_PASSES, LEARNER, MAP: M, MAPS };
+  P11.mapId = () => M.id; P11.mapOpen = mapOpen;
+  P11.setMap = function (pr, id) { if (!pr || !mapOpen(pr, id)) return false; rootOf(pr).map = id; saveOf(pr); return true; }; // the grid's map tabs
   P11.progressFor = function (real) {
     const sv = saveOf(real); P11.real = real;
     const cur = sv.cur && playable(real, sv.cur) ? sv.cur : firstOpen(real); sv.cur = cur;
     const q = BY[cur], pr = STORY.newProgress();
-    pr.done.monument = ORDER.filter((t) => t !== cur);
+    for (const m of MAPS) pr.done[m.id] = m === M ? ORDER.filter((t) => t !== cur) : m.ORDER.slice(); pr.district = M.id;
     for (const k of q.kit || []) { const n = PARTS[k] && PARTS[k].p9; if (n) pr.owned[n] = true; }
     return pr;
   };
@@ -54,17 +64,29 @@
     const time = old ? Math.min(old.time, res.attempt) : res.attempt;
     sv.best[t] = { stars, time, first: old ? old.first : res.clock, plays: (old ? old.plays : 0) + 1 };
     saveOf(pr);
-    if (t === ORDER[ORDER.length - 1]) { sv.certified = true; store.set(ARC_KEY, '1'); }
+    const first = !sv.certified, nm = MAPS[M.i + 1] || null;
+    if (t === ORDER[ORDER.length - 1]) { sv.certified = true; if (M.i === 0) store.set(ARC_KEY, '1'); }
     const next = nextOf(t); if (next) sv.cur = next;
-    return { best: sv.best[t], newStars: stars.reduce((a, b) => a + b, 0) - (old ? old.stars.reduce((a, b) => a + b, 0) : 0), newTime: !old || res.attempt < old.time, next, certified: sv.certified };
+    const mapDone = first && sv.certified; if (mapDone) rootOf(pr).celebrate = { map: M.id, next: nm && nm.id }; // the grid celebrates once, then opens the next map
+    return { best: sv.best[t], newStars: stars.reduce((a, b) => a + b, 0) - (old ? old.stars.reduce((a, b) => a + b, 0) : 0), newTime: !old || res.attempt < old.time, next, certified: sv.certified, mapDone, nextMap: mapDone && nm ? nm.name : null };
   };
   P11.arcadeOpen = () => store.get(ARC_KEY) === '1';
-  P11.stateOf = stateOf; P11.starsOf = starsOf; P11.starCount = starCount; P11.saveOf = saveOf; P11.nextOf = nextOf; P11.playable = playable;
+  P11.slotLine = function (pr) { // FINAL V2.1 (Edit 124): the save slot on one line: map, puzzle, stars
+    const sv = saveOf(pr); if (!sv) return ''; const t = sv.cur && BY[sv.cur] ? sv.cur : firstOpen(pr), q = BY[t];
+    return M.name.toUpperCase() + (sv.certified ? ' · CERTIFIED' : ' · PUZZLE ' + (q ? q.n : 1)) + ' · ★ ' + starsAll(pr);
+  };
+  P11.starsAll = starsAll; P11.stateOf = stateOf; P11.starsOf = starsOf; P11.starCount = starCount; P11.saveOf = saveOf; P11.nextOf = nextOf; P11.playable = playable;
 
   // ---------- the grid's keys (the story map's screen)
   P11.mapKey = function (app, m) {
     const pr = app.story, sv = saveOf(pr); if (!sv) return 'back';
-    let t = app.p11Sel || sv.cur || firstOpen(pr), c = 'ABC'.indexOf(t[0]), r = +t[1] - 1;
+    const cel = rootOf(pr).celebrate; // FINAL V2.1 (Edit 125): the map's clear: any key after a beat opens the next map
+    if (cel) { if (m === 'ok' || m === 'back') { if (app.realT - (app.p11CelT || 0) < 1.2) return null; rootOf(pr).celebrate = null; if (cel.next) P11.setMap(pr, cel.next); app.p11Sel = null; app.p11Tab = false; } return null; }
+    if (app.p11Tab) { // the map tabs, above the grid
+      const i = M.i; if (m === 'left' || m === 'right') { const j = (i + (m === 'left' ? MAPS.length - 1 : 1)) % MAPS.length; if (P11.setMap(pr, MAPS[j].id)) app.p11Sel = null; else app.p11Deny = { t: MAPS[j].id, at: app.realT, why: 'map' }; }
+      else if (m === 'down' || m === 'ok') app.p11Tab = false; else if (m === 'back') return 'back'; return null; }
+    let t = app.p11Sel && BY[app.p11Sel] ? app.p11Sel : sv.cur || firstOpen(pr), c = 'ABC'.indexOf(t[0]), r = +t[1] - 1;
+    if (m === 'up' && r === 0 && MAPS.length > 1) { app.p11Tab = true; return null; }
     if (m === 'left') c = (c + 2) % 3; else if (m === 'right') c = (c + 1) % 3; else if (m === 'up') r = (r + 2) % 3; else if (m === 'down') r = (r + 1) % 3;
     else if (m === 'back') return 'back';
     else if (m === 'ok') { if (playable(pr, t)) { sv.cur = t; return 'deploy'; } app.p11Deny = { t, at: app.realT, why: stateOf(pr, t) }; return null; }
@@ -87,10 +109,10 @@
     const pt = q.earns && q.earns !== 'car' ? PARTS[q.earns] : null;
     return { head: 'PUZZLE ' + q.n + ' · ' + q.name.toUpperCase(), sub: '', story: q.tale, goal: V2GOAL(q),
       extra: ['NEW · ' + P11.keys(q.newLine || q.new).toUpperCase()].concat(pt ? ['EARN · ' + String(pt.name).toUpperCase() + ' · ' + String(pt.verb || '').toUpperCase()] : [],
-        ['PAR ' + q.par + ' s' + (b ? '   ·   BEST ' + b.time.toFixed(1) + ' s ' + b.stars.map((v) => (v ? '★' : '☆')).join('') : '')]) };
+        ['★★★ UNDER ' + q.par + ' s' + (b ? '   ·   BEST ' + b.time.toFixed(1) + ' s ' + b.stars.map((v) => (v ? '★' : '☆')).join('') : '')]) };
   };
   P11.titleCards = function (cardOf, pr, last) {
-    if (cardOf.STORY) { cardOf.STORY[1] = 'Nine puzzles. It learns from every hit.'; if (last && pr) { const sv = saveOf(pr); cardOf.STORY[2] = last.name + ' · ' + ORDER.filter((t) => sv.best[t]).length + ' of ' + ORDER.length + ' solved · ★ ' + starCount(pr) + (sv.certified ? ' · certified' : ''); } }
+    if (cardOf.STORY) { cardOf.STORY[1] = 'Nine puzzles a map. It learns from every hit.'; if (last && pr) { const sv = saveOf(pr); cardOf.STORY[2] = last.name + ' · ' + M.name + ' · ' + ORDER.filter((t) => sv.best[t]).length + ' of ' + ORDER.length + ' solved · ★ ' + starsAll(pr) + (sv.certified ? ' · certified' : ''); } }
     if (cardOf.ARCADE && !P11.arcadeOpen()) cardOf.ARCADE = ['ARCADE', 'Clear puzzle 9 to open it.', 'LOCKED · CLEAR PUZZLE 9'];
   };
   // Prototype 11.3 (Edit 119): a clear that teaches two rungs shows one upgrade screen with both parts; the second rung is fitted on continue
@@ -102,7 +124,7 @@
   P11.lessonNext = function (s) { // the lesson card's last line: what comes next, not how to beat it
     const p = s && s.p11; if (!p) return null;
     const T = s.duelT, L = T && T.lesson; if (L && L.mid) return 'Hit ' + (s.duelHits + 1) + ' of ' + p.q.objective.count + '. It comes back a rung up.';
-    const nx = nextOf(p.q.tile), q = nx && BY[nx]; return q ? 'Puzzle ' + q.n + ': ' + q.name + '. New: ' + q.new : 'Certification. Arcade is open.';
+    const nx = nextOf(p.q.tile), q = nx && BY[nx], nm = MAPS[M.i + 1]; return q ? 'Puzzle ' + q.n + ': ' + q.name + '. New: ' + q.new : M.name + ' certified.' + (nm ? ' ' + nm.name + ' is open.' : '') + (M.i === 0 ? ' Arcade is open.' : '');
   };
 
   // Shipping V1 (11 Nov): a part earned at a clear shows Prototype 9's gift screen (the chassis, the drone, the module landing,
@@ -121,9 +143,10 @@
     p11Setup() {
       this.p11 = null;
       if (!this.W6 || !this.storyMode || !this.story || !this.duelT) return;
+      if (!MAPS.some((m) => m.id === this.levelId)) return; useMap(this.levelId);
       const act = STORY.activeTile(this.story, this.levelId), q = BY[act]; if (!q) return;
       const T = this.duelT, b = this.body, lay = q.layout || {}; T.learner = LEARNER.model; // Prototype 11.4: the learner's model ID on its car
-      if (q.camera && q.camera.watch) this.p11Camera(q.camera.watch);
+      if (q.camera && q.camera.at) this.p11CameraAt(q.camera.at); else if (q.camera && q.camera.watch) this.p11Camera(q.camera.watch);
       if (lay.drop) Object.assign(b, { x: lay.drop[0], y: lay.drop[1], px: lay.drop[0], py: lay.drop[1], level: 0, floor: null }); // the puzzle's drop point (Edit 115)
       if (lay.cones) this.p11Cones(lay.cones);
       this.p11 = { q, phase: 0, clock: 0, attempt: 0, restarts: 0, passes: 0, failed: 0, failedPhase: 0, untouched: true, seq: 0, inPass: false, passHits: 0,
@@ -146,6 +169,10 @@
         sc.duelPosts = sc.duelPosts || []; sc.duelPosts.push(T.level.cameras[0]); if (W6 && W6.paintPost) W6.paintPost(sc, x, y);
         return;
       }
+    }
+    p11CameraAt(at) { // FINAL V2.1 (Edit 124): a post set by hand, where its cone watches the cover's hiding side (it pans, and the world blocks it)
+      const T = this.duelT, W6 = root.WORLD6, sc = T.duelSc; T.level.cameras = [[at[0], at[1], at[2], at[3] || 0]];
+      sc.duelPosts = sc.duelPosts || []; if (!sc.duelPosts.some((q) => q[0] === at[0] && q[1] === at[1])) { sc.duelPosts.push(T.level.cameras[0]); if (W6 && W6.paintPost) W6.paintPost(sc, at[0], at[1]); }
     }
     // the puzzle's cones: [] takes the tile's away (no Hands 1 in the kit); [[x, y], ...] sets their homes
     p11Cones(list) {
@@ -184,16 +211,15 @@
       if (!(p.q.fleet > 0)) this.p11Fleet(); // fleet 0: no white cars on the tile in test or the four beside it
       const ev = this.events; if (p.ev > ev.length) p.ev = 0;
       for (let i = p.ev; i < ev.length; i++) { const e = ev[i];
-        if (e.type === 'fault') { p.untouched = false; p.healAt = this.t + 1; }
-        else if (e.type === 'impact') { if (!e.red) { if ((e.lost || 0) > 0) p.untouched = false; } p.healAt = this.t + 1; }
+        if (e.type === 'fault') p.untouched = false;
+        else if (e.type === 'impact' && !e.red && (e.lost || 0) > 0) p.untouched = false;
       }
       p.ev = ev.length;
       // passes: one red car's run through the tile. None counted on it: a failed pass
       const endPass = () => { p.inPass = false; if (this.duelHits === p.passHits && !this.duelDone && !this.duelPending) { p.failed++; p.failedPhase++; if (p.failedPhase === HINT_PASSES) this.emit('p11-hint', { tile: p.q.tile, phase: p.phase, hint: this.p11Hint() }); } };
       if ((T.redSeq || 0) > p.seq) { if (p.inPass) endPass(); p.seq = T.redSeq; p.passes++; p.passHits = this.duelHits; p.inPass = true; } // the next car can enter as the last one crosses into the next tile
       if (p.inPass && !this.redOnScreen()) endPass();
-      // the chassis is patched a second after any contact: a puzzle never runs on a worn body (its dash reach stays the same)
-      if (p.healAt != null && this.t >= p.healAt && b && b.alive && !this.duelPending && !this.duelDone && this.phase === 'play') { p.healAt = null; this.patch(); }
+      // FINAL V2.1 (Edit 124, playtest): damage stays for the puzzle (the BODY bar falls); a new attempt brings a fresh body. Worn legs never shorten the dash
       if (p.q.breakableCameras && this.phase === 'play') this.p11Cameras();
     }
     patch() { const b = this.body; b.health = this.maxHealth(); if (b.parts) for (const k of Object.keys(b.parts)) b.parts[k] = 0; this.emit('p11-patched', {}); }
@@ -201,7 +227,7 @@
       const T = this.duelT, sc = T.duelSc;
       for (const s of this.W6.sims) {
         const q = s.sc; if (!q || Math.abs(q.col - sc.col) + Math.abs(q.row - sc.row) > 1) continue;
-        if (s.cars.some((c) => !c.red)) s.cars = s.cars.filter((c) => c.red); // the decks too: a quiet test day (Edit 115)
+        if (s.cars.some((c) => !c.red && !(c.senior && s === T))) s.cars = s.cars.filter((c) => c.red || (c.senior && s === T)); // the decks too: a quiet test day (Edit 115). Map 2's senior stays on its tile
       }
     }
     // Breakable CCTV (props.camera.breakable, proposed): a dash into the post breaks it; it reports to the car no more
@@ -230,6 +256,16 @@
       this.emit('p11-restart', { tile: p.q.tile, restarts: p.restarts, why: why || 'R', clock: +p.clock.toFixed(2) });
       return true;
     }
+    // FINAL V2.1 (Edit 124): a body worn out short of the goal is wrecked where it lies; the drone drops a fresh one at the start.
+    // The car, its rung, the hits so far and the clocks carry on. Not untouched.
+    p11Fresh() {
+      const p = this.p11, b = this.body;
+      this.effects.push({ type: 'wreck', x: b.x, y: b.y, t: this.t, facing: b.facing, layer: b.level }); this.emit('writeoff', { chassis: b.chassis, writeOffs: this.run.writeOffs, p11: true });
+      this.spawnBody(); const nb = this.body, d = p.drop; Object.assign(nb, { x: d.x, y: d.y, px: d.x, py: d.y, level: d.level, floor: d.floor });
+      Object.assign(this, { rescue: null, knockFault: null, stuckT: 0, stuckAt: null }); p.untouched = false;
+      this.phase = 'brief'; this.dropPending = true; this.continueBrief();
+      this.emit('p11-fresh', { tile: p.q.tile, hits: this.duelHits });
+    }
     // a boss: a counted hit short of the objective plays a lesson once the car has left; it returns one rung up
     duelImpact(e, c) {
       const h0 = this.duelHits; super.duelImpact(e, c);
@@ -249,7 +285,6 @@
     continueLesson() {
       const T = this.duelT, L = T && T.lesson, mid = L && L.mid, atClear = L && L.atClear && !L.part;
       super.continueLesson();
-      if (mid && this.p11 && this.body && this.body.alive) this.patch();
       // a clear that teaches two rungs (Edit 115: roof lidar, then street cameras): the second lesson follows, on the same clip
       if (atClear && this.p11 && T.rung < Math.round(T.DP['duel.topRung'] || 0) && DUEL.RUNGS[T.rung + 1]) {
         const nx = DUEL.RUNGS[T.rung + 1];
@@ -260,6 +295,7 @@
     }
     writeOff() {
       const clearing = !!(this.p11 && this.duelPending && this.duelT);
+      if (this.p11 && !clearing && !this.duelDone && this.duelT && this.phase === 'play') return this.p11Fresh(); // FINAL V2.1: worn out short of the goal
       super.writeOff();
       if (!clearing) return;
       const p = this.p11, q = p.q, stars = [1, p.untouched ? 1 : 0, p.attempt <= q.par + 1e-6 ? 1 : 0];
