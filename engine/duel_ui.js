@@ -51,7 +51,8 @@
     let m = classArt.get(cls); if (!m) classArt.set(cls, (m = new Map())); if (m.has(S)) return m.get(S);
     const HC = root.HERO_CARS, C0 = HC && HC.classes && HC.classes[cls], R0 = C0 && typeof C0.livery === 'function' ? liverySprite(S, C0) : S; m.set(S, R0); return R0;
   }
-  const seniorSprite = (S) => classSprite(S, 'LUMINARY');
+  const seniorCls = () => (root.P11 && root.P11.MAP && root.P11.MAP.senior && root.P11.MAP.senior.cls) || 'LUMINARY'; // Edit 126: the map's senior (Map 3: the Vanguard™)
+  const seniorSprite = (S) => classSprite(S, seniorCls());
   function redSprite(S) {
     const LV = liveryOf(); if (LV) return classSprite(S, root.P11.LEARNER.cls);
     if (redArt.has(S)) return redArt.get(S);
@@ -248,7 +249,7 @@
       lidarPts.set(T.level, pts); }
     ctx.save(); ctx.fillStyle = SCAN.lidar; let nDraw = 0, nIn = 0; // its own colour (the second review, F2)
     for (const [x, y] of pts) { const dx = x - wx, dy = y - wy; if (dx * dx + dy * dy > R * R) continue; const d = ((a - (Math.atan2(dy, dx) - c.h)) % TAU + TAU) % TAU; nIn++; if (d > fade) continue; nDraw++; ctx.globalAlpha = (s.p11 ? 0.5 : 0.95) * (1 - d / fade); ctx.fillRect(x - 1.7, y - 1.7, 3.4, 3.4); }
-    if (b && T.meets(c) && (b.level || 0) > 0) { const dx = b.x - wx, dy = b.y - wy; if (dx * dx + dy * dy < R * R) { const d = ((a - (Math.atan2(dy, dx) - c.h)) % TAU + TAU) % TAU; if (d < 0.35) c.v2LidarT = T.t; } } // FINAL V2: the sweep crossing you on a deck: brackets, held ui.seenHoldSeconds
+    if (b && T.meets(c) && (b.level || 0) > (T.elev0 || 0)) { const dx = b.x - wx, dy = b.y - wy; if (dx * dx + dy * dy < R * R) { const d = ((a - (Math.atan2(dy, dx) - c.h)) % TAU + TAU) % TAU; if (d < 0.35) c.v2LidarT = T.t; } } // FINAL V2: the sweep crossing you on a deck: brackets, held ui.seenHoldSeconds
     ctx.translate(wx, wy); ctx.globalAlpha = 0.35; ctx.strokeStyle = SCAN.lidar; ctx.lineWidth = 1; ctx.setLineDash([1.5, 6]); ctx.beginPath(); ctx.arc(0, 0, R, 0, TAU); ctx.stroke(); ctx.setLineDash([]); // its reach
     ctx.rotate(c.h + a); ctx.globalAlpha = 0.5; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(R, 0); ctx.stroke();
     ctx.restore();
@@ -287,7 +288,7 @@
   // plate ? then !, the same colour. Several at once: the highest rung marks the dummy; the lower fields only brighten.
   const RUNGCOL = ['#9fb8c8', '#f4f8fa', '#7fa8bc', '#c3a6ff', '#9ff2c8', '#ff8a1f', '#ff5a5a', '#ff5a5a'];
   const V2 = { best: null, once: new WeakMap(), holdS: 0.6 }; // ui.seenHoldSeconds 0.6 (proposed)
-  const SENSOR = { fwd: ['FORWARD CAMERA', 1], side: ['SIDE SENSORS', 2], lidar: ['ROOF LIDAR', 3], cam: ['STREET CAMERA', 4], senior: ['LUMINARY™', 4], search: ['SEARCH', 7] };
+  const SENSOR = { fwd: ['FORWARD CAMERA', 1], side: ['SIDE SENSORS', 2], lidar: ['ROOF LIDAR', 3], cam: ['STREET CAMERA', 4], get senior() { return [(root.P11 && root.P11.MAP && root.P11.MAP.senior && root.P11.MAP.senior.name) || 'LUMINARY™', 4]; }, search: ['SEARCH', 7] };
   function v2Who(c, b) { // which sensor has the dummy now, and how far: seen, or sensing (u: the notice filling)
     if (!b || !b.alive) return null; const hz = c.hz, mk = (k, state, u) => ({ k, name: SENSOR[k][0], rank: SENSOR[k][1] + (state === 'seen' ? 10 : 0), col: RUNGCOL[SENSOR[k][1]], state, u, car: c });
     if (c.lkp && c.lkp.found && T.rung >= 7) return mk('search', 'seen');
@@ -307,7 +308,7 @@
     if (!seen.has(key)) { seen.add(key); flashes.push({ t: 1.5, n: 'SEEN · ' + w.name, c: w.col }); }
   }
   function v2Gaps(b) { // the parapet gaps: yellow end caps; a faint arrow down while you are on that deck, near the gap
-    const P = T.P, HALF = (P['world.deckWidth'] || 160) / 2, on = b && b.alive && (b.level || 0) > 0, pulse = 0.4 + 0.3 * (0.5 + 0.5 * Math.sin(T.t * TAU / 1.5));
+    const P = T.P, HALF = (P['world.deckWidth'] || 160) / 2, on = b && b.alive && (b.level || 0) > (T.elev0 || 0), pulse = 0.4 + 0.3 * (0.5 + 0.5 * Math.sin(T.t * TAU / 1.5));
     for (const l of (T.duelSc && T.duelSc.layers) || []) { const dk = l.dk; if (!dk || !dk.gaps) continue;
       for (const [g0, g1, side] of dk.gaps) for (const sd of side ? [side] : [-1, 1]) { // the open side (world6: the gap's sign), else both
         const at = (u, v) => (dk.hz ? [u, dk.off + sd * v] : [dk.off + sd * v, u]), gc = (g0 + g1) / 2;
@@ -418,7 +419,7 @@
   // the duel's planters are painted in the tile's art when world6 offers it (build_p9.py); drawn here only without it
   function drawPlanters() { if (root.WORLD6 && root.WORLD6.paintPlanter) return; for (const q of T.level.statics) if (q.kind === 'planter' && q.duel) { rect(q.x - 1, q.y + 2, q.w + 2, q.h, 'rgba(0,0,0,0.35)'); rect(q.x, q.y, q.w, q.h, '#5b6270'); rect(q.x + 2, q.y + 2, q.w - 4, q.h - 4, C.planter); for (let i = 0; i < 5; i++) { const cx = q.x + (q.w > q.h ? q.w * (i + 0.5) / 5 : q.w / 2), cy = q.y + (q.w > q.h ? q.h / 2 : q.h * (i + 0.5) / 5); ctx.fillStyle = C.planterTop; ctx.beginPath(); ctx.arc(cx, cy, Math.min(q.w, q.h) * 0.42, 0, TAU); ctx.fill(); } } }
   function drawLungeGuide() { // row 732: where a dash pressed now would land; yellow when the red car will be there
-    const b = s.body; if (!s.lungePreview || !b || !b.alive || b.mode === 'lunge' || b.mode === 'recover' || b.lifted || !s.dashFitted() || (b.level || 0) > 0) return;
+    const b = s.body; if (!s.lungePreview || !b || !b.alive || b.mode === 'lunge' || b.mode === 'recover' || b.lifted || !s.dashFitted() || (b.level || 0) > (T.elev0 || 0)) return;
     if (s.p11 && (s.phase !== 'play' || s.rescue || T.lift || !['move', 'idle', 'coast', undefined].includes(b.mode))) return; // FINAL V2: only on the ground, never on the drone
     if (!reds().some((c) => Math.hypot(c.x - b.x, c.y - b.y) < 2.6 * s.reach())) return;
     const cm = s.lastCmd || {}, g = s.lungePreview(cm.mx, cm.my); if (!g) return;
@@ -475,11 +476,12 @@
       ctx.globalAlpha = Math.min(1, f.t * 3); label(f.n, x, y, 12, f.c); ctx.globalAlpha = 1; }
   }
 
+  function hillLift(G) { if (!((T && T.elev0) > 0)) return; const l = ((T.duelSc && T.duelSc.layers) || []).find((q) => q.hill); if (l) ctx.translate(0, -(l.lift || 0) * (G.U || 2.5)); } // FINAL V2.1 (Edit 126): a duel on the hill draws lifted, as the hill does
   function field(cx, sim, G) {
     ctx = cx; s = sim; T = sim && sim.duelT; Gk = G;
     if (!T || !T.duelOn || !s.sc || s.sc !== T.duelSc || s.phase === 'brief' || s.phase === 'lesson') { if (T) (s.duelFeed || []).length = 0; return; }
     const k = G.RA / G.U;
-    ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip(); ctx.translate(G.FX, G.FY); ctx.scale(k, k);
+    ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip(); ctx.translate(G.FX, G.FY); ctx.scale(k, k); hillLift(G);
     readEvents();
     drawCrashes(); drawPlanters(); if (!s.p11) drawCameras();
     V2.best = null; for (const c of reds()) if (s.p11) drawScan(c, G); else drawField(c); // Prototype 11.2: sensor feedback replaces the static cones
@@ -493,7 +495,7 @@
   }
   function v2Late(G) { // FINAL V2 (review r2): above the decks and the monument: the cameras' cones, the parapet gaps, the dummy's mark, the caption
     const k = G.RA / G.U, b = T.body && T.body.alive ? T.body : null;
-    ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip(); ctx.translate(G.FX, G.FY); ctx.scale(k, k);
+    ctx.save(); ctx.beginPath(); ctx.rect(G.FX, G.FY, G.FW, G.FH); ctx.clip(); ctx.translate(G.FX, G.FY); ctx.scale(k, k); hillLift(G);
     Gk = G; drawCameras(); v2Gaps(b); if (s.phase === 'play' && !s.rescue) v2Mark(b); drawFlashes();
     ctx.restore();
   }

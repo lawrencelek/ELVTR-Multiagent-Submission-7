@@ -38,6 +38,34 @@
       "key": "J",
       "p9": "hands1",
       "text": "Cones: J picks one up; hold J to put it down."
+    },
+    "battery2": {
+      "name": "Battery 2",
+      "verb": "TWO DASHES",
+      "key": "Space",
+      "p9": "battery2",
+      "text": "Two charges: dash twice before it recharges."
+    },
+    "hands2": {
+      "name": "Hands 2",
+      "verb": "TWO CONES",
+      "key": "J",
+      "p9": "hands2",
+      "text": "Carry two cones."
+    },
+    "legs2": {
+      "name": "Legs 2",
+      "verb": "LONG JUMP",
+      "key": "L",
+      "p9": "legs2",
+      "text": "Longer in the air: a running jump clears a wider rail."
+    },
+    "battery3": {
+      "name": "Battery 3",
+      "verb": "FAST CHARGE",
+      "key": "Space",
+      "p9": "battery3",
+      "text": "Dash recharges faster."
     }
   },
   "levels": {

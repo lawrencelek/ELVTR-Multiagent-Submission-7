@@ -3,12 +3,12 @@
 module.exports = async function gotoPuzzle(pg, tile, root) {
   const path = require('path');
   await pg.goto('file://' + path.join(root || path.resolve(__dirname, '..'), process.env.P11_DIR || 'final_v2', 'index.html'));
-  await pg.evaluate((tile) => { // FINAL V2.1 (Edit 125): 'parkland:A1' opens Map 2 with Map 1 certified
+  await pg.evaluate((tile) => { // FINAL V2.1 (Edit 125): 'parkland:A1' opens Map 2 with Map 1 certified; 'waterfront:A1' Map 3 (Edit 126)
     try { localStorage.clear(); } catch (e) { /* none */ }
     const [mid, t0] = tile.includes(':') ? tile.split(':') : ['monument', tile], maps = window.P11.MAPS || [{ id: 'monument', BY: window.P11.BY, ORDER: window.P11.ORDER }];
     const pr = window.STORY.newProgress(), rec = (m, upto) => { const best = {}; for (const t of m.ORDER.slice(0, upto == null ? m.ORDER.length : m.ORDER.indexOf(upto))) if (m.BY[t].built) best[t] = { stars: [1, 1, 1], time: 5, first: 5, plays: 1 }; return best; };
     const m0 = maps[0], mi = maps.findIndex((m) => m.id === mid);
-    pr.p11 = mi <= 0 ? { v: 1, cur: t0, best: rec(m0, t0), certified: false } : { v: 1, cur: null, best: rec(m0), certified: true, map: mid, maps: { [mid]: { cur: t0, best: rec(maps[mi], t0), certified: false } } };
+    pr.p11 = mi <= 0 ? { v: 1, cur: t0, best: rec(m0, t0), certified: false } : { v: 1, cur: null, best: rec(m0), certified: true, map: mid, maps: Object.assign(Object.fromEntries(maps.slice(1, mi).map((m) => [m.id, { cur: null, best: rec(m), certified: true }])), { [mid]: { cur: t0, best: rec(maps[mi], t0), certified: false } }) }; // Edit 126: and every map between certified
     localStorage.setItem('dummies.p11.save1', JSON.stringify({ v: 1, name: 'TEST DUMMY 1', saved: Date.now(), progress: pr }));
   }, tile);
   await pg.reload(); await pg.waitForTimeout(1000);

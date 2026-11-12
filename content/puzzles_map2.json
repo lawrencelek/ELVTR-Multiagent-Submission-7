@@ -1,5 +1,5 @@
 {
- "about": "FINAL V2.1 (GDD Edit 125): Story Map 2 as nine puzzles. Parkland. The learner: the VANGUARD™ POL-01-001, a police car (Edit 121). On the road: the certified LUMINARY™ SED-01-001, a white car with every sensor; from the Vanguard's rung 4 it reports what it sees. Set by hand; six built (A1 C1 C2 B2 A2 B3), three in build (B1: no ground road; A3, C3: no tested solution yet).",
+ "about": "FINAL V2.1 (GDD Edit 125): Story Map 2 as nine puzzles. Parkland. The learner: the VANGUARD™ POL-01-001, a police car (Edit 121). On the road: the certified LUMINARY™ SED-01-001, a white car with every sensor; from the Vanguard's rung 4 it reports what it sees. Set by hand. Edit 126: B1's garden drive (a U-turn north of the walkway, tile: 'B1' in world6); A3 and C3 built; parts spaced (Legs 1 at B1, Battery 2 at A3).",
  "map": {
   "id": "parkland",
   "district": "parkland",
@@ -49,7 +49,7 @@
    "stage": "10.4",
    "startRung": 2,
    "topRung": 2,
-   "earns": "legs1",
+   "earns": null,
    "kit": [
     "battery1",
     "hands1",
@@ -85,37 +85,46 @@
    "steps": 1,
    "level": "open",
    "target": 60,
-   "name": "The Corner",
-   "built": false,
+   "name": "The Drive",
+   "built": true,
    "stage": "10.6",
-   "startRung": 3,
-   "topRung": 3,
-   "earns": null,
+   "startRung": 2,
+   "topRung": 2,
+   "earns": "legs1",
    "kit": [
     "battery1",
     "hands1",
-    "knees1",
-    "legs1"
+    "knees1"
    ],
-   "route": 0,
+   "route": 2,
    "objective": {
     "kind": "hits",
     "count": 1,
     "label": "GET HIT BY THE VANGUARD™"
    },
-   "par": 30,
+   "par": 20,
    "layout": {
-    "drop": null,
+    "drop": [
+     720,
+     560
+    ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "hedge",
+      "at": 0.5,
+      "side": "S",
+      "gap": 90
+     }
+    ]
    },
-   "tale": "The boulevard only clips this corner. A deck duel is in build.",
-   "new": "In build.",
-   "newLine": "In build",
+   "tale": "A garden drive off the highway: down, round the turn, back up. The patrol takes it every lap.",
+   "new": "The turn: on a bend it looks along the curve, not at you.",
+   "newLine": "The turn · it looks along the curve",
    "hints": [
-    "In build."
+    "Wait behind the hedge outside the turn. Dash in as it comes round."
    ],
-   "solution": "In build: the ground road crosses only 160 of the tile."
+   "solution": "Behind the hedge 150 off the bottom of the turn, crouched; dash north as its nose comes level."
   },
   {
    "n": 3,
@@ -310,36 +319,39 @@
    "level": "open",
    "target": 60,
    "name": "The Bend",
-   "built": false,
+   "built": true,
    "stage": "10.7",
    "startRung": 6,
    "topRung": 6,
-   "earns": null,
+   "earns": "battery2",
    "kit": [
     "battery1",
     "hands1",
     "knees1",
     "legs1"
    ],
-   "route": 0,
+   "route": 1,
    "objective": {
     "kind": "hits",
-    "count": 2,
+    "count": 1,
     "label": "GET HIT BY THE VANGUARD™"
    },
-   "par": 35,
+   "par": 20,
    "layout": {
-    "drop": null,
+    "drop": [
+     600,
+     600
+    ],
     "cones": [],
     "cover": []
    },
-   "tale": "The big bend. In build.",
-   "new": "In build.",
-   "newLine": "In build",
+   "tale": "The wide bend under the belvedere. Out of the turn the Vanguard™ picks up speed along the garden.",
+   "new": "Out of the bend: it is fast and has eyes on its line.",
+   "newLine": "The bend · fast out of the turn",
    "hints": [
-    "In build."
+    "Wait south of the road where the bend ends. Dash in as its nose comes level."
    ],
-   "solution": "In build: no tested solution at rung 6 yet."
+   "solution": "From open ground 150 south of the road east of the bend, dash north as its nose comes level."
   },
   {
    "n": 8,
@@ -358,7 +370,8 @@
     "battery1",
     "hands1",
     "knees1",
-    "legs1"
+    "legs1",
+    "battery2"
    ],
    "route": 2,
    "objective": {
@@ -394,9 +407,9 @@
    "fleet": 0,
    "steps": 1,
    "level": "open",
-   "target": 60,
+   "target": 120,
    "name": "Roundabout",
-   "built": false,
+   "built": true,
    "stage": "10.8",
    "startRung": 6,
    "topRung": 7,
@@ -405,27 +418,32 @@
     "battery1",
     "hands1",
     "knees1",
-    "legs1"
+    "legs1",
+    "battery2"
    ],
-   "route": 0,
+   "route": 8,
    "objective": {
     "kind": "hits",
     "count": 3,
-    "label": "GET HIT BY THE VANGUARD™"
+    "label": "THREE HITS · A NEW WAY EACH"
    },
-   "par": 60,
+   "par": 75,
    "layout": {
-    "drop": null,
+    "drop": [
+     620,
+     320
+    ],
     "cones": [],
     "cover": []
    },
-   "tale": "The roundabout. The boss. In build.",
-   "new": "In build.",
-   "newLine": "In build",
+   "tale": "The street roundabout where the garden street meets the boulevard. Three hits certify the Vanguard™.",
+   "new": "A boss. It learns once, after your first hit.",
+   "newLine": "Boss · learns after your first hit",
    "hints": [
-    "In build."
+    "Three hits, three places: the arm it comes in on, the far side of the ring, the arm again further in. After the first it searches where it lost you."
    ],
-   "solution": "In build."
+   "solution": "East of the SE arm as it comes in (dash NW); north of the ring (dash SE... see qa/solutions/parkland_C3.json); the SE arm again, further in.",
+   "boss": true
   }
  ]
 }

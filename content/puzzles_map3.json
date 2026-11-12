@@ -1,0 +1,473 @@
+{
+ "about": "FINAL V2.1 (GDD Edit 126): Story Map 3 as nine puzzles. Waterfront. The learner: the GENESIS™ SPT-01-001, the racing car (Edit 121). On the road: the certified VANGUARD™ POL-01-001; from the Genesis™'s rung 4 it reports what it sees. A1 and C1 are hilltop tiles: the duel runs on the hill's streets (Z1). Set by hand.",
+ "map": {
+  "id": "waterfront",
+  "district": "waterfront",
+  "name": "Waterfront",
+  "title": "MAP 3 · WATERFRONT",
+  "order": [
+   "A1",
+   "B1",
+   "C1",
+   "C2",
+   "B2",
+   "A2",
+   "A3",
+   "B3",
+   "C3"
+  ],
+  "intro": "Waterfront. The hill, the tunnel, the circus, the beach and the river. The Genesis™ races the drive; the Vanguard™ you certified patrols with it.",
+  "learner": {
+   "cls": "GENESIS",
+   "name": "GENESIS™",
+   "model": "SPT-01-001",
+   "tag": "R01",
+   "callsign": "Aurum",
+   "role": "Racing car",
+   "livery": "race red",
+   "prose": "the Genesis™"
+  },
+  "senior": {
+   "cls": "VANGUARD",
+   "name": "VANGUARD™",
+   "model": "POL-01-001",
+   "tag": "P01"
+  }
+ },
+ "hintPasses": 2,
+ "levels": {},
+ "puzzles": [
+  {
+   "n": 1,
+   "tile": "A1",
+   "fleet": 0,
+   "steps": 1,
+   "level": "open",
+   "target": 60,
+   "name": "Ridge Road",
+   "built": true,
+   "stage": "10.4",
+   "startRung": 3,
+   "topRung": 3,
+   "earns": "hands2",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1",
+    "legs1",
+    "battery2"
+   ],
+   "route": 0,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE GENESIS™"
+   },
+   "par": 25,
+   "layout": {
+    "drop": [
+     200,
+     330,
+     1,
+     0
+    ],
+    "cones": [],
+    "cover": []
+   },
+   "tale": "Upper town, on the hill. The Genesis™ laps the ridge road: a racer from the factory, with a spotter and the blimp overhead.",
+   "new": "The Genesis™: forward camera, side sensors, roof lidar from the start.",
+   "newLine": "Genesis™ · camera, sides, lidar",
+   "hints": [
+    "Wait in the alley between the blocks. Dash in as its nose comes level."
+   ],
+   "solution": "In the alley east of the portal block, 150 south of its line; dash north as its nose comes level."
+  },
+  {
+   "n": 2,
+   "tile": "B1",
+   "fleet": 0,
+   "steps": 1,
+   "level": "open",
+   "target": 60,
+   "name": "The Tunnel",
+   "built": true,
+   "stage": "10.5",
+   "startRung": 3,
+   "topRung": 4,
+   "earns": "car",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1",
+    "legs1",
+    "battery2",
+    "hands2"
+   ],
+   "route": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE GENESIS™"
+   },
+   "par": 25,
+   "layout": {
+    "drop": [
+     560,
+     560
+    ],
+    "cones": [],
+    "cover": []
+   },
+   "tale": "The valley road leaves the tunnel at the cove head. It comes out of the dark fast.",
+   "new": "The tunnel: you see it only as it leaves the portal.",
+   "newLine": "The tunnel · it comes out of the dark",
+   "hints": [
+    "Wait by the cove wall. Dash in as it comes out of the tunnel."
+   ],
+   "solution": "On the cove floor 150 west of its lane; dash east as its nose comes level."
+  },
+  {
+   "n": 3,
+   "tile": "C1",
+   "fleet": 0,
+   "steps": 1,
+   "level": "open",
+   "target": 60,
+   "name": "Upper Town",
+   "built": true,
+   "stage": "10.5",
+   "startRung": 4,
+   "topRung": 4,
+   "earns": null,
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1",
+    "legs1",
+    "battery2",
+    "hands2"
+   ],
+   "route": 0,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE GENESIS™"
+   },
+   "par": 50,
+   "layout": {
+    "drop": [
+     120,
+     330,
+     1,
+     0
+    ],
+    "cones": [],
+    "cover": []
+   },
+   "tale": "The east end of the ridge. The Vanguard™ you certified patrols up here now, and it reports.",
+   "new": "The Vanguard™ reports you to the Genesis™.",
+   "newLine": "Vanguard™ · reports what it sees",
+   "hints": [
+    "The Vanguard™ reports what it sees. Wait in the alley; let it pass. Dash as the Genesis™ comes level."
+   ],
+   "solution": "In the west alley, 150 south of its line. Skip the pass the Vanguard™ shares; dash north as the Genesis™ comes level (60 to 75 away).",
+   "senior": {
+    "lane": 2,
+    "seniorDelay": 1,
+    "seniorReturnSeconds": 3
+   }
+  },
+  {
+   "n": 4,
+   "tile": "C2",
+   "fleet": 0,
+   "steps": 1,
+   "level": "open",
+   "target": 60,
+   "name": "Footbridge",
+   "built": true,
+   "stage": "10.6",
+   "startRung": 4,
+   "topRung": 5,
+   "earns": "car",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1",
+    "legs1",
+    "battery2",
+    "hands2"
+   ],
+   "route": 0,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE GENESIS™"
+   },
+   "par": 25,
+   "layout": {
+    "drop": [
+     600,
+     560
+    ],
+    "cones": [],
+    "cover": []
+   },
+   "tale": "The avenue under the east bridge and the cliff-top walkway. Beach on one side, cliff on the other.",
+   "new": "Cover from above: the bridge hides you from the cameras.",
+   "newLine": "The bridge · cover from above",
+   "hints": [
+    "The camera watches the beach. Under the bridge it cannot see you. Dash as its nose comes level."
+   ],
+   "solution": "Under the east bridge, 150 south of its lane; dash north as its nose comes level. Or break the camera post with a dash.",
+   "camera": {
+    "at": [
+     230,
+     440,
+     0
+    ]
+   },
+   "params": {
+    "perception.streetCameraFov": 90,
+    "perception.streetCameraPanArc": 90,
+    "perception.streetCameraPanSeconds": 3,
+    "perception.streetCameraPanHold": 1,
+    "perception.streetCameraRange": 180,
+    "perception.streetCameraHeight": 60
+   },
+   "breakableCameras": true
+  },
+  {
+   "n": 5,
+   "tile": "B2",
+   "fleet": 0,
+   "steps": 1,
+   "level": "open",
+   "target": 60,
+   "name": "The Circus",
+   "built": true,
+   "stage": "10.6",
+   "startRung": 5,
+   "topRung": 5,
+   "earns": "legs2",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1",
+    "legs1",
+    "battery2",
+    "hands2"
+   ],
+   "route": 1,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE GENESIS™"
+   },
+   "par": 30,
+   "layout": {
+    "drop": [
+     200,
+     590
+    ],
+    "cones": [],
+    "cover": []
+   },
+   "tale": "The circus: the tunnel road, the avenue and the beach road meet at the roundabout.",
+   "new": "Cones stop it. It gives way at the ring.",
+   "newLine": "Cones stop it",
+   "hints": [
+    "Catch it on the avenue before the ring. Dash as its nose comes level."
+   ],
+   "solution": "On the beach park 150 south of the west avenue; dash north as its nose comes level."
+  },
+  {
+   "n": 6,
+   "tile": "A2",
+   "fleet": 0,
+   "steps": 2,
+   "level": "open",
+   "target": 60,
+   "name": "The Cliff",
+   "built": true,
+   "stage": "10.7",
+   "startRung": 5,
+   "topRung": 6,
+   "earns": "car",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1",
+    "legs1",
+    "battery2",
+    "hands2",
+    "legs2"
+   ],
+   "route": 0,
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "GET HIT BY THE GENESIS™"
+   },
+   "par": 35,
+   "layout": {
+    "drop": [
+     600,
+     560
+    ],
+    "cones": [],
+    "cover": []
+   },
+   "tale": "Cliff, avenue, beach: the west end. A walkway leaves the cliff top over the road.",
+   "new": "Two hits. The Vanguard™ drives the other way and reports.",
+   "newLine": "Two hits · the Vanguard™ reports",
+   "hints": [
+    "Two hits: under the bridge, then the east beach. Dash as its nose comes level."
+   ],
+   "solution": "Under the west bridge 150 south of its lane, dash north; then the east beach, the same.",
+   "senior": {
+    "lane": 1,
+    "seniorDelay": 3,
+    "seniorReturnSeconds": 4
+   }
+  },
+  {
+   "n": 7,
+   "tile": "A3",
+   "fleet": 0,
+   "steps": 1,
+   "level": "open",
+   "target": 60,
+   "name": "The Seawall",
+   "built": true,
+   "stage": "10.7",
+   "startRung": 6,
+   "topRung": 6,
+   "earns": "battery3",
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1",
+    "legs1",
+    "battery2",
+    "hands2",
+    "legs2"
+   ],
+   "route": 0,
+   "objective": {
+    "kind": "hits",
+    "count": 1,
+    "label": "GET HIT BY THE GENESIS™"
+   },
+   "par": 25,
+   "layout": {
+    "drop": [
+     600,
+     100
+    ],
+    "cones": [],
+    "cover": []
+   },
+   "tale": "The drive on the seawall, under the west bridge. It remembers where it crashed.",
+   "new": "The seawall: sand to the north, the river to the south.",
+   "newLine": "The seawall · sand or river",
+   "hints": [
+    "North of the drive, on the sand. Dash as its nose comes level."
+   ],
+   "solution": "150 north of the drive, west of the bridge; dash south as its nose comes level."
+  },
+  {
+   "n": 8,
+   "tile": "B3",
+   "fleet": 0,
+   "steps": 2,
+   "level": "open",
+   "target": 60,
+   "name": "The Quay",
+   "built": true,
+   "stage": "10.7",
+   "startRung": 6,
+   "topRung": 6,
+   "earns": null,
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1",
+    "legs1",
+    "battery2",
+    "hands2",
+    "legs2",
+    "battery3"
+   ],
+   "route": 3,
+   "objective": {
+    "kind": "hits",
+    "count": 2,
+    "label": "GET HIT BY THE GENESIS™"
+   },
+   "par": 40,
+   "layout": {
+    "drop": [
+     400,
+     120
+    ],
+    "cones": [],
+    "cover": []
+   },
+   "tale": "The beach road meets the drive by the stilt houses. The ship that takes certified models to market is moored here.",
+   "new": "Two hits; it remembers both spots.",
+   "newLine": "Two hits · it remembers both",
+   "hints": [
+    "Two hits, either side of the beach road. Dash as its nose comes level."
+   ],
+   "solution": "150 north of the drive west of the beach road, dash south; then east of it, the same."
+  },
+  {
+   "n": 9,
+   "tile": "C3",
+   "fleet": 0,
+   "steps": 3,
+   "level": "open",
+   "target": 120,
+   "name": "Last Lap",
+   "built": true,
+   "stage": "10.8",
+   "startRung": 6,
+   "topRung": 7,
+   "earns": null,
+   "kit": [
+    "battery1",
+    "hands1",
+    "knees1",
+    "legs1",
+    "battery2",
+    "hands2",
+    "legs2",
+    "battery3"
+   ],
+   "route": 0,
+   "objective": {
+    "kind": "hits",
+    "count": 3,
+    "label": "THREE HITS · A NEW WAY EACH"
+   },
+   "par": 75,
+   "layout": {
+    "drop": [
+     400,
+     80
+    ],
+    "cones": [],
+    "cover": []
+   },
+   "tale": "The drive swings inland under the east bridge. Three hits certify the Genesis™, the last model. The ship is waiting.",
+   "new": "A boss. It learns once, after your first hit.",
+   "newLine": "Boss · learns after your first hit",
+   "hints": [
+    "Three hits, three places. After the first it searches where it lost you."
+   ],
+   "solution": "Checked with the cut-in bot (qa/bot.js): it waits beside the drive out of sight and dashes in ahead of the nose. 60 s, three hits, one lesson.",
+   "boss": true
+  }
+ ]
+}

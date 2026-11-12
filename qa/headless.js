@@ -4,16 +4,17 @@
 //   node qa/headless.js TILE SCRIPT.json [secs]          → { cleared, t, result, faults, passes, findings }
 //   require('./headless.js').run(tile, script, secs)
 const path = require('path'), fs = require('fs'), Module = require('module');
-const ROOT = path.resolve(__dirname, '..'), E = path.join(ROOT, 'engine', 'p9');
-const res = Module._resolveFilename; Module._resolveFilename = function (req, parent, ...a) { if (req.startsWith('../p6/') || req.startsWith('../jump/')) req = path.join(E, path.basename(req)); return res.call(this, req, parent, ...a); };
+const ROOT = path.resolve(__dirname, '..'), E = path.join(ROOT, 'engine', 'p9'); const W6P = path.join(ROOT, 'engine', '.cache', 'world6_p11.js'); // Edit 126: the page's world (its V2 patches, B1's drive)
+const res = Module._resolveFilename; Module._resolveFilename = function (req, parent, ...a) { if (req.startsWith('../p6/') || req.startsWith('../jump/') || (req.startsWith('./') && parent && /[\\/]\.cache[\\/]/.test(parent.filename || ''))) { req = path.join(E, path.basename(req)); if (path.basename(req) === 'world6.js' && fs.existsSync(W6P)) req = W6P; } return res.call(this, req, parent, ...a); };
 let R = null, STORY = null, X = null, P11 = null;
 function boot() {
   if (R) return; R = JSON.parse(fs.readFileSync(path.join(ROOT, 'engine', '.cache', 'runtime_p11.json'), 'utf8'));
   Object.assign(globalThis, { DUMMIES_STORY: R.story, DUMMIES_SIM: R.sim });
-  X = globalThis.DUMMIES = require(path.join(E, 'sim.js')); globalThis.WORLD6 = require(path.join(E, 'world6.js'));
+  X = globalThis.DUMMIES = require(path.join(E, 'sim.js')); globalThis.WORLD6 = require(fs.existsSync(W6P) ? W6P : path.join(E, 'world6.js')); // Edit 126: the page's world (its V2 patches, B1's drive)
   STORY = globalThis.STORY = require(path.join(E, 'story7.js')); globalThis.DUMMIES_P10 = require(path.join(ROOT, 'engine', 'vendor', 'testroad.js'));
   Object.assign(globalThis, { DUMMIES_STAGES: R.stages, STORY_MAP1: R.plan, DUEL_RULES: R.rules, P11_PUZZLES: R.puzzles });
-  if (R.plan2) Object.assign(globalThis, { STORY_MAPS: { monument: R.plan, parkland: R.plan2 }, P11_MAPS: [R.puzzles, R.puzzles2] }); // FINAL V2.1 (Edit 125): Map 2 as parkland:A1
+  if (R.plans) Object.assign(globalThis, { STORY_MAPS: Object.assign({ monument: R.plan }, ...R.plans.map((pl) => ({ [pl.district]: pl }))), P11_MAPS: [R.puzzles].concat(R.pzs) }); // FINAL V2.1: Map 2 as parkland:A1 (Edit 125), Map 3 as waterfront:A1 (Edit 126)
+  else if (R.plan2) Object.assign(globalThis, { STORY_MAPS: { monument: R.plan, parkland: R.plan2 }, P11_MAPS: [R.puzzles, R.puzzles2] });
   require(path.join(ROOT, 'engine', 'duel.js')); require(path.join(ROOT, 'engine', 'p11.js')); P11 = globalThis.P11;
 }
 function make(tile) {

@@ -297,6 +297,14 @@ def v21_game_js(g):
         # Map 2 (Edit 125): the senior Luminary in its livery, with its plate; the grid's backdrop is the current map
         ("  function carSpr(s, c, braking) { if (c.red && window.DUEL_UI) return window.DUEL_UI.redSprite(carSpr0(s, c, braking));", "  function carSpr(s, c, braking) { if (c.senior && window.DUEL_UI && window.DUEL_UI.seniorSprite) return window.DUEL_UI.seniorSprite(carSpr0(s, c, braking)); if (c.red && window.DUEL_UI) return window.DUEL_UI.redSprite(carSpr0(s, c, braking));"),
         ("    if (s.p11 && (!c.red || c.ghost || c.gone)) return; // FINAL V2: one plate, the learner's\n", "    if (s.p11 && ((!c.red && !c.senior) || c.ghost || c.gone)) return; // FINAL V2: one plate, the learner's (Map 2: and the senior's)\n"),
+        # FINAL V2.1 (Edit 126): the send-off's ending shows the plaque's numbers, not a shift's
+        ("    const stats = [['TIME', fmtT(e.t)], ['WRITE-OFFS', String(e.writeOffs)], ['POINTS', num(e.points)],", "    const pq = s.p11Finale && s.unveil && s.unveil.plaque, stats = pq ? [['PUZZLES', pq.puzzles + ' / ' + pq.of], ['STARS', pq.stars + ' / ' + pq.starsOf], ['MODELS', String(pq.models.length)], ['BEST TIMES', fmtT(pq.t || 0)]] : [['TIME', fmtT(e.t)], ['WRITE-OFFS', String(e.writeOffs)], ['POINTS', num(e.points)],"),
+        # FINAL V2.1 (Edit 126): a learner's plate from its map (GENESIS™ R01; SPT-01-001 is not a fleet model)
+        ("  function shortId(m) { const fm = FMODEL.get(m); if (fm) return fm.tag;", "  function shortId(m) { const tg = window.P11 && window.P11.tagOf ? window.P11.tagOf(m) : null; if (tg) return tg; const fm = FMODEL.get(m); if (fm) return fm.tag;"),
+        # FINAL V2.1 (Edit 126): the send-off's plaque: the three models certified, not the circus's monument
+        ("    txt('THE DUMMY MONUMENT · UNVEILED', x + 26, y + 38, fLab, FT.accent);", "    txt(p.p11 ? 'CERTIFIED · ' + p.models.join(' · ') : 'THE DUMMY MONUMENT · UNVEILED', x + 26, y + 38, fLab, FT.accent);"),
+        ("    const stats = [['CHASSIS SPENT', num(p.chassis || 0)], ['POINTS', num(p.points || 0)], ['BEST COMBO', '×' + (p.bestCombo || 0)], ['TIME', fmtT(p.t || 0)]], cw = (w - 52) / stats.length;",
+         "    const stats = p.p11 ? [['PUZZLES', p.puzzles + ' / ' + p.of], ['STARS', p.stars + ' / ' + p.starsOf], ['MODELS', String(p.models.length)], ['BEST TIMES', fmtT(p.t || 0)]] : [['CHASSIS SPENT', num(p.chassis || 0)], ['POINTS', num(p.points || 0)], ['BEST COMBO', '×' + (p.bestCombo || 0)], ['TIME', fmtT(p.t || 0)]], cw = (w - 52) / stats.length;"),
         ("drawField(preview(Math.max(0, LEVEL_LIST.indexOf('monument'))), true); veil(); window.P11_UI.grid(", "drawField(preview(Math.max(0, LEVEL_LIST.indexOf(window.P11.mapId ? window.P11.mapId() : 'monument'))), true); veil(); window.P11_UI.grid("),
         ("      under: () => { drawMarks(); if (lvl === 0) {", "      under: () => { drawMarks(); if (window.P11 && lvl === 0) v21Chalk(s); if (lvl === 0) {"),
         # the body's number after the clear: what is left of it, not 0
@@ -339,6 +347,11 @@ def world6_js(v2=False):
                       ("    floorMove() {", "    gapCommit(b, f) { // FINAL V2.1 (Edit 124): straight out through a deck's gap drops at once; brushing along the parapet needs the push held 0.35 s\n"
                        "      if (b.mode === 'lunge' || b.mode === 'jump' || !globalThis.P11) return true; const dk = f && f.layer && f.layer.dk, vx = b.x - b.px, vy = b.y - b.py, v = Math.hypot(vx, vy);\n"
                        "      if (dk && v > 1e-6 && Math.abs(dk.hz ? vy : vx) / v >= 0.6) return true; b.gapT = (b.gapT || 0) + 1 / (this.P['simulation.tickRate'] || 60); return b.gapT >= 0.35; }\n    floorMove() {")], 'world6.js (V2.1)')
+        # FINAL V2.1 (Edit 126): Parkland B1 had no ground road a puzzle could use (the boulevard clips its corner). A garden drive:
+        # in from the district's north edge east of the highway, a U-turn north of the walkway, back out north. B1's own road
+        # (tile: 'B1'): no other tile draws it, so no seam
+        w = patch(w, [("roads: [{ id: 'boulevard', pts: [[40, -200], [2360, 2120]] }, { id: 'loop', pts: fil(", "roads: [{ id: 'boulevard', pts: [[40, -200], [2360, 2120]] }, { id: 'drive', tile: 'B1', pts: fil([[1350, -200], [1350, 214], [1520, 214], [1520, -200]], [0, 84, 84, 0]) }, { id: 'loop', pts: fil("),
+                      ("    for (const r of D.roads) { const run = clipRun(", "    for (const r of D.roads) { if (r.tile && r.tile !== name) continue; const run = clipRun(")], 'world6.js (V2.1 B1)')
     return patch(w, [
         ("  const api = { P6SIM, DISTRICTS,",
          "  // Submission 7: the duel's low planters and street-camera posts, painted into the tile's ground art as Prototype 9 paints its own\n"
@@ -381,6 +394,8 @@ def story_json(plan, gifts=True, more=()):
     mon = next(x for x in d['districts'] if x['id'] == 'monument')
     if not gifts:  # Prototype 11: the puzzles' own order (Edit 115)
         mon['order'] = [t['tile'] for t in plan['tiles']]
+        if len(more) >= 2:  # FINAL V2.1 (Edit 126): the send-off's ending, after the last map
+            d['ending'] = 'All three models have passed and will be manufactured for our clients. A Corporation drone carries you to the ship.'
     assert mon['order'] == [t['tile'] for t in plan['tiles']], 'Map 1 tile order differs from the plan'
     for t in plan['tiles']:
         tile, o = mon['tiles'][t['tile']], t['objective']
@@ -406,16 +421,22 @@ def story_json(plan, gifts=True, more=()):
 def main(p11=False):
     pz = json.loads((ROOT / 'content' / 'puzzles_map1.json').read_text(encoding='utf-8')) if p11 else None
     plan = p11_plan(pz) if p11 else json.loads((ROOT / 'content' / 'story_map1.json').read_text(encoding='utf-8'))
-    pz2 = json.loads((ROOT / 'content' / 'puzzles_map2.json').read_text(encoding='utf-8')) if p11 else None  # FINAL V2.1 (Edit 125): Map 2, Parkland
-    plan2 = p11_plan(pz2) if p11 else None
-    more = [plan2] if p11 else []
+    pzs = [json.loads((ROOT / 'content' / f'puzzles_map{k}.json').read_text(encoding='utf-8')) for k in (2, 3) if (ROOT / 'content' / f'puzzles_map{k}.json').exists()] if p11 else []  # FINAL V2.1: Map 2, Parkland (Edit 125); Map 3, Waterfront (Edit 126)
+    plans = [p11_plan(z) for z in pzs]
+    pz2, plan2 = (pzs[0], plans[0]) if pzs else (None, None)
+    more = plans
     rules = dict(RULES, levels=dict(RULES['levels'], **pz.get('levels', {}))) if p11 else RULES  # Prototype 11's own level profiles (the boss)
     if p11:  # Prototype 11.3 (Edit 119): the parts in the P11 pad layout (A dash, B crouch, X jump, Y interact); Submission 7 keeps its own
         P11_PARTS = {'battery1': dict(key='A (keys: Space)', text="Dash: A (keys: Space). Reach a car's path from cover set back from the road."),
                      'legs1': dict(key='X (keys: J)', text='Jump: X (keys: J). A running jump clears a K-rail.'),
                      'knees1': dict(verb='CROUCH', key='B (keys: C)', text='Crouch: B (keys: C). Press to crouch, again to stand. Low cover hides you from its sensors.'),
-                     'hands1': dict(key='Y (keys: E)', text='Cones: Y picks one up. Y with none in reach puts one down.')}
-        for k, t in {'battery1': '{A} dashes. Reach the road from far cover.', 'hands1': '{Y} picks up a cone. {Y} again puts it down.', 'knees1': 'Press again to stand. Low cover hides you.', 'legs1': '{X} jumps. A running jump clears a K-rail.'}.items():
+                     'hands1': dict(key='Y (keys: E)', text='Cones: Y picks one up. Y with none in reach puts one down.'),
+                     # FINAL V2.1 (Edit 126): the upgrades spaced over 27 puzzles; Maps 2 and 3 add the second and third tiers
+                     'battery2': dict(key='A (keys: Space)', text='Two charges: A dashes twice before it recharges.'),
+                     'hands2': dict(key='Y (keys: E)', text='Two hands: carry two cones.'),
+                     'legs2': dict(key='X (keys: J)', text='Longer in the air: a running jump clears a wider rail.'),
+                     'battery3': dict(key='A (keys: Space)', text='The dash recharges faster.')}
+        for k, t in {'battery1': '{A} dashes. Reach the road from far cover.', 'hands1': '{Y} picks up a cone. {Y} again puts it down.', 'knees1': 'Press again to stand. Low cover hides you.', 'legs1': '{X} jumps. A running jump clears a K-rail.', 'battery2': 'Two charges. {A} dashes twice in a row.', 'hands2': 'Two hands. Carry two cones.', 'legs2': 'Longer in the air. A running jump clears more.', 'battery3': 'The dash recharges faster.'}.items():
             P11_PARTS[k] = dict(P11_PARTS.get(k, {}), v2=t)  # FINAL V2: the gift screen's words, keys of the device in use
         rules = dict(rules, parts={k: dict(v, **P11_PARTS.get(k, {})) for k, v in RULES['parts'].items()})
     stages = json.loads((V / 'sim_flags.json').read_text(encoding='utf-8'))['stages']
@@ -427,7 +448,9 @@ def main(p11=False):
     cues['params']['audio.settings.master'] = 5  # Lawrence (7 Nov): the volume starts at 5 of 10 (a saved setting still wins)
     js = lambda p: f'<script>\n{p.read_text(encoding="utf-8")}\n</script>\n'
     scripts = js(E / 'jump.js') + ''.join(js(E / f) for f in ('sim.js', 'pixel.js', 'lab.js', 'circus_valley.js'))
-    scripts += f'<script>\n{world6_js(p11)}\n</script>\n' + js(E / 'content.js')
+    w6 = world6_js(p11)
+    if p11: (ROOT / 'engine' / '.cache').mkdir(exist_ok=True); (ROOT / 'engine' / '.cache' / 'world6_p11.js').write_text(w6, encoding='utf-8')  # Edit 126: headless runs the page's world (qa/headless.js)
+    scripts += f'<script>\n{w6}\n</script>\n' + js(E / 'content.js')
     scripts += f'<script>\nwindow.FLEET_DB = {(E / "fleet.json").read_text(encoding="utf-8")};\n</script>\n'
     scripts += f'<script>\nwindow.DUMMIES_STORY = {json.dumps(story_json(plan, not p11, more), ensure_ascii=False)}; // story_v2.json; Map 1 from content/story_map1.json\n</script>\n'
     scripts += js(E / 'lore.js')
@@ -455,7 +478,7 @@ def main(p11=False):
         sim['upgrades.jumpHeight'] = 60  # FINAL V2.1 (Edit 125): with the airtime, a wider take-off window over a K-rail
         sim['abilities.legs.airtimeBase'] = 0.85  # FINAL V2.1 (Edit 125): Legs 1's running jump clears a K-rail (0.3 s fell short of its band at P11's 70% run speed)
     if p11:  # Prototype 11: the puzzle's fleet; 0 keeps the tile clear (engine/p11.js removes white ground cars)
-        for z in (pz, pz2):
+        for z in [pz] + pzs:
             for q in z['puzzles']:
                 sim[f'story.traffic.{z["map"].get("district", "monument")}.{q["tile"]}'] = q['fleet'] if q['fleet'] > 0 else 0.25
     assert all(k in byid for k in sim), [k for k in sim if k not in byid]
@@ -466,18 +489,18 @@ def main(p11=False):
     scripts += '<script>\n' + f'window.DUMMIES_STAGES = {json.dumps({k: {"title": v["title"], "flags": v["flags"]} for k, v in stages.items()})};\n'
     scripts += f'window.STORY_MAP1 = {json.dumps(plan, ensure_ascii=False)}; // content/story_map1.json, written by pipeline/run.py\n'
     if p11:
-        scripts += f'window.STORY_MAPS = {{ monument: window.STORY_MAP1, parkland: {json.dumps(plan2, ensure_ascii=False)} }}; // FINAL V2.1 (Edit 125): content/puzzles_map2.json\n'
+        scripts += 'window.STORY_MAPS = { monument: window.STORY_MAP1' + ''.join(f', {pl["district"]}: {json.dumps(pl, ensure_ascii=False)}' for pl in plans) + ' }; // FINAL V2.1: content/puzzles_map2.json (Edit 125), puzzles_map3.json (Edit 126)\n'
     scripts += '</script>\n'
     scripts += f'<script>\nwindow.DUEL_RULES = {json.dumps(rules, ensure_ascii=False)}; // engine/progression.json\n</script>\n'
     scripts += js(ROOT / 'engine' / 'duel.js') + js(ROOT / 'engine' / 'duel_ui.js')
     if p11:
-        scripts += f'<script>\nwindow.P11_PUZZLES = {json.dumps(pz, ensure_ascii=False)}; // content/puzzles_map1.json\nwindow.P11_MAPS = [window.P11_PUZZLES, {json.dumps(pz2, ensure_ascii=False)}]; // + content/puzzles_map2.json (Edit 125)\n</script>\n'
+        scripts += f'<script>\nwindow.P11_PUZZLES = {json.dumps(pz, ensure_ascii=False)}; // content/puzzles_map1.json\nwindow.P11_MAPS = [window.P11_PUZZLES{''.join(', ' + json.dumps(z, ensure_ascii=False) for z in pzs)}]; // + content/puzzles_map2.json (Edit 125), puzzles_map3.json (Edit 126)\n</script>\n'
         scripts += (js(ROOT / 'engine' / 'hero_cars.js') if (ROOT / 'engine' / 'hero_cars.js').exists() else '') + js(ROOT / 'engine' / 'p11.js') + js(ROOT / 'engine' / 'p11_ui.js')  # Prototype 11.4: the hero cars (the car design agent)
     scripts += f'<script>\n{v21_game_js(v2_game_js(p11_game_js(game_js()))) if p11 else game_js()}\n</script>\n'
     shell = (E / 'shell.html').read_text(encoding='utf-8')
     shell = patch(shell, [('<title>DUMMIES P9</title>', '<title>DUMMIES · FINAL V2</title>' if p11 else '<title>DUMMIES · Story Mode</title>')], 'shell.html')
     cache = ROOT / 'engine' / '.cache'; cache.mkdir(exist_ok=True)  # for headless checks (node): the same values the page gets
-    (cache / ('runtime_p11.json' if p11 else 'runtime.json')).write_text(json.dumps({'sim': sim, 'story': story_json(plan, not p11, more), 'plan2': plan2, 'puzzles2': pz2, 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': rules, 'puzzles': pz}), encoding='utf-8')
+    (cache / ('runtime_p11.json' if p11 else 'runtime.json')).write_text(json.dumps({'sim': sim, 'story': story_json(plan, not p11, more), 'plan2': plan2, 'puzzles2': pz2, 'plans': plans, 'pzs': pzs, 'stages': {k: {'title': v['title'], 'flags': v['flags']} for k, v in stages.items()}, 'plan': plan, 'rules': rules, 'puzzles': pz}), encoding='utf-8')
     out = ROOT / 'final_v2' / 'index.html' if p11 else ROOT / 'index.html'  # FINAL V2 (Edit 123); Shipping V1 stays frozen in p11/
     if '--out' in sys.argv:  # a trial build elsewhere (the page's audio stays at ../audio/)
         out = Path(sys.argv[sys.argv.index('--out') + 1]).resolve()

@@ -75,6 +75,7 @@
     const sv = saveOf(pr); if (!sv) return ''; const t = sv.cur && BY[sv.cur] ? sv.cur : firstOpen(pr), q = BY[t];
     return M.name.toUpperCase() + (sv.certified ? ' · CERTIFIED' : ' · PUZZLE ' + (q ? q.n : 1)) + ' · ★ ' + starsAll(pr);
   };
+  P11.tagOf = (m) => { for (const mp of MAPS) { if (mp.LEARNER.model === m) return mp.LEARNER.tag; if (mp.senior && mp.senior.model === m) return mp.senior.tag; } return null; }; // Edit 126: the plate (R01: SPT-01-001 is not a fleet model)
   P11.lastOf = () => ORDER.filter(built).pop(); P11.starsAll = starsAll; P11.stateOf = stateOf; P11.starsOf = starsOf; P11.starCount = starCount; P11.saveOf = saveOf; P11.nextOf = nextOf; P11.playable = playable;
 
   // ---------- the grid's keys (the story map's screen)
@@ -129,7 +130,8 @@
 
   // Shipping V1 (11 Nov): a part earned at a clear shows Prototype 9's gift screen (the chassis, the drone, the module landing,
   // the fanfare), not a text card. Super Knees has no Prototype 9 module: it lands as the legs' module. Texts in the P11 pad layout.
-  const GIFT = { battery1: { art: 'battery1', button: 'A' }, hands1: { art: 'hands1', button: 'Y' }, knees1: { art: 'legs1', button: 'B' }, legs1: { art: 'legs1', button: 'X' } };
+  const GIFT = { battery1: { art: 'battery1', button: 'A' }, hands1: { art: 'hands1', button: 'Y' }, knees1: { art: 'legs1', button: 'B' }, legs1: { art: 'legs1', button: 'X' },
+    battery2: { art: 'battery2', button: 'A' }, hands2: { art: 'hands2', button: 'Y' }, legs2: { art: 'legs2', button: 'X' }, battery3: { art: 'battery3', button: 'A' } }; // FINAL V2.1 (Edit 126): Maps 2 and 3
   P11.giftInfo = function (s) {
     const L = s && s.p11 && s.p11.partGift; if (!L) return null;
     const pt = PARTS[L.part] || {}, g = GIFT[L.part] || {};
@@ -145,9 +147,9 @@
       if (!this.W6 || !this.storyMode || !this.story || !this.duelT) return;
       if (!MAPS.some((m) => m.id === this.levelId)) return; useMap(this.levelId);
       const act = STORY.activeTile(this.story, this.levelId), q = BY[act]; if (!q) return;
-      const T = this.duelT, b = this.body, lay = q.layout || {}; T.learner = LEARNER.model; // Prototype 11.4: the learner's model ID on its car
+      const T = this.duelT, b = this.body, lay = q.layout || {}; T.learner = LEARNER.model; T.seniorModel = M.senior && M.senior.model; // Prototype 11.4: the learner's model ID on its car
       if (q.camera && q.camera.at) this.p11CameraAt(q.camera.at); else if (q.camera && q.camera.watch) this.p11Camera(q.camera.watch);
-      if (lay.drop) Object.assign(b, { x: lay.drop[0], y: lay.drop[1], px: lay.drop[0], py: lay.drop[1], level: 0, floor: null }); // the puzzle's drop point (Edit 115)
+      if (lay.drop) Object.assign(b, { x: lay.drop[0], y: lay.drop[1], px: lay.drop[0], py: lay.drop[1], level: lay.drop[2] || 0, floor: lay.drop[3] != null ? lay.drop[3] : null }); // the puzzle's drop point (Edit 115); [x, y, level, floor] on the Waterfront's hill (Edit 126)
       if (lay.cones) this.p11Cones(lay.cones);
       this.p11 = { q, phase: 0, clock: 0, attempt: 0, restarts: 0, passes: 0, failed: 0, failedPhase: 0, untouched: true, seq: 0, inPass: false, passHits: 0,
         ev: this.events.length, drop: { x: b.x, y: b.y, level: b.level || 0, floor: b.floor != null ? b.floor : null }, cams: (T.level.cameras || []).map((c) => c.slice()), broken: [],
@@ -201,7 +203,7 @@
         this.emit('gift', { node: GIFT[p.partGift.part].art, tile: p.q.tile, part: p.partGift.part });
         return;
       }
-      if (this.phase === 'report' && p.resultSeen && !this.clearLesson) { if (!p.went) { p.went = true; this.p11Go = p.after || 'map'; } return; }
+      if (this.phase === 'report' && p.resultSeen && !this.clearLesson) { if (!p.went) { p.went = true; if (p.after !== 'next' && this.p11Final()) return this.p11SendOff(); this.p11Go = p.after || 'map'; } return; }
       super.step(cmd);
       if (this.phase === 'play' && !this.rescue && !this.duelDone && !this.duelPending) { const dt = 1 / this.P['simulation.tickRate']; p.clock += dt; p.attempt += dt; }
       this.p11Watch();
@@ -232,7 +234,7 @@
     }
     // Breakable CCTV (props.camera.breakable, proposed): a dash into the post breaks it; it reports to the car no more
     p11Cameras() {
-      const p = this.p11, T = this.duelT, b = this.body; if (!b || !b.alive || b.mode !== 'lunge' || (b.level || 0) !== 0) return;
+      const p = this.p11, T = this.duelT, b = this.body; if (!b || !b.alive || b.mode !== 'lunge' || (b.level || 0) !== ((T && T.elev0) || 0)) return;
       const r = this.P['body.radius'] + 10, cams = T.level.cameras || [];
       const hit = cams.find((c) => hyp(b.x - c[0], b.y - c[1]) < r); if (!hit) return;
       T.level.cameras = cams.filter((c) => c !== hit); p.broken.push(hit.slice());
@@ -302,6 +304,16 @@
       p.result = { stars, attempt: +p.attempt.toFixed(2), clock: +p.clock.toFixed(2), restarts: p.restarts, passes: p.passes, failed: p.failed };
       p.record = P11.record(q.tile, p.result); p.shownAt = null;
       this.emit('story-p11', Object.assign({ tile: q.tile }, p.result, { next: p.record && p.record.next, certified: !!(p.record && p.record.certified) })); // a story-* event: the page saves the slot
+    }
+    // FINAL V2.1 (Edit 126): the send-off. The last map's first certification plays Prototype 9's finale (Edit 94): the plaque, then a
+    // drone carries the dummy over the river to the container ship at Waterfront B3, then CERTIFIED (the ending, the credits).
+    p11Final() { const r = this.p11 && this.p11.record; return !!(r && r.mapDone && M.i === MAPS.length - 1 && MAPS.length > 1); }
+    p11SendOff() {
+      const pr = P11.real, live = (m) => m.ORDER.filter((t) => m.BY[t].built), best = (m, t) => recOf(pr, m.id).best[t];
+      const plaque = { p11: true, puzzles: MAPS.reduce((a, m) => a + live(m).filter((t) => best(m, t)).length, 0), of: MAPS.reduce((a, m) => a + live(m).length, 0), stars: starsAll(pr),
+        models: MAPS.map((m) => m.LEARNER.name), t: MAPS.reduce((a, m) => a + live(m).reduce((x, t) => x + (best(m, t) ? best(m, t).time : 0), 0), 0) };
+      plaque.starsOf = plaque.of * 3; this.p11 = null; this.p11Finale = true; this.duelStop();
+      this.unveil = { plaque, done: false }; this.phase = 'unveil'; this.emit('unveil', plaque); this.emit('p11-sendoff', plaque);
     }
     // the result card's keys: Enter on (the lesson, then the next puzzle); R the same puzzle again; Shift the grid
     resultKey(m, now) {

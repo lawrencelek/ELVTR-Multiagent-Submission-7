@@ -63,7 +63,7 @@
     const ok = st === 'open' || st === 'solved', bt = ok ? (st === 'solved' ? 'PLAY AGAIN · ' : 'PLAY · ') + 'PUZZLE ' + q.n + ' · ' + q.name.toUpperCase() : deny ? (st === 'build' ? 'PUZZLE ' + q.n + ' IS STILL IN BUILD' : 'SOLVE THE PUZZLE BEFORE IT FIRST') : 'PICK AN OPEN PUZZLE';
     U.rr(x + 24, y + h - 78, w - 48, 44, 12); ctx.fillStyle = ok ? FT.sel : FT.item; ctx.fill(); ctx.strokeStyle = deny ? RED : FT.accent; ctx.lineWidth = 1.5; ctx.stroke();
     if (ok) G.hit(x + 24, y + h - 78, w - 48, 44, 'p11:play', () => G.push('ok'));
-    U.txt(denyMap ? 'CERTIFY ' + P11.MAPS[0].name.toUpperCase() + ' TO OPEN ' + String(app.p11Deny.t).toUpperCase() : bt, x + w / 2, y + h - 49, '700 19px ' + U.F_UI, denyMap ? RED : ok ? FT.selText : deny ? RED : FT.text, 'center');
+    U.txt(denyMap ? 'CERTIFY ' + (P11.MAPS[Math.max(0, P11.MAPS.findIndex((m) => m.id === app.p11Deny.t) - 1)] || P11.MAPS[0]).name.toUpperCase() + ' TO OPEN ' + String(app.p11Deny.t).toUpperCase() : bt, x + w / 2, y + h - 49, '700 19px ' + U.F_UI, denyMap ? RED : ok ? FT.selText : deny ? RED : FT.text, 'center');
     if (!G.touch) U.txt(G.pad ? 'STICK PICK · A PLAY · B BACK' : 'ARROWS PICK · SPACE PLAY · SHIFT BACK', x + w / 2, y + h - 10, '700 15px ' + U.F_UI, FT.dim, 'center');
     const cel = pr.p11 && pr.p11.celebrate; if (cel) celebrate(cel, app, G, x, y, w, h);
   }
