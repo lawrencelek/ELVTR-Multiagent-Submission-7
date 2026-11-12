@@ -65,7 +65,7 @@
     sv.best[t] = { stars, time, first: old ? old.first : res.clock, plays: (old ? old.plays : 0) + 1 };
     saveOf(pr);
     const first = !sv.certified, nm = MAPS[M.i + 1] || null;
-    if (t === ORDER[ORDER.length - 1]) { sv.certified = true; if (M.i === 0) store.set(ARC_KEY, '1'); }
+    if (t === ORDER.filter(built).pop()) { sv.certified = true; if (M.i === 0) store.set(ARC_KEY, '1'); }
     const next = nextOf(t); if (next) sv.cur = next;
     const mapDone = first && sv.certified; if (mapDone) rootOf(pr).celebrate = { map: M.id, next: nm && nm.id }; // the grid celebrates once, then opens the next map
     return { best: sv.best[t], newStars: stars.reduce((a, b) => a + b, 0) - (old ? old.stars.reduce((a, b) => a + b, 0) : 0), newTime: !old || res.attempt < old.time, next, certified: sv.certified, mapDone, nextMap: mapDone && nm ? nm.name : null };
@@ -75,7 +75,7 @@
     const sv = saveOf(pr); if (!sv) return ''; const t = sv.cur && BY[sv.cur] ? sv.cur : firstOpen(pr), q = BY[t];
     return M.name.toUpperCase() + (sv.certified ? ' · CERTIFIED' : ' · PUZZLE ' + (q ? q.n : 1)) + ' · ★ ' + starsAll(pr);
   };
-  P11.starsAll = starsAll; P11.stateOf = stateOf; P11.starsOf = starsOf; P11.starCount = starCount; P11.saveOf = saveOf; P11.nextOf = nextOf; P11.playable = playable;
+  P11.lastOf = () => ORDER.filter(built).pop(); P11.starsAll = starsAll; P11.stateOf = stateOf; P11.starsOf = starsOf; P11.starCount = starCount; P11.saveOf = saveOf; P11.nextOf = nextOf; P11.playable = playable;
 
   // ---------- the grid's keys (the story map's screen)
   P11.mapKey = function (app, m) {

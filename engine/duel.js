@@ -144,8 +144,9 @@
       this.pose(c); this.cars.push(c); this.seniorCar = c;
       this.emit('admit', { car: c.id, cls: c.cls, model: c.model, lane: ln.i, senior: true });
     }
+    expected() { return TP.expected.call(this) || (this.rung >= 4 && !!this.seniorSees(this.body)); } // FINAL V2.1 (Edit 125): the Luminary told it where you are: it notices you at once, behind cover too
     seniorSees(b) { // the senior's eye: a cone ahead of its nose, stopped by the world as a camera's is; the same level only
-      if (!b || (b.level || 0) > 0) return null; const R = this.DP['duel.seniorRange'] || 240, F = this.DP['duel.seniorFov'] || 100;
+      if (!b || (b.level || 0) > 0) return null; const R = this.DP['duel.seniorRange'] || 220, F = this.DP['duel.seniorFov'] || 360; // certified: every sensor, all round
       for (const c of this.cars) { if (!c.senior || c.gone || c.ghost) continue; const dx = b.x - c.x, dy = b.y - c.y, d = hyp(dx, dy); if (d > R) continue;
         let a = Math.atan2(dy, dx) - c.h; a = Math.atan2(Math.sin(a), Math.cos(a)); if (Math.abs(a) * 180 / Math.PI > F / 2) continue;
         if (this.camWall(c.x, c.y, b) || this.lowBlocked(c.x, c.y, this.P['perception.lidarHeight'] || 26, b.x, b.y, this.bodyHeight())) continue;

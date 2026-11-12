@@ -46,9 +46,15 @@
     }
     return Object.assign(Object.create(Object.getPrototypeOf(S)), S, { d });
   }
+  const classArt = new Map();
+  function classSprite(S, cls) { // FINAL V2.1 (Edit 125): a sprite in a class's livery, kept per class (two maps, two learners; Map 2's senior)
+    let m = classArt.get(cls); if (!m) classArt.set(cls, (m = new Map())); if (m.has(S)) return m.get(S);
+    const HC = root.HERO_CARS, C0 = HC && HC.classes && HC.classes[cls], R0 = C0 && typeof C0.livery === 'function' ? liverySprite(S, C0) : S; m.set(S, R0); return R0;
+  }
+  const seniorSprite = (S) => classSprite(S, 'LUMINARY');
   function redSprite(S) {
+    const LV = liveryOf(); if (LV) return classSprite(S, root.P11.LEARNER.cls);
     if (redArt.has(S)) return redArt.get(S);
-    const LV = liveryOf(); if (LV) { const R0 = liverySprite(S, LV); redArt.set(S, R0); return R0; }
     const d = new Uint32Array(S.d.length);
     for (let i = 0; i < d.length; i++) {
       const c = S.d[i]; if (!c) { d[i] = 0; continue; }
@@ -281,11 +287,11 @@
   // plate ? then !, the same colour. Several at once: the highest rung marks the dummy; the lower fields only brighten.
   const RUNGCOL = ['#9fb8c8', '#f4f8fa', '#7fa8bc', '#c3a6ff', '#9ff2c8', '#ff8a1f', '#ff5a5a', '#ff5a5a'];
   const V2 = { best: null, once: new WeakMap(), holdS: 0.6 }; // ui.seenHoldSeconds 0.6 (proposed)
-  const SENSOR = { fwd: ['FORWARD CAMERA', 1], side: ['SIDE SENSORS', 2], lidar: ['ROOF LIDAR', 3], cam: ['STREET CAMERA', 4], search: ['SEARCH', 7] };
+  const SENSOR = { fwd: ['FORWARD CAMERA', 1], side: ['SIDE SENSORS', 2], lidar: ['ROOF LIDAR', 3], cam: ['STREET CAMERA', 4], senior: ['LUMINARY™', 4], search: ['SEARCH', 7] };
   function v2Who(c, b) { // which sensor has the dummy now, and how far: seen, or sensing (u: the notice filling)
     if (!b || !b.alive) return null; const hz = c.hz, mk = (k, state, u) => ({ k, name: SENSOR[k][0], rank: SENSOR[k][1] + (state === 'seen' ? 10 : 0), col: RUNGCOL[SENSOR[k][1]], state, u, car: c });
     if (c.lkp && c.lkp.found && T.rung >= 7) return mk('search', 'seen');
-    if (hz && hz.cone === 'link') return mk('cam', 'seen');
+    if (hz && hz.cone === 'link') { const sc0 = T.seeingCamera(); return mk(sc0 && sc0[4] ? 'senior' : 'cam', 'seen'); } // FINAL V2.1: the senior told it
     if (T.rung >= 3 && c.v2LidarT != null && T.t - c.v2LidarT < V2.holdS) return mk('lidar', 'seen');
     if (hz && (hz.cone === 'side' || hz.cone === 'track')) { const nT = T.P['perception.sideNoticeSeconds'] || 0; if (c.noticed || hz.cone === 'track') return mk('side', 'seen'); return mk('side', 'sensing', nT > 0 ? Math.min(1, (c.fieldT || 0) / (nT * (b.duck ? (T.P['perception.duckNoticeFactor'] || 1) : 1))) : 0); }
     if (hz && (hz.inPath || hz.cone === 'forward')) return mk('fwd', 'seen');
@@ -374,20 +380,26 @@
     }
     for (const c of reds()) for (const m of c.checks || []) { ctx.save(); ctx.strokeStyle = C.mem; ctx.lineWidth = 1.5; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.lineTo(m.ox, m.oy); ctx.stroke(); ctx.restore(); }
   }
-  function camField(cams, b) { // FINAL V2.1 (Edit 124): a camera's cone in the cars' field language: idle 10% and a dashed edge; seen 25% and solid. Buildings, the plinth and deck tops cut it (the sim's sightline)
+  function camField(cams, b) { // (cams may be empty: Map 2's senior alone) // FINAL V2.1 (Edit 124): a camera's cone in the cars' field language: idle 10% and a dashed edge; seen 25% and solid. Buildings, the plinth and deck tops cut it (the sim's sightline)
     const P = T.P, R = P['perception.streetCameraRange'] || 0, F = P['perception.streetCameraFov'] || 360, G = Gk, k = G.RA / G.U, sees = b && b.alive ? T.seeingCamera() : null;
     if (!off) { off = document.createElement('canvas'); offG = off.getContext('2d'); }
     if (off.width !== Math.ceil(G.FW) || off.height !== Math.ceil(G.FH)) { off.width = Math.ceil(G.FW); off.height = Math.ceil(G.FH); }
-    for (const cam of cams) { const [x, y] = cam, aim = T.cameraAim(cam), on = sees === cam, Rr = R > 0 ? R : 260;
+    const list = cams.map((cam) => ({ x: cam[0], y: cam[1], aim: T.cameraAim(cam), F, R: R > 0 ? R : 260, on: sees === cam, rgb: '159,242,200' }));
+    for (const c of T.cars) if (c.senior && !c.gone && !c.ghost) { // FINAL V2.1 (Edit 125): the senior's eye: mint once it reports to the learner (rung 4), else white
+      const rep = T.rung >= 4; list.push({ x: c.x, y: c.y, aim: c.h / D, F: (T.DP && T.DP['duel.seniorFov']) || 360, R: (T.DP && T.DP['duel.seniorRange']) || 220, on: !!(sees && sees[4] === c), rgb: rep ? '159,242,200' : '244,248,250', faint: !rep }); }
+    for (const it of list) { const { x, y, aim, F: Fi, R: Rr, on } = it;
       offG.setTransform(1, 0, 0, 1, 0, 0); offG.clearRect(0, 0, off.width, off.height); offG.setTransform(k, 0, 0, k, 0, 0);
-      offG.beginPath(); if (F < 360 && aim != null) { offG.moveTo(x, y); offG.arc(x, y, Rr, (aim - F / 2) * D, (aim + F / 2) * D); offG.closePath(); } else offG.arc(x, y, Rr, 0, TAU);
-      offG.fillStyle = `rgba(159,242,200,${on ? 0.25 : 0.1})`; offG.fill(); offG.strokeStyle = `rgba(159,242,200,${on ? 0.7 : 0.4})`; offG.lineWidth = 1.2; offG.setLineDash(on ? [] : [6, 5]); offG.stroke(); offG.setLineDash([]);
+      offG.beginPath(); if (Fi < 360 && aim != null) { offG.moveTo(x, y); offG.arc(x, y, Rr, (aim - Fi / 2) * D, (aim + Fi / 2) * D); offG.closePath(); } else offG.arc(x, y, Rr, 0, TAU);
+      offG.fillStyle = `rgba(${it.rgb},${on ? 0.25 : it.faint ? 0.05 : 0.1})`; offG.fill(); offG.strokeStyle = `rgba(${it.rgb},${on ? 0.7 : it.faint ? 0.25 : 0.4})`; offG.lineWidth = 1.2; offG.setLineDash(on ? [] : [6, 5]); offG.stroke(); offG.setLineDash([]);
       shade(offG, x, y, blockers({ layer: 0 }, null)); // tall statics and deck tops; low cover is under a camera's eye
       ctx.save(); ctx.scale(1 / k, 1 / k); ctx.drawImage(off, 0, 0); ctx.restore(); }
   }
+  function seniorLink() { // the senior saw you and told the learner: dashed you → the Luminary, solid the Luminary → the learner
+    const b = T.body, cam = b && b.alive && T.rung >= 4 ? T.seeingCamera() : null; if (!cam) return; const hid = reds().filter((c) => c.hz && c.hz.cone === 'link'); if (!hid.length) return;
+    ctx.save(); ctx.strokeStyle = 'rgba(159,242,200,0.85)'; ctx.lineWidth = 1.5; for (const c of hid) { ctx.setLineDash([5, 5]); ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(cam[0], cam[1] - 16); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(cam[0], cam[1] - 16); ctx.lineTo(c.x, c.y); ctx.stroke(); } ctx.restore();
+  }
   function drawCameras() { // rung 4: the street cameras, their cones as they pan, and the link when one gives the dummy away
-    const cams = T.level.cameras || []; if (T.rung < 4 || !cams.length) return;
-    if (s.p11 && Gk) camField(cams, T.body);
+    const cams = T.level.cameras || [], sen = s.p11 && T.cars.some((c) => c.senior && !c.gone); if (s.p11 && Gk && (sen || (T.rung >= 4 && cams.length))) camField(T.rung >= 4 ? cams : [], T.body); if (T.rung < 4 || !cams.length) { if (sen) seniorLink(); return; }
     const P = T.P, R = P['perception.streetCameraRange'] || 0, F = P['perception.streetCameraFov'] || 360, b = T.body;
     for (const cam of cams) { const [x, y] = cam, aim = T.cameraAim(cam);
       if (R > 0 && !s.p11) { ctx.save(); ctx.strokeStyle = C.camDim; ctx.lineWidth = 1; ctx.setLineDash([2, 6]); ctx.beginPath();
@@ -395,6 +407,7 @@
         if (F < 360 && aim != null) { ctx.moveTo(x, y); ctx.arc(x, y, R, (aim - F / 2) * D, (aim + F / 2) * D); ctx.closePath(); ctx.fillStyle = s.p11 ? `rgba(159,242,200,${sees ? 0.28 : 0.14})` : C.camCone; ctx.fill(); if (s.p11) { ctx.setLineDash([]); ctx.strokeStyle = `rgba(159,242,200,${sees ? 0.75 : 0.5})`; ctx.lineWidth = 1.4; } } else ctx.arc(x, y, R, 0, TAU); // Prototype 11.2: the pan cone shows while idle
         ctx.stroke(); ctx.restore(); }
       if (!root.WORLD6 || !root.WORLD6.paintPost) { rect(x - 1.5, y - 14, 3, 14, C.joint); rect(x - 6, y - 20, 12, 7, C.joint); } ctx.fillStyle = C.cam; ctx.beginPath(); ctx.arc(x + (aim != null ? Math.cos(aim * D) * 4 : 3), y - 16.5, s.p11 ? 4 : 2, 0, TAU); ctx.fill(); if (s.p11) { ctx.strokeStyle = 'rgba(8,10,14,0.9)'; ctx.lineWidth = 1; ctx.stroke(); } }
+    if (sen) { seniorLink(); return; }
     const cam = T.seeingCamera(), hid = reds().filter((c) => (s.p11 ? c.hz && c.hz.cone === 'link' : c.hidden && (c.noticed || (c.hz && c.hz.inPath)))); // FINAL V2: the car the camera tells
     if (!cam || !hid.length || !b || !b.alive) return;
     ctx.save(); ctx.strokeStyle = C.cam; ctx.lineWidth = 1.5; ctx.setLineDash([5, 5]);
@@ -825,5 +838,5 @@
     try { if (only) HC.piece(g, cls, only, o || {}); else { HC.body(g, cls, o || {}); for (let n = 1; n <= ((o && o.has) || 0); n++) HC.piece(g, cls, n, o || {}); } } catch (e) { if (!heroCanvas.err) { heroCanvas.err = String(e && e.message || e); console.error('hero_cars', e); } }
     const cv = document.createElement('canvas'); cv.width = C0.W; cv.height = C0.H; const cx2 = cv.getContext('2d'), id = cx2.createImageData(C0.W, C0.H); new Uint32Array(id.data.buffer).set(g.d); cx2.putImageData(id, 0, 0); return cv;
   }
-  root.DUEL_UI = { field, hud, lesson, lessonKey, replayBegin, replayEnd, redSprite, underHud, heroG, heroCanvas, liverySprite };
+  root.DUEL_UI = { field, hud, lesson, lessonKey, replayBegin, replayEnd, redSprite, seniorSprite, underHud, heroG, heroCanvas, liverySprite };
 })(typeof window !== 'undefined' ? window : globalThis);

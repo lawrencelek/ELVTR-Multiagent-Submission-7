@@ -19,7 +19,10 @@ The agent: `python3 pipeline/qa_attack.py` (prompt `pipeline/agents/qa_adversary
 
 Runs go to `pipeline/runs/<stamp>-qa/`.
 
-**Last results (9 Nov):**
+**Last results (12 Nov):**
+- FINAL V2.1 (Edits 124-125): runthrough pass, nine Map 1 puzzles first try, 6 min 24 s ([video](../docs/final_v21_runthrough.mp4)). Map 2's six built puzzles: `qa/solutions/parkland_*.json`, all ★★★ headless, all clear in the browser (`node qa/headless.js parkland:A1 qa/solutions/parkland_A1.json`).
+
+**Earlier (9 Nov):**
 - Runthrough (FINAL V2, Edit 123: cleaned screens, two hits on A1 and B1): pass, nine puzzles on the first try, 5 min 27 s ([video](../docs/final_v2_runthrough.mp4)). Default build: `final_v2`.
 - Click everywhere: 1,653 actions, clean.
 - The agent: 87 plans and 15 reported bugs, checked in GDD Edit 118 §118.3.

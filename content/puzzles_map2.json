@@ -1,5 +1,5 @@
 {
- "about": "FINAL V2.1 (GDD Edit 125): Story Map 2 as nine puzzles. Parkland. The learner: the VANGUARD™ POL-01-001, a police car (Edit 121). On the road: the certified LUMINARY™ SED-01-001, a white car with every sensor; from the Vanguard's rung 4 it reports what it sees. Set by hand.",
+ "about": "FINAL V2.1 (GDD Edit 125): Story Map 2 as nine puzzles. Parkland. The learner: the VANGUARD™ POL-01-001, a police car (Edit 121). On the road: the certified LUMINARY™ SED-01-001, a white car with every sensor; from the Vanguard's rung 4 it reports what it sees. Set by hand; six built (A1 C1 C2 B2 A2 B3), three in build (B1: no ground road; A3, C3: no tested solution yet).",
  "map": {
   "id": "parkland",
   "district": "parkland",
@@ -40,344 +40,392 @@
   {
    "n": 1,
    "tile": "A1",
-   "name": "Draft A1",
-   "built": false,
-   "new": "Draft",
-   "stage": "10.9",
+   "fleet": 0,
+   "steps": 1,
+   "level": "open",
+   "target": 60,
+   "name": "Patrol",
+   "built": true,
+   "stage": "10.4",
    "startRung": 2,
    "topRung": 2,
-   "earns": null,
-   "level": "open",
+   "earns": "legs1",
    "kit": [
     "battery1",
     "hands1",
     "knees1"
    ],
-   "fleet": 0,
    "route": 0,
-   "steps": 1,
    "objective": {
     "kind": "hits",
     "count": 1,
     "label": "GET HIT BY THE VANGUARD™"
    },
+   "par": 20,
    "layout": {
-    "drop": null,
+    "drop": [
+     300,
+     380
+    ],
     "cones": [],
     "cover": []
    },
-   "tale": "Draft.",
+   "tale": "Parkland's patrol car. Police spec: it sees ahead and to the sides from day one.",
+   "new": "The Vanguard™: forward camera and side sensors from the start.",
+   "newLine": "Vanguard™ · sees ahead and to the sides",
    "hints": [
-    "Draft."
+    "Wait wide of its lane. Dash in as its nose comes level."
    ],
-   "solution": "",
-   "par": 30,
-   "target": 60,
-   "newLine": "Draft"
+   "solution": "From open ground 148 off its lane, dash in as its nose comes level."
   },
   {
    "n": 2,
    "tile": "B1",
-   "name": "Draft B1",
-   "built": false,
-   "new": "Draft",
-   "stage": "10.9",
-   "startRung": 2,
-   "topRung": 2,
-   "earns": null,
+   "fleet": 0,
+   "steps": 1,
    "level": "open",
+   "target": 60,
+   "name": "The Corner",
+   "built": false,
+   "stage": "10.6",
+   "startRung": 3,
+   "topRung": 3,
+   "earns": null,
    "kit": [
     "battery1",
     "hands1",
-    "knees1"
+    "knees1",
+    "legs1"
    ],
-   "fleet": 0,
    "route": 0,
-   "steps": 1,
    "objective": {
     "kind": "hits",
     "count": 1,
     "label": "GET HIT BY THE VANGUARD™"
    },
+   "par": 30,
    "layout": {
     "drop": null,
     "cones": [],
     "cover": []
    },
-   "tale": "Draft.",
+   "tale": "The boulevard only clips this corner. A deck duel is in build.",
+   "new": "In build.",
+   "newLine": "In build",
    "hints": [
-    "Draft."
+    "In build."
    ],
-   "solution": "",
-   "par": 30,
-   "target": 60,
-   "newLine": "Draft"
+   "solution": "In build: the ground road crosses only 160 of the tile."
   },
   {
    "n": 3,
    "tile": "C1",
-   "name": "Draft C1",
-   "built": false,
-   "new": "Draft",
-   "stage": "10.9",
-   "startRung": 2,
-   "topRung": 2,
-   "earns": null,
+   "fleet": 0,
+   "steps": 1,
    "level": "open",
+   "target": 60,
+   "name": "K-Rail",
+   "built": true,
+   "stage": "10.6",
+   "startRung": 2,
+   "topRung": 3,
+   "earns": "car",
    "kit": [
     "battery1",
     "hands1",
-    "knees1"
+    "knees1",
+    "legs1"
    ],
-   "fleet": 0,
    "route": 0,
-   "steps": 1,
    "objective": {
     "kind": "hits",
     "count": 1,
     "label": "GET HIT BY THE VANGUARD™"
    },
+   "par": 25,
    "layout": {
-    "drop": null,
+    "drop": [
+     400,
+     447
+    ],
     "cones": [],
-    "cover": []
+    "cover": [
+     {
+      "kind": "krail",
+      "at": 0.3,
+      "side": "E",
+      "gap": 4
+     }
+    ]
    },
-   "tale": "Draft.",
+   "tale": "The avenue is railed off. A running jump clears the rail.",
+   "new": "Legs 1: {X} jumps. A running jump clears a K-rail.",
+   "newLine": "Jump · {X} at a run",
    "hints": [
-    "Draft."
+    "Run at the rail. Jump just before it. Land ahead of its nose."
    ],
-   "solution": "",
-   "par": 30,
-   "target": 60,
-   "newLine": "Draft"
+   "solution": "Run west at the K-rail; jump a stride before it; land in its lane as its nose nears."
   },
   {
    "n": 4,
    "tile": "C2",
-   "name": "Draft C2",
-   "built": false,
-   "new": "Draft",
-   "stage": "10.9",
-   "startRung": 2,
-   "topRung": 2,
-   "earns": null,
+   "fleet": 0,
+   "steps": 1,
    "level": "open",
+   "target": 60,
+   "name": "Underpass",
+   "built": true,
+   "stage": "10.6",
+   "startRung": 3,
+   "topRung": 4,
+   "earns": "car",
    "kit": [
     "battery1",
     "hands1",
-    "knees1"
+    "knees1",
+    "legs1"
    ],
-   "fleet": 0,
    "route": 0,
-   "steps": 1,
    "objective": {
     "kind": "hits",
     "count": 1,
     "label": "GET HIT BY THE VANGUARD™"
    },
+   "par": 20,
    "layout": {
-    "drop": null,
+    "drop": [
+     520,
+     330
+    ],
     "cones": [],
     "cover": []
    },
-   "tale": "Draft.",
+   "tale": "The highway roofs the road. Its roof lidar sees you up on the deck.",
+   "new": "Watchtower: its lidar sees you on the deck.",
+   "newLine": "Lidar · it sees you up top",
    "hints": [
-    "Draft."
+    "Stay under the deck, not on it. Dash from the shade."
    ],
-   "solution": "",
-   "par": 30,
-   "target": 60,
-   "newLine": "Draft"
+   "solution": "Under the deck, 150 off its lane: dash in as its nose nears."
   },
   {
    "n": 5,
    "tile": "B2",
-   "name": "Draft B2",
-   "built": false,
-   "new": "Draft",
-   "stage": "10.9",
-   "startRung": 2,
-   "topRung": 2,
-   "earns": null,
+   "fleet": 0,
+   "steps": 1,
    "level": "open",
+   "target": 60,
+   "name": "Ring Road",
+   "built": true,
+   "stage": "10.6",
+   "startRung": 4,
+   "topRung": 5,
+   "earns": "car",
    "kit": [
     "battery1",
     "hands1",
-    "knees1"
+    "knees1",
+    "legs1"
    ],
-   "fleet": 0,
    "route": 0,
-   "steps": 1,
    "objective": {
     "kind": "hits",
     "count": 1,
     "label": "GET HIT BY THE VANGUARD™"
    },
+   "par": 20,
    "layout": {
-    "drop": null,
+    "drop": [
+     250,
+     450
+    ],
     "cones": [],
     "cover": []
    },
-   "tale": "Draft.",
+   "senior": {
+    "lane": 1,
+    "seniorDelay": 1,
+    "seniorReturnSeconds": 2
+   },
+   "tale": "The Luminary™ you certified drives here now. It tells the Vanguard™ what it sees.",
+   "new": "Informant: the Luminary™ reports you. Seen by it, you are noticed at once.",
+   "newLine": "Luminary™ · it sees all round, it tells",
    "hints": [
-    "Draft."
+    "Wait while the Luminary™ is away. Dash when only the Vanguard™ comes."
    ],
-   "solution": "",
-   "par": 30,
-   "target": 60,
-   "newLine": "Draft"
+   "solution": "Out of the Luminary™ ring, 150 off the Vanguard™ lane: dash as its nose nears."
   },
   {
    "n": 6,
    "tile": "A2",
-   "name": "Draft A2",
-   "built": false,
-   "new": "Draft",
-   "stage": "10.9",
-   "startRung": 2,
-   "topRung": 2,
-   "earns": null,
+   "fleet": 0,
+   "steps": 1,
    "level": "open",
+   "target": 60,
+   "name": "Overpass",
+   "built": true,
+   "stage": "10.6",
+   "startRung": 5,
+   "topRung": 6,
+   "earns": "car",
    "kit": [
     "battery1",
     "hands1",
-    "knees1"
+    "knees1",
+    "legs1"
    ],
-   "fleet": 0,
    "route": 0,
-   "steps": 1,
    "objective": {
     "kind": "hits",
-    "count": 1,
+    "count": 2,
     "label": "GET HIT BY THE VANGUARD™"
    },
+   "par": 30,
    "layout": {
-    "drop": null,
+    "drop": [
+     250,
+     300
+    ],
     "cones": [],
     "cover": []
    },
-   "tale": "Draft.",
+   "senior": {
+    "lane": 1,
+    "seniorDelay": 2,
+    "seniorReturnSeconds": 3
+   },
+   "tale": "Under the overpass, the Luminary™ on the other lane. Twice, please.",
+   "new": "Cordon: cones stop it now. Two hits.",
+   "newLine": "Two hits · cones stop it",
    "hints": [
-    "Draft."
+    "Wait wide of its lane. Dash in as it comes level. Then again."
    ],
-   "solution": "",
-   "par": 30,
-   "target": 60,
-   "newLine": "Draft"
+   "solution": "West of its lane, 150 off: two dashes, two passes."
   },
   {
    "n": 7,
    "tile": "A3",
-   "name": "Draft A3",
-   "built": false,
-   "new": "Draft",
-   "stage": "10.9",
-   "startRung": 2,
-   "topRung": 2,
-   "earns": null,
+   "fleet": 0,
+   "steps": 1,
    "level": "open",
+   "target": 60,
+   "name": "The Bend",
+   "built": false,
+   "stage": "10.7",
+   "startRung": 6,
+   "topRung": 6,
+   "earns": null,
    "kit": [
     "battery1",
     "hands1",
-    "knees1"
+    "knees1",
+    "legs1"
    ],
-   "fleet": 0,
    "route": 0,
-   "steps": 1,
    "objective": {
     "kind": "hits",
-    "count": 1,
+    "count": 2,
     "label": "GET HIT BY THE VANGUARD™"
    },
+   "par": 35,
    "layout": {
     "drop": null,
     "cones": [],
     "cover": []
    },
-   "tale": "Draft.",
+   "tale": "The big bend. In build.",
+   "new": "In build.",
+   "newLine": "In build",
    "hints": [
-    "Draft."
+    "In build."
    ],
-   "solution": "",
-   "par": 30,
-   "target": 60,
-   "newLine": "Draft"
+   "solution": "In build: no tested solution at rung 6 yet."
   },
   {
    "n": 8,
    "tile": "B3",
-   "name": "Draft B3",
-   "built": false,
-   "new": "Draft",
-   "stage": "10.9",
-   "startRung": 2,
-   "topRung": 2,
-   "earns": null,
+   "fleet": 0,
+   "steps": 1,
    "level": "open",
+   "target": 60,
+   "name": "Crosstown",
+   "built": true,
+   "stage": "10.7",
+   "startRung": 6,
+   "topRung": 6,
+   "earns": null,
    "kit": [
     "battery1",
     "hands1",
-    "knees1"
+    "knees1",
+    "legs1"
    ],
-   "fleet": 0,
-   "route": 0,
-   "steps": 1,
+   "route": 2,
    "objective": {
     "kind": "hits",
-    "count": 1,
+    "count": 2,
     "label": "GET HIT BY THE VANGUARD™"
    },
+   "par": 35,
    "layout": {
-    "drop": null,
+    "drop": [
+     300,
+     600
+    ],
     "cones": [],
     "cover": []
    },
-   "tale": "Draft.",
+   "senior": {
+    "lane": 2,
+    "seniorDelay": 4,
+    "seniorReturnSeconds": 3
+   },
+   "tale": "Crosstown, under the highway. It remembers where it crashed. The Luminary™ follows it.",
+   "new": "Casefile: it remembers every crash. Two hits.",
+   "newLine": "Two hits · it remembers",
    "hints": [
-    "Draft."
+    "From the north, dash across the empty lane as its nose nears."
    ],
-   "solution": "",
-   "par": 30,
-   "target": 60,
-   "newLine": "Draft"
+   "solution": "North of the westbound lane, 150 off its own: dash across as its nose nears, twice."
   },
   {
    "n": 9,
    "tile": "C3",
-   "name": "Draft C3",
-   "built": false,
-   "new": "Draft",
-   "stage": "10.9",
-   "startRung": 2,
-   "topRung": 2,
-   "earns": null,
+   "fleet": 0,
+   "steps": 1,
    "level": "open",
+   "target": 60,
+   "name": "Roundabout",
+   "built": false,
+   "stage": "10.8",
+   "startRung": 6,
+   "topRung": 7,
+   "earns": null,
    "kit": [
     "battery1",
     "hands1",
-    "knees1"
+    "knees1",
+    "legs1"
    ],
-   "fleet": 0,
    "route": 0,
-   "steps": 1,
    "objective": {
     "kind": "hits",
-    "count": 1,
+    "count": 3,
     "label": "GET HIT BY THE VANGUARD™"
    },
+   "par": 60,
    "layout": {
     "drop": null,
     "cones": [],
     "cover": []
    },
-   "tale": "Draft.",
+   "tale": "The roundabout. The boss. In build.",
+   "new": "In build.",
+   "newLine": "In build",
    "hints": [
-    "Draft."
+    "In build."
    ],
-   "solution": "",
-   "par": 30,
-   "target": 60,
-   "newLine": "Draft"
+   "solution": "In build."
   }
  ]
 }

@@ -21,13 +21,13 @@
     ctx = cx; const U = G.U, FT = U.FT, pr = app.story; if (!pr) return;
     const sv = P11.saveOf(pr), sel = app.p11Sel && P11.BY[app.p11Sel] ? app.p11Sel : sv.cur || P11.ORDER.find((t) => P11.stateOf(pr, t) === 'open') || 'A1';
     const x = G.FX + 16, y = G.FY + 14, w = G.FW - 32, h = G.FH - 28; U.panel(x, y, w, h);
-    const solved = P11.ORDER.filter((t) => sv.best[t]).length;
+    const solved = P11.ORDER.filter((t) => sv.best[t]).length, nb = P11.ORDER.filter((t) => P11.BY[t].built).length; // built puzzles only (Map 2: three in build)
     { let tx = x + 24; (P11.MAPS || [{ id: 'monument', name: 'Monument' }]).forEach((m, i) => { // FINAL V2.1 (Edit 125): the map tabs
       const open = !P11.mapOpen || P11.mapOpen(pr, m.id), cur = m.id === (P11.mapId ? P11.mapId() : 'monument'), lab = (i + 1) + ' · ' + m.name.toUpperCase() + (open ? '' : ' · LOCKED'); ctx.font = '700 18px ' + U.F_UI; const tw = ctx.measureText(lab).width + 24;
       U.rr(tx - 10, y + 16, tw, 34, 8); ctx.fillStyle = cur ? 'rgba(79,195,232,0.18)' : 'rgba(0,0,0,0)'; ctx.fill(); if (cur || (app.p11Tab && cur)) { ctx.strokeStyle = app.p11Tab ? YEL : FT.accent; ctx.lineWidth = app.p11Tab ? 2.5 : 1.5; ctx.stroke(); }
       G.hit(tx - 10, y + 16, tw, 34, 'p11map:' + m.id, () => { if (P11.setMap(pr, m.id)) { app.p11Sel = null; app.p11Tab = false; } else app.p11Deny = { t: m.id, at: G.t, why: 'map' }; });
       U.txt(lab, tx + 2, y + 40, '700 18px ' + U.F_UI, cur ? FT.accent : open ? FT.text : FT.off); tx += tw + 8; }); }
-    U.txt('★ ' + P11.starCount(pr) + ' / ' + P11.ORDER.length * 3 + '   ·   ' + solved + ' / ' + P11.ORDER.length, x + w - 24, y + 40, '700 18px ' + U.F_UI, FT.text, 'right');
+    U.txt('★ ' + P11.starCount(pr) + ' / ' + nb * 3 + '   ·   ' + solved + ' / ' + nb, x + w - 24, y + 40, '700 18px ' + U.F_UI, FT.text, 'right');
     const top = y + 62, gh = h - 62 - 96, g = 10, ch = Math.floor((gh - 2 * g) / 3), cw = Math.min(Math.floor(((w - 72) * 0.6 - 2 * g) / 3), Math.floor(ch * 1.5)), gx = x + 24;
     for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
       const t = 'ABC'[c] + (r + 1), q = P11.BY[t], st = P11.stateOf(pr, t), X0 = gx + c * (cw + g), Y0 = top + r * (ch + g), on = sel === t && !app.p11Tab;
@@ -78,8 +78,8 @@
     for (let i = sparks.length - 1; i >= 0; i--) { const q = sparks[i], a = G.t - q.t0; if (a > 1.6) { sparks.splice(i, 1); continue; } ctx.globalAlpha = 1 - a / 1.6; rect(q.x + q.vx * a, q.y + q.vy * a + 160 * a * a, 4, 4, q.c); } ctx.globalAlpha = 1;
     const k = Math.min(1, t / 0.5), sc = 0.6 + 0.4 * (1 - Math.pow(1 - k, 3));
     ctx.save(); ctx.translate(cx, y + h * 0.3); ctx.scale(sc, sc); text((M0 ? M0.name.toUpperCase() : 'MAP') + ' CERTIFIED', 0, 0, 52, YEL, 'center', 900, BRAND); ctx.restore();
-    const n = M0 ? M0.ORDER.length : 9, lit = Math.min(n, Math.floor(t / 0.12)), s0 = Math.min(1, Math.max(0, (t - 0.4) / 1.4));
-    for (let i = 0; i < n; i++) { const bx = cx - (n * 34) / 2 + i * 34, by = y + h * 0.42; rect(bx, by, 28, 28, i < lit ? '#4fc3e8' : 'rgba(159,184,200,0.2)'); if (i < lit) text(String(i + 1), bx + 14, by + 20, 15, '#05070f', 'center', 900, BRAND); }
+    const BL = M0 ? M0.ORDER.filter((t) => M0.BY[t].built) : [], n = BL.length || 9, lit = Math.min(n, Math.floor(t / 0.12)), s0 = Math.min(1, Math.max(0, (t - 0.4) / 1.4));
+    for (let i = 0; i < n; i++) { const bx = cx - (n * 34) / 2 + i * 34, by = y + h * 0.42; rect(bx, by, 28, 28, i < lit ? '#4fc3e8' : 'rgba(159,184,200,0.2)'); if (i < lit) text(String(BL.length ? M0.BY[BL[i]].n : i + 1), bx + 14, by + 20, 15, '#05070f', 'center', 900, BRAND); }
     if (M0) { let st = 0; for (const t2 of M0.ORDER) { const b = (pr.p11 && (M0.i === 0 ? pr.p11 : (pr.p11.maps || {})[M0.id]) || {}).best; const v = b && b[t2]; if (v) st += v.stars.reduce((u, q) => u + q, 0); } text('★ ' + Math.round(st * s0) + ' / ' + n * 3, cx, y + h * 0.42 + 72, 28, YEL, 'center', 900, BRAND); }
     if (M1 && t > 1.4) { const a = Math.min(1, (t - 1.4) / 0.5); ctx.globalAlpha = a; text(M1.name.toUpperCase() + ' IS OPEN', cx, y + h * 0.66, 30, '#ffffff', 'center', 900, BRAND);
       const L = M1.LEARNER || {}; text((L.name || '') + (L.model ? '  ·  ' + L.model : '') + ' ON PATROL', cx, y + h * 0.66 + 34, 17, '#9fb8c8', 'center'); ctx.globalAlpha = 1; }
@@ -95,7 +95,7 @@
     rect(G.FX, G.FY, G.FW, G.FH, 'rgba(5,7,15,0.72)');
     const w = Math.min(G.FW - 80, 880), h = Math.min(G.FH - 60, 470), x = G.FX + (G.FW - w) / 2, y = G.FY + (G.FH - h) / 2;
     U.panel(x, y, w, h); G.hit(x, y, w, h, 'p11:result', () => G.push('ok'));
-    U.txt('PUZZLE ' + q.n + (rec.certified && q.tile === P11.ORDER[P11.ORDER.length - 1] ? ' · CERTIFIED' : ' · SOLVED'), x + 32, y + 44, '700 17px ' + U.F_UI, FT.accent);
+    U.txt('PUZZLE ' + q.n + (rec.certified && q.tile === (P11.lastOf ? P11.lastOf() : P11.ORDER[P11.ORDER.length - 1]) ? ' · CERTIFIED' : ' · SOLVED'), x + 32, y + 44, '700 17px ' + U.F_UI, FT.accent);
     U.txt(q.name, x + 32, y + 92, '900 44px ' + BRAND, FT.text);
     const labels = ['CLEAR', 'UNTOUCHED', 'UNDER ' + q.par + ' s'], why = ['', '', '']; // FINAL V2 (Edit 123, review r2): no sentences under the stars
     const sw = (w - 64) / 3;

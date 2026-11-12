@@ -294,6 +294,10 @@ def v21_game_js(g):
          "    const D = W6.DISTRICTS.find((q) => q.id === dist); if (!D) return null; const sc = W6.buildScreen(D, 'ABC'.indexOf(t[0]), +t[1] - 1), B = new PIX.Buf(AW, AH), D2 = new PIX.Buf(AW, AH); D2.layer = true; W6.compose(sc, B, D2, {});\n"
          "    const c2 = document.createElement('canvas'); c2.width = AW; c2.height = AH; const g2 = c2.getContext('2d'), id = g2.createImageData(AW, AH); new Uint32Array(id.data.buffer).set(B.d); g2.putImageData(id, 0, 0); V21_THUMB.set(key, c2); return c2; }\n"
          "  const p11G = () => ({ thumb: v21Thumb,"),
+        # Map 2 (Edit 125): the senior Luminary in its livery, with its plate; the grid's backdrop is the current map
+        ("  function carSpr(s, c, braking) { if (c.red && window.DUEL_UI) return window.DUEL_UI.redSprite(carSpr0(s, c, braking));", "  function carSpr(s, c, braking) { if (c.senior && window.DUEL_UI && window.DUEL_UI.seniorSprite) return window.DUEL_UI.seniorSprite(carSpr0(s, c, braking)); if (c.red && window.DUEL_UI) return window.DUEL_UI.redSprite(carSpr0(s, c, braking));"),
+        ("    if (s.p11 && (!c.red || c.ghost || c.gone)) return; // FINAL V2: one plate, the learner's\n", "    if (s.p11 && ((!c.red && !c.senior) || c.ghost || c.gone)) return; // FINAL V2: one plate, the learner's (Map 2: and the senior's)\n"),
+        ("drawField(preview(Math.max(0, LEVEL_LIST.indexOf('monument'))), true); veil(); window.P11_UI.grid(", "drawField(preview(Math.max(0, LEVEL_LIST.indexOf(window.P11.mapId ? window.P11.mapId() : 'monument'))), true); veil(); window.P11_UI.grid("),
         ("      under: () => { drawMarks(); if (lvl === 0) {", "      under: () => { drawMarks(); if (window.P11 && lvl === 0) v21Chalk(s); if (lvl === 0) {"),
         # the body's number after the clear: what is left of it, not 0
         ("    const b = s.body, P = s.P, hp = b.alive ? (", "    const b = s.body, P = s.P, hp = b.alive || (window.P11 && s.p11 && s.p11.result) ? ("),
@@ -448,6 +452,8 @@ def main(p11=False):
         sim[f'story.traffic.monument.{t["tile"]}'] = 1.0 if int(t['stage'].split('.')[1]) >= 9 else 0.5
     if p11:  # FINAL V2.1 (Edit 124, playtest): damage stays for the puzzle; worn legs slow a walk a little, never the dash; crouch walks at 60%; a longer hit-stop
         sim.update({'proto.parts.legSpeedFloor': 0.8, 'proto.parts.legDashLoss': 0, 'proto.parts.torsoTurnFloor': 0.8, 'feedback.hitStop': 0.14})
+        sim['upgrades.jumpHeight'] = 60  # FINAL V2.1 (Edit 125): with the airtime, a wider take-off window over a K-rail
+        sim['abilities.legs.airtimeBase'] = 0.85  # FINAL V2.1 (Edit 125): Legs 1's running jump clears a K-rail (0.3 s fell short of its band at P11's 70% run speed)
     if p11:  # Prototype 11: the puzzle's fleet; 0 keeps the tile clear (engine/p11.js removes white ground cars)
         for z in (pz, pz2):
             for q in z['puzzles']:
