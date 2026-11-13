@@ -15,6 +15,7 @@ function boot() {
   Object.assign(globalThis, { DUMMIES_STAGES: R.stages, STORY_MAP1: R.plan, DUEL_RULES: R.rules, P11_PUZZLES: R.puzzles });
   if (R.plans) Object.assign(globalThis, { STORY_MAPS: Object.assign({ monument: R.plan }, ...R.plans.map((pl) => ({ [pl.district]: pl }))), P11_MAPS: [R.puzzles].concat(R.pzs) }); // FINAL V2.1: Map 2 as parkland:A1 (Edit 125), Map 3 as waterfront:A1 (Edit 126)
   else if (R.plan2) Object.assign(globalThis, { STORY_MAPS: { monument: R.plan, parkland: R.plan2 }, P11_MAPS: [R.puzzles, R.puzzles2] });
+  if (process.env.P11_V3 !== '0') globalThis.P11_V3 = true; // FINAL V3 (Edits 127–128): the cache is V3's world; P11_V3=0 for V2's rules
   require(path.join(ROOT, 'engine', 'duel.js')); require(path.join(ROOT, 'engine', 'p11.js')); P11 = globalThis.P11;
 }
 function make(tile) {

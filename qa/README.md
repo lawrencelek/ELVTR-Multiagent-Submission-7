@@ -11,6 +11,7 @@ The tools behind GDD Edits 118 and 119. Everything drives the game as a player d
 | `runthrough.js` | The full game, recorded: every menu, a new save, nine puzzles, quit and reload, continue, Certification, Arcade |
 | `bot.js` | The cut-in bot, headless at sim speed: the bosses' check (Edit 126) |
 | `ledges.js` | Every ledge opening on the 27 tiles, headless: drops where it should, slides past where it should (Edit 127) |
+| `models.js` | Each model's own suite, headless: fields, the senior's cones, rungs 6–7 per model in staged scenes (Edit 128) |
 | `furnish.js` | Street furniture for Maps 2–3: candidates clear of each solution, kept only if the solution still clears (Edit 127) |
 | `solutions/<tile>.json` | One pad script per puzzle that clears it, tuned headless and run in the browser. Pad layout (P11.3, Edit 119): A dash, B crouch (hold), X jump, Y interact (cones) |
 
@@ -37,6 +38,7 @@ node qa/runthrough.js qa/runs/runthrough p11
 node qa/runthrough.js qa/runs/runthrough final_v2 --all   # 27 puzzles and the send-off
 node qa/bot.js parkland:C3 200                             # the cut-in bot, headless
 node qa/ledges.js                                          # every ledge opening (Edit 127)
+node qa/models.js                                          # the three models' suites (Edit 128)
 node qa/attack.js PLANS.json OUT.json final_v3 1           # browser pad, one page at a time (load breaks the pad's timing)
 node qa/clicks.js qa/runs/clicks 10 7 p11
 node qa/headless.js B2 qa/solutions/B2.json 80

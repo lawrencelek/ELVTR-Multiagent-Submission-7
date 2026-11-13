@@ -75,7 +75,7 @@
     "cover": []
    },
    "tale": "Upper town, on the hill. The Genesis™ laps the ridge road: a racer from the factory, with a spotter and the blimp overhead.",
-   "new": "The Genesis™: forward camera, side sensors, roof lidar from the start.",
+   "new": "The Genesis™: a long, narrow racing line, short spotters and the blimp, from the start.",
    "newLine": "Genesis™ · camera, sides, lidar",
    "hints": [
     "Wait in the alley between the blocks. Dash in as its nose comes level."
@@ -472,7 +472,7 @@
     ]
    },
    "tale": "The drive on the seawall, under the west bridge. It remembers where it crashed.",
-   "new": "Pace Notes: it brakes where it crashed. The seawall: sand to the north, river to the south.",
+   "new": "Pace Notes: it lifts early where it crashed and moves its line away. The seawall: sand to the north, river to the south.",
    "newLine": "The seawall · sand or river",
    "hints": [
     "North of the drive, on the sand. Dash as its nose comes level."
@@ -547,7 +547,7 @@
     ]
    },
    "tale": "The beach road meets the drive by the stilt houses. The ship that takes certified models to market is moored here.",
-   "new": "Pace Notes: it remembers every crash and brakes there. Two hits.",
+   "new": "Pace Notes: it lifts and moves its line away at every crash spot. Two hits.",
    "newLine": "Pace Notes · two hits, two places",
    "hints": [
     "Two hits, either side of the beach road. Dash as its nose comes level."
@@ -611,7 +611,7 @@
    "new": "A boss. It learns once, after your first hit.",
    "newLine": "Boss · learns after your first hit",
    "hints": [
-    "Three hits, three places. After the first it searches where it lost you."
+    "Three hits, three places. After the first it never stops: its next lap is slow, every sensor on where it lost you."
    ],
    "solution": "Checked with the cut-in bot (qa/bot.js): it waits beside the drive out of sight and dashes in ahead of the nose. 60 s, three hits, one lesson.",
    "boss": true

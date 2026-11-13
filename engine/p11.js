@@ -148,6 +148,7 @@
       if (!MAPS.some((m) => m.id === this.levelId)) return; useMap(this.levelId);
       const act = STORY.activeTile(this.story, this.levelId), q = BY[act]; if (!q) return;
       const T = this.duelT, b = this.body, lay = q.layout || {}; T.learner = LEARNER.model; T.seniorModel = M.senior && M.senior.model; // Prototype 11.4: the learner's model ID on its car
+      if (root.DUEL && root.DUEL.applyModel) root.DUEL.applyModel(T, LEARNER.cls, M.senior && M.senior.cls); // FINAL V3.1 (Edit 128): the model's own suite (on with window.P11_V3)
       if (q.camera && q.camera.at) this.p11CameraAt(q.camera.at); else if (q.camera && q.camera.watch) this.p11Camera(q.camera.watch);
       if (lay.drop) Object.assign(b, { x: lay.drop[0], y: lay.drop[1], px: lay.drop[0], py: lay.drop[1], level: lay.drop[2] || 0, floor: lay.drop[3] != null ? lay.drop[3] : null }); // the puzzle's drop point (Edit 115); [x, y, level, floor] on the Waterfront's hill (Edit 126)
       if (lay.cones) this.p11Cones(lay.cones);
@@ -247,7 +248,7 @@
       for (const s of this.W6.sims) if (s.cars.some((c) => c.red)) s.cars = s.cars.filter((c) => !c.red);
       const DP = T.DP, back = DP['duel.redReturnSeconds'] || 2;
       Object.assign(T, { rung: clamp(Math.round(DP['duel.startRung'] || 0), 0, RUNGS.length - 1), lesson: null, lessons: [], crashes: [], spring: null, lift: null, blockT: 0, leftAt: T.t - back + 1, redSeq: 0, delivery: null,
-        stealth: { points: 0, unseen: 0, lost: 0, seen: 0, last: null }, firstBrakeT: null, firstSideT: null, firstCoverT: null, firstItemT: null, stageCaution: null, carKeepTG: null });
+        stealth: { points: 0, unseen: 0, lost: 0, seen: 0, last: null }, firstBrakeT: null, firstSideT: null, firstCoverT: null, firstItemT: null, stageCaution: null, carKeepTG: null, reconNext: null });
       T.level.cameras = p.cams.map((c) => c.slice());
       for (const cn of this.cones || []) Object.assign(cn, { x: cn.hx, y: cn.hy, vx: 0, vy: 0, state: 'free', flightT: 0 });
       this.spawnBody(); const b = this.body, d = p.drop;

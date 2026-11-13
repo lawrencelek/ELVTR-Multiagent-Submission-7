@@ -333,10 +333,10 @@
     },
   };
 
-  const sentences = {
-    LUMINARY: { 1: 'It sees you in its lane and brakes for the board.', 2: 'Its mirrors now watch the pavements on both sides.', 3: 'It sees you jump or drop onto its road.', 4: 'Street cameras tip it off where you hide.', 5: 'It stops for cones now, instead of swerving round them.', 6: 'It logs every crash spot and slows there next time.', 7: 'It stops and shines its lamp where it lost you.' },
-    VANGUARD: { 1: 'It brakes when it sees you in its lane.', 2: 'It watches both pavements as it passes.', 3: 'It catches you jumping or dropping onto the road.', 4: 'Every street camera reports you. It knows where you hide.', 5: 'It stops for cones instead of swerving round them.', 6: 'It keeps a record of every crash spot and slows there.', 7: 'It sweeps its spotlight where it last saw you.' },
-    GENESIS: { 1: 'It sees you on its line and brakes.', 2: 'It knows when you are alongside, on either side.', 3: 'It sees you jump or drop onto the track.', 4: 'The pit wall reads the street cameras: it knows where you hide.', 5: 'It stops for cones and debris. No swerving.', 6: 'It notes every crash spot and brakes there next lap.', 7: 'It slows and searches where it lost you.' },
+  const sentences = { // FINAL V3.1 (Edit 128): each model's own suite; rungs 2, 6 and 7 work differently per model
+    LUMINARY: { 1: 'It sees you in its lane and brakes early for the board.', 2: 'Its mirror pods watch both pavements, close and far.', 3: 'It sees you jump or drop onto its road.', 4: 'Street cameras tip it off where you hide.', 5: 'It stops for cones now, instead of swerving round them.', 6: 'It watches every spot you hit it from. Stand there and it knows at once.', 7: 'It stops and shines its lamp where it lost you.' },
+    VANGUARD: { 1: 'Its dash cam sees wide, not far. It brakes when you are in its lane.', 2: 'Its outrider pods watch both sides, and behind it.', 3: 'It catches you jumping or dropping onto the road.', 4: 'Every street camera reports you. It knows where you hide.', 5: 'It stops for cones instead of swerving round them.', 6: 'It crawls past every spot you hit it from.', 7: 'It turns round and drives back to where it lost you.' },
+    GENESIS: { 1: 'It sees far down its line, and only its line.', 2: 'Its spotters see close beside it, and notice you at once.', 3: 'It sees you jump or drop onto the track.', 4: 'The pit wall reads the street cameras: it knows where you hide.', 5: 'It stops for cones and debris. No swerving.', 6: 'It lifts early at every crash spot, and moves its line away.', 7: 'It never stops. Its next lap is slow, every sensor on where it lost you.' },
   };
 
   const slots = {};

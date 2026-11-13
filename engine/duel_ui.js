@@ -288,9 +288,10 @@
   // plate ? then !, the same colour. Several at once: the highest rung marks the dummy; the lower fields only brighten.
   const RUNGCOL = ['#9fb8c8', '#f4f8fa', '#7fa8bc', '#c3a6ff', '#9ff2c8', '#ff8a1f', '#ff5a5a', '#ff5a5a'];
   const V2 = { best: null, once: new WeakMap(), holdS: 0.6 }; // ui.seenHoldSeconds 0.6 (proposed)
+  const kitName = (n) => { const HC = root.HERO_CARS, K = HC && HC.kit && HC.kit[learner().cls]; return (K && K[n] && K[n].name) || null; }; // FINAL V3.1 (Edit 128)
   const SENSOR = { fwd: ['FORWARD CAMERA', 1], side: ['SIDE SENSORS', 2], lidar: ['ROOF LIDAR', 3], cam: ['STREET CAMERA', 4], get senior() { return [(root.P11 && root.P11.MAP && root.P11.MAP.senior && root.P11.MAP.senior.name) || 'LUMINARY™', 4]; }, search: ['SEARCH', 7] };
   function v2Who(c, b) { // which sensor has the dummy now, and how far: seen, or sensing (u: the notice filling)
-    if (!b || !b.alive) return null; const hz = c.hz, mk = (k, state, u) => ({ k, name: SENSOR[k][0], rank: SENSOR[k][1] + (state === 'seen' ? 10 : 0), col: RUNGCOL[SENSOR[k][1]], state, u, car: c });
+    if (!b || !b.alive) return null; const hz = c.hz, mk = (k, state, u) => ({ k, name: (root.P11_V3 && k !== 'cam' && k !== 'senior' && kitName(SENSOR[k][1])) || SENSOR[k][0], rank: SENSOR[k][1] + (state === 'seen' ? 10 : 0), col: RUNGCOL[SENSOR[k][1]], state, u, car: c });
     if (c.lkp && c.lkp.found && T.rung >= 7) return mk('search', 'seen');
     if (hz && hz.cone === 'link') { const sc0 = T.seeingCamera(); return mk(sc0 && sc0[4] ? 'senior' : 'cam', 'seen'); } // FINAL V2.1: the senior told it
     if (T.rung >= 3 && c.v2LidarT != null && T.t - c.v2LidarT < V2.holdS) return mk('lidar', 'seen');
@@ -322,7 +323,7 @@
     const app = root.__dummies, ch = app && app.hud && app.hud.chassis, X = G.FX + G.FW + 16, W = G.VW - X - 16, y = ch ? ch.y + ch.h + 10 : G.FY + 250, h = 84;
     if (root.__dummiesPanel) root.__dummiesPanel(X, y, W, h); else rect(X, y, W, h, C.panel);
     const ri = T.rungInfo(), col = RUNGCOL[Math.min(7, T.rung)] || C.text, acc = learnerAccent() || C.red;
-    text(learner().name, X + 14, y + 26, 13, acc); text(T.rung >= 1 && ri ? ri.name.toUpperCase() : 'BLIND', X + 14, y + 52, 15, col);
+    text(learner().name, X + 14, y + 26, 13, acc); text(T.rung >= 1 && ri ? String((root.P11_V3 && kitName(T.rung)) || ri.name).toUpperCase() : 'BLIND', X + 14, y + 52, 15, col); // FINAL V3.1 (Edit 128): the model's own part name
     for (let i = 1; i <= 7; i++) rect(X + 14 + (i - 1) * 16, y + 64, 12, 7, i <= T.rung ? RUNGCOL[i] : 'rgba(255,255,255,0.16)');
   }
   function drawTag(c) {
@@ -387,13 +388,28 @@
     if (off.width !== Math.ceil(G.FW) || off.height !== Math.ceil(G.FH)) { off.width = Math.ceil(G.FW); off.height = Math.ceil(G.FH); }
     const list = cams.map((cam) => ({ x: cam[0], y: cam[1], aim: T.cameraAim(cam), F, R: R > 0 ? R : 260, on: sees === cam, rgb: '159,242,200' }));
     for (const c of T.cars) if (c.senior && !c.gone && !c.ghost) { // FINAL V2.1 (Edit 125): the senior's eye: mint once it reports to the learner (rung 4), else white
-      const rep = T.rung >= 4; list.push({ x: c.x, y: c.y, aim: c.h / D, F: (T.DP && T.DP['duel.seniorFov']) || 360, R: (T.DP && T.DP['duel.seniorRange']) || 220, on: !!(sees && sees[4] === c), rgb: rep ? '159,242,200' : '244,248,250', faint: !rep }); }
+      const rep = T.rung >= 4; list.push({ x: c.x, y: c.y, aim: c.h / D, F: (T.DP && T.DP['duel.seniorFov']) || 360, R: (T.DP && T.DP['duel.seniorRange']) || 220, on: !!(sees && sees[4] === c), rgb: rep ? '159,242,200' : '244,248,250', faint: !rep, car: T.seniorF ? c : null }); }
     for (const it of list) { const { x, y, aim, F: Fi, R: Rr, on } = it;
       offG.setTransform(1, 0, 0, 1, 0, 0); offG.clearRect(0, 0, off.width, off.height); offG.setTransform(k, 0, 0, k, 0, 0);
+      if (it.car) seniorCones(offG, it.car, it); else { // FINAL V3.1 (Edit 128): the senior's own certified suite, drawn as the learner's field
       offG.beginPath(); if (Fi < 360 && aim != null) { offG.moveTo(x, y); offG.arc(x, y, Rr, (aim - Fi / 2) * D, (aim + Fi / 2) * D); offG.closePath(); } else offG.arc(x, y, Rr, 0, TAU);
-      offG.fillStyle = `rgba(${it.rgb},${on ? 0.25 : it.faint ? 0.05 : 0.1})`; offG.fill(); offG.strokeStyle = `rgba(${it.rgb},${on ? 0.7 : it.faint ? 0.25 : 0.4})`; offG.lineWidth = 1.2; offG.setLineDash(on ? [] : [6, 5]); offG.stroke(); offG.setLineDash([]);
+      offG.fillStyle = `rgba(${it.rgb},${on ? 0.25 : it.faint ? 0.05 : 0.1})`; offG.fill(); offG.strokeStyle = `rgba(${it.rgb},${on ? 0.7 : it.faint ? 0.25 : 0.4})`; offG.lineWidth = 1.2; offG.setLineDash(on ? [] : [6, 5]); offG.stroke(); offG.setLineDash([]); }
       shade(offG, x, y, blockers({ layer: 0 }, null)); // tall statics and deck tops; low cover is under a camera's eye
       ctx.save(); ctx.scale(1 / k, 1 / k); ctx.drawImage(off, 0, 0); ctx.restore(); }
+  }
+  function seniorCones(g, c, it) { // the senior's forward cone (edges through its front corners, from the nose on) and its two side zones (CLOSE, FAR), its model's shape
+    const F = T.seniorF, A = F['perception.forwardConeAngle'] * D, Rf = F['perception.coneRadius'], Rs = Rf * F['perception.sideConeRatio'], Gs = Math.round(F['perception.sideGrades'] || 2);
+    const e0 = Math.max(F['perception.sideConeAxis'] - F['perception.sideConeAngle'], F['perception.forwardConeAngle']) * D, e1 = (F['perception.sideConeAxis'] + F['perception.sideConeAngle']) * D;
+    const Fa = c.L / 2 - (c.W / 2) / Math.tan(Math.max(1, F['perception.forwardConeAngle']) * D) - c.L / 2, O = -c.L / 2, on = it.on, fa = on ? 0.22 : it.faint ? 0.05 : 0.1, sa = on ? 0.7 : it.faint ? 0.3 : 0.45;
+    g.save(); g.translate(c.x, c.y); g.rotate(c.h); g.lineWidth = 1.2;
+    g.save(); g.beginPath(); g.rect(c.L / 2, -4000, 4000, 8000); g.clip(); g.beginPath(); g.moveTo(Fa, 0); g.arc(Fa, 0, Rf, -A, A); g.closePath();
+    g.fillStyle = `rgba(${it.rgb},${fa})`; g.fill(); g.strokeStyle = `rgba(${it.rgb},${sa})`; g.setLineDash(on ? [] : [6, 5]); g.stroke(); g.restore();
+    for (const sg of [-1, 1]) { const a0 = sg > 0 ? e0 : -e1, a1 = sg > 0 ? e1 : -e0;
+      g.save(); g.beginPath(); g.rect(-4000, -4000, 8000, 8000); g.moveTo(Fa, 0); g.arc(Fa, 0, 4000, -A, A); g.closePath(); g.clip('evenodd');
+      g.beginPath(); g.moveTo(O, 0); g.arc(O, 0, Rs, a0, a1); g.closePath(); g.fillStyle = `rgba(${it.rgb},${fa * 0.8})`; g.fill(); g.strokeStyle = `rgba(${it.rgb},${sa})`; g.setLineDash(on ? [] : [6, 5]); g.stroke();
+      if (Gs > 1) { g.beginPath(); g.arc(O, 0, Rs / Gs, a0, a1); g.setLineDash([4, 4]); g.strokeStyle = `rgba(${it.rgb},${sa * 0.8})`; g.stroke(); }
+      g.restore(); }
+    g.setLineDash([]); g.restore();
   }
   function seniorLink() { // the senior saw you and told the learner: dashed you → the Luminary, solid the Luminary → the learner
     const b = T.body, cam = b && b.alive && T.rung >= 4 ? T.seeingCamera() : null; if (!cam) return; const hid = reds().filter((c) => c.hz && c.hz.cone === 'link'); if (!hid.length) return;

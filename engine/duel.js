@@ -40,6 +40,28 @@
   // Proposed registry id: traffic.hitStandSeconds 2 (as traffic.incidentSeconds holds two cars after an Incident).
   const TUNE = { faultShare: 0.5, faultMin: 20, redHard: X.REG['traffic.hardBraking'], hitStand: 2 };
   const faultOf = (carPart, bodyPart) => (carPart >= TUNE.faultMin && carPart >= (carPart + Math.max(0, bodyPart)) * TUNE.faultShare ? 'car' : 'dummy');
+  // FINAL V3.1 (Edit 128): three models, three sensor suites. The ladder's order stays (rungs 1–7); the hardware differs. Proposed
+  // registry ids: models.<cls>.<perception id> overrides the field (10.9) for that model; models.<cls>.memory and .search pick the
+  // model's own rung 6 and 7. LUMINARY keeps Prototype 10's field. On (window.P11_V3) from FINAL V3.1.
+  //   VANGUARD (police): a wider, shorter dash-cam; outrider pods that reach back to 150°; rung 6 RAP SHEET crawls past your old
+  //     spots (perception.sideCloseSpeed of cruise, from 140 before the spot); rung 7 MANHUNT turns round onto the oncoming lane and
+  //     drives back to where it lost you (duel.searchSeconds 7).
+  //   GENESIS (racer): a long, narrow racing line; short spotter zones that notice in 0.25 s; rung 6 PACE NOTES lifts from 300
+  //     before a spot (perception.sideWarySpeed) and moves its line across the road, away from it; rung 7 RECON LAP never stops:
+  //     its next pass runs at half its cruise, its cone on the spot it lost you, every sensor at full sensitivity.
+  const MODELS = {
+    LUMINARY: { p: {}, memory: 'watch', search: 'stop' },
+    VANGUARD: { p: { 'perception.forwardConeAngle': 16, 'perception.coneRadius': 280, 'perception.sideConeRatio': 0.75, 'perception.sideConeAxis': 83, 'perception.sideConeAngle': 67, 'duel.searchSeconds': 7 },
+      memory: 'crawl', crawl: { ahead: 140, share: 'perception.sideCloseSpeed' }, search: 'hunt' },
+    GENESIS: { p: { 'perception.forwardConeAngle': 6, 'perception.coneRadius': 460, 'perception.sideConeRatio': 0.36, 'perception.sideConeAxis': 48, 'perception.sideConeAngle': 42, 'perception.sideNoticeSeconds': 0.25 },
+      memory: 'pace', crawl: { ahead: 300, share: 'perception.sideWarySpeed' }, search: 'recon', recon: 0.5 },
+  };
+  const modelOf = (cls) => (root.P11_V3 && MODELS[cls]) || null;
+  function modelField(cls) { const F = {}; for (const k of FIELD_KEYS) F[k] = STAGES['10.9'].flags[k]; F['perception.sideNoticeSeconds'] = STAGES['10.9'].flags['perception.sideNoticeSeconds']; return Object.assign(F, (MODELS[cls] || MODELS.LUMINARY).p); }
+  function applyModel(T, cls, senior) { // the learner's suite into its sim's values; the senior's field kept for its eye
+    T.learnerCls = cls; T.seniorCls = senior || null; T.seniorF = senior ? modelField(senior) : null; const m = modelOf(cls); if (!m) return;
+    for (const k of Object.keys(m.p)) { T.P[k] = m.p[k]; if (T.DP) T.DP[k] = m.p[k]; }
+  }
   const ORIG = new WeakMap(); // a tile sim → its own prototype, statics and values, restored when the duel moves on
 
   function duelParams(def) {
@@ -83,8 +105,60 @@
     manSpeed(c, man, tau, sAt) { return this.redBrakes(c, () => TP.manSpeed.call(this, c, man, tau, sAt)); }
     watchField(c, dt) { if (c && c.red && c.spent) return false; return this.redBrakes(c, () => TP.watchField.call(this, c, dt)); } // having hit you, it no longer watches its field: it drives on, round you
     spawnSpeed(c) { return this.redBrakes(c, () => TP.spawnSpeed.call(this, c)); }
-    searchStep(c) { return this.redBrakes(c, () => TP.searchStep.call(this, c)); }
-    carAI(dt) { if (this.whiteFleet) for (const c of this.cars) if (!c.red && !c.ghost && !(c.layer > 0)) c.white = true; return TP.carAI.call(this, dt); } // 10.10: the fleet tailgates (traffic.whiteTimeGap)
+    searchStep(c) {
+      const m = modelOf(this.learnerCls); if (m && m.search === 'recon') return this.reconStep(c);
+      const r = this.redBrakes(c, () => TP.searchStep.call(this, c)); if (m && m.search === 'hunt') this.huntStep(c); return r;
+    }
+    carAI(dt) { if (this.whiteFleet) for (const c of this.cars) if (!c.red && !c.ghost && !(c.layer > 0)) c.white = true; this.paceLines(); return TP.carAI.call(this, dt); } // 10.10: the fleet tailgates (traffic.whiteTimeGap)
+    // ---------- FINAL V3.1 (Edit 128): each model's own rung 6 and rung 7
+    siteAhead(c, ahead) { // the first remembered spot from `ahead` before its nose until its tail is past it, beside its road
+      const front = c.s + c.L / 2, side = this.fieldFor() + c.W / 2 + (this.P['duel.memoryRadius'] || 0);
+      for (const m of this.memory()) { const pr = X.pathProject(c.path, m.ox, m.oy), ah = pr.s - front; if (ah <= ahead && ah >= -c.L && Math.abs(pr.lat) <= side) return { m, pr, ah }; }
+      return null;
+    }
+    cornerSpeed(c) { // RAP SHEET crawls past a spot; PACE NOTES lifts well before one
+      let v = TP.cornerSpeed.call(this, c); const m = modelOf(this.learnerCls);
+      if (m && m.crawl && c && c.red && !c.spent && !c.ghost && this.rung >= 6 && this.siteAhead(c, m.crawl.ahead)) { v = Math.min(v, (c.cruise || this.P['vehicles.sedan.cruiseSpeed']) * (this.P[m.crawl.share] || 0.5)); c.paceT = this.t; }
+      return v;
+    }
+    paceLines() { // PACE NOTES: across the road from a remembered spot, where there is room (the oncoming lane); back once past it
+      const m = modelOf(this.learnerCls); if (!m || m.memory !== 'pace' || this.rung < 6) return; const P = this.P, LW = P['world.laneWidth'];
+      for (const c of this.cars) { if (!c.red || c.ghost || c.gone || c.spent || c.man || (c.hz && c.hz.inPath) || Math.abs(c.d || 0) > 1) continue;
+        const sa = this.siteAhead(c, 280); if (!sa || sa.ah < 50) continue; const done = c.paced || (c.paced = new Set()); if (done.has(sa.m)) continue;
+        if (this.oncomingAhead && this.oncomingAhead(c, 420)) continue; // oncoming traffic: it holds its lane (and tries again next tick)
+        const [lo, hi] = c.path.edges || [-LW / 2, LW / 2], d1 = sa.pr.lat >= 0 ? Math.max(lo + c.W / 2 + 2, -LW) : Math.min(hi - c.W / 2 - 2, LW); done.add(sa.m);
+        if (Math.abs(d1) < 10) continue; // no room on the far side
+        this.commit(c, { type: 'shift', d0: c.d, d1, len: Math.max(60, Math.min(sa.ah, P['proto.swerveLength'] || 120)), v0: c.v, vCap: c.cruise * (P['perception.sideWarySpeed'] || 0.6) }, 'pace', null);
+        c.dodge = { s: sa.pr.s, kind: 'pace' }; this.emit('pace', { car: c.id, d1: +d1.toFixed(1), site: sa.m.n }); }
+    }
+    oncomingLane(c, g) { // MANHUNT: the lane back, beside its own, that leads to the ghost; busy where it would turn: wait
+      const LW = this.P['world.laneWidth'], ca = Math.cos(c.h), sa = Math.sin(c.h); let best = null, busy = false;
+      (this.level.lanes || []).forEach((p, i) => { if (!p || p === c.path || !(p.length > 0)) return; const pr = X.pathProject(p, c.x, c.y); if (pr.s < 0 || pr.s > p.length) return;
+        const q = X.pathAt(p, pr.s), lat = Math.abs(pr.lat); if (q.tx * ca + q.ty * sa > -0.7 || lat > LW * 1.6) return;
+        if (g) { const gp = X.pathProject(p, g.x, g.y); if (gp.s < pr.s + 20 || Math.abs(gp.lat) > 220) return; } // the ghost lies ahead on it, beside its road
+        if (this.cars.some((o) => o !== c && !o.gone && !o.ghost && o.path === p && Math.abs(o.s - pr.s) < (o.L + c.L) / 2 + 40)) { busy = true; return; }
+        if (!best || lat < best.lat) best = { path: p, i, s: pr.s, lat }; });
+      return best || (busy ? 'busy' : null);
+    }
+    huntStep(c) { // MANHUNT: the ghost behind it: it stops, turns round onto the oncoming lane, drives back, and searches there
+      const g = c.lkp; if (!g || c.spent || c.hunted || c.ghost) return;
+      if (c.hunt && c.huntPath !== c.path) { c.hunted = true; return; } // it moved on to the next road meanwhile (a ring's exit): no hunt
+      const pr = X.pathProject(c.path, g.x, g.y); if (!c.hunt && pr.s >= c.s - c.L) return; // ahead: it stops short of it and sweeps, as the Luminary
+      if (!c.hunt) { c.hunt = 'stop'; c.huntPath = c.path; c.man = null; this.commit(c, { type: 'brake', v0: c.v, a: TUNE.redHard, vTarget: 0, sStop: c.s + (c.v * c.v) / (2 * TUNE.redHard), standoff: true }, 'search', null); this.emit('hunt', { car: c.id, x: +g.x.toFixed(1), y: +g.y.toFixed(1) }); return; }
+      if (c.v >= 1) return; const op = this.oncomingLane(c, g); if (op === 'busy') return;
+      c.hunted = true; if (!op) return; // no lane back: it stays and its forward cone looks back as far as it turns
+      const h0 = c.h; Object.assign(c, { path: op.path, lane: op.i, s: op.s, d: 0, slope: 0, man: null, cause: null, dodge: null, intent: null, intentFor: null, signal: null, state: 'cruise', v: 0, hz: null });
+      this.pose(c); c.h = h0; c.turnT = this.t; g.had = this.t; c.v = c.cruise * 0.6; // it swings round as it pulls away (proto.carYawRate), back toward the spot
+      this.emit('u-turn', { car: c.id, x: +c.x.toFixed(1), y: +c.y.toFixed(1) });
+    }
+    reconStep(c) { // RECON LAP: it never stops to search; it marks where it lost you. Its next pass is the recon lap (admitRed)
+      const b = this.body; if (c.spent) { if (!c.recon) c.lkp = null; return; }
+      if (c.recon) { const g = c.lkp; if (!g) return; const sensed = !!(c.hz && (c.noticed || c.hz.inPath)); g.had = this.t;
+        if (sensed && !g.found) { g.found = true; this.emit('search-found', { car: c.id, x: +b.x.toFixed(1), y: +b.y.toFixed(1), after: +(this.t - g.t0).toFixed(2), recon: true }); }
+        if (X.pathProject(c.path, g.x, g.y).s < c.s - c.L - 40) { c.lkp = null; this.emit('search-end', { car: c.id, found: !!g.found, recon: true }); } return; }
+      if (!c.reconMarked && c.seenT != null && this.t - c.seenT <= 0.05 && c.hidden && b.alive && !b.lifted) { c.reconMarked = true; this.reconNext = { x: c.seenAt.x, y: c.seenAt.y }; this.emit('search', { car: c.id, x: +c.seenAt.x.toFixed(1), y: +c.seenAt.y.toFixed(1), recon: true }); }
+    }
+    coneSensitivity(c) { return c && c.recon && c.lkp ? 1 : TP.coneSensitivity.call(this, c); } // the recon lap: every sensor at full
     whiteHides(self, x0, y0) { // 10.9 on: any car of the fleet between the red car's sensors and the dummy hides it (moving cover)
       if (!this.DP || !this.DP['duel.twoWay']) return false;
       const b = this.body, ws = this.cars.filter((o) => o !== self && !o.red && !o.gone && !o.ghost && !(o.layer > 0)); if (!ws.length || (b.level || 0) > (this.elev0 || 0)) return false;
@@ -145,10 +219,19 @@
       this.emit('admit', { car: c.id, cls: c.cls, model: c.model, lane: ln.i, senior: true });
     }
     expected() { return TP.expected.call(this) || (this.rung >= 4 && !!this.seniorSees(this.body)); } // FINAL V2.1 (Edit 125): the Luminary told it where you are: it notices you at once, behind cover too
+    // FINAL V3.1 (Edit 128): the senior sees with its own certified suite (its model's forward cone and side zones), not a ring
+    seniorCone(c, px, py) {
+      const F = this.seniorF; if (!F) return null; const br = this.P['body.radius'], ca = Math.cos(c.h), sa = Math.sin(c.h), dx = px - c.x, dy = py - c.y, fx = dx * ca + dy * sa, fy = -dx * sa + dy * ca, d = hyp(fx, fy);
+      const A = F['perception.forwardConeAngle'], Rf = F['perception.coneRadius'], Rs = Rf * F['perception.sideConeRatio'], k = c.L / 2 - (c.W / 2) / Math.tan(Math.max(1, A) * Math.PI / 180);
+      if (Math.abs(Math.atan2(fy, fx - k)) * 180 / Math.PI <= A && d <= Rf + br) return 'forward'; // as coneOf (row 736): its edges through the front corners
+      const aa = Math.abs(Math.atan2(fy, fx)) * 180 / Math.PI, e0 = Math.max(F['perception.sideConeAxis'] - F['perception.sideConeAngle'], A), e1 = F['perception.sideConeAxis'] + F['perception.sideConeAngle'];
+      return aa > e0 && aa <= e1 && d <= Rs + br ? 'side' : null;
+    }
     seniorSees(b) { // the senior's eye: a cone ahead of its nose, stopped by the world as a camera's is; the same level only
       if (!b || (b.level || 0) > (this.elev0 || 0)) return null; const R = this.DP['duel.seniorRange'] || 220, F = this.DP['duel.seniorFov'] || 360; // certified: every sensor, all round
-      for (const c of this.cars) { if (!c.senior || c.gone || c.ghost) continue; const dx = b.x - c.x, dy = b.y - c.y, d = hyp(dx, dy); if (d > R) continue;
-        let a = Math.atan2(dy, dx) - c.h; a = Math.atan2(Math.sin(a), Math.cos(a)); if (Math.abs(a) * 180 / Math.PI > F / 2) continue;
+      for (const c of this.cars) { if (!c.senior || c.gone || c.ghost) continue; const dx = b.x - c.x, dy = b.y - c.y, d = hyp(dx, dy);
+        if (this.seniorF) { if (!this.seniorCone(c, b.x, b.y)) continue; } else { if (d > R) continue;
+        let a = Math.atan2(dy, dx) - c.h; a = Math.atan2(Math.sin(a), Math.cos(a)); if (Math.abs(a) * 180 / Math.PI > F / 2) continue; }
         if (this.camWall(c.x, c.y, b) || this.lowBlocked(c.x, c.y, this.P['perception.lidarHeight'] || 26, b.x, b.y, this.bodyHeight())) continue;
         return [c.x, c.y + 16, c.h * 180 / Math.PI, 0, c]; }
       return null;
@@ -171,6 +254,7 @@
       c.red = true; c.rung = this.rung; c.model = this.learner || 'RED-01'; c.cruise = P['vehicles.sedan.cruiseSpeed']; c.v = c.cruise; // Prototype 11.4: P11 names the learner's model (T.learner)
       if (this.rung >= 1) c.standoff = this.envelope(0);
       this.pose(c); this.cars.push(c); this.redSeq = k + 1;
+      const mo = modelOf(this.learnerCls); if (mo && mo.search === 'recon' && this.reconNext && this.rung >= 7) { const g = this.reconNext; this.reconNext = null; c.recon = true; c.cruise *= mo.recon; c.v = Math.min(c.v, c.cruise); c.lkp = { x: g.x, y: g.y, t0: this.t, had: this.t }; this.emit('recon', { car: c.id, x: +g.x.toFixed(1), y: +g.y.toFixed(1) }); } // FINAL V3.1 (Edit 128): RECON LAP
       if (this.rung >= 1) { const v = this.spawnSpeed(c); if (v < c.v) c.v = v; }
       this.emit('admit', { car: c.id, cls: c.cls, model: c.model, lane: ln.i, red: true, rung: this.rung });
     }
@@ -294,7 +378,7 @@
     Object.setPrototypeOf(T, DuelTileSim.prototype);
     Object.assign(T, { P, DP, duelOn: true, testRoad: true, duelSc: sc, duelFeed: feed, rung: clamp(Math.round(DP['duel.startRung'] || 0), 0, RUNGS.length - 1),
       lesson: null, lessons: [], delivery: null, firstBrakeT: null, firstSideT: null, firstCoverT: null, firstItemT: null, crashes: [], spring: null,
-      whiteFleet: (DP['scoring.incidentPoints'] || 0) > 0, stealth: { points: 0, unseen: 0, lost: 0, seen: 0, last: null }, lift: null, blockT: 0, leftAt: -1e9, redSeq: 0, stageCaution: null, carKeepTG: null });
+      whiteFleet: (DP['scoring.incidentPoints'] || 0) > 0, stealth: { points: 0, unseen: 0, lost: 0, seen: 0, last: null }, lift: null, blockT: 0, leftAt: -1e9, redSeq: 0, stageCaution: null, carKeepTG: null, reconNext: null });
     T.run.incidents = 0; T.redLanes = laneInfo(T, P);
     const lay = def && def.layout; // Prototype 11: a puzzle's own pieces (Edit 115)
     if (!sc.duelCover) { if (lay) { const L = placeLayout(T, sc, P, DP, lay); sc.duelCover = L.out; sc.duelSkipped = L.skipped; } else sc.duelCover = placeCover(T, sc, P, DP, T.redLanes, FAMILY[sc.D && sc.D.id] || FAMILY.monument, prof); for (const q of sc.duelCover) { sc.game.statics.push(q); if (W6.paintCover) W6.paintCover(sc, q); } } // part of the tile for good: walked round, painted as Prototype 9 paints its own
@@ -559,5 +643,5 @@
   STORY.StorySim = DuelStorySim;
   const taskText = STORY.taskText; // the tile card and HUD read the pipeline's objective
   STORY.taskText = (task, P) => (task && task.kind === 'red' ? { label: task.label, brief: task.brief } : taskText(task, P));
-  root.DUEL = { DuelTileSim, DuelStorySim, duelParams, laneInfo, placePlanters, placeCover, placeLayout, COVER, FAMILY, RULES, placeCameras, RUNGS, MAP, TUNE, faultOf, version: 1 };
+  root.DUEL = { DuelTileSim, DuelStorySim, duelParams, laneInfo, placePlanters, placeCover, placeLayout, COVER, FAMILY, RULES, placeCameras, RUNGS, MAP, TUNE, faultOf, MODELS, modelField, applyModel, version: 1 };
 })(typeof window !== 'undefined' ? window : globalThis);

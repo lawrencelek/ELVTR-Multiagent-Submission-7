@@ -100,7 +100,7 @@
     ]
    },
    "tale": "Parkland's patrol car. Police spec: it sees ahead and to the sides from day one.",
-   "new": "The Vanguard™: forward camera and side sensors from the start.",
+   "new": "The Vanguard™: a wide, short dash-cam and outrider pods that see behind it, from the start.",
    "newLine": "Vanguard™ · sees ahead and to the sides",
    "hints": [
     "Wait wide of its lane. Dash in as its nose comes level."
@@ -589,7 +589,7 @@
     "seniorReturnSeconds": 3
    },
    "tale": "Crosstown, under the highway. It remembers where it crashed. The Luminary™ follows it.",
-   "new": "Casefile: it remembers every crash. Two hits.",
+   "new": "Rap Sheet: it crawls past every spot you hit it from. Two hits.",
    "newLine": "Two hits · it remembers",
    "hints": [
     "From the north, dash across the empty lane as its nose nears."
@@ -650,7 +650,7 @@
    "new": "A boss. It learns once, after your first hit.",
    "newLine": "Boss · learns after your first hit",
    "hints": [
-    "Three hits, three places: the arm it comes in on, the far side of the ring, the arm again further in. After the first it searches where it lost you."
+    "Three hits, three places: the arm it comes in on, the far side of the ring, the arm again further in. After the first it turns round and hunts where it lost you."
    ],
    "solution": "East of the SE arm as it comes in (dash NW); north of the ring (dash SE... see qa/solutions/parkland_C3.json); the SE arm again, further in.",
    "boss": true
