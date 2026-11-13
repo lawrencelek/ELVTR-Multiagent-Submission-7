@@ -111,8 +111,11 @@
 
 ## 128.7 Browser
 
-- Browser pad (`qa/attack.js`), 25 scripted puzzles on `final_v3`, one at a time: running.
-- Map 1's first four clear. The table follows in the next commit.
+| Run | Result |
+|---|---|
+| Browser pad (`qa/attack.js`), 25 scripted puzzles on `final_v3`, one at a time | 25 of 25 clear. No findings, no page errors. Map 1: 8; Map 2: 9 (boss included); Map 3: 8 (its boss is the bot's) |
+| Parkland B3 | Clears. It missed in V2 and V3 (Edit 127) |
+| Staged in the browser: RECON LAP on Map 3's boss | The next pass ran at 69 of 138, its mark held, no page errors |
 
 ## 128.8 Files
 
