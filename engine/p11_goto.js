@@ -2,7 +2,8 @@
 // require('./p11_goto.js')(page, 'C3') → resolves at the card (phase 'brief'). Used by the P11 tests and probes.
 module.exports = async function gotoPuzzle(pg, tile, root) {
   const path = require('path');
-  await pg.goto('file://' + path.join(root || path.resolve(__dirname, '..'), process.env.P11_DIR || 'final_v2', 'index.html'));
+  const dir = process.env.P11_DIR || 'final_v2'; // P11_URL (e.g. http://localhost:8765): load over HTTP; the sound engine stays silent on file:// (FINAL V3.2)
+  await pg.goto(process.env.P11_URL ? process.env.P11_URL.replace(/\/$/, '') + '/' + dir + '/index.html' : 'file://' + path.join(root || path.resolve(__dirname, '..'), dir, 'index.html'));
   await pg.evaluate((tile) => { // FINAL V2.1 (Edit 125): 'parkland:A1' opens Map 2 with Map 1 certified; 'waterfront:A1' Map 3 (Edit 126)
     try { localStorage.clear(); } catch (e) { /* none */ }
     const [mid, t0] = tile.includes(':') ? tile.split(':') : ['monument', tile], maps = window.P11.MAPS || [{ id: 'monument', BY: window.P11.BY, ORDER: window.P11.ORDER }];

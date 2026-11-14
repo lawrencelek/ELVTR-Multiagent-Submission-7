@@ -2,13 +2,15 @@
 
 **Play in the browser: https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/final_v3/**
 
+**Gameplay video (3 min, start to certified):** [`docs/dummies_gameplay.mp4`](docs/dummies_gameplay.mp4) · [watch in the browser](https://lawrencelek.github.io/ELVTR-Multiagent-Submission-7/docs/dummies_gameplay.mp4)
+
 You are a crash-test dummy. Dummy Corporation's self-driving cars must be certified safe, and your job is to prove them wrong: get hit by the red test car. Each time it hits you, the car learns from the crash and fits a new sensor. Then you need a new trick.
 
 Clear 27 puzzles across three districts, certify three car models, and see your statue unveiled.
 
 - **Length:** about 1–2 hours for all 27 puzzles. Each puzzle takes 1–3 minutes.
 - **Runs on:** a desktop browser (Chrome, Edge, Firefox or Safari), or a phone or tablet in landscape. Sound on recommended.
-- **Offline:** download [`final_v3/index.html`](final_v3/index.html) and open it. It is one self-contained file.
+- **Offline:** download [`docs/DUMMIES_playable.zip`](docs/DUMMIES_playable.zip), unzip it, and open `index.html` (one self-contained file). Serve it over HTTP for sound: some browsers mute it from a local file.
 
 ## Start
 
