@@ -15,6 +15,7 @@
     return { i, id: (pz.map && pz.map.district) || 'monument', name: (pz.map && pz.map.name) || 'Monument', pz, LIST, BY, ORDER: LIST.map((q) => q.tile), hint: pz.hintPasses || 2, senior: (pz.map && pz.map.senior) || null,
       LEARNER: Object.assign({ cls: 'LUMINARY', name: 'LUMINARY™', prose: 'the Luminary™', model: 'SED-01-001', tag: 'S01' }, (pz.map && pz.map.learner) || {}) }; }); // Prototype 11.4 (Edit 120): the learner is a model
   let M = MAPS[0], LIST = M.LIST, BY = M.BY, ORDER = M.ORDER, LEARNER = M.LEARNER, HINT_PASSES = M.hint; // story.puzzle.hintPasses (proposed)
+  const CHEER_S = 4.5; // FINAL V3.2 (Edit 129): ui.finale.cheerSeconds (proposed): the pause on the ship before CERTIFIED
   function useMap(id) { const m = MAPS.find((q) => q.id === id) || MAPS[0]; if (m !== M) { M = m; ({ LIST, BY, ORDER, LEARNER } = m); HINT_PASSES = m.hint; if (typeof P11 !== 'undefined') Object.assign(P11, { LIST, BY, ORDER, LEARNER, HINT_PASSES, MAP: M }); } return M; }
   const ARC_KEY = 'dummies.p11.arcade', mem = {};
   const store = { get: (k) => { try { const v = localStorage.getItem(k); return v == null ? mem[k] || null : v; } catch (e) { return mem[k] || null; } }, set: (k, v) => { mem[k] = v; try { localStorage.setItem(k, v); } catch (e) { /* storage off: this visit */ } } };
@@ -196,6 +197,7 @@
     }
     p11Hint() { const p = this.p11; if (!p || p.failedPhase < HINT_PASSES) return null; const h = p.q.hints || []; return h[Math.min(p.phase, h.length - 1)] || null; }
     step(cmd) {
+      if (this.phase === 'cheer') { this.cheerT += 1 / this.P['simulation.tickRate']; if (this.cheerT >= CHEER_S) { this.phase = 'play'; this.end('Certified'); } return; } // FINAL V3.2 (Edit 129): ui.finale.cheerSeconds (proposed), then CERTIFIED
       const p = this.p11; if (!p) return super.step(cmd);
       if (this.phase === 'report' && !p.result) { if (!p.went) { p.went = true; this.p11Go = 'replay'; } return; } // a write-off that cleared nothing: the puzzle again
       if (this.phase === 'report' && this.clearLesson && !p.resultSeen) return; // the stars first; then the lesson
@@ -341,6 +343,7 @@
     }
     end(kind) { // the voyage's landing at the statue: the unveiling, not the ending
       if (this.p11Landing && kind === 'Certified') { this.p11Landing = false; this.body.facing = -Math.PI / 2; this.phase = 'unveil'; this.emit('unveil', this.unveil && this.unveil.plaque); return; }
+      if (root.P11_V3 && this.p11Finale && kind === 'Certified' && !this.p11Cheered) { this.p11Cheered = true; this.phase = 'cheer'; this.cheerT = 0; this.emit('p11-cheer', {}); return; } // FINAL V3.2 (Edit 129): a pause on the ship to celebrate
       return super.end(kind);
     }
     monumentShrouded() { // FINAL V3 (Edit 127): the cloth stays on through all three maps, until the send-off's unveiling

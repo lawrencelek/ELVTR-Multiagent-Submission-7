@@ -330,8 +330,77 @@ def p11_plan(pz):
 
 def v3_game_js(g, v3):  # FINAL V3 (Edit 127): the send-off flies to the statue first; the drone's line says so
     if not v3: return g
-    return patch(g, [("      if (rs && rs.voyage) return [LT('n06', 'FARSIGHT DRONE'), 'Carrying the certified model to the ship at ' + rs.tile + '.'];",
-                      "      if (rs && rs.voyage) return [LT('n06', 'FARSIGHT DRONE'), rs.statue ? 'Carrying the certified model to its statue at the Circus.' : 'Carrying the certified model to the ship at ' + rs.tile + '.']; // FINAL V3 (Edit 127)")], 'game.js (V3)')
+    g = patch(g, [("      if (rs && rs.voyage) return [LT('n06', 'FARSIGHT DRONE'), 'Carrying the certified model to the ship at ' + rs.tile + '.'];",
+                   "      if (rs && rs.voyage) return [LT('n06', 'FARSIGHT DRONE'), rs.statue ? 'Carrying the certified model to its statue at the Circus.' : 'Carrying the certified model to the ship at ' + rs.tile + '.']; // FINAL V3 (Edit 127)")], 'game.js (V3)')
+    # FINAL V3.2 (Edit 129): the unveiling as an event. A beat under the cloth (THE UNVEILING, two spotlights); the cloth lifts; a flash,
+    # confetti and the fanfare; YOUR STATUE, a close-up card; then the plaque. On the ship: the horn, fireworks, confetti, BON VOYAGE;
+    # then CERTIFIED. Proposed: ui.finale.unveilHoldSeconds 1.0, ui.finale.closeupSeconds 2.4, ui.finale.cheerSeconds 4.5 (p11.js)
+    g = patch(g, [("  function unveilK() { const u = fx.unveil; return u ? Math.min(1, (app.realT - u.t0) / Math.max(0.1, pv('ui.finale.unveilSeconds'))) : 0; }\n  function unveilReady() { return !!fx.unveil && unveilK() >= 1; }",
+                   "  const UV_HOLD = 1.0, UV_CLOSE = 2.4, UV_LIFT = () => Math.max(0.1, pv('ui.finale.unveilSeconds')); // FINAL V3.2 (Edit 129)\n"
+                   "  function unveilT() { const u = fx.unveil; return u ? app.realT - u.t0 : 0; }\n"
+                   "  function unveilK() { const u = fx.unveil; return u ? Math.max(0, Math.min(1, (unveilT() - UV_HOLD) / UV_LIFT())) : 0; }\n"
+                   "  function unveilReady() { return !!fx.unveil && unveilT() >= UV_HOLD + UV_LIFT() + UV_CLOSE; }\n"
+                   + CELEBRATE_JS),
+                  ("    if (!fx.unveil) { fx.unveil = { t0: app.realT }; if (!(AUD && AUD.event({ type: 'unveil-lift' }))) [392, 523, 659, 784].forEach((f, j) => Snd.tone(f, f, 0.2, 'triangle', 0.06, 0.3 + j * 0.14)); } // Edit 100: unveil-lift // the chime as the cloth lifts\n"
+                   "    const a = RM ? 1 : Math.max(0, Math.min(1, (unveilK() - 0.55) / 0.45)); if (a <= 0) return;",
+                   "    if (!fx.unveil) fx.unveil = { t0: app.realT }; celebrateUnveil(s); // FINAL V3.2 (Edit 129): the beat, the lift, the burst, the close-up\n"
+                   "    const a = RM ? 1 : Math.max(0, Math.min(1, (unveilT() - UV_HOLD - UV_LIFT() - UV_CLOSE * 0.55) / 0.5)); if (a <= 0) return;"),
+                  ("    else if (s.phase === 'ending') drawEnding(s);", "    else if (s.phase === 'cheer') drawCheer(s); // FINAL V3.2 (Edit 129): the ship's celebration\n    else if (s.phase === 'ending') drawEnding(s);")], 'game.js (V3.2 celebrations)')
+    return g
+
+
+CELEBRATE_JS = r"""  const CHEER_COLS = ['#ffd84a', '#5fe3c0', '#ff6fa8', '#7fb8ff', '#ffffff', '#ff9a3c'];
+  function confetti(n) { const a = []; for (let i = 0; i < n; i++) a.push({ x: FX + Math.random() * FW, y: FY - Math.random() * FH * 0.8, vy: 70 + Math.random() * 90, sway: Math.random() * TAU, w: 4 + Math.random() * 5, h: 2 + Math.random() * 4, rot: Math.random() * TAU, spin: (Math.random() - 0.5) * 9, col: CHEER_COLS[i % CHEER_COLS.length] }); return a; }
+  function drawConfetti(list, dt, alpha) { ctx.save(); ctx.beginPath(); ctx.rect(FX, FY, FW, FH); ctx.clip(); ctx.globalAlpha = alpha;
+    for (const c of list) { c.y += c.vy * dt; c.sway += dt * 3; c.rot += c.spin * dt; const x = c.x + Math.sin(c.sway) * 14; if (c.y > FY + FH + 10) continue;
+      ctx.save(); ctx.translate(x, c.y); ctx.rotate(c.rot); ctx.fillStyle = c.col; ctx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h * Math.abs(Math.cos(c.rot * 0.7)) + 1); ctx.restore(); }
+    ctx.restore(); }
+  function burst(list, x, y, n, sp, life) { const col = CHEER_COLS[Math.floor(Math.random() * CHEER_COLS.length)]; for (let i = 0; i < n; i++) { const a = (i / n) * TAU + Math.random() * 0.2, v = sp * (0.6 + Math.random() * 0.5); list.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, t0: app.realT, life: life * (0.8 + Math.random() * 0.4), col: Math.random() < 0.25 ? '#ffffff' : col }); } }
+  function drawSparks(list, dt) { ctx.save(); ctx.beginPath(); ctx.rect(FX, FY, FW, FH); ctx.clip(); ctx.globalCompositeOperation = 'lighter';
+    for (let i = list.length - 1; i >= 0; i--) { const q = list[i], a = (app.realT - q.t0) / q.life; if (a >= 1) { list.splice(i, 1); continue; }
+      q.vy += 140 * dt; q.vx *= 0.985; q.vy *= 0.985; q.x += q.vx * dt; q.y += q.vy * dt; ctx.globalAlpha = 1 - a; ctx.fillStyle = q.col; const r = 3.4 * (1 - a * 0.5); ctx.fillRect(q.x - r, q.y - r, r * 2, r * 2);
+      ctx.globalAlpha = (1 - a) * 0.35; ctx.fillRect(q.x - q.vx * 0.04 - 1, q.y - q.vy * 0.04 - 1, 2, 2); }
+    ctx.restore(); }
+  function bigBanner(t, title, sub, y) { // a word that stamps in: scale 1.6 → 1, over a dark band
+    const k = Math.min(1, t / 0.35), sc = 1 + 0.6 * Math.pow(1 - k, 2), cx = FX + FW / 2;
+    ctx.save(); ctx.globalAlpha = Math.min(1, t / 0.2); ctx.fillStyle = 'rgba(6,10,18,0.62)'; ctx.fillRect(FX, y - 52, FW, sub ? 92 : 70);
+    ctx.translate(cx, y); ctx.scale(sc, sc); txt(title, 0, 0, '900 46px ' + F_BRAND, '#ffd84a', 'center'); ctx.restore();
+    if (sub) { ctx.save(); ctx.globalAlpha = Math.min(1, Math.max(0, (t - 0.25) / 0.3)); txt(sub, cx, y + 30, fLab, FT.text, 'center'); ctx.restore(); } }
+  function celebrateUnveil(s) { // FINAL V3.2 (Edit 129)
+    const u = fx.unveil, t = unveilT(), L = UV_LIFT(), tOff = UV_HOLD + L, dt = Math.min(0.05, app.realT - (u.last || app.realT)); u.last = app.realT;
+    const dm = s.sc && s.sc.dummyMonument, mx = FX + (dm ? dm.cx : 400), my = FY + (dm ? dm.cy : 320);
+    if (!u.lifted && t >= UV_HOLD) { u.lifted = true; if (!(AUD && AUD.event({ type: 'unveil-lift' }))) [392, 523, 659, 784].forEach((f, j) => Snd.tone(f, f, 0.2, 'triangle', 0.06, 0.1 + j * 0.14)); }
+    if (!u.burst && t >= tOff) { u.burst = true; u.conf = RM ? [] : confetti(170); u.sparks = []; if (!RM) { burst(u.sparks, mx, my - 70, 46, 230, 1.1); kick(9, 0.5); } fx.flash = { t0: app.realT, dur: 0.3 };
+      [523, 659, 784, 1047].forEach((f, j) => Snd.tone(f, f, 0.22, 'square', 0.045, j * 0.11)); [523, 659, 784].forEach((f) => Snd.tone(f, f * 0.995, 1.1, 'triangle', 0.05, 0.5)); }
+    // two spotlights from the field's lower corners onto the statue, until the plaque
+    const sl = Math.min(1, t / 0.5) * (t < tOff + UV_CLOSE ? 1 : Math.max(0, 1 - (t - tOff - UV_CLOSE) / 0.6));
+    if (sl > 0) { ctx.save(); ctx.beginPath(); ctx.rect(FX, FY, FW, FH); ctx.clip(); ctx.globalCompositeOperation = 'lighter';
+      for (const [ox, sw] of [[FX + 40, 1], [FX + FW - 40, -1]]) { const oy = FY + FH + 20, wob = Math.sin(app.realT * 1.6 + sw) * 10, g2 = ctx.createLinearGradient(ox, oy, mx, my);
+        g2.addColorStop(0, 'rgba(255,240,190,0)'); g2.addColorStop(1, `rgba(255,240,190,${0.22 * sl})`); ctx.fillStyle = g2; ctx.beginPath(); ctx.moveTo(ox - 16, oy); ctx.lineTo(mx - 46 + wob, my - 90); ctx.lineTo(mx + 46 + wob, my + 30); ctx.lineTo(ox + 16, oy); ctx.closePath(); ctx.fill(); }
+      const rg = ctx.createRadialGradient(mx, my - 40, 4, mx, my - 40, 120); rg.addColorStop(0, `rgba(255,236,170,${0.28 * sl})`); rg.addColorStop(1, 'rgba(255,236,170,0)'); ctx.fillStyle = rg; ctx.fillRect(mx - 130, my - 170, 260, 260); ctx.restore(); }
+    if (t < tOff + 0.35) bigBanner(t, 'THE UNVEILING', 'Your statue, at the Circus', FY + 70);
+    if (u.sparks) drawSparks(u.sparks, dt);
+    if (u.conf && u.conf.length) drawConfetti(u.conf, dt, t < tOff + 6 ? 1 : Math.max(0, 1 - (t - tOff - 6) / 1.5));
+    // the close-up: YOUR STATUE, a card with the statue's own sprite, large
+    if (t >= tOff + 0.15) { const prop = s.sc && s.sc.props && s.sc.props.find((q) => q.bldg === 'dummy monument'), a2 = Math.min(1, (t - tOff - 0.15) / 0.4);
+      const w = 236, h = 306, x = FX + FW - w - 22, y = FY + 22 + (1 - a2) * 16; ctx.save(); ctx.globalAlpha = a2; panel(x, y, w, h);
+      txt('YOUR STATUE', x + w / 2, y + 34, fLab, FT.accent, 'center');
+      if (prop && prop.spr) { const S = prop.spr; if (!u.bb) { let x0 = S.w, y0 = S.h, x1 = -1, y1 = -1; for (let yy = 0; yy < S.h; yy++) for (let xx = 0; xx < S.w; xx++) if ((S.d[yy * S.w + xx] >>> 24) > 0) { if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (yy < y0) y0 = yy; if (yy > y1) y1 = yy; } u.bb = x1 < 0 ? [0, 0, S.w, S.h] : [x0, y0, x1 - x0 + 1, y1 - y0 + 1]; } // the statue's own pixels, trimmed
+        const cv = sprCanvas(S), [bx, by, bw, bh] = u.bb, k = Math.max(1, Math.floor(Math.min((w - 40) / bw, (h - 120) / bh))), dw = bw * k, dh = bh * k; ctx.imageSmoothingEnabled = false; ctx.drawImage(cv, bx, by, bw, bh, x + (w - dw) / 2, y + 52 + (h - 120 - dh) / 2, dw, dh); }
+      txt('THE DUMMY MONUMENT', x + w / 2, y + h - 46, '900 16px ' + F_BRAND, FT.text, 'center'); txt('WATERFRONT · THE CIRCUS', x + w / 2, y + h - 20, '700 13px ' + F_UI, FT.dim, 'center'); ctx.restore(); }
+  }
+  function drawCheer(s) { // FINAL V3.2 (Edit 129): on the ship
+    if (!fx.cheer || fx.cheer.sim !== s) { fx.cheer = { sim: s, t0: app.realT, last: app.realT, sparks: [], next: 0.15, conf: RM ? [] : confetti(150), pops: 0 }; fx.flash = { t0: app.realT, dur: 0.22 }; if (!RM) kick(8, 0.5);
+      [[110, 104], [165, 156]].forEach(([f0, f1]) => { Snd.tone(f0, f1, 1.3, 'sawtooth', 0.05); Snd.tone(f0, f1, 1.1, 'sawtooth', 0.045, 1.6); }); // the ship's horn, twice
+      [523, 659, 784, 1047, 1319].forEach((f, j) => Snd.tone(f, f, 0.24, 'square', 0.04, 0.3 + j * 0.12)); [523, 659, 784, 1047].forEach((f) => Snd.tone(f, f, 1.4, 'triangle', 0.045, 1.0)); }
+    const c = fx.cheer, t = app.realT - c.t0, dt = Math.min(0.05, app.realT - c.last); c.last = app.realT;
+    const sp = s.shipPoint ? s.shipPoint() : { x: 400, y: 540 }, sx = FX + sp.x, sy = FY + sp.y;
+    while (!RM && t >= c.next && c.next < 4.0) { const bx = sx + (Math.random() - 0.5) * 420, by = FY + 70 + Math.random() * Math.max(80, sy - FY - 230); burst(c.sparks, bx, by, 56, 220, 1.3); Snd.noise(900, 180, 0.3, 0.05); Snd.tone(1400 + Math.random() * 600, 300, 0.25, 'triangle', 0.02); c.next += 0.42; }
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; const pr = (t * 1.4) % 1; ctx.strokeStyle = `rgba(255,216,74,${0.6 * (1 - pr)})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(sx, sy, 20 + pr * 90, 0, TAU); ctx.stroke(); ctx.restore();
+    drawSparks(c.sparks, dt); drawConfetti(c.conf, dt, 1);
+    bigBanner(t, 'BON VOYAGE', 'CERTIFIED · ZERO ACCIDENTS (EXCLUDING TESTS)', FY + 86);
+  }
+"""
 
 
 def world6_js(v2=False, v3=False):
